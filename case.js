@@ -192,12 +192,13 @@
 
   function csMedia(f, cls) {
     var tone = f.tone || data.tone;
+    var mod = f.portrait ? " cs__media--portrait" : "";
     var inner = "";
     if (f.kind === "radial") inner = '<div class="cs__fig">' + radialSvg() + "</div>";
     else if (f.kind === "image" && f.src)
       inner = '<img src="' + f.src + '" alt="' + (f.caption || data.title) + '" loading="lazy" />';
     return (
-      '<div class="' + cls + '" data-tone="' + tone + '"' +
+      '<div class="' + cls + mod + '" data-tone="' + tone + '"' +
       (inner ? "" : ' aria-hidden="true"') + ">" + inner + "</div>"
     );
   }

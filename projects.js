@@ -83,15 +83,9 @@ window.PROJECTS = {
                 { n: "3 мес", cap: "на весь запуск MVP" },
               ],
               process: [
-                { label: "Исследование", kind: "tint", tone: 3, caption: "Интервью со стейкхолдерами, менторами и студентами." },
-                { label: "Флоу", kind: "tint", tone: 3, caption: "Регистрация → выбор траектории → обучение → сдача." },
-                { label: "Макеты", kind: "tint", tone: 3, caption: "Экран регистрации с автозаполнением по eGov." },
+                { label: "Было", kind: "image", src: "assets/ts-reg-1.jpg", portrait: true, caption: "Объёмная анкета: десятки полей и ручная проверка менторами." },
+                { label: "Стало", kind: "image", src: "assets/ts-reg-2.jpg", portrait: true, caption: "Регистрация по ИИН через eGov — 16 из 23 полей заполняются автоматически." },
               ],
-              visual: {
-                kind: "tint",
-                tone: 3,
-                caption: "Регистрация: 16 из 23 полей заполняются автоматически по ИИН.",
-              },
             },
             {
               label: "Решение 02 · Карта обучения",
@@ -115,13 +109,12 @@ window.PROJECTS = {
               ],
               process: [
                 { label: "Было", kind: "radial", caption: "Круговая карта из «42» — вся программа сразу, огромная нагрузка." },
-                { label: "Стало", kind: "tint", tone: 3, caption: "Линейная траектория: план школы + ядро Alem.ai." },
-                { label: "Макеты", kind: "tint", tone: 3, caption: "Общий экран траектории и план заданий в модуле." },
+                { label: "Стало", kind: "image", src: "assets/ts-screen-2.jpg", caption: "Линейный план: недели и квесты внутри модуля (Go)." },
               ],
               visual: {
                 kind: "image",
-                src: "assets/tomorrow-school-cover.jpg",
-                caption: "Первый экран Tomorrow School.",
+                src: "assets/ts-screen-1.jpg",
+                caption: "Главный экран: общая траектория, план школы + ядро Alem.ai, карта навыков и лидерборд.",
               },
             },
           ],
@@ -130,8 +123,8 @@ window.PROJECTS = {
               title: "Книга навыков",
               caption:
                 "Навыки открываются как страницы книги — метафора образования и знаний. За каждое направление студент получает артефакт-награду: сигнал, что в этой теме он готов искать работу. На тестах идея зашла — студентам всё было понятно.",
-              kind: "tint",
-              tone: 3,
+              kind: "image",
+              src: "assets/ts-screen-3.jpg",
             },
           ],
         },
@@ -144,8 +137,8 @@ window.PROJECTS = {
             {
               title: "Пересборка под одно направление",
               caption: "Свернул карту до AI-трека и пересобрал структуру в оставшийся срок, опираясь на модульность первого экрана.",
-              kind: "tint",
-              tone: 3,
+              kind: "image",
+              src: "assets/ts-screen-4.jpg",
             },
           ],
         },
