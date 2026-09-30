@@ -735,6 +735,17 @@ textarea:focus-visible {
   aspect-ratio: 21 / 9;
 }
 
+/* Реальные картинки в секциях и галерее (формат как у wannabe) */
+.case__media--image { aspect-ratio: auto; background: var(--bg-soft); }
+.case__media--image img { width: 100%; height: auto; display: block; }
+.case__media--image::after { display: none; }
+
+.case__gallery--image { align-items: start; }
+.case__gallery--image > .case__tile--image:last-child:nth-child(odd) { aspect-ratio: auto; }
+.case__tile--image { aspect-ratio: auto; background: var(--bg-soft); }
+.case__tile--image img { width: 100%; height: auto; display: block; }
+.case__tile--image::after { display: none; }
+
 .case__next {
   display: flex;
   flex-direction: column;

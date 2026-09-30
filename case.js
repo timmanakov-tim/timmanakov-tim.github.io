@@ -57,7 +57,9 @@
   function sectionsHtml(sections) {
     return sections
       .map(function (s) {
-        var media = s.media
+        var media = s.image
+          ? '<div class="case__media case__media--image reveal"><img src="' + s.image + '" alt="' + s.heading + " — " + data.title + '" loading="lazy" /></div>'
+          : s.media
           ? '<div class="case__media reveal" data-tone="' + data.tone + '" aria-hidden="true"></div>'
           : "";
         return (
@@ -73,10 +75,20 @@
       .join("");
   }
 
-  function galleryHtml(count) {
-    if (!count) return "";
+  function galleryHtml(gallery) {
+    if (!gallery) return "";
+    // Массив ссылок на реальные экраны — плитки-картинки; число — тональные заглушки
+    if (Array.isArray(gallery)) {
+      if (!gallery.length) return "";
+      var imgTiles = gallery
+        .map(function (src) {
+          return '<div class="case__tile case__tile--image reveal"><img src="' + src + '" alt="' + data.title + '" loading="lazy" /></div>';
+        })
+        .join("");
+      return '<div class="case__gallery case__gallery--image">' + imgTiles + "</div>";
+    }
     var tiles = "";
-    for (var i = 0; i < count; i++) {
+    for (var i = 0; i < gallery; i++) {
       tiles += '<div class="case__tile reveal" data-tone="' + data.tone + '" aria-hidden="true"></div>';
     }
     return '<div class="case__gallery">' + tiles + "</div>";
