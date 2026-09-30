@@ -63,6 +63,21 @@
     revealables.forEach(function (el) {
       io.observe(el);
     });
+    // Подстраховка: то, что уже во вьюпорте при загрузке, показываем сразу.
+    // При активном Lenis IntersectionObserver иногда не отдаёт первый колбэк,
+    // и первый экран остаётся пустым до скролла — это её лечит.
+    var revealInView = function () {
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      revealables.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < vh * 0.95 && r.bottom > 0) {
+          el.classList.add("is-visible");
+          io.unobserve(el);
+        }
+      });
+    };
+    requestAnimationFrame(revealInView);
+    setTimeout(revealInView, 180);
   } else {
     revealables.forEach(function (el) {
       el.classList.add("is-visible");
