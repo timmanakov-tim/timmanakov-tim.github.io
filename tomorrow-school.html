@@ -64,17 +64,25 @@
           <p class="eyebrow"><span class="eyebrow__dot"></span> Case Study · EdTech</p>
           <h1 class="hero__title">Проектирование EdTech-платформы для IT-обучения с нуля</h1>
           <p class="hero__task">
-            В сжатые сроки спроектировать бесшовный и интуитивный путь студента
-            (Core&nbsp;Flow) — от первого экрана регистрации до интерфейса выполнения
-            практических задач.
+            За 3&nbsp;месяца запустить MVP EdTech-платформы — корпоративного
+            аналога Ecole&nbsp;42 — и полностью мигрировать студентов, спроектировав
+            бесшовный путь: Регистрация&nbsp;→ Выбор траектории&nbsp;→
+            Обучение&nbsp;→ Сдача задания.
           </p>
+
+          <ul class="tools" aria-label="Инструменты">
+            <li>Figma</li>
+            <li>Illustrator</li>
+            <li>Photoshop</li>
+            <li>Claude&nbsp;Code</li>
+          </ul>
         </div>
 
         <aside class="hero__right reveal">
           <dl class="meta glass">
             <div class="meta__item">
               <dt class="meta__key">Продукт</dt>
-              <dd class="meta__val">Геймифицированная образовательная платформа для будущих разработчиков (по модели школы «42»).</dd>
+              <dd class="meta__val">Школа программирования в экосистеме Astana&nbsp;Hub / Alem.ai по методологии Ecole&nbsp;42. В основе — геймификация, автономное обучение и командная работа.</dd>
             </div>
             <div class="meta__item">
               <dt class="meta__key">Моя роль</dt>
@@ -86,10 +94,22 @@
             </div>
             <div class="meta__item">
               <dt class="meta__key">Условия</dt>
-              <dd class="meta__val">Fast-paced среда, запуск продукта с чистого листа, жёсткие дедлайны.</dd>
+              <dd class="meta__val">3&nbsp;месяца на MVP, запуск с чистого листа, миграция студентов, жёсткие дедлайны.</dd>
             </div>
           </dl>
         </aside>
+      </div>
+
+      <!-- Моя зона ответственности -->
+      <div class="role glass reveal">
+        <p class="role__title">Моя зона ответственности</p>
+        <ul class="role__list">
+          <li>Интервью со стейкхолдерами, менторами и студентами</li>
+          <li>Анализ конкурентов — школы «42» и «21»</li>
+          <li>Задать <b>UI-стиль</b> будущего интерфейса</li>
+          <li>Спроектировать ключевой флоу: Регистрация&nbsp;→ Траектория&nbsp;→ Обучение&nbsp;→ Сдача</li>
+          <li>Провести <b>юзабилити-тестирование</b> и найти узкие места</li>
+        </ul>
       </div>
 
       <!-- Центральный мокап -->
@@ -179,8 +199,9 @@
             <span class="counter__label">глубоких интервью с пользователями</span>
           </div>
           <p class="discovery__text">
-            Чтобы не проектировать вслепую, я провёл анализ EdTech-рынка и качественные
-            интервью с 10 респондентами — действующими студентами и менторами школы «42».
+            Чтобы не проектировать вслепую, я провёл анализ EdTech-рынка и прямых
+            конкурентов — школ «42» и «21», — а также качественные интервью с 10
+            респондентами: действующими студентами и менторами.
           </p>
         </div>
 
@@ -252,8 +273,36 @@
         <h2 class="sec__title">Дизайн-решения</h2>
       </header>
 
-      <!-- 5.1 Линейный вертикальный флоу -->
+      <!-- 5.1 Быстрая регистрация — eGov / ИИН -->
       <div class="solution reveal">
+        <div class="solution__media">
+          <div class="egov glass">
+            <div class="egov__bar"><i></i><i></i><i></i><span>Регистрация · eGov</span></div>
+            <div class="egov__body">
+              <span class="egov__field egov__field--auto">ИИН <b>✓ eGov</b></span>
+              <span class="egov__field egov__field--auto">Имя и фамилия <b>✓ авто</b></span>
+              <span class="egov__field egov__field--auto">Дата рождения <b>✓ авто</b></span>
+              <span class="egov__field egov__field--auto">Город и адрес <b>✓ авто</b></span>
+              <span class="egov__field egov__field--manual">Направление обучения <b>вручную</b></span>
+              <span class="egov__badge"><span aria-hidden="true">⚡</span> 16 / 23 поля заполнены автоматически</span>
+            </div>
+          </div>
+        </div>
+        <div class="solution__body">
+          <span class="solution__num">5.1</span>
+          <h3 class="solution__title">Быстрая регистрация через eGov <span class="solution__sub">Меньше трения на входе</span></h3>
+          <p class="solution__text">
+            Раньше вход тормозил поток: объёмная анкета и ручная проверка данных
+            менторами. Мы реализовали интеграцию с&nbsp;eGov по ИИН — и
+            16&nbsp;из&nbsp;23&nbsp;полей анкеты стали заполняться автоматически.
+            Регистрация перестала быть барьером, а менторы избавились от рутинной
+            сверки данных.
+          </p>
+        </div>
+      </div>
+
+      <!-- 5.2 Карта обучения · линейный флоу -->
+      <div class="solution solution--reverse reveal">
         <div class="solution__media">
           <div class="timeline glass">
             <p class="timeline__title">Неделя 1 <span>· Основы</span></p>
@@ -270,21 +319,61 @@
           </div>
         </div>
         <div class="solution__body">
-          <span class="solution__num">5.1</span>
-          <h3 class="solution__title">Линейный вертикальный флоу <span class="solution__sub">Антикризисный UX</span></h3>
+          <span class="solution__num">5.2</span>
+          <h3 class="solution__title">Карта обучения <span class="solution__sub">Линейный флоу · антикризисный UX</span></h3>
           <p class="solution__text">
-            Опираясь на ранее изученные игровые интерфейсы, я оперативно пересобрал
-            карту в Linear&nbsp;Progression&nbsp;Tree (вертикальный геймифицированный
-            таймлайн). Программа разделилась на понятные спринты (Неделя&nbsp;1,
-            Неделя&nbsp;2). Архитектура превратилась в систему интерактивных
-            папок-модулей с индикацией статуса. Юзабилити-тесты на 10&nbsp;новых
-            респондентах подтвердили — растерянность пользователей исчезла, логика
-            считывается мгновенно.
+            В основу карты легли план школы и логотип Alem.ai как смысловое ядро
+            обучения. Опираясь на изученные игровые интерфейсы, я пересобрал карту в
+            Linear&nbsp;Progression&nbsp;Tree — вертикальный геймифицированный
+            таймлайн. Программа разделилась на понятные уровни-спринты
+            (Неделя&nbsp;1, Неделя&nbsp;2) с индикацией статуса. Юзабилити-тесты на
+            10&nbsp;новых респондентах подтвердили: пользователи быстрее понимали, где
+            находятся и что делать дальше.
           </p>
         </div>
       </div>
 
-      <!-- 5.2 All-in-one Workspace -->
+      <!-- 5.3 Книга навыков -->
+      <div class="solution reveal">
+        <div class="solution__media">
+          <div class="skillbook glass">
+            <div class="skillbook__book">
+              <div class="skillbook__page">
+                <p class="skillbook__h">AI · глава 1</p>
+                <span class="skillnode skillnode--open"><i>✓</i> Основы Python</span>
+                <span class="skillnode skillnode--open"><i>✓</i> Работа с данными</span>
+                <span class="skillnode"><i>◆</i> Нейросети</span>
+              </div>
+              <div class="skillbook__page">
+                <p class="skillbook__h">AI · глава 2</p>
+                <span class="skillnode skillnode--lock"><i>🔒</i> Computer Vision</span>
+                <span class="skillnode skillnode--lock"><i>🔒</i> NLP</span>
+                <span class="skillnode skillnode--lock"><i>🔒</i> MLOps</span>
+              </div>
+            </div>
+            <div class="skillbook__reward">
+              <span class="skillbook__reward-ic" aria-hidden="true">★</span>
+              <span>
+                <b>Артефакт направления</b>
+                Открывается в конце ветки — сигнал «ты готов к работе»
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="solution__body">
+          <span class="solution__num">5.3</span>
+          <h3 class="solution__title">Книга навыков <span class="solution__sub">Метафора знаний</span></h3>
+          <p class="solution__text">
+            Страницу с навыками я оформил в виде книги — места, откуда «открываются»
+            знания. По каждому направлению есть набор навыков, которые студент
+            проходит один за другим, а в конце получает награду-артефакт: сигнал, что
+            в этой области он силён и уже может искать работу. На юзабилити-тестах идея
+            зашла&nbsp;— студентам всё было понятно.
+          </p>
+        </div>
+      </div>
+
+      <!-- 5.4 All-in-one Workspace -->
       <div class="solution solution--reverse reveal">
         <div class="solution__media">
           <div class="combo glass">
@@ -307,7 +396,7 @@
           </div>
         </div>
         <div class="solution__body">
-          <span class="solution__num">5.2</span>
+          <span class="solution__num">5.4</span>
           <h3 class="solution__title">All-in-one Workspace</h3>
           <p class="solution__text">
             Чтобы ликвидировать «скакание по вкладкам», я спроектировал двухпанельный
@@ -318,7 +407,7 @@
         </div>
       </div>
 
-      <!-- 5.3 Контекстный онбординг -->
+      <!-- 5.5 Контекстный онбординг -->
       <div class="solution reveal">
         <div class="solution__media">
           <div class="onboard glass">
@@ -340,7 +429,7 @@
           </div>
         </div>
         <div class="solution__body">
-          <span class="solution__num">5.3</span>
+          <span class="solution__num">5.5</span>
           <h3 class="solution__title">Бесшовный контекстный онбординг</h3>
           <p class="solution__text">
             Сразу после запуска платформы я интегрировал систему контекстных подсказок
@@ -406,6 +495,10 @@
       </header>
 
       <div class="metrics">
+        <article class="metric glass reveal">
+          <span class="metric__num">16<i>/23</i></span>
+          <p class="metric__label">поля анкеты заполняются автоматически через интеграцию с&nbsp;eGov по ИИН.</p>
+        </article>
         <article class="metric glass reveal">
           <span class="metric__num">0 <i>дней</i></span>
           <p class="metric__label">задержки релиза — сдача точно в срок после глобального Pivot.</p>
