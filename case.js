@@ -341,9 +341,77 @@
     );
   }
 
+  // --- Блочный рендер: страница точно по макету Figma (data.blocks) ---
+  function tlMedia(m) {
+    var mod = m.portrait ? " tl__frame--portrait" : "";
+    if (m.kind === "video")
+      return '<div class="tl__frame' + mod + '"><video src="' + m.src +
+        '" autoplay muted loop playsinline preload="metadata"></video></div>';
+    return '<div class="tl__frame' + mod + '"><img src="' + m.src +
+      '" alt="' + data.title + '" loading="lazy" /></div>';
+  }
+
+  function blocksHtml(blocks) {
+    return blocks
+      .map(function (b) {
+        if (b.heading) return '<h2 class="tl__h2 tl__h2--solo reveal">' + b.heading + "</h2>";
+        if (b.section) {
+          var s = b.section;
+          var body = s.list
+            ? '<ol class="tl__list reveal">' +
+              s.list.map(function (it) { return "<li>" + it + "</li>"; }).join("") +
+              "</ol>"
+            : '<p class="tl__body reveal">' + s.body + "</p>";
+          return '<section class="tl__section"><h2 class="tl__h2 reveal">' + s.heading + "</h2>" + body + "</section>";
+        }
+        if (b.subhead)
+          return '<div class="tl__sub reveal"><p class="tl__label">' + b.subhead.label +
+            '</p><p class="tl__text">' + b.subhead.text + "</p></div>";
+        if (b.twocol)
+          return '<div class="tl__twocol reveal">' +
+            b.twocol.map(function (c) {
+              return '<div class="tl__col"><p class="tl__label">' + c.label +
+                '</p><p class="tl__text">' + c.text + "</p></div>";
+            }).join("") + "</div>";
+        if (b.compare)
+          return '<div class="tl__compare reveal">' +
+            b.compare.map(function (c) {
+              return '<figure class="tl__cmp">' +
+                (c.label ? '<figcaption class="tl__label">' + c.label + "</figcaption>" : "") +
+                tlMedia(c) + "</figure>";
+            }).join("") + "</div>";
+        if (b.media)
+          return '<figure class="tl__media reveal">' +
+            (b.media.label ? '<figcaption class="tl__label">' + b.media.label + "</figcaption>" : "") +
+            tlMedia(b.media) + "</figure>";
+        if (b.plus)
+          return '<div class="tl__plus reveal">' +
+            '<div class="tl__plus-item"><div class="tl__plus-media"><img src="' + b.plus.left.src +
+            '" alt="" loading="lazy" /></div><span class="tl__label">' + b.plus.left.label + "</span></div>" +
+            '<span class="tl__plus-sign" aria-hidden="true">+</span>' +
+            '<div class="tl__plus-item"><div class="tl__plus-media tl__plus-media--logo"><img src="' + b.plus.right.src +
+            '" alt="" loading="lazy" /></div><span class="tl__label">' + b.plus.right.label + "</span></div>" +
+            "</div>";
+        return "";
+      })
+      .join("");
+  }
+
   var bodyHtml;
   if (data.caseStudy) {
     bodyHtml = caseStudyHtml(data.caseStudy);
+  } else if (data.blocks) {
+    bodyHtml =
+      '<header class="case__hero">' +
+      '<h1 class="case__title reveal">' + data.title + "</h1>" +
+      '<p class="case__subtitle reveal">' + (data.subtitleHtml || data.subtitle) + "</p>" +
+      "</header>" +
+      '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" +
+      (data.cover
+        ? '<div class="case__cover case__cover--image reveal"><img src="' + data.cover + '" alt="' + data.title + ' — обложка" loading="lazy" /></div>'
+        : '<div class="case__cover reveal" data-tone="' + data.tone + '" aria-hidden="true"></div>') +
+      (data.overview ? '<p class="tl__lead reveal">' + data.overview + "</p>" : "") +
+      blocksHtml(data.blocks);
   } else {
     bodyHtml =
       '<header class="case__hero">' +
