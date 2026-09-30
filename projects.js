@@ -11,7 +11,7 @@ window.PROJECTS = {
     subtitleHtml:
       'Школа программирования по модели <a href="https://42.fr/en/homepage/" target="_blank" rel="noopener">École 42</a>',
     tone: 3,
-    cover: "assets/tomorrow-school-cover.jpg",
+    cover: "assets/ts-hero.jpg",
     link: "https://tomorrow-school.188.130.160.95.sslip.io/",
     meta: {
       Роль: "Senior Product Designer",
