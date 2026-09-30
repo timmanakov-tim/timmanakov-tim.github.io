@@ -185,40 +185,185 @@
     );
   }
 
+  // --- Кейс по архитектуре pamidordesign.co/work/rise ---
+  function kicker(text, reveal) {
+    return '<p class="cs__kicker' + (reveal === false ? "" : " reveal") + '">(' + text + ")</p>";
+  }
+
+  function csMedia(f, cls) {
+    var tone = f.tone || data.tone;
+    var inner = "";
+    if (f.kind === "radial") inner = '<div class="cs__fig">' + radialSvg() + "</div>";
+    else if (f.kind === "image" && f.src)
+      inner = '<img src="' + f.src + '" alt="' + (f.caption || data.title) + '" loading="lazy" />';
+    return (
+      '<div class="' + cls + '" data-tone="' + tone + '"' +
+      (inner ? "" : ' aria-hidden="true"') + ">" + inner + "</div>"
+    );
+  }
+
+  function csFrame(f, i) {
+    return (
+      '<figure class="cs__frame reveal">' +
+      '<figcaption class="cs__frame-label">[ ' + (i + 1 < 10 ? "0" : "") + (i + 1) + " ] " + f.label + "</figcaption>" +
+      csMedia(f, "cs__frame-media") +
+      (f.caption ? '<p class="cs__frame-cap">' + f.caption + "</p>" : "") +
+      "</figure>"
+    );
+  }
+
+  function csSystem(sys) {
+    return (
+      '<section class="cs__system">' +
+      kicker(sys.label) +
+      '<h3 class="cs__system-title reveal">' + sys.title + "</h3>" +
+      '<p class="cs__system-desc reveal">' + sys.desc + "</p>" +
+      (sys.statements && sys.statements.length
+        ? '<div class="cs__statements">' +
+          sys.statements
+            .map(function (s) {
+              return (
+                '<div class="cs__statement reveal">' +
+                '<p class="cs__statement-label">(' + s.label + ")</p>" +
+                '<p class="cs__statement-text">' + s.text + "</p></div>"
+              );
+            })
+            .join("") +
+          "</div>"
+        : "") +
+      (sys.scope && sys.scope.length
+        ? '<div class="cs__scope reveal">' +
+          kicker("Объём", false) +
+          '<div class="cs__stats">' +
+          sys.scope
+            .map(function (st) {
+              return (
+                '<div class="cs__stat"><span class="cs__stat-n">' + st.n + "</span>" +
+                '<span class="cs__stat-cap">' + st.cap + "</span></div>"
+              );
+            })
+            .join("") +
+          "</div></div>"
+        : "") +
+      (sys.process && sys.process.length
+        ? '<div class="cs__process">' + sys.process.map(csFrame).join("") + "</div>"
+        : "") +
+      (sys.visual
+        ? '<figure class="cs__visual reveal">' + csMedia(sys.visual, "cs__visual-media") +
+          (sys.visual.caption ? "<figcaption>" + sys.visual.caption + "</figcaption>" : "") +
+          "</figure>"
+        : "") +
+      "</section>"
+    );
+  }
+
+  function csPart(part) {
+    return (
+      '<section class="cs__part">' +
+      kicker(part.label) +
+      '<h2 class="cs__part-title reveal">' + part.title + "</h2>" +
+      (part.intro ? '<p class="cs__part-intro reveal">' + part.intro + "</p>" : "") +
+      (part.systems ? part.systems.map(csSystem).join("") : "") +
+      (part.blocks
+        ? part.blocks
+            .map(function (b) {
+              return (
+                '<section class="cs__vsub reveal">' +
+                '<h3 class="cs__vsub-title">' + b.title + "</h3>" +
+                (b.caption ? '<p class="cs__vsub-cap">' + b.caption + "</p>" : "") +
+                csMedia(b, "cs__vsub-media") +
+                "</section>"
+              );
+            })
+            .join("")
+        : "") +
+      "</section>"
+    );
+  }
+
+  function caseStudyHtml(cs) {
+    var num = (index + 1 < 10 ? "0" : "") + (index + 1);
+    var cover = data.cover
+      ? '<figure class="cs__cover reveal"><img src="' + data.cover + '" alt="' + data.title + ' — обложка" /></figure>'
+      : '<figure class="cs__cover cs__cover--tint reveal" data-tone="' + data.tone + '" aria-hidden="true"></figure>';
+    return (
+      '<p class="cs__eyebrow reveal">(Кейс · ' + num + ")</p>" +
+      '<h1 class="cs__title reveal">' + data.title + "</h1>" +
+      (cs.tags && cs.tags.length
+        ? '<ul class="cs__tags reveal">' +
+          cs.tags.map(function (t) { return "<li>" + t + "</li>"; }).join("") +
+          "</ul>"
+        : "") +
+      cover +
+      '<p class="cs__lead reveal">' + data.overview + "</p>" +
+      (data.link
+        ? '<div class="cs__actions reveal"><a class="btn btn--ghost" href="' + data.link + '" target="_blank" rel="noopener">Смотреть проект <span aria-hidden="true">↗</span></a></div>'
+        : "") +
+
+      '<dl class="cs__meta reveal">' + metaHtml(data.meta) + "</dl>" +
+
+      (cs.myRole && cs.myRole.length
+        ? '<section class="cs__block">' + kicker("Моя роль") +
+          '<ul class="cs__role reveal">' +
+          cs.myRole.map(function (r) { return "<li>" + r + "</li>"; }).join("") +
+          "</ul></section>"
+        : "") +
+
+      (cs.approach && cs.approach.length
+        ? '<section class="cs__approach">' +
+          '<h2 class="cs__h2 reveal">Подход</h2>' +
+          '<div class="cs__steps">' +
+          cs.approach
+            .map(function (a, i) {
+              return (
+                '<div class="cs__step reveal">' +
+                '<span class="cs__step-num">' + (i + 1 < 10 ? "0" : "") + (i + 1) + "</span>" +
+                '<div class="cs__step-body"><h3 class="cs__step-title">' + a.title + "</h3>" +
+                '<p class="cs__step-text">' + a.text + "</p></div></div>"
+              );
+            })
+            .join("") +
+          "</div></section>"
+        : "") +
+
+      (cs.parts ? cs.parts.map(csPart).join("") : "")
+    );
+  }
+
+  var bodyHtml;
+  if (data.caseStudy) {
+    bodyHtml = caseStudyHtml(data.caseStudy);
+  } else {
+    bodyHtml =
+      '<header class="case__hero">' +
+      '<h1 class="case__title reveal">' + data.title + "</h1>" +
+      '<p class="case__subtitle reveal">' + (data.subtitleHtml || data.subtitle) + "</p>" +
+      (data.link
+        ? '<div class="case__actions reveal"><a class="btn btn--primary" href="' + data.link + '" target="_blank" rel="noopener">Смотреть проект <span aria-hidden="true">↗</span></a></div>'
+        : "") +
+      "</header>" +
+      '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" +
+      (data.cover
+        ? '<div class="case__cover case__cover--image reveal"><img src="' + data.cover + '" alt="' + data.title + ' — обложка" loading="lazy" /></div>'
+        : '<div class="case__cover reveal" data-tone="' + data.tone + '" aria-hidden="true"></div>') +
+      (data.article
+        ? '<div class="art art--notoc"><div class="art__body">' +
+            '<p class="art__lead reveal">' + data.overview + "</p>" +
+            articleHtml(data.article, data.tone) +
+          "</div></div>"
+        : '<p class="case__overview reveal">' + data.overview + "</p>" +
+          sectionsHtml(data.sections) +
+          galleryHtml(data.gallery));
+  }
+
   root.innerHTML =
     '<div class="container">' +
     '<a class="case__back reveal" href="index.html#work"><span aria-hidden="true">←</span> Работы</a>' +
-
-    '<header class="case__hero">' +
-    '<h1 class="case__title reveal">' + data.title + "</h1>" +
-    '<p class="case__subtitle reveal">' + (data.subtitleHtml || data.subtitle) + "</p>" +
-    (data.link
-      ? '<div class="case__actions reveal"><a class="btn btn--primary" href="' + data.link + '" target="_blank" rel="noopener">Смотреть проект <span aria-hidden="true">↗</span></a></div>'
-      : "") +
-    "</header>" +
-
-    '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" +
-
-    (data.cover
-      ? '<div class="case__cover case__cover--image reveal"><img src="' + data.cover + '" alt="' + data.title + ' — обложка" loading="lazy" /></div>'
-      : '<div class="case__cover reveal" data-tone="' + data.tone + '" aria-hidden="true"></div>') +
-
-    (data.article
-      ? '<div class="art art--notoc">' +
-          '<div class="art__body">' +
-            '<p class="art__lead reveal">' + data.overview + "</p>" +
-            articleHtml(data.article, data.tone) +
-          "</div>" +
-        "</div>"
-      : '<p class="case__overview reveal">' + data.overview + "</p>" +
-        sectionsHtml(data.sections) +
-        galleryHtml(data.gallery)) +
-
+    bodyHtml +
     '<a class="case__next reveal" href="case.html?id=' + nextId + '">' +
     '<span class="case__next-label">Следующий проект</span>' +
     '<span class="case__next-title">' + nextData.title + ' <span aria-hidden="true">→</span></span>' +
     "</a>" +
-
     "</div>";
 
   // Содержание вынесено за сетку и появляется только после главного вижуала:
