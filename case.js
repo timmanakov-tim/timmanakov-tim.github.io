@@ -1,0 +1,274 @@
+// ---------------------------------------------------------
+// Сборка страницы кейса из window.PROJECTS по ?id=...
+// Выполняется до script.js, чтобы reveal-наблюдатель
+// увидел уже вставленные элементы.
+// ---------------------------------------------------------
+
+(function () {
+  "use strict";
+
+  var root = document.getElementById("case-root");
+  var projects = window.PROJECTS || {};
+  var ids = Object.keys(projects);
+
+  var params = new URLSearchParams(window.location.search);
+  var id = params.get("id");
+  var data = id && projects[id];
+
+  // Проект не найден — показываем заглушку
+  if (!data) {
+    root.innerHTML =
+      '<div class="container case__notfound reveal">' +
+      "<h1>Кейс не найден</h1>" +
+      "<p>Возможно, ссылка устарела.</p>" +
+      '<a class="btn btn--ghost" href="index.html#work">← Ко всем работам</a>' +
+      "</div>";
+    return;
+  }
+
+  document.title = data.title + " — Тим Манаков";
+  var metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute("content", data.subtitle);
+
+  // порядковый номер и следующий проект
+  var index = ids.indexOf(id);
+  var nextId = ids[(index + 1) % ids.length];
+  var nextData = projects[nextId];
+
+  function metaHtml(meta) {
+    return Object.keys(meta)
+      .map(function (key) {
+        var v = meta[key];
+        var val = Array.isArray(v)
+          ? '<ul class="case__meta-list">' +
+            v.map(function (x) { return "<li>" + x + "</li>"; }).join("") +
+            "</ul>"
+          : v;
+        return (
+          '<div class="case__meta-item">' +
+          '<dt class="case__meta-key">' + key + "</dt>" +
+          '<dd class="case__meta-val">' + val + "</dd>" +
+          "</div>"
+        );
+      })
+      .join("");
+  }
+
+  function sectionsHtml(sections) {
+    return sections
+      .map(function (s) {
+        var media = s.media
+          ? '<div class="case__media reveal" data-tone="' + data.tone + '" aria-hidden="true"></div>'
+          : "";
+        return (
+          '<section class="case__section">' +
+          '<div class="case__section-head reveal">' +
+          '<h2 class="case__section-title">' + s.heading + "</h2>" +
+          "</div>" +
+          '<p class="case__section-body reveal">' + s.body + "</p>" +
+          media +
+          "</section>"
+        );
+      })
+      .join("");
+  }
+
+  function galleryHtml(count) {
+    if (!count) return "";
+    var tiles = "";
+    for (var i = 0; i < count; i++) {
+      tiles += '<div class="case__tile reveal" data-tone="' + data.tone + '" aria-hidden="true"></div>';
+    }
+    return '<div class="case__gallery">' + tiles + "</div>";
+  }
+
+  // --- Рич-статья с содержанием ---
+  function radialSvg() {
+    var cx = 200, cy = 120, r = 82, n = 8, i, a, pts = [];
+    for (i = 0; i < n; i++) {
+      a = ((-90 + (i * 360) / n) * Math.PI) / 180;
+      pts.push([+(cx + r * Math.cos(a)).toFixed(1), +(cy + r * Math.sin(a)).toFixed(1)]);
+    }
+    var spokes = pts
+      .map(function (p) { return '<line x1="' + cx + '" y1="' + cy + '" x2="' + p[0] + '" y2="' + p[1] + '" />'; })
+      .join("");
+    var chords = [[0, 3], [1, 5], [2, 6], [4, 7], [3, 6]]
+      .map(function (c) {
+        return '<line class="chord" x1="' + pts[c[0]][0] + '" y1="' + pts[c[0]][1] + '" x2="' + pts[c[1]][0] + '" y2="' + pts[c[1]][1] + '" />';
+      })
+      .join("");
+    var nodes = pts
+      .map(function (p) { return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="7" />'; })
+      .join("");
+    return (
+      '<svg class="art__radial" viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      '<g class="art__radial-lines">' + spokes + chords + "</g>" +
+      '<g class="art__radial-nodes">' + nodes + '<circle class="hub" cx="' + cx + '" cy="' + cy + '" r="12" /></g>' +
+      "</svg>"
+    );
+  }
+
+  function figureHtml(f, tone) {
+    var inner = f.kind === "radial"
+      ? '<div class="art__figure-art">' + radialSvg() + "</div>"
+      : '<div class="art__figure-ph" data-tone="' + (f.tone || tone) + '" aria-hidden="true"></div>';
+    return (
+      '<figure class="art__figure reveal">' + inner +
+      (f.caption ? "<figcaption>" + f.caption + "</figcaption>" : "") +
+      "</figure>"
+    );
+  }
+
+  function blockHtml(b, tone) {
+    if (b.p) return '<p class="art__p reveal">' + b.p + "</p>";
+    if (b.h) return '<h3 class="art__h reveal">' + b.h + "</h3>";
+    if (b.list)
+      return (
+        '<ul class="art__list reveal">' +
+        b.list.map(function (it) { return "<li><strong>" + it[0] + ":</strong> " + it[1] + "</li>"; }).join("") +
+        "</ul>"
+      );
+    if (b.cards)
+      return (
+        '<div class="art__cards">' +
+        b.cards
+          .map(function (c, i) {
+            return (
+              '<div class="art__card reveal">' +
+              '<span class="art__card-num">' + (i + 1 < 10 ? "0" : "") + (i + 1) + "</span>" +
+              '<div class="art__card-body">' +
+              (c.label ? '<span class="art__card-label">' + c.label + "</span>" : "") +
+              '<h4 class="art__card-title">' + c.title + "</h4>" +
+              (c.text ? '<p class="art__card-text">' + c.text + "</p>" : "") +
+              "</div></div>"
+            );
+          })
+          .join("") +
+        "</div>"
+      );
+    if (b.figure) return figureHtml(b.figure, tone);
+    return "";
+  }
+
+  function articleHtml(article, tone) {
+    return article
+      .map(function (sec) {
+        return (
+          '<section class="art__section" id="' + sec.id + '">' +
+          '<header class="art__head reveal">' +
+          '<span class="art__num">' + sec.num + "</span>" +
+          '<h2 class="art__title">' + sec.title +
+          (sec.en ? ' <span class="art__en">' + sec.en + "</span>" : "") +
+          "</h2></header>" +
+          sec.blocks.map(function (b) { return blockHtml(b, tone); }).join("") +
+          "</section>"
+        );
+      })
+      .join("");
+  }
+
+  function tocHtml(article) {
+    return (
+      '<nav class="art__toc" aria-label="Содержание">' +
+      '<p class="art__toc-label">Содержание</p>' +
+      '<ol class="art__toc-list">' +
+      article
+        .map(function (sec) {
+          return (
+            '<li><a href="#' + sec.id + '" data-toc="' + sec.id + '">' +
+            '<span class="art__toc-num">' + sec.num + "</span>" +
+            "<span>" + sec.title + "</span></a></li>"
+          );
+        })
+        .join("") +
+      "</ol></nav>"
+    );
+  }
+
+  root.innerHTML =
+    '<div class="container">' +
+    '<a class="case__back reveal" href="index.html#work"><span aria-hidden="true">←</span> Работы</a>' +
+
+    '<header class="case__hero">' +
+    '<h1 class="case__title reveal">' + data.title + "</h1>" +
+    '<p class="case__subtitle reveal">' + (data.subtitleHtml || data.subtitle) + "</p>" +
+    (data.link
+      ? '<div class="case__actions reveal"><a class="btn btn--primary" href="' + data.link + '" target="_blank" rel="noopener">Смотреть проект <span aria-hidden="true">↗</span></a></div>'
+      : "") +
+    "</header>" +
+
+    '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" +
+
+    (data.cover
+      ? '<div class="case__cover case__cover--image reveal"><img src="' + data.cover + '" alt="' + data.title + ' — обложка" loading="lazy" /></div>'
+      : '<div class="case__cover reveal" data-tone="' + data.tone + '" aria-hidden="true"></div>') +
+
+    (data.article
+      ? '<div class="art art--notoc">' +
+          '<div class="art__body">' +
+            '<p class="art__lead reveal">' + data.overview + "</p>" +
+            articleHtml(data.article, data.tone) +
+          "</div>" +
+        "</div>"
+      : '<p class="case__overview reveal">' + data.overview + "</p>" +
+        sectionsHtml(data.sections) +
+        galleryHtml(data.gallery)) +
+
+    '<a class="case__next reveal" href="case.html?id=' + nextId + '">' +
+    '<span class="case__next-label">Следующий проект</span>' +
+    '<span class="case__next-title">' + nextData.title + ' <span aria-hidden="true">→</span></span>' +
+    "</a>" +
+
+    "</div>";
+
+  // Содержание вынесено за сетку и появляется только после главного вижуала:
+  // показываем рейл, когда обложка ушла вверх за пределы экрана, и прячем
+  // у блока «Следующий проект» / футера снизу, чтобы ничего не перекрывать.
+  if (data.article && "IntersectionObserver" in window) {
+    var toc = document.querySelector(".art__toc");
+    var cover = document.querySelector(".case__cover");
+    var endEl = document.querySelector(".case__next");
+    if (toc && cover) {
+      var pastCover = false;
+      var nearEnd = false;
+      var syncToc = function () {
+        toc.classList.toggle("is-shown", pastCover && !nearEnd);
+      };
+      new IntersectionObserver(
+        function (entries) {
+          var e = entries[0];
+          pastCover = !e.isIntersecting && e.boundingClientRect.top < 0;
+          syncToc();
+        },
+        { threshold: 0 }
+      ).observe(cover);
+      if (endEl) {
+        new IntersectionObserver(
+          function (entries) { nearEnd = entries[0].isIntersecting; syncToc(); },
+          { rootMargin: "0px 0px -10% 0px" }
+        ).observe(endEl);
+      }
+    }
+  }
+
+  // Подсветка активного раздела в содержании
+  if (data.article && "IntersectionObserver" in window) {
+    var links = {};
+    Array.prototype.forEach.call(document.querySelectorAll("[data-toc]"), function (a) {
+      links[a.getAttribute("data-toc")] = a;
+    });
+    var spy = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          Object.keys(links).forEach(function (k) { links[k].classList.remove("is-active"); });
+          if (links[e.target.id]) links[e.target.id].classList.add("is-active");
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    Array.prototype.forEach.call(document.querySelectorAll(".art__section"), function (s) {
+      spy.observe(s);
+    });
+  }
+})();

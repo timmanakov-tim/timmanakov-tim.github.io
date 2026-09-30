@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tomorrow School — кейс · Тим Манаков</title>
+  <meta name="description" content="UI/UX кейс: проектирование геймифицированной EdTech-платформы для IT-обучения с нуля — от Core Flow до передачи в разработку." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="case-cosmic.css" />
+</head>
+<body class="cosmic">
+  <a class="skip-link" href="#context">К содержанию</a>
+
+  <!-- Космический фон: радиальные свечения + звёзды + стеклянные осколки UI -->
+  <div class="cosmos" aria-hidden="true">
+    <span class="cosmos__glow cosmos__glow--1"></span>
+    <span class="cosmos__glow cosmos__glow--2"></span>
+    <span class="cosmos__glow cosmos__glow--3"></span>
+    <span class="cosmos__stars"></span>
+    <span class="cosmos__shard cosmos__shard--1"></span>
+    <span class="cosmos__shard cosmos__shard--2"></span>
+    <span class="cosmos__shard cosmos__shard--3"></span>
+  </div>
+
+  <!-- Верхняя тонкая панель -->
+  <header class="topbar">
+    <a class="topbar__logo" href="index.html#top">ТМ</a>
+    <a class="topbar__back" href="index.html#work"><span aria-hidden="true">←</span> Все работы</a>
+  </header>
+
+  <!-- Левый закреплённый рейл со scrollspy -->
+  <nav class="rail" aria-label="Содержание кейса">
+    <p class="rail__label">Содержание</p>
+    <ol class="rail__list">
+      <li><a class="rail__link" href="#context" data-spy="context"><span class="rail__num">01</span><span class="rail__text">Контекст &amp; Роль</span></a></li>
+      <li><a class="rail__link" href="#challenge" data-spy="challenge"><span class="rail__num">02</span><span class="rail__text">Вызовы проекта</span></a></li>
+      <li><a class="rail__link" href="#discovery" data-spy="discovery"><span class="rail__num">03</span><span class="rail__text">UX-исследования</span></a></li>
+      <li><a class="rail__link" href="#pivot" data-spy="pivot"><span class="rail__num">04</span><span class="rail__text">Смена требований</span></a></li>
+      <li><a class="rail__link" href="#solutions" data-spy="solutions"><span class="rail__num">05</span><span class="rail__text">UI/UX Решения</span></a></li>
+      <li><a class="rail__link" href="#handoff" data-spy="handoff"><span class="rail__num">06</span><span class="rail__text">Передача в разработку</span></a></li>
+      <li><a class="rail__link" href="#impact" data-spy="impact"><span class="rail__num">07</span><span class="rail__text">Результаты</span></a></li>
+    </ol>
+  </nav>
+
+  <!-- Мобильная sticky-навигация (горизонтальный скролл) -->
+  <nav class="mnav" aria-label="Разделы кейса">
+    <a href="#context" data-spy-m="context">01 · Контекст</a>
+    <a href="#challenge" data-spy-m="challenge">02 · Вызовы</a>
+    <a href="#discovery" data-spy-m="discovery">03 · Исследования</a>
+    <a href="#pivot" data-spy-m="pivot">04 · Pivot</a>
+    <a href="#solutions" data-spy-m="solutions">05 · Решения</a>
+    <a href="#handoff" data-spy-m="handoff">06 · Hand-off</a>
+    <a href="#impact" data-spy-m="impact">07 · Результаты</a>
+  </nav>
+
+  <main class="stage">
+
+    <!-- ============ СЕКЦИЯ 1 — Контекст & Роль (Hero) ============ -->
+    <section class="sec sec--hero" id="context">
+      <div class="hero__grid">
+        <div class="hero__left reveal">
+          <p class="eyebrow"><span class="eyebrow__dot"></span> Case Study · EdTech</p>
+          <h1 class="hero__title">Проектирование EdTech-платформы для IT-обучения с нуля</h1>
+          <p class="hero__task">
+            В сжатые сроки спроектировать бесшовный и интуитивный путь студента
+            (Core&nbsp;Flow) — от первого экрана регистрации до интерфейса выполнения
+            практических задач.
+          </p>
+        </div>
+
+        <aside class="hero__right reveal">
+          <dl class="meta glass">
+            <div class="meta__item">
+              <dt class="meta__key">Продукт</dt>
+              <dd class="meta__val">Геймифицированная образовательная платформа для будущих разработчиков (по модели школы «42»).</dd>
+            </div>
+            <div class="meta__item">
+              <dt class="meta__key">Моя роль</dt>
+              <dd class="meta__val">Product Designer (UX/UI, исследования, прототипирование, анимация).</dd>
+            </div>
+            <div class="meta__item">
+              <dt class="meta__key">Команда</dt>
+              <dd class="meta__val">Продакт-менеджер, UX-разработчик, Frontend-разработчик.</dd>
+            </div>
+            <div class="meta__item">
+              <dt class="meta__key">Условия</dt>
+              <dd class="meta__val">Fast-paced среда, запуск продукта с чистого листа, жёсткие дедлайны.</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+
+      <!-- Центральный мокап -->
+      <div class="hero__mockup reveal">
+        <div class="laptop">
+          <div class="laptop__screen">
+            <div class="app">
+              <div class="app__top">
+                <span class="app__stat"><b>Уровень 3</b><i>Progress</i></span>
+                <span class="app__stat"><b>12ч</b><i>за неделю</i></span>
+                <span class="app__resume">▷ Вернуться к задаче</span>
+              </div>
+              <div class="app__flow">
+                <span class="node node--done">✓</span>
+                <span class="line"></span>
+                <span class="node node--done">✓</span>
+                <span class="line"></span>
+                <span class="node node--active">3</span>
+                <span class="line line--dim"></span>
+                <span class="node node--lock">🔒</span>
+              </div>
+              <div class="app__cards">
+                <span class="mini mini--a"></span>
+                <span class="mini mini--b"></span>
+                <span class="mini mini--c"></span>
+              </div>
+            </div>
+          </div>
+          <div class="laptop__base"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ СЕКЦИЯ 2 — Вызовы проекта ============ -->
+    <section class="sec" id="challenge">
+      <header class="sec__head reveal">
+        <p class="sec__eyebrow"><span>02</span> The Challenge</p>
+        <h2 class="sec__title">Ключевые вызовы проекта</h2>
+      </header>
+
+      <div class="challenges">
+        <article class="challenge glass reveal">
+          <span class="challenge__icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="16" cy="16" r="4"/><circle cx="16" cy="16" r="11"/><path d="M16 5v-3M16 30v-3M5 16H2M30 16h-3M8 8l-2-2M26 26l-2-2M24 8l2-2M6 26l2-2"/></svg>
+          </span>
+          <h3 class="challenge__title">Когнитивный перегруз</h3>
+          <p class="challenge__text">Программы обучения в аналогичных школах часто представлены в виде огромных круговых диаграмм. Студент видит сотни задач одновременно, теряется в массиве данных и не понимает свою текущую точку фокуса.</p>
+        </article>
+
+        <article class="challenge glass reveal">
+          <span class="challenge__icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="7" width="15" height="11" rx="2"/><rect x="13" y="14" width="15" height="11" rx="2"/></svg>
+          </span>
+          <h3 class="challenge__title">Разрыв контекста <span class="challenge__en">(Fragmented UX)</span></h3>
+          <p class="challenge__text">Студенты вынуждены постоянно переключаться между вкладками: читать теорию на сайте, клонировать репозитории на GitHub и писать код во внешних программах (IDE). Это сбивает фокус и замедляет обучение.</p>
+        </article>
+
+        <article class="challenge glass reveal">
+          <span class="challenge__icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 26l3-9 14-14 6 6-14 14-9 3z"/><path d="M20 6l6 6"/><path d="M9 17l6 6"/></svg>
+          </span>
+          <h3 class="challenge__title">Дизайн с нуля в дефиците времени</h3>
+          <p class="challenge__text">Отсутствие готовой дизайн-системы и UI&nbsp;Kit при необходимости быстро выдавать консистентные макеты.</p>
+        </article>
+
+        <article class="challenge glass reveal challenge--warn">
+          <span class="challenge__icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 3l13 24H3L16 3z"/><path d="M16 13v7"/><circle cx="16" cy="23.5" r="1.1" fill="currentColor" stroke="none"/></svg>
+          </span>
+          <h3 class="challenge__title">Форс-мажор от бизнеса <span class="challenge__en">(The Pivot)</span></h3>
+          <p class="challenge__text">Внезапная смена бизнес-требований всего за 3&nbsp;недели до запуска продукта.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ СЕКЦИЯ 3 — UX-исследования ============ -->
+    <section class="sec" id="discovery">
+      <header class="sec__head reveal">
+        <p class="sec__eyebrow"><span>03</span> Discovery</p>
+        <h2 class="sec__title">Исследования и инсайты</h2>
+      </header>
+
+      <div class="discovery">
+        <div class="discovery__intro reveal">
+          <div class="counter glass">
+            <span class="counter__num" data-count="10">10</span>
+            <span class="counter__label">глубоких интервью с пользователями</span>
+          </div>
+          <p class="discovery__text">
+            Чтобы не проектировать вслепую, я провёл анализ EdTech-рынка и качественные
+            интервью с 10 респондентами — действующими студентами и менторами школы «42».
+          </p>
+        </div>
+
+        <div class="quotes reveal">
+          <figure class="quote">
+            <blockquote>«Захожу — и сразу теряюсь. Куда смотреть? Мне бы просто видеть, где я сейчас и что делать дальше».</blockquote>
+            <figcaption><span class="quote__ava">С</span> Студент · 2 месяца на платформе</figcaption>
+          </figure>
+          <figure class="quote quote--alt">
+            <blockquote>«Скучные таблицы и лекции — не моё. Хочется, чтобы обучение было как игра: уровни, прогресс, азарт».</blockquote>
+            <figcaption><span class="quote__ava">М</span> Ментор школы «42»</figcaption>
+          </figure>
+        </div>
+
+        <div class="insights">
+          <article class="insight glass reveal">
+            <span class="insight__badge">Инсайт</span>
+            <h3 class="insight__title">Приоритет первого экрана</h3>
+            <p class="insight__text">При входе на платформу студенту нужно видеть всего три вещи: текущий уровень прогресса, набранные часы за неделю и кнопку быстрого возврата к задаче.</p>
+          </article>
+          <article class="insight glass reveal">
+            <span class="insight__badge">Инсайт</span>
+            <h3 class="insight__title">Психология геймификации</h3>
+            <p class="insight__text">Студентам-программистам ближе игровой, интерактивный подход к обучению, а не скучные академические таблицы.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ СЕКЦИЯ 4 — Смена требований (Pivot) ============ -->
+    <section class="sec" id="pivot">
+      <header class="sec__head reveal">
+        <p class="sec__eyebrow sec__eyebrow--warn"><span>04</span> The Pivot</p>
+        <h2 class="sec__title">Критический разворот</h2>
+      </header>
+
+      <div class="pivot glass glass--warn reveal">
+        <div class="pivot__old" aria-hidden="true">
+          <span class="pivot__tag">Было · сложная карта</span>
+          <svg class="constellation" viewBox="0 0 260 220" fill="none">
+            <g class="constellation__lines" stroke="currentColor" stroke-width="1">
+              <path d="M130 110 L60 50 M130 110 L205 45 M130 110 L40 150 M130 110 L215 160 M130 110 L120 30 M130 110 L140 195 M60 50 L120 30 M205 45 L215 160 M40 150 L140 195"/>
+            </g>
+            <g class="constellation__nodes" fill="currentColor">
+              <circle cx="130" cy="110" r="6"/><circle cx="60" cy="50" r="4"/><circle cx="205" cy="45" r="4"/>
+              <circle cx="40" cy="150" r="4"/><circle cx="215" cy="160" r="4"/><circle cx="120" cy="30" r="3"/>
+              <circle cx="140" cy="195" r="3"/>
+            </g>
+          </svg>
+        </div>
+        <div class="pivot__body">
+          <span class="pivot__badge">⚠ Изменение требований</span>
+          <p class="pivot__text">
+            Изначально я спроектировал разветвлённую космическую карту навыков
+            («Созвездия») под множество учебных направлений. Однако за 3&nbsp;недели
+            до выпуска бизнес принял решение: стартовать строго с одного направления —
+            AI&nbsp;(Искусственный интеллект). Сложная разветвлённая карта в один миг
+            потеряла актуальность. Требовалось экстренно перестроить архитектуру
+            платформы, сохранив визуальную концепцию и не сорвав сроки разработки.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ СЕКЦИЯ 5 — UI/UX Решения ============ -->
+    <section class="sec" id="solutions">
+      <header class="sec__head reveal">
+        <p class="sec__eyebrow"><span>05</span> Solutions</p>
+        <h2 class="sec__title">Дизайн-решения</h2>
+      </header>
+
+      <!-- 5.1 Линейный вертикальный флоу -->
+      <div class="solution reveal">
+        <div class="solution__media">
+          <div class="timeline glass">
+            <p class="timeline__title">Неделя 1 <span>· Основы</span></p>
+            <ul class="timeline__list">
+              <li class="tl tl--done"><span class="tl__ic">✓</span> Настройка окружения</li>
+              <li class="tl tl--done"><span class="tl__ic">✓</span> Первый коммит</li>
+              <li class="tl tl--active"><span class="tl__ic">▷</span> Переменные и типы</li>
+            </ul>
+            <p class="timeline__title">Неделя 2 <span>· Логика</span></p>
+            <ul class="timeline__list">
+              <li class="tl tl--lock"><span class="tl__ic">🔒</span> Условия и циклы</li>
+              <li class="tl tl--lock"><span class="tl__ic">🔒</span> Функции</li>
+            </ul>
+          </div>
+        </div>
+        <div class="solution__body">
+          <span class="solution__num">5.1</span>
+          <h3 class="solution__title">Линейный вертикальный флоу <span class="solution__sub">Антикризисный UX</span></h3>
+          <p class="solution__text">
+            Опираясь на ранее изученные игровые интерфейсы, я оперативно пересобрал
+            карту в Linear&nbsp;Progression&nbsp;Tree (вертикальный геймифицированный
+            таймлайн). Программа разделилась на понятные спринты (Неделя&nbsp;1,
+            Неделя&nbsp;2). Архитектура превратилась в систему интерактивных
+            папок-модулей с индикацией статуса. Юзабилити-тесты на 10&nbsp;новых
+            респондентах подтвердили — растерянность пользователей исчезла, логика
+            считывается мгновенно.
+          </p>
+        </div>
+      </div>
+
+      <!-- 5.2 All-in-one Workspace -->
+      <div class="solution solution--reverse reveal">
+        <div class="solution__media">
+          <div class="combo glass">
+            <div class="combo__bar"><i></i><i></i><i></i><span>Tomorrow School · Workspace</span></div>
+            <div class="combo__panes">
+              <div class="combo__theory">
+                <p class="combo__h">Теория &amp; ТЗ</p>
+                <span class="ln"></span><span class="ln"></span><span class="ln ln--60"></span>
+                <span class="ln ln--80"></span><span class="ln"></span><span class="ln ln--40"></span>
+              </div>
+              <div class="combo__code">
+                <p class="combo__h">Code Editor</p>
+<pre><code><span class="c-num">1</span> <span class="c-kw">def</span> <span class="c-fn">solve</span>(n):
+<span class="c-num">2</span>   total = <span class="c-lit">0</span>
+<span class="c-num">3</span>   <span class="c-kw">for</span> i <span class="c-kw">in</span> <span class="c-fn">range</span>(n):
+<span class="c-num">4</span>     total += i
+<span class="c-num">5</span>   <span class="c-kw">return</span> total</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="solution__body">
+          <span class="solution__num">5.2</span>
+          <h3 class="solution__title">All-in-one Workspace</h3>
+          <p class="solution__text">
+            Чтобы ликвидировать «скакание по вкладкам», я спроектировал двухпанельный
+            комбо-экран. В левой части студент изучает теорию и ТЗ, а в правой — пишет
+            код в интегрированном код-редакторе (Code&nbsp;Editor). Весь цикл обучения
+            теперь замкнут в одном окне.
+          </p>
+        </div>
+      </div>
+
+      <!-- 5.3 Контекстный онбординг -->
+      <div class="solution reveal">
+        <div class="solution__media">
+          <div class="onboard glass">
+            <p class="onboard__hint">Наведи на элемент ↓</p>
+            <div class="onboard__row">
+              <button class="onboard__chip" type="button">
+                Модуль
+                <span class="tip">Кликни, чтобы открыть первую задачу спринта</span>
+              </button>
+              <button class="onboard__chip" type="button">
+                Прогресс
+                <span class="tip">Здесь виден твой уровень и часы за неделю</span>
+              </button>
+              <button class="onboard__chip" type="button">
+                Код
+                <span class="tip">Пиши и запускай код прямо на платформе</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="solution__body">
+          <span class="solution__num">5.3</span>
+          <h3 class="solution__title">Бесшовный контекстный онбординг</h3>
+          <p class="solution__text">
+            Сразу после запуска платформы я интегрировал систему контекстных подсказок
+            (Triggers&nbsp;/&nbsp;Tooltips). Вместо чтения длинных инструкций
+            пользователь обучается интерфейсу прямо во время взаимодействия с первыми
+            элементами карты.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ СЕКЦИЯ 6 — Передача в разработку ============ -->
+    <section class="sec" id="handoff">
+      <header class="sec__head reveal">
+        <p class="sec__eyebrow"><span>06</span> Hand-off</p>
+        <h2 class="sec__title">Передача в разработку</h2>
+      </header>
+
+      <div class="handoff">
+        <div class="handoff__kit glass reveal" aria-hidden="true">
+          <p class="handoff__kit-title">UI Kit</p>
+          <div class="kit-row">
+            <button class="ui-btn ui-btn--primary" type="button">Начать</button>
+            <button class="ui-btn ui-btn--ghost" type="button">Позже</button>
+            <button class="ui-btn ui-btn--disabled" type="button" disabled>Готово</button>
+          </div>
+          <div class="kit-row">
+            <span class="ui-input">student@mail.com<i class="ui-caret"></i></span>
+            <span class="ui-toggle" role="img" aria-label="Переключатель"><i></i></span>
+          </div>
+          <div class="kit-row">
+            <span class="ui-tag ui-tag--a">Done</span>
+            <span class="ui-tag ui-tag--b">Active</span>
+            <span class="ui-tag ui-tag--c">Locked</span>
+          </div>
+        </div>
+
+        <div class="handoff__tokens glass reveal">
+          <div class="tokens__bar"><i></i><i></i><i></i><span>design-tokens.css</span></div>
+<pre class="tokens__code"><code><span class="c-cmt">/* Design tokens */</span>
+<span class="c-sel">:root</span> {
+  <span class="c-var">--bg</span>: <span class="c-val">#070b18</span>;
+  <span class="c-var">--accent</span>: <span class="c-val">#5b8cff</span>;
+  <span class="c-var">--neon</span>: <span class="c-val">#7cffb2</span>;
+  <span class="c-var">--radius</span>: <span class="c-val">14px</span>;
+  <span class="c-var">--space-4</span>: <span class="c-val">16px</span>;
+}</code></pre>
+        </div>
+
+        <ul class="handoff__list reveal">
+          <li><strong>Системный подход:</strong> параллельно с макетами я собрал гибкую базу UI&nbsp;Kit и настроил дизайн-токены, обеспечив высокую скорость сборки последующих экранов.</li>
+          <li><strong>Анимация в коде:</strong> микро-взаимодействия и сложные анимационные переходы я самостоятельно собрал в коде, исключив недопонимание с разработчиками.</li>
+          <li><strong>Процесс Дизайн-Ревью:</strong> мы создали общий канал для оперативного контроля вёрстки. После каждого обновления фронтенда я лично инспектировал интерфейс и выдавал точечные правки.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ СЕКЦИЯ 7 — Результаты (Impact) ============ -->
+    <section class="sec" id="impact">
+      <header class="sec__head reveal">
+        <p class="sec__eyebrow sec__eyebrow--neon"><span>07</span> Impact</p>
+        <h2 class="sec__title">Результаты проекта</h2>
+      </header>
+
+      <div class="metrics">
+        <article class="metric glass reveal">
+          <span class="metric__num">0 <i>дней</i></span>
+          <p class="metric__label">задержки релиза — сдача точно в срок после глобального Pivot.</p>
+        </article>
+        <article class="metric glass reveal">
+          <span class="metric__num">10<i>/10</i></span>
+          <p class="metric__label">пользователей мгновенно сориентировались в программе курса на юзабилити-тестах.</p>
+        </article>
+        <article class="metric glass reveal">
+          <span class="metric__num">1 <i>клик</i></span>
+          <p class="metric__label">путь студента от авторизации до начала написания кода сокращён до одного целевого действия.</p>
+        </article>
+        <article class="metric glass reveal metric--wide">
+          <span class="metric__num metric__num--sm">All-in-one</span>
+          <p class="metric__label">бесшовное переключение «Теория&nbsp;/&nbsp;Код» без сторонних сервисов (GitHub&nbsp;/ внешние IDE).</p>
+        </article>
+        <article class="metric glass reveal metric--wide">
+          <span class="metric__num metric__num--sm">Контекстный онбординг</span>
+          <p class="metric__label">быстрая и гладкая активация новых пользователей сразу после запуска платформы.</p>
+        </article>
+      </div>
+
+      <a class="endcta reveal" href="index.html#work">
+        <span class="endcta__label">Спасибо за внимание</span>
+        <span class="endcta__title">Смотреть другие работы <span aria-hidden="true">→</span></span>
+      </a>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <span>© <span data-year></span> Тим Манаков</span>
+    <span><a href="index.html#work">← Все работы</a></span>
+  </footer>
+
+  <script src="case-cosmic.js"></script>
+</body>
+</html>

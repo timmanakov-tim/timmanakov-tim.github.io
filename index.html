@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Тим Манаков — Продуктовый дизайнер</title>
+  <meta name="description" content="Портфолио продуктового дизайнера: интерфейсы, лендинги, дизайн-системы." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#work">К работам</a>
+
+  <header class="site-header">
+    <nav class="nav container" aria-label="Основная навигация">
+      <a class="nav__logo" href="#top">ТМ</a>
+      <div class="nav__right">
+        <ul class="nav__links">
+          <li><a href="#work">Работы</a></li>
+          <li><a href="#about">Обо мне</a></li>
+          <li><a href="#contact">Контакты</a></li>
+        </ul>
+        <button class="nav__theme" type="button" aria-label="Переключить тему" data-theme-toggle>
+          <span class="nav__theme-dot" aria-hidden="true"></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- Intro -->
+    <section class="intro container" aria-label="Интро">
+      <p class="intro__line reveal">
+        тим манаков — продуктовый дизайнер. проектирую интерфейсы,
+        лендинги и дизайн-системы: от идеи до передачи в разработку.
+      </p>
+    </section>
+
+    <!-- Works -->
+    <section class="works container" id="work" aria-label="Работы">
+      <ul class="works__grid">
+        <li class="tile reveal">
+          <a class="tile__link" href="case.html?id=tomorrow-school" aria-label="Кейс: Tomorrow School">
+            <div class="tile__media tile__media--image" data-tone="3">
+              <img src="assets/tomorrow-school-card.jpg" alt="Tomorrow School — обложка" loading="lazy" />
+            </div>
+            <div class="tile__cap">
+              <h3 class="tile__title">Tomorrow School</h3>
+              <p class="tile__meta">Школа программирования по модели École 42</p>
+            </div>
+          </a>
+        </li>
+
+        <li class="tile reveal">
+          <a class="tile__link" href="case.html?id=wannabe" aria-label="Кейс: wannabe">
+            <div class="tile__media" data-tone="1"></div>
+            <div class="tile__cap">
+              <h3 class="tile__title">wannabe</h3>
+              <p class="tile__meta">Лендинг для travel AI-девайса</p>
+            </div>
+          </a>
+        </li>
+
+        <li class="tile reveal">
+          <a class="tile__link" href="case.html?id=artbridger" aria-label="Кейс: Artbridger">
+            <div class="tile__media" data-tone="2"></div>
+            <div class="tile__cap">
+              <h3 class="tile__title">Artbridger</h3>
+              <p class="tile__meta">Редизайн арт-маркетплейса</p>
+            </div>
+          </a>
+        </li>
+
+        <li class="tile reveal">
+          <a class="tile__link" href="case.html?id=student-app" aria-label="Кейс: Мобильное приложение">
+            <div class="tile__media" data-tone="4"></div>
+            <div class="tile__cap">
+              <h3 class="tile__title">Student App</h3>
+              <p class="tile__meta">Мобильное приложение для студентов</p>
+            </div>
+          </a>
+        </li>
+
+        <li class="tile reveal">
+          <a class="tile__link" href="case.html?id=adata" aria-label="Кейс: Adata">
+            <div class="tile__media" data-tone="2"></div>
+            <div class="tile__cap">
+              <h3 class="tile__title">Adata</h3>
+              <p class="tile__meta">Аналитическая платформа</p>
+            </div>
+          </a>
+        </li>
+
+        <li class="tile reveal">
+          <a class="tile__link" href="case.html?id=hero-study" aria-label="Кейс: Hero Study">
+            <div class="tile__media" data-tone="1"></div>
+            <div class="tile__cap">
+              <h3 class="tile__title">Hero Study</h3>
+              <p class="tile__meta">UX-исследование</p>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- About / CV -->
+    <section class="about container" id="about" aria-labelledby="about-title">
+      <div class="section-head reveal">
+        <h2 class="section-title" id="about-title">Обо мне</h2>
+      </div>
+
+      <div class="cv reveal">
+        <!-- Sidebar -->
+        <aside class="cv__aside">
+          <img class="cv__photo" src="assets/tim-photo.png" alt="Тимур Манаков" width="375" height="402" />
+          <div class="cv__id">
+            <h3 class="cv__name">Манаков Тимур</h3>
+            <p class="cv__role">UI/UX Designer</p>
+          </div>
+
+          <ul class="cv__contacts">
+            <li>
+              <svg class="cv__ico" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5.45078 4.54995C5.54016 4.63902 5.60109 4.75261 5.62587 4.87633C5.65065 5.00006 5.63815 5.12835 5.58997 5.24496C5.54178 5.36158 5.46007 5.46128 5.35519 5.53142C5.2503 5.60157 5.12696 5.63901 5.00078 5.63901C4.8746 5.63901 4.75126 5.60157 4.64638 5.53142C4.54149 5.46128 4.45978 5.36158 4.4116 5.24496C4.36341 5.12835 4.35092 5.00006 4.37569 4.87633C4.40047 4.75261 4.4614 4.63902 4.55078 4.54995C4.67027 4.43088 4.83209 4.36401 5.00078 4.36401C5.16947 4.36401 5.33129 4.43088 5.45078 4.54995Z" fill="currentColor"/><path d="M5 1.25C4.25832 1.25 3.5333 1.46993 2.91661 1.88199C2.29993 2.29404 1.81928 2.87971 1.53545 3.56494C1.25162 4.25016 1.17736 5.00416 1.32206 5.73159C1.46675 6.45902 1.8239 7.1272 2.34835 7.65165C2.8728 8.1761 3.54098 8.53325 4.26841 8.67794C4.99584 8.82264 5.74984 8.74838 6.43506 8.46455C7.12029 8.18072 7.70596 7.70007 8.11801 7.08339C8.53007 6.4667 8.75 5.74168 8.75 5C8.75 4.00544 8.35491 3.05161 7.65165 2.34835C6.94839 1.64509 5.99456 1.25 5 1.25ZM6.97084 3.75L6.44584 5.9625C6.41979 6.07629 6.36219 6.18043 6.27965 6.26298C6.1971 6.34552 6.09296 6.40312 5.97917 6.42917L3.75 6.97083C3.65095 6.99174 3.54824 6.98759 3.45119 6.95876C3.35414 6.92994 3.26582 6.87735 3.19424 6.80577C3.12265 6.73418 3.07006 6.64586 3.04124 6.54881C3.01241 6.45176 3.00826 6.34906 3.02917 6.25L3.55417 4.02083C3.58179 3.90823 3.63998 3.80544 3.72234 3.72383C3.80469 3.64221 3.90799 3.58494 4.02084 3.55833L6.25 3.03333C6.34864 3.01267 6.45088 3.01684 6.54751 3.04547C6.64414 3.0741 6.73215 3.12629 6.80362 3.19735C6.87509 3.2684 6.92778 3.3561 6.95697 3.45257C6.98616 3.54903 6.99092 3.65124 6.97084 3.75Z" fill="currentColor"/></svg>
+              <span>Алматы, Казахстан</span>
+            </li>
+            <li>
+              <svg class="cv__ico" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5.41203 0.666748H2.58536C1.66536 0.666748 1.33203 1.00008 1.33203 1.93675V6.06341C1.33203 7.00008 1.66536 7.33341 2.58536 7.33341H5.4087C6.33203 7.33341 6.66536 7.00008 6.66536 6.06341V1.93675C6.66536 1.00008 6.33203 0.666748 5.41203 0.666748ZM3.9987 6.43341C3.6787 6.43341 3.41536 6.17008 3.41536 5.85008C3.41536 5.53008 3.6787 5.26675 3.9987 5.26675C4.3187 5.26675 4.58203 5.53008 4.58203 5.85008C4.58203 6.17008 4.3187 6.43341 3.9987 6.43341ZM4.66536 2.08341H3.33203C3.19536 2.08341 3.08203 1.97008 3.08203 1.83341C3.08203 1.69675 3.19536 1.58341 3.33203 1.58341H4.66536C4.80203 1.58341 4.91536 1.69675 4.91536 1.83341C4.91536 1.97008 4.80203 2.08341 4.66536 2.08341Z" fill="currentColor"/></svg>
+              <a href="tel:+77772881066">+7 (777) 288 10 66</a>
+            </li>
+            <li>
+              <svg class="cv__ico" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6.2013 1.33325H1.8013C1.50099 1.33413 1.21324 1.45382 1.00089 1.66617C0.788535 1.87852 0.668848 2.16628 0.667969 2.46659V5.53325C0.668848 5.83356 0.788535 6.12132 1.00089 6.33367C1.21324 6.54602 1.50099 6.66571 1.8013 6.66659H6.2013C6.50161 6.66571 6.78937 6.54602 7.00172 6.33367C7.21407 6.12132 7.33376 5.83356 7.33464 5.53325V2.46659C7.33376 2.16628 7.21407 1.87852 7.00172 1.66617C6.78937 1.45382 6.50161 1.33413 6.2013 1.33325ZM6.13797 3.20992L4.52464 4.26659C4.37265 4.37407 4.19078 4.4312 4.00464 4.42992C3.81248 4.43006 3.625 4.37067 3.46797 4.25992L1.86464 3.20992C1.83706 3.19197 1.81329 3.16877 1.79467 3.14163C1.77606 3.1145 1.76298 3.08396 1.75617 3.05177C1.74936 3.01958 1.74896 2.98637 1.75499 2.95402C1.76101 2.92167 1.77335 2.89083 1.7913 2.86325C1.80925 2.83567 1.83245 2.8119 1.85959 2.79329C1.88672 2.77468 1.91726 2.7616 1.94945 2.75479C1.98164 2.74798 2.01486 2.74758 2.0472 2.7536C2.07955 2.75963 2.11039 2.77197 2.13797 2.78992L3.7513 3.84659C3.82302 3.89863 3.90936 3.92665 3.99797 3.92665C4.08658 3.92665 4.17292 3.89863 4.24464 3.84659L5.86464 2.78325C5.89221 2.7653 5.92306 2.75296 5.9554 2.74694C5.98775 2.74091 6.02097 2.74131 6.05316 2.74812C6.08535 2.75493 6.11588 2.76801 6.14302 2.78662C6.17015 2.80524 6.19335 2.82901 6.2113 2.85659C6.22925 2.88416 6.24159 2.91501 6.24762 2.94735C6.25364 2.9797 6.25324 3.01292 6.24643 3.04511C6.23962 3.0773 6.22654 3.10783 6.20793 3.13497C6.18932 3.1621 6.16555 3.1853 6.13797 3.20325V3.20992Z" fill="currentColor"/></svg>
+              <a href="mailto:tim.manakov@gmail.com">tim.manakov@gmail.com</a>
+            </li>
+            <li>
+              <svg class="cv__ico cv__ico--tg" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 3.5C7 5.433 5.433 7 3.5 7C1.567 7 0 5.433 0 3.5C0 1.567 1.567 0 3.5 0C5.433 0 7 1.567 7 3.5ZM3.62542 2.58385C3.285 2.72545 2.60462 3.01852 1.5843 3.46305C1.41862 3.52894 1.33183 3.5934 1.32392 3.65642C1.31057 3.76294 1.44396 3.80488 1.6256 3.86199C1.6503 3.86976 1.6759 3.87781 1.70215 3.88634C1.88085 3.94443 2.12124 4.01239 2.24621 4.01509C2.35957 4.01754 2.48609 3.97081 2.62577 3.87489C3.57909 3.23138 4.07119 2.90611 4.10209 2.8991C4.12389 2.89415 4.15409 2.88793 4.17456 2.90612C4.19502 2.92431 4.19301 2.95876 4.19084 2.968C4.17763 3.02433 3.65404 3.51111 3.38308 3.76302C3.29861 3.84155 3.23869 3.89726 3.22644 3.90998C3.199 3.93848 3.17104 3.96543 3.14416 3.99134C2.97814 4.15139 2.85364 4.27141 3.15105 4.4674C3.29398 4.56158 3.40835 4.63947 3.52245 4.71717C3.64705 4.80202 3.77133 4.88666 3.93214 4.99207C3.97311 5.01892 4.01223 5.04682 4.05034 5.07399C4.19535 5.17737 4.32564 5.27025 4.48659 5.25543C4.58011 5.24683 4.67672 5.15889 4.72578 4.8966C4.84173 4.27675 5.06964 2.93372 5.12231 2.38028C5.12693 2.3318 5.12112 2.26974 5.11646 2.2425C5.1118 2.21526 5.10206 2.17645 5.06665 2.14772C5.02471 2.11369 4.95998 2.10651 4.93102 2.10702C4.79938 2.10934 4.59741 2.17957 3.62542 2.58385Z" fill="currentColor"/></svg>
+              <a href="https://t.me/timmanakov" rel="noopener" target="_blank">@timmanakov</a>
+            </li>
+          </ul>
+
+          <div class="cv__block">
+            <h4 class="cv__label">Инструменты</h4>
+            <ul class="cv__tags">
+              <li>Figma</li><li>Illustrator</li><li>Photoshop</li><li>Claude Code</li>
+            </ul>
+          </div>
+
+          <div class="cv__block">
+            <h4 class="cv__label">Навыки</h4>
+            <ul class="cv__tags">
+              <li>Usability-тестирование</li><li>CJM</li><li>Дизайн-мышление</li>
+              <li>Prototyping</li><li>Wireframing</li><li>Дизайн презентаций</li>
+              <li>Глубинные интервью</li><li>Разработка логотипов</li>
+            </ul>
+          </div>
+
+          <div class="cv__block">
+            <h4 class="cv__label">Образование</h4>
+            <p class="cv__line"><strong>КазГАСА</strong><span class="cv__year">2010</span></p>
+            <p class="cv__muted">Архитектура, техник-архитектор · Среднее специальное</p>
+          </div>
+
+          <div class="cv__block">
+            <h4 class="cv__label">Повышение квалификации</h4>
+            <ul class="cv__courses">
+              <li class="cv__course">
+                <span class="cv__course-year">2024</span>
+                <span class="cv__course-name">UX-исследования для дизайнеров</span>
+                <span class="cv__course-org">Яндекс Практикум</span>
+              </li>
+              <li class="cv__course">
+                <span class="cv__course-year">2026</span>
+                <span class="cv__course-name">AI Upgrade — интенсив по AI-инструментам</span>
+                <span class="cv__course-org">Wannabe</span>
+              </li>
+            </ul>
+          </div>
+        </aside>
+
+        <!-- Main -->
+        <div class="cv__main">
+          <p class="cv__headline">6+ лет опыта в направлениях EdTech, FinTech и Big&nbsp;Data (B2B/B2C/B2G).</p>
+          <p class="cv__summary">
+            Умею превращать хаос в структурированные пользовательские сценарии и
+            упорядоченный UI. Всегда нахожу баланс между целями бизнеса и потребностями
+            пользователей. Оптимизирую работу, используя свой опыт и актуальные AI-сервисы.
+          </p>
+
+          <h4 class="cv__exp-title">Опыт работы</h4>
+          <ol class="cv__exp">
+            <li class="cv__job">
+              <div class="cv__job-side">
+                <p class="cv__job-company">Hero Study</p>
+                <p class="cv__job-dates">2023 — 2026</p>
+                <p class="cv__job-domain">EdTech, LMS, CRM</p>
+              </div>
+              <div class="cv__job-body">
+                <p class="cv__job-role">UI/UX Designer</p>
+                <ul class="cv__points">
+                  <li>Пересобрал интерфейс журнала оценок, сократив Time on Task на 49%.</li>
+                  <li>Трансформировал старый UI Kit в масштабируемую дизайн-систему — Time to Market −40%.</li>
+                  <li>Внедрил UX Research (опросы, глубинные интервью, наблюдения) — ускорил принятие решений.</li>
+                  <li>Разработал 30+ презентаций для выхода компании на международный рынок.</li>
+                  <li>Сократил время на прототипы и user flow за счёт ИИ-инструментов на 50%.</li>
+                </ul>
+                <ul class="cv__tags">
+                  <li>Интерфейс для нескольких ролей</li><li>Опросы</li><li>Usability</li>
+                  <li>Глубинные интервью</li><li>Design review</li><li>Кастомные иллюстрации</li>
+                  <li>Создание презентаций</li><li>Разработка логотипов</li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cv__job">
+              <div class="cv__job-side">
+                <p class="cv__job-company">Adata</p>
+                <p class="cv__job-dates">2022 — 2023 · 1 г. 6 мес.</p>
+                <p class="cv__job-domain">SaaS, B2G, B2B, Big Data</p>
+              </div>
+              <div class="cv__job-body">
+                <p class="cv__job-role">Teamlead отдела дизайна</p>
+                <ul class="cv__points">
+                  <li>Внедрил 2 дополнительных модуля, оптимизировав общую навигацию и консистентность.</li>
+                  <li>Увеличил DAU на 25%.</li>
+                  <li>Внедрил культуру UX-исследований и защиты решений.</li>
+                  <li>Трансформировал UI Kit в дизайн-систему, которая используется по сей день.</li>
+                </ul>
+                <ul class="cv__tags">
+                  <li>Процесс найма</li><li>Дизайн-команда с нуля</li><li>Ежедневные стендапы</li>
+                  <li>1:1</li><li>Коммуникация с командами и C-level</li>
+                  <li>Курирование процесса дизайна</li><li>Система поощрений</li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cv__job">
+              <div class="cv__job-side">
+                <p class="cv__job-company">Adata</p>
+                <p class="cv__job-dates">2020 — 2021 · 1 г. 1 мес.</p>
+                <p class="cv__job-domain">SaaS, B2G, B2B, Big Data</p>
+              </div>
+              <div class="cv__job-body">
+                <p class="cv__job-role">UI/UX Designer</p>
+                <ul class="cv__points">
+                  <li>С нуля разработал визуальный стиль и UI-компоненты: передача дизайна в разработку −40%, меньше правок.</li>
+                  <li>Унифицировал системный UI Kit для 6 модулей, сократив Time to Market для будущих решений.</li>
+                </ul>
+                <ul class="cv__tags">
+                  <li>Личные кабинеты</li><li>Дэшборды</li><li>Графики</li><li>Таблицы</li>
+                  <li>Связи</li><li>Большие данные под мобильный интерфейс</li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="cv__job">
+              <div class="cv__job-side">
+                <p class="cv__job-company">Silk Way Group Limited</p>
+                <p class="cv__job-dates">2016 — 2020 · 4 г. 3 мес.</p>
+                <p class="cv__job-domain">FinTech, B2B, B2C</p>
+              </div>
+              <div class="cv__job-body">
+                <p class="cv__job-role">Веб-дизайнер</p>
+                <ul class="cv__points">
+                  <li>Спроектировал уникальное решение: рост CR на 15%, Time on Task −50%.</li>
+                  <li>Оптимизировал флоу регистрации — помогло выйти на международный рынок.</li>
+                </ul>
+                <ul class="cv__tags">
+                  <li>Редизайн</li><li>Кастомные иллюстрации</li><li>UI Kits</li><li>Связи</li>
+                  <li>Разработка логотипов</li><li>Коридорные тесты</li><li>Яндекс.Аналитика</li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact container" id="contact" aria-labelledby="contact-title">
+      <div class="contact__inner reveal">
+        <h2 class="contact__title" id="contact-title">Давайте поработаем вместе</h2>
+        <p class="contact__lead">Открыт к проектам и коллаборациям. Заполните форму — отвечу на почту.</p>
+
+        <form class="form" id="contact-form" novalidate>
+          <div class="form__row">
+            <div class="form__field">
+              <label class="form__label" for="f-name">Имя</label>
+              <input class="form__input" id="f-name" name="name" type="text" autocomplete="name" required placeholder="Как к вам обращаться" />
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="f-email">Email</label>
+              <input class="form__input" id="f-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
+            </div>
+          </div>
+          <div class="form__field">
+            <label class="form__label" for="f-message">Сообщение</label>
+            <textarea class="form__input form__textarea" id="f-message" name="message" rows="4" required placeholder="Пара слов о задаче или проекте"></textarea>
+          </div>
+          <div class="form__actions">
+            <button class="btn btn--primary" type="submit">Отправить</button>
+            <p class="form__status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+
+        <p class="contact__or">или напишите напрямую</p>
+        <a class="contact__email" href="mailto:tim.manakov@gmail.com">tim.manakov@gmail.com</a>
+        <ul class="contact__socials">
+          <li><a href="https://t.me/timmanakov" rel="noopener" target="_blank" aria-label="Telegram">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a></li>
+          <li><a href="https://www.behance.net/timman" rel="noopener" target="_blank" aria-label="Behance">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988H0V5.021h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 8.061-3.207 8.061zM3 11h3.584c2.508 0 2.906-3-.312-3H3v3zm3.391 3H3v3.016h3.341c3.055 0 2.868-3.016.05-3.016z"/></svg>
+          </a></li>
+          <li><a href="https://dribbble.com/Timman18" rel="noopener" target="_blank" aria-label="Dribbble">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 24C5.385 24 0 18.615 0 12S5.385 0 12 0s12 5.385 12 12-5.385 12-12 12zm10.12-10.358c-.35-.11-3.17-.953-6.384-.438 1.34 3.684 1.887 6.684 1.992 7.308 2.3-1.555 3.936-4.02 4.395-6.87zm-6.115 7.808c-.153-.9-.75-4.032-2.19-7.77l-.066.02c-5.79 2.015-7.86 6.025-8.04 6.4 1.73 1.358 3.92 2.166 6.29 2.166 1.42 0 2.77-.29 4-.816zm-11.62-2.58c.232-.4 3.045-5.055 8.332-6.765.135-.045.27-.084.405-.12-.26-.585-.54-1.167-.832-1.74C7.17 11.775 2.206 11.71 1.756 11.7l-.004.312c0 2.633.998 5.037 2.634 6.855zm-2.42-8.955c.46.008 4.683.026 9.477-1.248-1.698-3.018-3.53-5.558-3.8-5.928-2.868 1.35-5.01 3.99-5.676 7.17zM9.6 2.052c.282.38 2.145 2.914 3.822 6 3.645-1.365 5.19-3.44 5.373-3.702-1.81-1.61-4.19-2.586-6.795-2.586-.825 0-1.63.1-2.4.285zm10.335 3.483c-.218.29-1.935 2.493-5.724 4.04.24.49.47.985.68 1.486.08.18.15.36.22.53 3.41-.43 6.8.26 7.14.33-.02-2.42-.88-4.64-2.31-6.38z"/></svg>
+          </a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <span>© <span data-year></span> Тим Манаков</span>
+    <span>Сделано с ❤︎ и вниманием к деталям</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

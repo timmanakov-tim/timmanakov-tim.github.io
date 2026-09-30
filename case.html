@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Кейс — Тим Манаков</title>
+  <meta name="description" content="Кейс из портфолио продуктового дизайнера." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="is-case">
+  <a class="skip-link" href="#case-root">К содержанию</a>
+
+  <header class="site-header">
+    <nav class="nav container" aria-label="Основная навигация">
+      <a class="nav__logo" href="index.html#top">ТМ</a>
+      <div class="nav__right">
+        <ul class="nav__links">
+          <li><a href="index.html#work">Работы</a></li>
+          <li><a href="index.html#about">Обо мне</a></li>
+          <li><a href="index.html#contact">Контакты</a></li>
+        </ul>
+        <button class="nav__theme" type="button" aria-label="Переключить тему" data-theme-toggle>
+          <span class="nav__theme-dot" aria-hidden="true"></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="case-root" class="case"><!-- собирается case.js --></main>
+
+  <footer class="site-footer container">
+    <span>© <span data-year></span> Тим Манаков</span>
+    <span><a href="index.html#work">← Все работы</a></span>
+  </footer>
+
+  <script src="projects.js"></script>
+  <script src="case.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
