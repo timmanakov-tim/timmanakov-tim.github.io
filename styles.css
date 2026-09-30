@@ -292,13 +292,30 @@ img { max-width: 100%; display: block; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s var(--ease);
+  transition: transform 0.7s var(--ease);
+  will-change: transform;
 }
-.tile__link:hover .tile__media img { transform: scale(1.04); }
+.tile__link:hover .tile__media img { transform: scale(1.07); }
+/* Плитки-плейсхолдеры (без картинки) тоже реагируют на ховер */
+.tile__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--fg) 5%, transparent);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+}
+.tile__link:hover .tile__media::after { opacity: 1; }
 
-.tile__cap { padding-top: 16px; }
-.tile__title { font-size: clamp(18px, 1.5vw, 22px); }
-.tile__meta { margin-top: 3px; color: var(--fg-muted); font-size: 15px; }
+.tile__cap { padding-top: 18px; }
+.tile__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(21px, 2.4vw, 32px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+.tile__meta { margin-top: 4px; color: var(--fg-muted); font-size: 15px; }
 
 /* -------------------------------------------------- About / CV */
 .about { padding-bottom: var(--section-gap); }
@@ -603,9 +620,10 @@ textarea:focus-visible {
   margin-bottom: 22px;
 }
 .case__title {
-  font-size: clamp(40px, 8vw, 92px);
-  line-height: 1.02;
-  letter-spacing: -0.03em;
+  font-size: clamp(46px, 9vw, 108px);
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+  font-weight: 600;
 }
 .case__subtitle {
   margin-top: 22px;
