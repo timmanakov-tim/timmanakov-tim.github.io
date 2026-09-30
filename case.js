@@ -283,12 +283,10 @@
   }
 
   function caseStudyHtml(cs) {
-    var num = (index + 1 < 10 ? "0" : "") + (index + 1);
     var cover = data.cover
       ? '<figure class="cs__cover reveal"><img src="' + data.cover + '" alt="' + data.title + ' — обложка" /></figure>'
       : '<figure class="cs__cover cs__cover--tint reveal" data-tone="' + data.tone + '" aria-hidden="true"></figure>';
     return (
-      '<p class="cs__eyebrow reveal">(Кейс · ' + num + ")</p>" +
       '<h1 class="cs__title reveal">' + data.title + "</h1>" +
       (cs.tags && cs.tags.length
         ? '<ul class="cs__tags reveal">' +
