@@ -132,4 +132,55 @@
       window.location.href = mailto;
     });
   }
+
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // --- Lenis: плавный инерционный скролл ---
+  var lenis = null;
+  if (window.Lenis && !reduceMotion) {
+    lenis = new window.Lenis({ lerp: 0.1, smoothWheel: true });
+    var raf = function (t) { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+
+    // Плавный переход по якорям на этой же странице
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        var href = a.getAttribute("href") || "";
+        var hash = href.slice(href.indexOf("#"));
+        if (!hash || hash === "#") return;
+        var target = document.querySelector(hash);
+        if (!target) return; // цель на другой странице — обычный переход
+        e.preventDefault();
+        lenis.scrollTo(target, { offset: -90, duration: 1.1 });
+        history.replaceState(null, "", hash);
+      });
+    });
+  }
+
+  // --- Scroll-fill интро-строки: слова затемняются по мере прокрутки ---
+  var introLine = document.querySelector(".intro__line");
+  if (introLine && !reduceMotion) {
+    var text = (introLine.textContent || "").replace(/\s+/g, " ").trim();
+    var words = text.split(" ");
+    introLine.textContent = "";
+    var wEls = [];
+    words.forEach(function (w, i) {
+      var s = document.createElement("span");
+      s.className = "w";
+      s.textContent = w;
+      introLine.appendChild(s);
+      if (i < words.length - 1) introLine.appendChild(document.createTextNode(" "));
+      wEls.push(s);
+    });
+    var fill = function () {
+      var vh = window.innerHeight;
+      var prog = Math.min(1, (window.scrollY + vh * 0.24) / (vh * 0.72));
+      var n = Math.ceil(prog * wEls.length);
+      for (var i = 0; i < wEls.length; i++) wEls[i].classList.toggle("on", i < n);
+    };
+    fill();
+    if (lenis) lenis.on("scroll", fill);
+    else window.addEventListener("scroll", fill, { passive: true });
+    window.addEventListener("resize", fill, { passive: true });
+  }
 })();

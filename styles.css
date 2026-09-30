@@ -6,15 +6,15 @@
 :root {
   color-scheme: light;
 
-  /* Палитра — светлая тема */
-  --bg: #fbfbf9;
-  --bg-soft: #f2f1ec;
+  /* Палитра — светлая тема (тёплый greige, в духе Pamidor) */
+  --bg: #efeeeb;
+  --bg-soft: #e7e4df;
   --panel: #f5f5f7;
-  --fg: #14140f;
-  --fg-muted: #6b6a63;
-  --line: #e2e0d8;
+  --fg: #0a0a0a;
+  --fg-muted: #6b6862;
+  --line: #dad7d0;
   --accent: #e8452a;
-  --card-fg: #14140f;
+  --card-fg: #0a0a0a;
 
   /* Тона для превью-карточек */
   --tone-1: #e9e4da;
@@ -79,6 +79,13 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+/* Lenis (плавный инерционный скролл) */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
 
 body {
   margin: 0;
@@ -198,12 +205,23 @@ img { max-width: 100%; display: block; }
   padding-bottom: clamp(24px, 3.5vw, 40px);
 }
 .intro__line {
-  max-width: 60ch;
+  max-width: 24ch;
   text-transform: lowercase;
-  font-size: clamp(16px, 1.7vw, 21px);
-  line-height: 1.4;
-  letter-spacing: -0.005em;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(24px, 4vw, 46px);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
   color: var(--fg);
+}
+/* Scroll-fill: слова затемняются по мере прокрутки */
+.intro__line .w {
+  color: var(--fg-muted);
+  transition: color 0.45s var(--ease);
+}
+.intro__line .w.on { color: var(--fg); }
+@media (prefers-reduced-motion: reduce) {
+  .intro__line, .intro__line .w { color: var(--fg); transition: none; }
 }
 
 .btn {
