@@ -50,8 +50,8 @@ window.PROJECTS = {
       },
       {
         ba: {
-          before: { src: "assets/ts-reg-1.jpg?v=2", label: "Было" },
-          after: { src: "assets/ts-reg-2.jpg?v=2", label: "Стало" },
+          before: { src: "assets/ts-reg-1.jpg?v=3", label: "Было" },
+          after: { src: "assets/ts-reg-2.jpg?v=3", label: "Стало" },
           ratio: "617 / 1115",
         },
       },
