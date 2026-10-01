@@ -205,8 +205,7 @@ img { max-width: 100%; display: block; }
   padding-bottom: clamp(24px, 3.5vw, 40px);
 }
 .intro__line {
-  max-width: 24ch;
-  text-transform: lowercase;
+  max-width: 28ch;
   font-family: var(--font-display);
   font-weight: 500;
   font-size: clamp(24px, 4vw, 46px);
