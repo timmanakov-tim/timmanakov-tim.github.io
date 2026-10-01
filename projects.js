@@ -61,7 +61,7 @@ window.PROJECTS = {
           text: "Пользователи не понимали, как устроена карта обучения: где они находятся сейчас, в какой последовательности изучать навыки и как двигаться дальше по образовательной траектории.",
         },
       },
-      { media: { label: "Было", kind: "image", src: "assets/ts-map-before.jpg" } },
+      { media: { label: "Было", kind: "video", src: "assets/ts-vid-mapbefore.mp4" } },
       {
         subhead: {
           label: "Решение",
