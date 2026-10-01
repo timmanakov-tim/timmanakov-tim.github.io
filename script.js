@@ -204,6 +204,8 @@
     var before = ba.querySelector("[data-ba-before]");
     var handle = ba.querySelector("[data-ba-handle]");
     var range = ba.querySelector(".ba__range");
+    var labelBefore = ba.querySelector(".ba__label--before");
+    var labelAfter = ba.querySelector(".ba__label--after");
     if (!before || !handle) return;
     var dragging = false;
     var cur = 50;
@@ -213,6 +215,9 @@
       before.style.clipPath = "inset(0 " + (100 - cur) + "% 0 0)";
       handle.style.left = cur + "%";
       ba.setAttribute("aria-valuenow", Math.round(cur));
+      // Метку прячем, когда её сторона почти скрыта
+      if (labelBefore) labelBefore.style.opacity = cur < 8 ? "0" : "1";
+      if (labelAfter) labelAfter.style.opacity = cur > 92 ? "0" : "1";
       if (range && +range.value !== Math.round(cur)) range.value = cur;
     };
 

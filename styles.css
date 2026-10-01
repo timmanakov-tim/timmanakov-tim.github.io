@@ -1497,6 +1497,7 @@ textarea:focus-visible {
   color: #fff;
   pointer-events: none;
   backdrop-filter: blur(3px);
+  transition: opacity 0.2s var(--ease);
 }
 .ba__label--before { left: 14px; }
 .ba__label--after { right: 14px; }
