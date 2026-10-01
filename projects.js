@@ -12,6 +12,7 @@ window.PROJECTS = {
       'MVP для школы программирования по модели <a href="https://42.fr/en/homepage/" target="_blank" rel="noopener">École 42</a>',
     tone: 3,
     cover: "assets/ts-hero.jpg",
+    heroAnim: { bg: "assets/ts-hero-bg.jpg", mark: "assets/ts-hero-mark.svg", ratio: "1920 / 807" },
     link: "https://tomorrow-school.188.130.160.95.sslip.io/",
     meta: {
       Роль: "Senior Product Designer",

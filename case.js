@@ -423,7 +423,13 @@
       '<p class="case__subtitle reveal">' + (data.subtitleHtml || data.subtitle) + "</p>" +
       "</header>" +
       '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" +
-      (data.cover
+      (data.heroAnim
+        ? '<figure class="hero-anim" style="aspect-ratio:' + (data.heroAnim.ratio || "1920 / 807") + '" role="img" aria-label="' + data.title + '">' +
+            '<img class="hero-anim__bg" src="' + data.heroAnim.bg + '" alt="" />' +
+            '<img class="hero-anim__mark" src="' + data.heroAnim.mark + '" alt="' + data.title + '" />' +
+            '<span class="hero-anim__star" aria-hidden="true"></span>' +
+          "</figure>"
+        : data.cover
         ? '<div class="case__cover case__cover--image reveal"><img src="' + data.cover + '" alt="' + data.title + ' – обложка" loading="lazy" /></div>'
         : '<div class="case__cover reveal" data-tone="' + data.tone + '" aria-hidden="true"></div>') +
       (data.overview ? '<p class="tl__lead reveal">' + data.overview + "</p>" : "") +
