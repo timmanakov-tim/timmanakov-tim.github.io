@@ -49,10 +49,11 @@ window.PROJECTS = {
         ],
       },
       {
-        compare: [
-          { label: "Было", kind: "image", src: "assets/ts-reg-1.jpg", portrait: true },
-          { label: "Стало", kind: "image", src: "assets/ts-reg-2.jpg", portrait: true },
-        ],
+        ba: {
+          before: { src: "assets/ts-reg-1.jpg", label: "Было" },
+          after: { src: "assets/ts-reg-2.jpg", label: "Стало" },
+          ratio: "617 / 1115",
+        },
       },
       {
         subhead: {

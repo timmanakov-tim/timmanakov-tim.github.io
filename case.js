@@ -392,6 +392,18 @@
             '<div class="tl__plus-item"><div class="tl__plus-media tl__plus-media--logo"><img src="' + b.plus.right.src +
             '" alt="" loading="lazy" /></div><span class="tl__label">' + b.plus.right.label + "</span></div>" +
             "</div>";
+        if (b.ba) {
+          var ratio = b.ba.ratio || "16 / 10";
+          return (
+            '<div class="ba reveal" data-ba style="aspect-ratio:' + ratio + '">' +
+            '<div class="ba__img ba__after"><img src="' + b.ba.after.src + '" alt="' + (b.ba.after.label || "") + '" loading="lazy" draggable="false" />' +
+            '<span class="ba__label ba__label--after">' + b.ba.after.label + "</span></div>" +
+            '<div class="ba__img ba__before" data-ba-before><img src="' + b.ba.before.src + '" alt="' + (b.ba.before.label || "") + '" loading="lazy" draggable="false" />' +
+            '<span class="ba__label ba__label--before">' + b.ba.before.label + "</span></div>" +
+            '<div class="ba__handle" data-ba-handle><span class="ba__grip" aria-hidden="true"></span></div>' +
+            "</div>"
+          );
+        }
         return "";
       })
       .join("");

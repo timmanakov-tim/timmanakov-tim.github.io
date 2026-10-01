@@ -1455,3 +1455,86 @@ textarea:focus-visible {
   line-height: 1;
 }
 .tl__plus .tl__label { text-align: center; }
+
+/* ==================================================================
+   Before/After слайдер (Было/Стало) — .ba
+   ================================================================== */
+.ba {
+  position: relative;
+  margin: clamp(28px, 4vw, 48px) auto 0;
+  max-width: 640px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--bg-soft);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+  cursor: ew-resize;
+}
+.ba:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.ba__img { position: absolute; inset: 0; }
+.ba__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+.ba__before { will-change: clip-path; }
+.ba__label {
+  position: absolute;
+  top: 14px;
+  z-index: 3;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, #000 55%, transparent);
+  color: #fff;
+  pointer-events: none;
+  backdrop-filter: blur(3px);
+}
+.ba__label--before { left: 14px; }
+.ba__label--after { right: 14px; }
+.ba__handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: #fff;
+  box-shadow: 0 0 8px color-mix(in srgb, #000 40%, transparent);
+  z-index: 4;
+  pointer-events: none;
+}
+.ba__grip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 12px color-mix(in srgb, #000 32%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: transform 0.18s var(--ease);
+}
+.ba.is-dragging .ba__grip { transform: translate(-50%, -50%) scale(1.08); }
+.ba__grip::before,
+.ba__grip::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+}
+.ba__grip::before { border-right-color: #141414; }
+.ba__grip::after { border-left-color: #141414; }

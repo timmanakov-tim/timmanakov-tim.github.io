@@ -198,4 +198,67 @@
     else window.addEventListener("scroll", fill, { passive: true });
     window.addEventListener("resize", fill, { passive: true });
   }
+
+  // --- Before/After слайдер (Было/Стало) ---
+  Array.prototype.forEach.call(document.querySelectorAll("[data-ba]"), function (ba) {
+    var before = ba.querySelector("[data-ba-before]");
+    var handle = ba.querySelector("[data-ba-handle]");
+    var range = ba.querySelector(".ba__range");
+    if (!before || !handle) return;
+    var dragging = false;
+    var cur = 50;
+
+    var set = function (pct) {
+      cur = Math.max(0, Math.min(100, pct));
+      before.style.clipPath = "inset(0 " + (100 - cur) + "% 0 0)";
+      handle.style.left = cur + "%";
+      ba.setAttribute("aria-valuenow", Math.round(cur));
+      if (range && +range.value !== Math.round(cur)) range.value = cur;
+    };
+
+    var pctFromX = function (clientX) {
+      var r = ba.getBoundingClientRect();
+      return ((clientX - r.left) / r.width) * 100;
+    };
+
+    var onMove = function (e) {
+      if (!dragging) return;
+      var x = e.touches ? e.touches[0].clientX : e.clientX;
+      set(pctFromX(x));
+      if (e.cancelable) e.preventDefault();
+    };
+    var onDown = function (e) {
+      dragging = true;
+      ba.classList.add("is-dragging");
+      var x = e.touches ? e.touches[0].clientX : e.clientX;
+      set(pctFromX(x));
+    };
+    var onUp = function () {
+      dragging = false;
+      ba.classList.remove("is-dragging");
+    };
+
+    ba.addEventListener("mousedown", onDown);
+    ba.addEventListener("touchstart", onDown, { passive: true });
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("touchmove", onMove, { passive: false });
+    window.addEventListener("mouseup", onUp);
+    window.addEventListener("touchend", onUp);
+    if (range) range.addEventListener("input", function () { set(+range.value); });
+
+    // Доступность с клавиатуры
+    ba.setAttribute("tabindex", "0");
+    ba.setAttribute("role", "slider");
+    ba.setAttribute("aria-label", "Сравнение: было и стало");
+    ba.setAttribute("aria-valuemin", "0");
+    ba.setAttribute("aria-valuemax", "100");
+    ba.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowLeft") { set(cur - 4); e.preventDefault(); }
+      else if (e.key === "ArrowRight") { set(cur + 4); e.preventDefault(); }
+      else if (e.key === "Home") { set(0); e.preventDefault(); }
+      else if (e.key === "End") { set(100); e.preventDefault(); }
+    });
+
+    set(50);
+  });
 })();
