@@ -266,4 +266,39 @@
 
     set(50);
   });
+
+  // --- Хиро-логотип: инлайним SVG и всплываем буквами по очереди ---
+  var markImg = document.querySelector(".hero-anim__mark");
+  if (markImg && markImg.tagName === "IMG" && !reduceMotion && window.fetch) {
+    fetch(markImg.getAttribute("src"))
+      .then(function (r) { return r.ok ? r.text() : Promise.reject(); })
+      .then(function (txt) {
+        if (txt.indexOf("<svg") === -1) return; // не SVG (напр. 404) — оставляем <img>
+        var parsed = new DOMParser().parseFromString(txt, "image/svg+xml").documentElement;
+        if (!parsed || parsed.nodeName.toLowerCase() !== "svg") return;
+        var svg = document.importNode(parsed, true);
+        svg.setAttribute("class", "hero-anim__mark hero-anim__mark--svg");
+        svg.setAttribute("role", "img");
+        var al = markImg.getAttribute("alt");
+        if (al) svg.setAttribute("aria-label", al);
+        svg.removeAttribute("width");
+        svg.removeAttribute("height");
+        svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+        markImg.replaceWith(svg);
+        var paths = Array.prototype.slice.call(svg.querySelectorAll("path"));
+        try {
+          // порядок чтения: сверху вниз по строкам, внутри строки — слева направо
+          paths.sort(function (a, b) {
+            var ba = a.getBBox(), bb = b.getBBox();
+            var band = Math.round(ba.y / 120) - Math.round(bb.y / 120);
+            return band !== 0 ? band : ba.x - bb.x;
+          });
+        } catch (e) {}
+        paths.forEach(function (p, i) {
+          p.style.animationDelay = (0.4 + i * 0.05).toFixed(2) + "s";
+          p.classList.add("hero-letter");
+        });
+      })
+      .catch(function () { /* оставляем <img> как есть */ });
+  }
 })();

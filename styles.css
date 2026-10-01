@@ -1620,3 +1620,23 @@ textarea:focus-visible {
   .hero-anim__mark { animation: none; opacity: 1; transform: none; }
   .hero-anim__star { display: none; }
 }
+
+/* Инлайн-SVG логотип: буквы всплывают по очереди */
+.hero-anim__mark--svg {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+.hero-anim__mark--svg .hero-letter {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: heroLetterIn 0.62s var(--ease) both;
+}
+@keyframes heroLetterIn {
+  0%   { opacity: 0; transform: translateY(42px) scale(0.78); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-anim__mark--svg .hero-letter { opacity: 1; animation: none; transform: none; }
+}
