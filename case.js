@@ -364,9 +364,13 @@
             : '<p class="tl__body reveal">' + s.body + "</p>";
           return '<section class="tl__section"><h2 class="tl__h2 reveal">' + s.heading + "</h2>" + body + "</section>";
         }
-        if (b.subhead)
-          return '<div class="tl__sub reveal"><p class="tl__label">' + b.subhead.label +
-            '</p><p class="tl__text">' + b.subhead.text + "</p></div>";
+        if (b.subhead) {
+          var st = b.subhead.text;
+          var body = Array.isArray(st)
+            ? st.map(function (p) { return '<p class="tl__text">' + p + "</p>"; }).join("")
+            : '<p class="tl__text">' + st + "</p>";
+          return '<div class="tl__sub reveal"><p class="tl__label">' + b.subhead.label + "</p>" + body + "</div>";
+        }
         if (b.twocol)
           return '<div class="tl__twocol reveal">' +
             b.twocol.map(function (c) {
