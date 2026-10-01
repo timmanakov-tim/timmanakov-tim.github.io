@@ -1586,7 +1586,7 @@ textarea:focus-visible {
   transform-origin: right center;
   opacity: 0;
   filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
-  animation: heroStar 7s ease-in 1.9s infinite;
+  animation: heroStar 7.5s linear 1.9s infinite;
   pointer-events: none;
 }
 .hero-anim__star::after {
@@ -1607,11 +1607,13 @@ textarea:focus-visible {
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 @keyframes heroStar {
-  0%   { opacity: 0; transform: rotate(146deg) translateX(0); }
-  2%   { opacity: 0.9; }
-  13%  { opacity: 0.9; }
-  22%  { opacity: 0; transform: rotate(146deg) translateX(560px); }
-  100% { opacity: 0; transform: rotate(146deg) translateX(560px); }
+  0%   { opacity: 0;    transform: rotate(146deg) translateX(0); }
+  3%   { opacity: 0.9;  }
+  9%   { opacity: 0.85; }
+  18%  { opacity: 0.55; }
+  26%  { opacity: 0.22; }
+  34%  { opacity: 0;    transform: rotate(146deg) translateX(720px); }
+  100% { opacity: 0;    transform: rotate(146deg) translateX(720px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-anim__bg { animation: none; opacity: 1; }
