@@ -1570,8 +1570,8 @@ textarea:focus-visible {
   object-fit: contain;
   z-index: 3;
   opacity: 0;
-  transform: scale(1.04);
-  animation: heroHolo 1.8s var(--ease) 0.45s both;
+  transform: scale(1.06);
+  animation: heroHolo 2.8s cubic-bezier(0.33, 0, 0.12, 1) 0.4s both;
 }
 .hero-anim__star {
   position: absolute;
@@ -1586,7 +1586,7 @@ textarea:focus-visible {
   transform-origin: right center;
   opacity: 0;
   filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
-  animation: heroStar 7.5s linear 1.9s infinite;
+  animation: heroStar 8s linear 3.3s infinite;
   pointer-events: none;
 }
 .hero-anim__star::after {
@@ -1603,9 +1603,10 @@ textarea:focus-visible {
 }
 @keyframes heroBgIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes heroHolo {
-  0%   { opacity: 0; transform: scale(1.05); filter: blur(10px) brightness(1.7) drop-shadow(0 0 22px rgba(120, 210, 255, 0.9)); }
-  45%  { opacity: 1; transform: scale(1.01); filter: blur(2px) brightness(1.35) drop-shadow(0 0 16px rgba(120, 210, 255, 0.7)); }
-  100% { opacity: 1; transform: scale(1); filter: blur(0) brightness(1) drop-shadow(0 0 7px rgba(130, 200, 255, 0.32)); }
+  0%   { opacity: 0;     transform: scale(1.06); filter: blur(14px) brightness(1.7) drop-shadow(0 0 26px rgba(120, 210, 255, 0.85)); }
+  35%  { opacity: 0.8;   transform: scale(1.035); filter: blur(6px) brightness(1.45) drop-shadow(0 0 20px rgba(120, 210, 255, 0.68)); }
+  70%  { opacity: 1;     transform: scale(1.01); filter: blur(1.5px) brightness(1.15) drop-shadow(0 0 13px rgba(125, 205, 255, 0.5)); }
+  100% { opacity: 1;     transform: scale(1); filter: blur(0) brightness(1) drop-shadow(0 0 7px rgba(130, 200, 255, 0.3)); }
 }
 @keyframes heroStar {
   0%   { opacity: 0;    transform: rotate(146deg) translateX(0); }
