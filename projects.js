@@ -61,7 +61,7 @@ window.PROJECTS = {
           text: "Пользователи не понимали, как устроена карта обучения: где они находятся сейчас, в какой последовательности изучать навыки и как двигаться дальше по образовательной траектории.",
         },
       },
-      { media: { label: "Было", kind: "video", src: "assets/ts-vid-mapbefore.mp4", redact: [{ top: "1.5%", left: "84.5%", width: "14.5%", height: "9%" }] } },
+      { media: { label: "Было", kind: "video", src: "assets/ts-vid-mapbefore.mp4?v=2", redact: [{ top: "1.5%", left: "84.5%", width: "14.5%", height: "9%" }] } },
       {
         subhead: {
           label: "Решение",
@@ -74,8 +74,8 @@ window.PROJECTS = {
           right: { src: "assets/ts-alem-mark.png", label: "Лого Alem.ai" },
         },
       },
-      { media: { label: "Стало", kind: "video", src: "assets/ts-vid-main.mp4" } },
-      { media: { kind: "video", src: "assets/ts-vid-programm.mp4" } },
+      { media: { label: "Стало", kind: "video", src: "assets/ts-vid-main.mp4?v=2" } },
+      { media: { kind: "video", src: "assets/ts-vid-programm.mp4?v=2" } },
       {
         subhead: {
           label: "Книга навыков",
