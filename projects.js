@@ -70,7 +70,7 @@ window.PROJECTS = {
       },
       {
         plus: {
-          left: { src: "assets/ts-plan.jpg", label: "План школы" },
+          left: { src: "assets/ts-plan-core.png", label: "План школы" },
           right: { src: "assets/ts-alem-mark.png", label: "Лого Alem.ai" },
         },
       },
