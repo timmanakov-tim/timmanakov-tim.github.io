@@ -15,7 +15,7 @@
   var id = params.get("id");
   var data = id && projects[id];
 
-  // Проект не найден — показываем заглушку
+  // Проект не найден – показываем заглушку
   if (!data) {
     root.innerHTML =
       '<div class="container case__notfound reveal">' +
@@ -26,7 +26,7 @@
     return;
   }
 
-  document.title = data.title + " — Тим Манаков";
+  document.title = data.title + " – Тим Манаков";
   var metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc) metaDesc.setAttribute("content", data.subtitle);
 
@@ -58,7 +58,7 @@
     return sections
       .map(function (s) {
         var media = s.image
-          ? '<div class="case__media case__media--image reveal"><img src="' + s.image + '" alt="' + s.heading + " — " + data.title + '" loading="lazy" /></div>'
+          ? '<div class="case__media case__media--image reveal"><img src="' + s.image + '" alt="' + s.heading + " – " + data.title + '" loading="lazy" /></div>'
           : s.media
           ? '<div class="case__media reveal" data-tone="' + data.tone + '" aria-hidden="true"></div>'
           : "";
@@ -77,7 +77,7 @@
 
   function galleryHtml(gallery) {
     if (!gallery) return "";
-    // Массив ссылок на реальные экраны — плитки-картинки; число — тональные заглушки
+    // Массив ссылок на реальные экраны – плитки-картинки; число – тональные заглушки
     if (Array.isArray(gallery)) {
       if (!gallery.length) return "";
       var imgTiles = gallery
@@ -296,7 +296,7 @@
 
   function caseStudyHtml(cs) {
     var cover = data.cover
-      ? '<figure class="cs__cover reveal"><img src="' + data.cover + '" alt="' + data.title + ' — обложка" /></figure>'
+      ? '<figure class="cs__cover reveal"><img src="' + data.cover + '" alt="' + data.title + ' – обложка" /></figure>'
       : '<figure class="cs__cover cs__cover--tint reveal" data-tone="' + data.tone + '" aria-hidden="true"></figure>';
     return (
       '<h1 class="cs__title reveal">' + data.title + "</h1>" +
@@ -420,7 +420,7 @@
       "</header>" +
       '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" +
       (data.cover
-        ? '<div class="case__cover case__cover--image reveal"><img src="' + data.cover + '" alt="' + data.title + ' — обложка" loading="lazy" /></div>'
+        ? '<div class="case__cover case__cover--image reveal"><img src="' + data.cover + '" alt="' + data.title + ' – обложка" loading="lazy" /></div>'
         : '<div class="case__cover reveal" data-tone="' + data.tone + '" aria-hidden="true"></div>') +
       (data.overview ? '<p class="tl__lead reveal">' + data.overview + "</p>" : "") +
       blocksHtml(data.blocks);
@@ -435,7 +435,7 @@
       "</header>" +
       '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" +
       (data.cover
-        ? '<div class="case__cover case__cover--image reveal"><img src="' + data.cover + '" alt="' + data.title + ' — обложка" loading="lazy" /></div>'
+        ? '<div class="case__cover case__cover--image reveal"><img src="' + data.cover + '" alt="' + data.title + ' – обложка" loading="lazy" /></div>'
         : '<div class="case__cover reveal" data-tone="' + data.tone + '" aria-hidden="true"></div>') +
       (data.article
         ? '<div class="art art--notoc"><div class="art__body">' +
