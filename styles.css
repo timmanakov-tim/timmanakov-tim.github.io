@@ -1462,7 +1462,7 @@ textarea:focus-visible {
 .ba {
   position: relative;
   margin: clamp(28px, 4vw, 48px) auto 0;
-  max-width: 640px;
+  max-width: 100%;
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--line);
