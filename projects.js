@@ -83,6 +83,7 @@ window.PROJECTS = {
         },
       },
       { media: { kind: "video", src: "assets/ts-vid-book.mp4" } },
+      { media: { kind: "video", src: "assets/ts-vid-book2.mp4" } },
       {
         section: {
           heading: "Проблемы, с которыми столкнулись",
