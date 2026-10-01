@@ -16,6 +16,7 @@ window.PROJECTS = {
     link: "https://tomorrow-school.188.130.160.95.sslip.io/",
     meta: {
       Роль: "Senior Product Designer",
+      Направление: "EdTech",
       Год: "2026",
       Платформа: "Web · Desktop",
       Срок: "3 месяца",
