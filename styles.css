@@ -1570,8 +1570,8 @@ textarea:focus-visible {
   object-fit: contain;
   z-index: 3;
   opacity: 0;
-  transform: translateY(2.4%) scale(0.985);
-  animation: heroMarkIn 1.1s var(--ease) 0.55s both;
+  transform: scale(1.04);
+  animation: heroHolo 1.8s var(--ease) 0.45s both;
 }
 .hero-anim__star {
   position: absolute;
@@ -1602,9 +1602,10 @@ textarea:focus-visible {
   box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.9);
 }
 @keyframes heroBgIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes heroMarkIn {
-  0%   { opacity: 0; transform: translateY(2.4%) scale(0.985); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
+@keyframes heroHolo {
+  0%   { opacity: 0; transform: scale(1.05); filter: blur(10px) brightness(1.7) drop-shadow(0 0 22px rgba(120, 210, 255, 0.9)); }
+  45%  { opacity: 1; transform: scale(1.01); filter: blur(2px) brightness(1.35) drop-shadow(0 0 16px rgba(120, 210, 255, 0.7)); }
+  100% { opacity: 1; transform: scale(1); filter: blur(0) brightness(1) drop-shadow(0 0 7px rgba(130, 200, 255, 0.32)); }
 }
 @keyframes heroStar {
   0%   { opacity: 0;    transform: rotate(146deg) translateX(0); }
@@ -1617,26 +1618,7 @@ textarea:focus-visible {
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-anim__bg { animation: none; opacity: 1; }
-  .hero-anim__mark { animation: none; opacity: 1; transform: none; }
+  .hero-anim__mark { animation: none; opacity: 1; transform: none; filter: none; }
   .hero-anim__star { display: none; }
 }
 
-/* Инлайн-SVG логотип: буквы всплывают по очереди */
-.hero-anim__mark--svg {
-  opacity: 1;
-  transform: none;
-  animation: none;
-}
-.hero-anim__mark--svg .hero-letter {
-  opacity: 0;
-  transform-box: fill-box;
-  transform-origin: center bottom;
-  animation: heroLetterIn 0.62s var(--ease) both;
-}
-@keyframes heroLetterIn {
-  0%   { opacity: 0; transform: translateY(42px) scale(0.78); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-anim__mark--svg .hero-letter { opacity: 1; animation: none; transform: none; }
-}
