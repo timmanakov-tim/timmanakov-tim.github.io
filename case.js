@@ -344,11 +344,16 @@
   // --- Блочный рендер: страница точно по макету Figma (data.blocks) ---
   function tlMedia(m) {
     var mod = m.portrait ? " tl__frame--portrait" : "";
-    if (m.kind === "video")
-      return '<div class="tl__frame' + mod + '"><video src="' + m.src +
-        '" autoplay muted loop playsinline preload="metadata"></video></div>';
-    return '<div class="tl__frame' + mod + '"><img src="' + m.src +
-      '" alt="' + data.title + '" loading="lazy" /></div>';
+    var inner = m.kind === "video"
+      ? '<video src="' + m.src + '" autoplay muted loop playsinline preload="metadata"></video>'
+      : '<img src="' + m.src + '" alt="' + data.title + '" loading="lazy" />';
+    var redact = (m.redact || [])
+      .map(function (r) {
+        return '<span class="tl__redact" style="top:' + r.top + ";left:" + r.left +
+          ";width:" + r.width + ";height:" + r.height + '"></span>';
+      })
+      .join("");
+    return '<div class="tl__frame' + mod + '">' + inner + redact + "</div>";
   }
 
   function blocksHtml(blocks) {
