@@ -1324,9 +1324,9 @@ textarea:focus-visible {
    Шрифты сайта (Inter / Inter Tight), контент в .container
    ================================================================== */
 .tl__lead {
-  margin: clamp(40px, 6vw, 84px) auto 0;
+  margin: clamp(40px, 6vw, 84px) 0 0;
   max-width: 900px;
-  text-align: center;
+  text-align: left;
   font-family: var(--font-sans);
   font-size: clamp(20px, 2.6vw, 30px);
   line-height: 1.4;
