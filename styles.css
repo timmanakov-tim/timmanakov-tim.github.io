@@ -1635,3 +1635,45 @@ textarea:focus-visible {
   backdrop-filter: blur(12px);
   pointer-events: none;
 }
+
+/* ==================================================================
+   Переключатель категорий работ (UX/UI ↔ Graphic Design)
+   ================================================================== */
+.works__filter {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  margin: 0 0 clamp(26px, 4vw, 48px);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg-soft);
+}
+.works__tab {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 9px 20px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  color: var(--fg-muted);
+  cursor: pointer;
+  transition: color 0.2s var(--ease), background 0.25s var(--ease);
+}
+.works__tab:hover { color: var(--fg); }
+.works__tab.is-active { background: var(--fg); color: var(--bg); }
+.works__tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.tile--hidden { display: none; }
+
+.works__empty {
+  grid-column: 1 / -1;
+  padding: clamp(48px, 9vw, 110px) 0;
+  text-align: center;
+  color: var(--fg-muted);
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 1.5;
+}

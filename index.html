@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20" />
+  <link rel="stylesheet" href="styles.css?v=21" />
 </head>
 <body>
   <a class="skip-link" href="#work">К работам</a>
@@ -40,8 +40,12 @@
 
     <!-- Works -->
     <section class="works container" id="work" aria-label="Работы">
+      <div class="works__filter reveal" role="tablist" aria-label="Фильтр работ">
+        <button class="works__tab is-active" type="button" data-cat="uxui" role="tab" aria-selected="true">UX / UI</button>
+        <button class="works__tab" type="button" data-cat="graph" role="tab" aria-selected="false">Graphic Design</button>
+      </div>
       <ul class="works__grid">
-        <li class="tile reveal">
+        <li class="tile reveal" data-cat="uxui">
           <a class="tile__link" href="case.html?id=tomorrow-school" aria-label="Кейс: Tomorrow School">
             <div class="tile__media tile__media--image" data-tone="3">
               <img src="assets/ts-card.jpg" alt="Tomorrow School – обложка" loading="lazy" />
@@ -53,7 +57,7 @@
           </a>
         </li>
 
-        <li class="tile reveal">
+        <li class="tile reveal" data-cat="uxui">
           <a class="tile__link" href="case.html?id=wannabe" aria-label="Кейс: wannabe">
             <div class="tile__media" data-tone="1"></div>
             <div class="tile__cap">
@@ -63,7 +67,7 @@
           </a>
         </li>
 
-        <li class="tile reveal">
+        <li class="tile reveal" data-cat="uxui">
           <a class="tile__link" href="case.html?id=artbridger" aria-label="Кейс: Artbridger">
             <div class="tile__media" data-tone="2"></div>
             <div class="tile__cap">
@@ -73,7 +77,7 @@
           </a>
         </li>
 
-        <li class="tile reveal">
+        <li class="tile reveal" data-cat="uxui">
           <a class="tile__link" href="case.html?id=student-app" aria-label="Кейс: Мобильное приложение">
             <div class="tile__media" data-tone="4"></div>
             <div class="tile__cap">
@@ -83,7 +87,7 @@
           </a>
         </li>
 
-        <li class="tile reveal">
+        <li class="tile reveal" data-cat="uxui">
           <a class="tile__link" href="case.html?id=adata" aria-label="Кейс: Adata">
             <div class="tile__media" data-tone="2"></div>
             <div class="tile__cap">
@@ -93,7 +97,7 @@
           </a>
         </li>
 
-        <li class="tile reveal">
+        <li class="tile reveal" data-cat="uxui">
           <a class="tile__link" href="case.html?id=hero-study" aria-label="Кейс: Hero Study">
             <div class="tile__media" data-tone="1"></div>
             <div class="tile__cap">
@@ -102,6 +106,7 @@
             </div>
           </a>
         </li>
+        <li class="works__empty" data-empty hidden>Раздел в работе — графические работы скоро появятся.</li>
       </ul>
     </section>
 
@@ -326,6 +331,6 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
-  <script src="script.js?v=9"></script>
+  <script src="script.js?v=10"></script>
 </body>
 </html>

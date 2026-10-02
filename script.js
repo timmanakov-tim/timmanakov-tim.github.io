@@ -266,4 +266,30 @@
 
     set(50);
   });
+
+  // --- Переключатель работ: UX/UI ↔ Graphic Design ---
+  var worksTabs = document.querySelectorAll(".works__tab");
+  if (worksTabs.length) {
+    var worksTiles = document.querySelectorAll(".works__grid .tile");
+    var worksEmpty = document.querySelector(".works__empty");
+    var applyCat = function (cat) {
+      var shown = 0;
+      Array.prototype.forEach.call(worksTiles, function (tile) {
+        var show = (tile.getAttribute("data-cat") || "uxui") === cat;
+        tile.classList.toggle("tile--hidden", !show);
+        if (show) shown++;
+      });
+      if (worksEmpty) worksEmpty.hidden = shown > 0;
+      Array.prototype.forEach.call(worksTabs, function (t) {
+        var on = t.getAttribute("data-cat") === cat;
+        t.classList.toggle("is-active", on);
+        t.setAttribute("aria-selected", on ? "true" : "false");
+      });
+    };
+    Array.prototype.forEach.call(worksTabs, function (tab) {
+      tab.addEventListener("click", function () {
+        applyCat(tab.getAttribute("data-cat"));
+      });
+    });
+  }
 })();
