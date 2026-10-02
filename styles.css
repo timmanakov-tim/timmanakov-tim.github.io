@@ -1677,3 +1677,10 @@ textarea:focus-visible {
   font-size: clamp(16px, 2vw, 20px);
   line-height: 1.5;
 }
+
+/* Пустой слот-плейсхолдер под экран (пока нет реального скрина) */
+.tl__frame--tint { aspect-ratio: 16 / 9; background: var(--tone-1); }
+.tl__frame--tint[data-tone="1"] { background: var(--tone-1); }
+.tl__frame--tint[data-tone="2"] { background: var(--tone-2); }
+.tl__frame--tint[data-tone="3"] { background: var(--tone-3); }
+.tl__frame--tint[data-tone="4"] { background: var(--tone-4); }
