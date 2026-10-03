@@ -230,7 +230,7 @@ window.PROJECTS = {
     title: "Hero Study",
     subtitle: "Конструктор учебного контента для вузов",
     tone: 1,
-    cover: "assets/hs-clone-2.jpg",
+    cover: "assets/hs-hero-lectures.jpg",
     meta: {
       Роль: "Product Designer",
       Направление: "EdTech",
