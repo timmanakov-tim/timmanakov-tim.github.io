@@ -367,12 +367,14 @@
         if (b.heading) return '<h2 class="tl__h2 tl__h2--solo reveal">' + b.heading + "</h2>";
         if (b.section) {
           var s = b.section;
-          var body = s.list
-            ? '<ol class="tl__list reveal">' +
+          var body = "";
+          if (s.body) body += '<p class="tl__body reveal">' + s.body + "</p>";
+          if (s.list)
+            body +=
+              '<ol class="tl__list reveal">' +
               s.list.map(function (it) { return "<li>" + it + "</li>"; }).join("") +
-              "</ol>"
-            : '<p class="tl__body reveal">' + s.body + "</p>";
-          return '<section class="tl__section"><h2 class="tl__h2 reveal">' + s.heading + "</h2>" + body + "</section>";
+              "</ol>";
+          return '<section class="tl__section">' + (s.heading ? '<h2 class="tl__h2 reveal">' + s.heading + "</h2>" : "") + body + "</section>";
         }
         if (b.subhead) {
           var st = b.subhead.text;
