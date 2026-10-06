@@ -1444,44 +1444,105 @@ textarea:focus-visible {
   border: 1px dashed color-mix(in srgb, var(--line) 80%, transparent);
 }
 
-/* Ховер модалки — в акцентных цветах проекта */
-.tl__gcell--modal {
-  cursor: pointer;
-  transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease),
-    border-color 0.45s var(--ease);
+/* Интерактивная модалка: карточки внутри подсвечиваются и кликаются */
+.tl__gcell--modalui {
+  background: #ffffff;
+  border: 1px solid #ebedf1;
+  overflow: visible;
 }
-.tl__gcell--modal::after {
-  content: "";
+.hsmodal {
+  --hs-blue: #2f8bf6;
   position: absolute;
   inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  background: linear-gradient(
-    115deg,
-    transparent 38%,
-    color-mix(in srgb, var(--accent) 24%, transparent) 50%,
-    transparent 62%
-  );
-  transform: translateX(-130%);
-  transition: transform 0.75s var(--ease), opacity 0.45s var(--ease);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: clamp(14px, 6%, 26px) clamp(16px, 7%, 40px);
 }
-.tl__gcell--modal:hover,
-.tl__gcell--modal:focus-visible {
-  transform: translateY(-6px);
-  border-color: var(--accent);
-  box-shadow: 0 18px 44px -14px color-mix(in srgb, var(--accent) 50%, transparent),
-    0 0 0 1px color-mix(in srgb, var(--accent) 55%, transparent);
+.hsmodal__head { position: relative; text-align: center; flex: 0 0 auto; }
+.hsmodal__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(13px, 2.1cqw, 18px);
+  letter-spacing: -0.01em;
+  color: #16284a;
 }
-.tl__gcell--modal:hover::after,
-.tl__gcell--modal:focus-visible::after {
-  opacity: 1;
-  transform: translateX(130%);
+.hsmodal__close {
+  position: absolute;
+  top: -2px;
+  right: 0;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: #99a2b2;
+  background: none;
+  border: 0;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: color 0.2s var(--ease), background 0.2s var(--ease);
 }
+.hsmodal__close svg { width: 15px; height: 15px; }
+.hsmodal__close:hover { color: #16284a; background: #f1f3f6; }
+.hsmodal__options {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 2.5%, 20px);
+}
+.hsmodal__opt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(5px, 1.4cqw, 12px);
+  width: clamp(104px, 30%, 168px);
+  aspect-ratio: 1 / 0.8;
+  padding: clamp(8px, 2%, 16px);
+  background: #ffffff;
+  border: 1px solid #e3e7ee;
+  border-radius: 14px;
+  color: #2b3442;
+  cursor: pointer;
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease),
+    background 0.3s var(--ease), box-shadow 0.3s var(--ease), color 0.3s var(--ease);
+}
+.hsmodal__ico { color: #6b7686; transition: color 0.3s var(--ease), transform 0.3s var(--ease); }
+.hsmodal__ico svg { width: clamp(20px, 4.4cqw, 30px); height: auto; display: block; }
+.hsmodal__label {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(12px, 2cqw, 16px);
+  transition: color 0.3s var(--ease);
+}
+.hsmodal__opt:hover,
+.hsmodal__opt:focus-visible,
+.hsmodal__opt.is-demo {
+  outline: none;
+  border-color: var(--hs-blue);
+  background: color-mix(in srgb, var(--hs-blue) 8%, #fff);
+  color: var(--hs-blue);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -12px color-mix(in srgb, var(--hs-blue) 60%, transparent);
+}
+.hsmodal__opt:hover .hsmodal__ico,
+.hsmodal__opt:focus-visible .hsmodal__ico,
+.hsmodal__opt.is-demo .hsmodal__ico { color: var(--hs-blue); transform: scale(1.08); }
+.hsmodal__opt:active { transform: translateY(-1px) scale(0.98); }
+.hsmodal__opt.is-selected {
+  border-color: var(--hs-blue);
+  background: color-mix(in srgb, var(--hs-blue) 14%, #fff);
+  color: var(--hs-blue);
+  box-shadow: inset 0 0 0 1px var(--hs-blue);
+}
+.hsmodal__opt.is-selected .hsmodal__ico { color: var(--hs-blue); }
+.tl__gcell--modalui { container-type: inline-size; }
 @media (prefers-reduced-motion: reduce) {
-  .tl__gcell--modal,
-  .tl__gcell--modal::after { transition: none; }
-  .tl__gcell--modal:hover { transform: none; }
-  .tl__gcell--modal:hover::after { opacity: 0; }
+  .hsmodal__opt, .hsmodal__ico, .hsmodal__close { transition: none; }
+  .hsmodal__opt:hover, .hsmodal__opt:active, .hsmodal__opt.is-demo { transform: none; }
+  .hsmodal__opt:hover .hsmodal__ico, .hsmodal__opt.is-demo .hsmodal__ico { transform: none; }
 }
 @media (max-width: 640px) {
   .tl__grid { grid-template-columns: 1fr; }

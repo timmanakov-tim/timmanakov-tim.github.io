@@ -271,7 +271,7 @@ window.PROJECTS = {
         grid: {
           ratio: "618 / 272",
           items: [
-            { src: "assets/hs-popup-1.png" },
+            { modal: true },
             {},
             {},
             {},

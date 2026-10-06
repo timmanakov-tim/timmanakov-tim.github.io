@@ -292,4 +292,44 @@
       });
     });
   }
+
+  // --- Карточки модалки Hero Study: выбор по клику ---
+  document.addEventListener("click", function (e) {
+    var opt = e.target.closest && e.target.closest(".hsmodal__opt");
+    if (!opt) return;
+    var group = opt.closest(".hsmodal__options");
+    if (!group) return;
+    Array.prototype.forEach.call(group.querySelectorAll(".hsmodal__opt"), function (b) {
+      var on = b === opt;
+      b.classList.toggle("is-selected", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+  });
+
+  // --- Авто-демо модалки: подсветка карточек по кругу (как луп на главном экране) ---
+  var hsGroup = document.querySelector(".hsmodal__options");
+  if (hsGroup) {
+    var hsOpts = Array.prototype.slice.call(hsGroup.querySelectorAll(".hsmodal__opt"));
+    var hsReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (hsOpts.length && !hsReduce) {
+      var hsI = 0, hsTimer = null, hsHover = false, hsLocked = false;
+      var hsClear = function () {
+        hsOpts.forEach(function (o) { o.classList.remove("is-demo"); });
+      };
+      var hsTick = function () {
+        hsClear();
+        if (hsLocked || hsHover) return;
+        hsOpts[hsI % hsOpts.length].classList.add("is-demo");
+        hsI++;
+      };
+      var hsStop = function () { if (hsTimer) { clearInterval(hsTimer); hsTimer = null; } };
+      hsGroup.addEventListener("mouseenter", function () { hsHover = true; hsClear(); });
+      hsGroup.addEventListener("mouseleave", function () { hsHover = false; });
+      hsOpts.forEach(function (o) {
+        o.addEventListener("click", function () { hsLocked = true; hsStop(); hsClear(); });
+      });
+      hsTick();
+      hsTimer = setInterval(hsTick, 1600);
+    }
+  }
 })();
