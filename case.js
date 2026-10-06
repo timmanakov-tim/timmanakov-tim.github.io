@@ -440,10 +440,30 @@
                 "</div>" +
               "</div>" +
             "</div>";
+          var saveModalHtml =
+            '<div class="tl__gcell tl__gcell--modalui tl__gcell--msave" style="aspect-ratio:' + gr + '">' +
+              '<div class="hsmodal hssave-modal">' +
+                '<div class="hssave__head">' +
+                  '<span class="hssave__title">Сохранить как шаблон</span>' +
+                  '<button type="button" class="hsdd__iconbtn hssave__close" aria-label="Закрыть">' + icoClose + "</button>" +
+                "</div>" +
+                '<div class="hssave__body">' +
+                  '<label class="hssave__field">' +
+                    '<span class="hssave__label">Введите название шаблона</span>' +
+                    '<input type="text" class="hssave__input" placeholder="Test" aria-label="Название шаблона" />' +
+                  "</label>" +
+                "</div>" +
+                '<div class="hssave__foot">' +
+                  '<button type="button" class="hssave__btn hssave__btn--ghost">Отмена</button>' +
+                  '<button type="button" class="hssave__btn hssave__btn--primary">Сохранить</button>' +
+                "</div>" +
+              "</div>" +
+            "</div>";
           return '<div class="tl__grid reveal">' +
             b.grid.items.map(function (it) {
               if (it && (it.modal === true || it.modal === "choice")) return choiceModalHtml;
               if (it && it.modal === "dropdown") return dropdownModalHtml;
+              if (it && it.modal === "save") return saveModalHtml;
               if (it && it.src)
                 return '<div class="tl__gcell" style="aspect-ratio:' + gr + '"><img src="' + it.src + '" alt="' + (it.label || data.title) + '" loading="lazy" /></div>';
               return '<div class="tl__gcell tl__gcell--empty" style="aspect-ratio:' + gr + '" aria-hidden="true"></div>';

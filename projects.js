@@ -272,7 +272,7 @@ window.PROJECTS = {
           ratio: "618 / 272",
           items: [
             { modal: "choice" },
-            { modal: "dropdown" },
+            { modal: "save" },
             {},
             {},
           ],
