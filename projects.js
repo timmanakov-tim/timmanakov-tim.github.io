@@ -273,8 +273,6 @@ window.PROJECTS = {
           items: [
             { modal: "choice" },
             { modal: "save" },
-            {},
-            {},
           ],
         },
       },
