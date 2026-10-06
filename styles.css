@@ -701,6 +701,17 @@ textarea:focus-visible {
 .case__cover--image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .case__cover--image::after { display: none; }
 
+/* Hero с устройством: фон-мокап + видео в области экрана */
+.hero-device { background: var(--bg-soft); }
+.hero-device__bg { position: absolute; inset: 0; }
+.hero-device__screen {
+  position: absolute;
+  object-fit: cover;
+  display: block;
+  background: #0b0b0d;
+  border: 0;
+}
+
 .case__overview {
   margin: clamp(48px, 7vw, 80px) auto 0;
   max-width: 720px;

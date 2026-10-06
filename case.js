@@ -435,7 +435,15 @@
       '<p class="case__subtitle reveal">' + (data.subtitleHtml || data.subtitle) + "</p>" +
       "</header>" +
       '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" +
-      (data.heroAnim
+      (data.heroDevice
+        ? (function (d) {
+            var sc = d.screen || {};
+            return '<figure class="case__cover case__cover--image hero-device reveal" style="aspect-ratio:' + (d.ratio || "1254 / 708") + '">' +
+              '<img class="hero-device__bg" src="' + d.bg + '" alt="' + data.title + ' – обложка" />' +
+              '<video class="hero-device__screen" style="left:' + sc.left + ";top:" + sc.top + ";width:" + sc.width + ";height:" + sc.height + '" src="' + d.video + '" autoplay muted loop playsinline preload="auto"></video>' +
+              "</figure>";
+          })(data.heroDevice)
+        : data.heroAnim
         ? '<figure class="hero-anim" style="aspect-ratio:' + (data.heroAnim.ratio || "1920 / 807") + '" role="img" aria-label="' + data.title + '">' +
             '<img class="hero-anim__bg" src="' + data.heroAnim.bg + '" alt="" />' +
             '<img class="hero-anim__mark" src="' + data.heroAnim.mark + '" alt="' + data.title + '" />' +

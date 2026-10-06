@@ -231,6 +231,12 @@ window.PROJECTS = {
     subtitle: "Конструктор учебного контента для вузов",
     tone: 1,
     cover: "assets/hs-hero-lectures.jpg",
+    heroDevice: {
+      bg: "assets/hs-hero-bg.jpg",
+      video: "assets/hs-hero-screen.mp4",
+      ratio: "1254 / 708",
+      screen: { left: "22.97%", top: "11.44%", width: "54.23%", height: "53.95%" },
+    },
     meta: {
       Роль: "Product Designer",
       Направление: "EdTech",
