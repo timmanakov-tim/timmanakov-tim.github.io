@@ -267,6 +267,17 @@ window.PROJECTS = {
       { media: { kind: "image", src: "assets/hs-03.jpg?v=3" } },
       { media: { kind: "image", src: "assets/hs-04.jpg?v=3" } },
       { media: { kind: "image", src: "assets/hs-05.jpg?v=3" } },
+      {
+        grid: {
+          ratio: "618 / 272",
+          items: [
+            { src: "assets/hs-popup-1.png" },
+            {},
+            {},
+            {},
+          ],
+        },
+      },
     ],
   },
 };

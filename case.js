@@ -383,6 +383,15 @@
             : '<p class="tl__text">' + st + "</p>";
           return '<div class="tl__sub reveal"><p class="tl__label">' + b.subhead.label + "</p>" + body + "</div>";
         }
+        if (b.grid) {
+          var gr = b.grid.ratio || "16 / 9";
+          return '<div class="tl__grid reveal">' +
+            b.grid.items.map(function (it) {
+              if (it && it.src)
+                return '<div class="tl__gcell" style="aspect-ratio:' + gr + '"><img src="' + it.src + '" alt="' + (it.label || data.title) + '" loading="lazy" /></div>';
+              return '<div class="tl__gcell tl__gcell--empty" style="aspect-ratio:' + gr + '" aria-hidden="true"></div>';
+            }).join("") + "</div>";
+        }
         if (b.rows)
           return '<div class="tl__rows reveal">' +
             b.rows.map(function (r) {

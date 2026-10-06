@@ -1424,6 +1424,29 @@ textarea:focus-visible {
 .tl__media { margin: clamp(28px, 4vw, 48px) 0 0; }
 .tl__media .tl__label { margin-bottom: 14px; }
 
+/* Сетка фреймов в натуральном размере (попап + пустые слоты) */
+.tl__grid {
+  margin-top: clamp(28px, 4vw, 48px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 24px);
+}
+.tl__gcell {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+}
+.tl__gcell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tl__gcell--empty {
+  background: color-mix(in srgb, var(--bg-soft) 70%, var(--bg));
+  border: 1px dashed color-mix(in srgb, var(--line) 80%, transparent);
+}
+@media (max-width: 640px) {
+  .tl__grid { grid-template-columns: 1fr; }
+}
+
 /* Строки «ярлык — текст» (Проблема / Задача / Ценность), как в макете */
 .tl__rows { margin-top: clamp(56px, 8vw, 104px); display: grid; gap: clamp(28px, 4vw, 44px); }
 .tl__row {
