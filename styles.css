@@ -1490,31 +1490,34 @@ textarea:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(10px, 2.5%, 20px);
+  gap: clamp(12px, 2.59cqw, 16px); /* макет: 16px */
 }
 .hsmodal__opt {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(5px, 1.4cqw, 12px);
-  width: clamp(104px, 30%, 168px);
-  aspect-ratio: 1 / 0.8;
-  padding: clamp(8px, 2%, 16px);
+  gap: clamp(6px, 1.29cqw, 8px); /* макет: 8px */
+  width: clamp(72px, 16.02cqw, 99px); /* макет: 99px */
+  aspect-ratio: 99 / 88; /* макет: 99×88 */
+  padding: clamp(11px, 2.59cqw, 16px);
   background: #ffffff;
-  border: 1px solid #e3e7ee;
-  border-radius: 14px;
-  color: #2b3442;
+  border: 1px solid #d4d4d4; /* макет */
+  border-radius: clamp(10px, 1.94cqw, 12px); /* макет: 12px */
+  color: #000000; /* макет */
+  font-family: -apple-system, "SF Pro Display", "SF Pro Text", system-ui, "Segoe UI", sans-serif;
   cursor: pointer;
   transition: transform 0.3s var(--ease), border-color 0.3s var(--ease),
     background 0.3s var(--ease), box-shadow 0.3s var(--ease), color 0.3s var(--ease);
 }
-.hsmodal__ico { color: #6b7686; transition: color 0.3s var(--ease), transform 0.3s var(--ease); }
-.hsmodal__ico svg { width: clamp(20px, 4.4cqw, 30px); height: auto; display: block; }
+.hsmodal__ico { color: #576478; transition: color 0.3s var(--ease), transform 0.3s var(--ease); } /* макет */
+.hsmodal__ico svg { width: clamp(17px, 3.88cqw, 24px); height: auto; display: block; } /* макет: 24px */
 .hsmodal__label {
-  font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: clamp(12px, 2cqw, 16px);
+  font-family: inherit;
+  font-weight: 400; /* макет: Regular */
+  font-size: clamp(11px, 2.59cqw, 16px); /* макет: 16px */
+  line-height: 1.5;
+  white-space: nowrap; /* макет: в одну строку */
   transition: color 0.3s var(--ease);
 }
 .hsmodal__opt:hover,
