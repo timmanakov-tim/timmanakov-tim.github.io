@@ -706,9 +706,9 @@ textarea:focus-visible {
 .hero-device__bg { position: absolute; inset: 0; }
 .hero-device__screen {
   position: absolute;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
-  background: #0b0b0d;
+  background: var(--bg-soft);
   border: 0;
 }
 
