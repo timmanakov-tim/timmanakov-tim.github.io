@@ -262,7 +262,7 @@ window.PROJECTS = {
           },
         ],
       },
-      { media: { kind: "image", src: "assets/hs-01.jpg?v=2" } },
+      { media: { kind: "image", src: "assets/hs-01.jpg?v=3" } },
       { media: { kind: "image", src: "assets/hs-02.jpg?v=2" } },
       { media: { kind: "image", src: "assets/hs-03.jpg?v=2" } },
       { media: { kind: "image", src: "assets/hs-04.jpg?v=2" } },
