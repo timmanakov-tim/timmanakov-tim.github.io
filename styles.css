@@ -1773,19 +1773,36 @@ textarea:focus-visible {
   padding: 1.5cqw 2.6cqw 2.6cqw;
 }
 .hssave__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
   font-family: inherit;
   font-weight: 500;
   cursor: pointer;
   font-size: clamp(11px, 2.59cqw, 16px);
   padding: clamp(6px, 1.6cqw, 10px) clamp(16px, 4.5cqw, 28px);
   border-radius: clamp(8px, 1.94cqw, 12px);
-  transition: background 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.15s var(--ease);
+  white-space: nowrap;
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.18s var(--ease);
 }
 .hssave__btn--ghost { background: #fff; border: 1px solid #d4d4d4; color: #000; }
 .hssave__btn--ghost:hover { border-color: #b7bcc5; }
 .hssave__btn--primary { background: var(--dd-blue); border: 1px solid var(--dd-blue); color: #fafcff; }
 .hssave__btn--primary:hover { background: #1569ea; }
 .hssave__btn:active { transform: translateY(1px); }
+/* авто-демо: поле «печатает», кнопка «нажимается» и подтверждает */
+.hssave__input.is-typing {
+  border-color: var(--dd-blue);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--dd-blue) 14%, transparent);
+}
+.hssave__btn--primary.is-press { transform: scale(0.95); }
+.hssave__btn--primary.is-done {
+  background: #16a34a;
+  border-color: #16a34a;
+}
+.hssave__check { display: inline-flex; }
+.hssave__check svg { width: 1em; height: 1em; display: block; }
 @media (prefers-reduced-motion: reduce) {
   .hssave__input, .hssave__btn { transition: none; }
 }

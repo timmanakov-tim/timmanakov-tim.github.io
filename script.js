@@ -396,4 +396,64 @@
       });
     });
   }
+
+  // --- Модалка «Сохранить как шаблон»: авто-демо ввода и нажатия Сохранить ---
+  var svModal = document.querySelector(".hssave-modal");
+  if (svModal) {
+    var svInput = svModal.querySelector(".hssave__input");
+    var svBtn = svModal.querySelector(".hssave__btn--primary");
+    var svReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (svInput && svBtn && !svReduce) {
+      var svText = "Внутренняя медицина";
+      var svSaveLabel = svBtn.innerHTML;
+      var svCheck = '<span class="hssave__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>Сохранено';
+      var svStop = false;
+      var svTimers = [];
+      var svClear = function () { svTimers.forEach(clearTimeout); svTimers = []; };
+      var svWait = function (ms) { return new Promise(function (res) { svTimers.push(setTimeout(res, ms)); }); };
+      var svTakeOver = function () {
+        if (svStop) return;
+        svStop = true;
+        svClear();
+        svInput.classList.remove("is-typing");
+        svBtn.classList.remove("is-press", "is-done");
+        svBtn.innerHTML = svSaveLabel;
+      };
+      ["focus", "pointerdown", "keydown"].forEach(function (ev) {
+        svInput.addEventListener(ev, svTakeOver);
+      });
+      svBtn.addEventListener("pointerdown", svTakeOver);
+
+      var svLoop = function () {
+        return (async function () {
+          while (!svStop) {
+            svInput.value = "";
+            svInput.classList.add("is-typing");
+            for (var i = 0; i < svText.length && !svStop; i++) {
+              svInput.value = svText.slice(0, i + 1);
+              await svWait(52 + Math.random() * 55);
+            }
+            if (svStop) break;
+            await svWait(700);
+            svInput.classList.remove("is-typing");
+            // нажатие Сохранить
+            svBtn.classList.add("is-press");
+            await svWait(170);
+            svBtn.classList.remove("is-press");
+            if (svStop) break;
+            svBtn.classList.add("is-done");
+            svBtn.innerHTML = svCheck;
+            await svWait(1300);
+            svBtn.classList.remove("is-done");
+            svBtn.innerHTML = svSaveLabel;
+            if (svStop) break;
+            await svWait(500);
+            svInput.value = "";
+            await svWait(800);
+          }
+        })();
+      };
+      svLoop();
+    }
+  }
 })();
