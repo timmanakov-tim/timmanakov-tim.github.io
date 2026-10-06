@@ -1507,10 +1507,10 @@ textarea:focus-visible {
   color: #000000; /* макет */
   font-family: -apple-system, "SF Pro Display", "SF Pro Text", system-ui, "Segoe UI", sans-serif;
   cursor: pointer;
-  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease),
-    background 0.3s var(--ease), box-shadow 0.3s var(--ease), color 0.3s var(--ease);
+  transition: transform 0.5s var(--ease), border-color 0.5s var(--ease),
+    background 0.5s var(--ease), box-shadow 0.5s var(--ease), color 0.5s var(--ease);
 }
-.hsmodal__ico { color: #576478; transition: color 0.3s var(--ease), transform 0.3s var(--ease); } /* макет */
+.hsmodal__ico { color: #576478; transition: color 0.5s var(--ease), transform 0.5s var(--ease); } /* макет */
 .hsmodal__ico svg { width: clamp(17px, 3.88cqw, 24px); height: auto; display: block; } /* макет: 24px */
 .hsmodal__label {
   font-family: inherit;
@@ -1527,8 +1527,8 @@ textarea:focus-visible {
   border-color: var(--hs-blue);
   background: color-mix(in srgb, var(--hs-blue) 8%, #fff);
   color: var(--hs-blue);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px -12px color-mix(in srgb, var(--hs-blue) 60%, transparent);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px -8px color-mix(in srgb, var(--hs-blue) 30%, transparent);
 }
 .hsmodal__opt:hover .hsmodal__ico,
 .hsmodal__opt:focus-visible .hsmodal__ico,
