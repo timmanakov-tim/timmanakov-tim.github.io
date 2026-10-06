@@ -383,6 +383,12 @@
             : '<p class="tl__text">' + st + "</p>";
           return '<div class="tl__sub reveal"><p class="tl__label">' + b.subhead.label + "</p>" + body + "</div>";
         }
+        if (b.rows)
+          return '<div class="tl__rows reveal">' +
+            b.rows.map(function (r) {
+              return '<div class="tl__row"><p class="tl__row-label">' + r.label +
+                '</p><p class="tl__row-text">' + r.text + "</p></div>";
+            }).join("") + "</div>";
         if (b.twocol)
           return '<div class="tl__twocol reveal">' +
             b.twocol.map(function (c) {
