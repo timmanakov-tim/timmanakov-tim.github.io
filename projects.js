@@ -233,7 +233,7 @@ window.PROJECTS = {
     cover: "assets/hs-hero-lectures.jpg",
     heroDevice: {
       bg: "assets/hs-hero-bg.jpg",
-      video: "assets/hs-hero-screen.mp4?v=2",
+      video: "assets/hs-hero-screen.mp4?v=3",
       ratio: "1254 / 708",
       screen: { left: "22.97%", top: "11.44%", width: "54.23%", height: "53.95%" },
     },
