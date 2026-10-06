@@ -332,4 +332,68 @@
       hsTimer = setInterval(hsTick, 1600);
     }
   }
+
+  // --- Модалка 2: дропдаун со списком (раскрытие/схлопывание в рамках высоты модалки) ---
+  var hsdd = document.querySelector(".hsdd[data-dd]");
+  if (hsdd) {
+    var ddTrigger = hsdd.querySelector(".hsdd__trigger");
+    var ddList = hsdd.querySelector(".hsdd__list");
+    var ddValue = hsdd.querySelector(".hsdd__value");
+    var ddItems = Array.prototype.slice.call(hsdd.querySelectorAll(".hsdd__item"));
+    var ddCell = hsdd.closest(".tl__gcell--modalui");
+
+    var ddFit = function () {
+      if (!ddCell) return;
+      var cellR = ddCell.getBoundingClientRect();
+      var listTop = ddList.getBoundingClientRect().top;
+      var pad = Math.max(8, cellR.height * 0.05);
+      var avail = cellR.bottom - listTop - pad;
+      var content = ddList.scrollHeight; // полная высота списка
+      ddList.style.maxHeight = Math.max(0, Math.min(avail, content)) + "px";
+    };
+    var ddOpen = function () {
+      hsdd.classList.add("is-open");
+      ddTrigger.setAttribute("aria-expanded", "true");
+      ddFit();
+    };
+    var ddClose = function () {
+      hsdd.classList.remove("is-open");
+      ddTrigger.setAttribute("aria-expanded", "false");
+      ddList.style.maxHeight = "0px";
+    };
+    ddTrigger.addEventListener("click", function (e) {
+      e.stopPropagation();
+      if (hsdd.classList.contains("is-open")) ddClose();
+      else ddOpen();
+    });
+    ddItems.forEach(function (it) {
+      it.addEventListener("click", function (e) {
+        e.stopPropagation();
+        ddItems.forEach(function (o) { o.classList.remove("is-active"); o.setAttribute("aria-selected", "false"); });
+        it.classList.add("is-active");
+        it.setAttribute("aria-selected", "true");
+        ddValue.textContent = it.textContent;
+        ddValue.classList.remove("is-empty");
+        ddClose();
+      });
+    });
+    document.addEventListener("click", function (e) {
+      if (hsdd.classList.contains("is-open") && !hsdd.contains(e.target)) ddClose();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && hsdd.classList.contains("is-open")) ddClose();
+    });
+    window.addEventListener("resize", function () {
+      if (hsdd.classList.contains("is-open")) ddFit();
+    });
+
+    // языки RU/EN/KZ/UZ
+    var ddLangs = Array.prototype.slice.call(document.querySelectorAll(".hsdd__lang"));
+    ddLangs.forEach(function (l) {
+      l.addEventListener("click", function () {
+        ddLangs.forEach(function (x) { x.classList.remove("is-on"); });
+        l.classList.add("is-on");
+      });
+    });
+  }
 })();

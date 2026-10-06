@@ -271,8 +271,8 @@ window.PROJECTS = {
         grid: {
           ratio: "618 / 272",
           items: [
-            { modal: true },
-            {},
+            { modal: "choice" },
+            { modal: "dropdown" },
             {},
             {},
           ],
