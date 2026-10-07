@@ -226,6 +226,20 @@ window.PROJECTS = {
     gallery: 3,
   },
 
+  miru: {
+    title: "Miru",
+    subtitle: "Эмпатия как украшение",
+    tone: 1,
+    cover: "assets/miru-card.jpg",
+    meta: {
+      Роль: "Graphic Design",
+      Год: "2025",
+    },
+    overview:
+      "Графический проект Miru — визуальный образ украшения вокруг идеи «эмпатия как украшение».",
+    blocks: [],
+  },
+
   "hero-study": {
     title: "Hero Study",
     subtitle: "Конструктор учебного контента для вузов",
