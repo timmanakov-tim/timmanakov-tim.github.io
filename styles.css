@@ -2074,7 +2074,10 @@ textarea:focus-visible {
    Переключатель категорий работ (UX/UI ↔ Graphic Design)
    ================================================================== */
 .works__filter {
-  display: inline-flex;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  width: 100%;
   gap: 4px;
   padding: 4px;
   margin: 0 0 clamp(26px, 4vw, 48px);
@@ -2093,6 +2096,7 @@ textarea:focus-visible {
   font-weight: 500;
   font-size: 15px;
   letter-spacing: -0.01em;
+  text-align: center;
   color: var(--fg-muted);
   cursor: pointer;
   transition: color 0.2s var(--ease), background 0.25s var(--ease);
