@@ -224,7 +224,13 @@ window.PROJECTS = {
         ],
         plain: true,
       },
-      { media: { kind: "image", src: "assets/miru-r2.jpg", plain: true } },
+      {
+        compare: [
+          { kind: "image", src: "assets/miru-r2a.jpg" },
+          { kind: "image", src: "assets/miru-r2b.jpg" },
+        ],
+        plain: true,
+      },
       { media: { kind: "image", src: "assets/miru-web.jpg", plain: true } },
     ],
   },
