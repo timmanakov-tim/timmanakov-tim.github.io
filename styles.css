@@ -752,7 +752,7 @@ textarea:focus-visible {
   aspect-ratio: 21 / 9;
 }
 
-/* Реальные картинки в секциях и галерее (формат как у wannabe) */
+/* Реальные картинки в секциях и галерее */
 .case__media--image { aspect-ratio: auto; background: var(--bg-soft); }
 .case__media--image img { width: 100%; height: auto; display: block; }
 .case__media--image::after { display: none; }
