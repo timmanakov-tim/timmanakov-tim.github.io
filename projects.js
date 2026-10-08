@@ -200,14 +200,27 @@ window.PROJECTS = {
     title: "Miru",
     subtitle: "Эмпатия как украшение",
     tone: 1,
-    cover: "assets/miru-card.jpg",
-    meta: {
-      Роль: "Graphic Design",
-      Год: "2025",
-    },
-    overview:
-      "Графический проект Miru — визуальный образ украшения вокруг идеи «эмпатия как украшение».",
-    blocks: [],
+    cover: "assets/miru-hero.jpg",
+    // Архитектура один-в-один по макету Figma node 3065-86087
+    blocks: [
+      {
+        subhead: {
+          label: "О продукте",
+          text: [
+            "Кулон, для людей интровертов, который считывает эмоции и мимику собеседника, улавливает настроение и невысказанное — и тихо подсказывает на скрытый наушник, как найти общий язык.",
+            "Название — от японского 見る, «видеть».",
+            "Технология спрятана не в гаджет на виду, а в украшение: серебряный вихрь с тёплым голубым ядром — искра понимания.",
+          ],
+        },
+      },
+      { media: { kind: "image", src: "assets/miru-logo.jpg" } },
+      { media: { kind: "image", src: "assets/miru-mockup.jpg" } },
+      { media: { kind: "image", src: "assets/miru-s4.jpg" } },
+      { media: { kind: "image", src: "assets/miru-merch.jpg" } },
+      { media: { kind: "image", src: "assets/miru-r1.jpg" } },
+      { media: { kind: "image", src: "assets/miru-r2.jpg" } },
+      { media: { kind: "image", src: "assets/miru-web.jpg" } },
+    ],
   },
 
   "hero-study": {

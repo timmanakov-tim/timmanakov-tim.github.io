@@ -526,7 +526,7 @@
       '<h1 class="case__title reveal">' + data.title + "</h1>" +
       '<p class="case__subtitle reveal">' + (data.subtitleHtml || data.subtitle) + "</p>" +
       "</header>" +
-      '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" +
+      (data.meta ? '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" : "") +
       (data.heroDevice
         ? (function (d) {
             var sc = d.screen || {};
