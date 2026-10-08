@@ -489,7 +489,7 @@
                 tlMedia(c) + "</figure>";
             }).join("") + "</div>";
         if (b.media)
-          return '<figure class="tl__media reveal' + (b.media.plain ? " tl__media--plain" : "") + '">' +
+          return '<figure class="tl__media reveal' + (b.media.plain ? " tl__media--plain" : "") + (b.media.anim ? " tl__media--" + b.media.anim : "") + '">' +
             (b.media.label ? '<figcaption class="tl__label">' + b.media.label + "</figcaption>" : "") +
             tlMedia(b.media) + "</figure>";
         if (b.plus)

@@ -1434,6 +1434,17 @@ textarea:focus-visible {
 /* Медиа без белой подложки — только картинка, без рамки и фона */
 .tl__media--plain .tl__frame { border: 0; background: transparent; }
 
+/* Выраженная анимация появления блока на экране (всплытие + зум + фейд) */
+.reveal.tl__media--rise {
+  transform: translateY(52px) scale(0.94);
+  transition: opacity 1s var(--ease), transform 1.05s var(--ease);
+  will-change: opacity, transform;
+}
+.reveal.tl__media--rise.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal.tl__media--rise { transform: none; transition: none; }
+}
+
 /* Сетка фреймов в натуральном размере (попап + пустые слоты) */
 .tl__grid {
   margin-top: clamp(28px, 4vw, 48px);
