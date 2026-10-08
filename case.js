@@ -553,7 +553,9 @@
       '<p class="case__subtitle reveal">' + (data.subtitleHtml || data.subtitle) + "</p>" +
       "</header>" +
       (data.meta ? '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" : "") +
-      (data.heroDevice
+      (data.hideHero
+        ? ""
+        : data.heroDevice
         ? (function (d) {
             var sc = d.screen || {};
             return '<figure class="case__cover case__cover--image hero-device reveal" style="aspect-ratio:' + (d.ratio || "1254 / 708") + '">' +

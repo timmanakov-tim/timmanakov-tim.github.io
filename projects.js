@@ -200,9 +200,10 @@ window.PROJECTS = {
     title: "Miru",
     subtitle: "Эмпатия как украшение",
     tone: 1,
-    cover: "assets/miru-hero.jpg",
+    hideHero: true,
     // Архитектура один-в-один по макету Figma node 3065-86087
     blocks: [
+      { mirulogo: true },
       {
         subhead: {
           label: "О продукте",
@@ -213,7 +214,6 @@ window.PROJECTS = {
           ],
         },
       },
-      { mirulogo: true },
       { miru2: true },
       { media: { kind: "image", src: "assets/miru-s4.png", plain: true } },
       { media: { kind: "image", src: "assets/miru-merch.jpg", plain: true } },
