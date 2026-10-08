@@ -1486,49 +1486,83 @@ textarea:focus-visible {
 .miru2__more { margin: 1.3cqw 0 0; font-family: "Inter", sans-serif; font-weight: 500; font-size: 0.81cqw; color: #fff; }
 .miru2__year { margin: 0.3cqw 0 0; font-family: "Inter", sans-serif; font-weight: 400; font-size: 5.21cqw; line-height: 1; color: #fff; }
 
-/* каскад: сначала картинка → затем линии → компоненты выезжают слева/справа.
-   затяжная и плавная анимация */
+/* каскад появления — «кинематографичная сборка»:
+   фото из размытия → линии-сетка развёрткой слева направо →
+   заголовок открывается wipe'ом, боковые блоки въезжают с расфокуса. */
 .miru2.reveal { opacity: 1; transform: none; transition: none; }
-/* 1. фон-фото */
+/* 1. фон-фото: из тёмного размытия в резкость + медленный отъезд */
 .miru2__bg {
-  opacity: 0; transform: scale(1.07);
-  transition: opacity 1.5s var(--ease), transform 1.8s var(--ease);
+  opacity: 0;
+  transform: scale(1.12);
+  filter: blur(16px) brightness(0.55);
+  transition: opacity 1.6s var(--ease), transform 2.2s var(--ease),
+    filter 1.9s var(--ease);
 }
-/* 2. линии (проявляются сверху вниз) */
+/* 2. линии-сетка: прочерчиваются сверху, развёрткой слева направо */
 .miru2__lines span {
-  opacity: 0; transform: scaleY(0); transform-origin: top;
-  transition: opacity 0.9s var(--ease), transform 1.3s var(--ease);
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: opacity 0.6s var(--ease), transform 0.85s var(--ease);
 }
-/* 3. компоненты: левые выезжают слева, правые — справа */
-.miru2__logo, .miru2__nav, .miru2__title, .miru2__t3 {
-  opacity: 0; transform: translateX(-5cqw);
-  transition: opacity 1.3s var(--ease), transform 1.4s var(--ease);
+/* 3а. заголовок: открывается wipe'ом слева направо + лёгкий подъём */
+.miru2__title {
+  opacity: 0;
+  clip-path: inset(0 100% 0 0);
+  transform: translateY(1.1cqw);
+  filter: blur(4px);
+  transition: opacity 1s var(--ease), clip-path 1.15s var(--ease),
+    transform 1.15s var(--ease), filter 1s var(--ease);
+}
+/* 3б. боковые блоки: въезжают с расфокуса — левые слева, правые справа */
+.miru2__logo, .miru2__nav, .miru2__t3 {
+  opacity: 0;
+  transform: translateX(-3.6cqw);
+  filter: blur(5px);
+  transition: opacity 1.1s var(--ease), transform 1.3s var(--ease),
+    filter 1.1s var(--ease);
 }
 .miru2__btn, .miru2__t2, .miru2__ew {
-  opacity: 0; transform: translateX(5cqw);
-  transition: opacity 1.3s var(--ease), transform 1.4s var(--ease);
+  opacity: 0;
+  transform: translateX(3.6cqw);
+  filter: blur(5px);
+  transition: opacity 1.1s var(--ease), transform 1.3s var(--ease),
+    filter 1.1s var(--ease);
+}
+/* крупный год слегка подрастает в масштабе */
+.miru2__year {
+  transform: scale(0.94);
+  transform-origin: left bottom;
+  transition: transform 1.2s var(--ease);
 }
 /* видимое состояние */
-.miru2.is-visible .miru2__bg { opacity: 1; transform: none; }
-/* фон остаётся виден между повторами петли (не уходит в чёрный) */
-.miru2.is-seen .miru2__bg { opacity: 1; transform: none; }
+.miru2.is-visible .miru2__bg { opacity: 1; transform: none; filter: none; }
+/* фон остаётся виден и резок между повторами петли (не уходит в чёрный) */
+.miru2.is-seen .miru2__bg { opacity: 1; transform: none; filter: none; }
 .miru2.is-visible .miru2__lines span { opacity: 1; transform: none; }
-.miru2.is-visible .miru2__lines span:nth-child(1) { transition-delay: 0.85s; }
-.miru2.is-visible .miru2__lines span:nth-child(2) { transition-delay: 0.95s; }
-.miru2.is-visible .miru2__lines span:nth-child(3) { transition-delay: 1.05s; }
-.miru2.is-visible .miru2__lines span:nth-child(4) { transition-delay: 1.15s; }
-.miru2.is-visible .miru2__lines span:nth-child(5) { transition-delay: 1.25s; }
-.miru2.is-visible .miru2__lines span:nth-child(6) { transition-delay: 1.35s; }
-.miru2.is-visible .miru2__lines span:nth-child(7) { transition-delay: 1.45s; }
-.miru2.is-visible .miru2__title { opacity: 1; transform: none; transition-delay: 1.75s; }
-.miru2.is-visible .miru2__t2 { opacity: 1; transform: none; transition-delay: 1.9s; }
-.miru2.is-visible .miru2__t3 { opacity: 1; transform: none; transition-delay: 2.05s; }
-.miru2.is-visible .miru2__ew { opacity: 1; transform: none; transition-delay: 2.2s; }
-.miru2.is-visible .miru2__logo { opacity: 1; transform: none; transition-delay: 2.35s; }
-.miru2.is-visible .miru2__nav { opacity: 1; transform: none; transition-delay: 2.45s; }
-.miru2.is-visible .miru2__btn { opacity: 1; transform: none; transition-delay: 2.55s; }
+.miru2.is-visible .miru2__lines span:nth-child(1) { transition-delay: 0.55s; }
+.miru2.is-visible .miru2__lines span:nth-child(2) { transition-delay: 0.63s; }
+.miru2.is-visible .miru2__lines span:nth-child(3) { transition-delay: 0.71s; }
+.miru2.is-visible .miru2__lines span:nth-child(4) { transition-delay: 0.79s; }
+.miru2.is-visible .miru2__lines span:nth-child(5) { transition-delay: 0.87s; }
+.miru2.is-visible .miru2__lines span:nth-child(6) { transition-delay: 0.95s; }
+.miru2.is-visible .miru2__lines span:nth-child(7) { transition-delay: 1.03s; }
+.miru2.is-visible .miru2__title {
+  opacity: 1; clip-path: inset(0 0 0 0); transform: none; filter: none;
+  transition-delay: 1.25s;
+}
+.miru2.is-visible .miru2__t2 { opacity: 1; transform: none; filter: none; transition-delay: 1.5s; }
+.miru2.is-visible .miru2__t3 { opacity: 1; transform: none; filter: none; transition-delay: 1.65s; }
+.miru2.is-visible .miru2__ew { opacity: 1; transform: none; filter: none; transition-delay: 1.8s; }
+.miru2.is-visible .miru2__ew .miru2__year { transform: none; transition-delay: 1.95s; }
+.miru2.is-visible .miru2__logo { opacity: 1; transform: none; filter: none; transition-delay: 2s; }
+.miru2.is-visible .miru2__nav { opacity: 1; transform: none; filter: none; transition-delay: 2.1s; }
+.miru2.is-visible .miru2__btn { opacity: 1; transform: none; filter: none; transition-delay: 2.2s; }
 @media (prefers-reduced-motion: reduce) {
-  .miru2 *, .miru2__lines span { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .miru2 *, .miru2__lines span {
+    opacity: 1 !important; transform: none !important; filter: none !important;
+    clip-path: none !important; transition: none !important;
+  }
 }
 
 /* Выраженная анимация появления блока на экране (всплытие + зум + фейд) */
