@@ -482,7 +482,7 @@
                 '</p><p class="tl__text">' + c.text + "</p></div>";
             }).join("") + "</div>";
         if (b.compare)
-          return '<div class="tl__compare reveal">' +
+          return '<div class="tl__compare reveal' + (b.plain ? " tl__media--plain" : "") + '">' +
             b.compare.map(function (c) {
               return '<figure class="tl__cmp">' +
                 (c.label ? '<figcaption class="tl__label">' + c.label + "</figcaption>" : "") +
