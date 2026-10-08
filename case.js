@@ -509,6 +509,13 @@
             '<div class="miru2__ew"><p class="miru2__h miru2__h--big">Emotional Wearable</p><p class="miru2__year">2026</p></div>' +
             "</div>";
         }
+        if (b.fan)
+          return '<div class="fan reveal" role="group" aria-label="Miru — посты в Instagram (наведите, чтобы разложить в ряд)">' +
+            '<img class="fan__frame" src="assets/miru-fan-frame.svg?v=1" alt="" aria-hidden="true" />' +
+            '<img class="fan__card fan__card--a" src="assets/miru-fan-a.png" alt="Miru — пост в Instagram" loading="lazy" />' +
+            '<img class="fan__card fan__card--b" src="assets/miru-fan-b.png" alt="Miru — пост в Instagram" loading="lazy" />' +
+            '<img class="fan__card fan__card--c" src="assets/miru-fan-c.png" alt="Miru — пост в Instagram" loading="lazy" />' +
+            "</div>";
         if (b.mirulogo)
           return '<div class="mlogo reveal" role="img" aria-label="MIRU — эмпатия как украшение">' +
             '<img class="mlogo__screen" src="assets/miru-logo-screen.svg?v=1" alt="" aria-hidden="true" />' +

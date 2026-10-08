@@ -215,7 +215,7 @@ window.PROJECTS = {
         },
       },
       { miru2: true },
-      { media: { kind: "image", src: "assets/miru-s4.png", plain: true } },
+      { fan: true },
       { media: { kind: "image", src: "assets/miru-merch.jpg", plain: true } },
       {
         compare: [
