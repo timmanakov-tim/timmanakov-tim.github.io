@@ -1585,11 +1585,12 @@ textarea:focus-visible {
 @keyframes mlogo-spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .mlogo__mark { animation: none; } }
 
-/* ===== Miru: веер постов — при наведении раскладывается в ряд ===== */
+/* ===== Miru: веер постов — при наведении плавно раскладывается в ряд ===== */
 .fan {
   position: relative;
   margin-top: clamp(28px, 4vw, 48px);
   aspect-ratio: 1872 / 1219;
+  container-type: size; /* для cqw/cqh — сдвиги относительно блока */
 }
 .fan__frame {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -1597,25 +1598,41 @@ textarea:focus-visible {
 }
 .fan__card {
   position: absolute;
-  width: 33.6%; height: 64.32%;
+  left: 50%; top: 50%;
+  width: 26.11%; height: 52.82%;
   transform-origin: 50% 50%;
-  transition: left 0.7s var(--ease), top 0.7s var(--ease), transform 0.7s var(--ease);
-  will-change: left, top, transform;
+  /* мягкая многослойная тень, повторяющая скруглённую форму карточки */
+  filter:
+    drop-shadow(0 1px 3px rgba(22, 32, 48, 0.10))
+    drop-shadow(0 16px 34px rgba(22, 32, 48, 0.20));
+  /* анимируем только transform и filter — максимально плавно (GPU) */
+  transition: transform 0.9s var(--ease), filter 0.9s var(--ease);
+  will-change: transform, filter;
 }
-/* исходный веер (как в макете): -15° / 0° / +15°, со смещением */
-.fan__card--a { left: 40.19%; top: 50%; transform: translate(-50%, -50%) rotate(-15deg); z-index: 1; }
-.fan__card--b { left: 49.98%; top: 50%; transform: translate(-50%, -50%) rotate(0deg); z-index: 2; }
-.fan__card--c { left: 59.53%; top: 57.19%; transform: translate(-50%, -50%) rotate(15deg); z-index: 3; }
-/* наведение → ровный ряд */
+/* исходный веер (как в макете): -15° / 0° / +15°, со смещением от центра */
+.fan__card--a { transform: translate(calc(-50% - 9.81cqw), -50%) rotate(-15deg); z-index: 1; }
+.fan__card--b { transform: translate(-50%, -50%) rotate(0deg); z-index: 2; }
+.fan__card--c { transform: translate(calc(-50% + 9.53cqw), calc(-50% + 7.19cqh)) rotate(15deg); z-index: 3; }
+/* наведение → ровный ряд, карточки чуть «приподнимаются» (глубже тень) */
+.fan:hover .fan__card,
+.fan:focus-within .fan__card {
+  filter:
+    drop-shadow(0 3px 8px rgba(22, 32, 48, 0.12))
+    drop-shadow(0 26px 56px rgba(22, 32, 48, 0.24));
+}
 .fan:hover .fan__card--a,
-.fan:focus-within .fan__card--a { left: 20%; top: 50%; transform: translate(-50%, -50%) rotate(0deg); }
+.fan:focus-within .fan__card--a { transform: translate(calc(-50% - 30cqw), -50%) rotate(0deg); }
 .fan:hover .fan__card--b,
-.fan:focus-within .fan__card--b { left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(0deg); }
+.fan:focus-within .fan__card--b { transform: translate(-50%, -50%) rotate(0deg); }
 .fan:hover .fan__card--c,
-.fan:focus-within .fan__card--c { left: 80%; top: 50%; transform: translate(-50%, -50%) rotate(0deg); }
-/* лёгкий стаггер при раскладке */
-.fan:hover .fan__card--b { transition-delay: 0.04s; }
-.fan:hover .fan__card--c { transition-delay: 0.08s; }
+.fan:focus-within .fan__card--c { transform: translate(calc(-50% + 30cqw), -50%) rotate(0deg); }
+/* текучий стаггер при раскладке и сборке */
+.fan__card--a { transition-delay: 0.12s; }
+.fan__card--b { transition-delay: 0.06s; }
+.fan__card--c { transition-delay: 0s; }
+.fan:hover .fan__card--a, .fan:focus-within .fan__card--a { transition-delay: 0s; }
+.fan:hover .fan__card--b, .fan:focus-within .fan__card--b { transition-delay: 0.06s; }
+.fan:hover .fan__card--c, .fan:focus-within .fan__card--c { transition-delay: 0.12s; }
 @media (prefers-reduced-motion: reduce) { .fan__card { transition: none; } }
 
 /* Выраженная анимация появления блока на экране (всплытие + зум + фейд) */
