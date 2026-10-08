@@ -509,6 +509,11 @@
             '<div class="miru2__ew"><p class="miru2__h miru2__h--big">Emotional Wearable</p><p class="miru2__year">2026</p></div>' +
             "</div>";
         }
+        if (b.mirulogo)
+          return '<div class="mlogo reveal" role="img" aria-label="MIRU — эмпатия как украшение">' +
+            '<img class="mlogo__mark" src="assets/miru-mark.svg" alt="" aria-hidden="true" />' +
+            '<img class="mlogo__word" src="assets/miru-word.png" alt="MIRU" />' +
+            "</div>";
         if (b.media)
           return '<figure class="tl__media reveal' + (b.media.plain ? " tl__media--plain" : "") + (b.media.anim ? " tl__media--" + b.media.anim : "") + '">' +
             (b.media.label ? '<figcaption class="tl__label">' + b.media.label + "</figcaption>" : "") +
