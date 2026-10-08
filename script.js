@@ -84,6 +84,56 @@
     });
   }
 
+  // --- Зацикленный каскад для Miru-лендинга ---
+  // Повторяем тот же каскад появления: показываем → держим → убираем → заново.
+  // Крутится только пока блок во вьюпорте; при reduce-motion просто статично.
+  var miru = document.querySelector(".miru2");
+  if (
+    miru &&
+    !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+  ) {
+    var MIRU_CYCLE = 9000; // полный цикл
+    var MIRU_OUT_AT = 7000; // когда начинаем убирать элементы
+    var miruTimer = null;
+    var miruOut = null;
+    var miruRun = function () {
+      miru.classList.add("is-visible");
+      clearTimeout(miruOut);
+      miruOut = setTimeout(function () {
+        miru.classList.remove("is-visible");
+      }, MIRU_OUT_AT);
+    };
+    var miruStart = function () {
+      if (miruTimer) return;
+      // фон-фото проявляется один раз и остаётся — петля переигрывает только
+      // линии и компоненты поверх него (без «моргания» в чёрный экран).
+      miru.classList.add("is-seen");
+      miruRun();
+      miruTimer = setInterval(miruRun, MIRU_CYCLE);
+    };
+    var miruStop = function () {
+      if (miruTimer) {
+        clearInterval(miruTimer);
+        miruTimer = null;
+      }
+      clearTimeout(miruOut);
+    };
+    if ("IntersectionObserver" in window) {
+      var miruIo = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) miruStart();
+            else miruStop();
+          });
+        },
+        { threshold: 0.2 }
+      );
+      miruIo.observe(miru);
+    } else {
+      miruStart();
+    }
+  }
+
   // --- Тень/линия у шапки при скролле ---
   const header = document.querySelector(".site-header");
   if (header) {

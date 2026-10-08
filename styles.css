@@ -1510,6 +1510,8 @@ textarea:focus-visible {
 }
 /* видимое состояние */
 .miru2.is-visible .miru2__bg { opacity: 1; transform: none; }
+/* фон остаётся виден между повторами петли (не уходит в чёрный) */
+.miru2.is-seen .miru2__bg { opacity: 1; transform: none; }
 .miru2.is-visible .miru2__lines span { opacity: 1; transform: none; }
 .miru2.is-visible .miru2__lines span:nth-child(1) { transition-delay: 0.85s; }
 .miru2.is-visible .miru2__lines span:nth-child(2) { transition-delay: 0.95s; }
