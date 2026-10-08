@@ -488,6 +488,27 @@
                 (c.label ? '<figcaption class="tl__label">' + c.label + "</figcaption>" : "") +
                 tlMedia(c) + "</figure>";
             }).join("") + "</div>";
+        if (b.miru2) {
+          var m2lines = [5.43, 20.19, 35.02, 49.85, 64.61, 79.44, 94.2]
+            .map(function (l) { return '<span style="left:' + l + '%"></span>'; }).join("");
+          var m2nav = ["Product", "How it works", "Stories", "About", "Pricing"]
+            .map(function (x) { return "<span>" + x + "</span>"; }).join("");
+          return '<div class="miru2 reveal" role="img" aria-label="Miru — Hear what goes unsaid">' +
+            '<img class="miru2__bg" src="assets/miru-hero2-bg.jpg" alt="" loading="lazy" />' +
+            '<div class="miru2__lines" aria-hidden="true">' + m2lines + "</div>" +
+            '<img class="miru2__logo" src="assets/miru-hero2-logo.svg" alt="MIRU" />' +
+            '<nav class="miru2__nav">' + m2nav + "</nav>" +
+            '<span class="miru2__btn">Request access</span>' +
+            '<div class="miru2__title"><h3 class="miru2__hero">Hear what goes unsaid.</h3>' +
+              '<p class="miru2__lead">Miru reads the emotions and micro-expressions of the person in front of you, and quietly tells you how to connect. Empathy, worn as jewelry.</p></div>' +
+            '<div class="miru2__t3"><p class="miru2__h">Sometimes what matters most lives between the words.</p>' +
+              '<p class="miru2__body">We don’t lose connection because we can’t hear the words. We miss the pause, the glance, the tone that hides what’s real. For some, reading that comes easily. For others, it’s almost impossible.</p>' +
+              '<p class="miru2__more">read more</p></div>' +
+            '<div class="miru2__t2"><p class="miru2__h miru2__h--mid">Miru sees it with you.</p>' +
+              '<p class="miru2__body">Reads emotions — picks up mood and micro-expressions in real time. Understands the unsaid — notices what hides behind the words and suggests how to get closer. Only for you — the cue arrives quietly, through a hidden earpiece. To everyone else, it’s just jewelry.</p></div>' +
+            '<div class="miru2__ew"><p class="miru2__h miru2__h--big">Emotional Wearable</p><p class="miru2__year">2026</p></div>' +
+            "</div>";
+        }
         if (b.media)
           return '<figure class="tl__media reveal' + (b.media.plain ? " tl__media--plain" : "") + (b.media.anim ? " tl__media--" + b.media.anim : "") + '">' +
             (b.media.label ? '<figcaption class="tl__label">' + b.media.label + "</figcaption>" : "") +

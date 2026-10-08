@@ -1434,6 +1434,101 @@ textarea:focus-visible {
 /* Медиа без белой подложки — только картинка, без рамки и фона */
 .tl__media--plain .tl__frame { border: 0; background: transparent; }
 
+/* ===== Miru: лендинг, собранный слоями, с каскадным появлением ===== */
+.miru2 {
+  position: relative;
+  margin-top: clamp(28px, 4vw, 48px);
+  aspect-ratio: 1362 / 909;
+  border-radius: var(--radius);
+  overflow: hidden;
+  container-type: inline-size;
+  background: #0a0f15;
+  color: #fff;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Inter", sans-serif;
+}
+.miru2__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.miru2 > *:not(.miru2__bg) { position: absolute; z-index: 2; }
+.miru2__lines { position: absolute; inset: 0; z-index: 1; }
+.miru2__lines span { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(255, 255, 255, 0.1); }
+.miru2__logo { left: 2.06%; top: 4.5%; width: 7.35%; height: auto; }
+.miru2__nav {
+  left: 39.3%; top: 4.7%;
+  display: flex; gap: 2.3cqw; align-items: center;
+}
+.miru2__nav span {
+  font-family: -apple-system, "SF Pro Display", system-ui, sans-serif;
+  font-weight: 300; font-size: 0.735cqw; color: #fcfcfc; white-space: nowrap;
+}
+.miru2__btn {
+  right: 2.06%; top: 3.5%;
+  display: inline-flex; align-items: center;
+  padding: 0.62cqw 1.45cqw;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 0.7cqw;
+  font-family: -apple-system, "SF Pro Display", system-ui, sans-serif;
+  font-weight: 300; font-size: 1.03cqw; color: #fff; white-space: nowrap;
+}
+.miru2__title { left: 2.06%; top: 18.3%; width: 42%; }
+.miru2__hero {
+  margin: 0; font-weight: 500; font-size: 7.93cqw; line-height: 0.92; letter-spacing: -0.01em;
+  background: linear-gradient(104deg, #ffffff 34%, #93a0ab 62%, #e9edf1 92%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.miru2__lead { margin: 2.2cqw 0 0; max-width: 21.5cqw; font-size: 0.81cqw; line-height: 1.45; color: #cad5d9; }
+.miru2__t3 { left: 2.06%; top: 68.3%; width: 21.5%; }
+.miru2__t2 { right: 1.5%; top: 19.9%; width: 21.1%; }
+.miru2__ew { right: 1.5%; top: 75%; width: 18%; }
+.miru2__h { margin: 0; font-weight: 500; font-size: 1.91cqw; line-height: 1.05; color: #fff; }
+.miru2__h--mid { font-size: 2.28cqw; }
+.miru2__h--big { font-size: 3.3cqw; line-height: 1; }
+.miru2__body { margin: 1cqw 0 0; font-family: "Inter", sans-serif; font-weight: 400; font-size: 0.81cqw; line-height: 1.5; color: #b9c2ca; }
+.miru2__t2 .miru2__body { color: #cad5d9; }
+.miru2__more { margin: 1.3cqw 0 0; font-family: "Inter", sans-serif; font-weight: 500; font-size: 0.81cqw; color: #fff; }
+.miru2__year { margin: 0.3cqw 0 0; font-family: "Inter", sans-serif; font-weight: 400; font-size: 5.21cqw; line-height: 1; color: #fff; }
+
+/* каскад: сначала картинка → затем линии → компоненты выезжают слева/справа.
+   затяжная и плавная анимация */
+.miru2.reveal { opacity: 1; transform: none; transition: none; }
+/* 1. фон-фото */
+.miru2__bg {
+  opacity: 0; transform: scale(1.07);
+  transition: opacity 1.5s var(--ease), transform 1.8s var(--ease);
+}
+/* 2. линии (проявляются сверху вниз) */
+.miru2__lines span {
+  opacity: 0; transform: scaleY(0); transform-origin: top;
+  transition: opacity 0.9s var(--ease), transform 1.3s var(--ease);
+}
+/* 3. компоненты: левые выезжают слева, правые — справа */
+.miru2__logo, .miru2__nav, .miru2__title, .miru2__t3 {
+  opacity: 0; transform: translateX(-5cqw);
+  transition: opacity 1.3s var(--ease), transform 1.4s var(--ease);
+}
+.miru2__btn, .miru2__t2, .miru2__ew {
+  opacity: 0; transform: translateX(5cqw);
+  transition: opacity 1.3s var(--ease), transform 1.4s var(--ease);
+}
+/* видимое состояние */
+.miru2.is-visible .miru2__bg { opacity: 1; transform: none; }
+.miru2.is-visible .miru2__lines span { opacity: 1; transform: none; }
+.miru2.is-visible .miru2__lines span:nth-child(1) { transition-delay: 0.85s; }
+.miru2.is-visible .miru2__lines span:nth-child(2) { transition-delay: 0.95s; }
+.miru2.is-visible .miru2__lines span:nth-child(3) { transition-delay: 1.05s; }
+.miru2.is-visible .miru2__lines span:nth-child(4) { transition-delay: 1.15s; }
+.miru2.is-visible .miru2__lines span:nth-child(5) { transition-delay: 1.25s; }
+.miru2.is-visible .miru2__lines span:nth-child(6) { transition-delay: 1.35s; }
+.miru2.is-visible .miru2__lines span:nth-child(7) { transition-delay: 1.45s; }
+.miru2.is-visible .miru2__title { opacity: 1; transform: none; transition-delay: 1.75s; }
+.miru2.is-visible .miru2__t2 { opacity: 1; transform: none; transition-delay: 1.9s; }
+.miru2.is-visible .miru2__t3 { opacity: 1; transform: none; transition-delay: 2.05s; }
+.miru2.is-visible .miru2__ew { opacity: 1; transform: none; transition-delay: 2.2s; }
+.miru2.is-visible .miru2__logo { opacity: 1; transform: none; transition-delay: 2.35s; }
+.miru2.is-visible .miru2__nav { opacity: 1; transform: none; transition-delay: 2.45s; }
+.miru2.is-visible .miru2__btn { opacity: 1; transform: none; transition-delay: 2.55s; }
+@media (prefers-reduced-motion: reduce) {
+  .miru2 *, .miru2__lines span { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
 /* Выраженная анимация появления блока на экране (всплытие + зум + фейд) */
 .reveal.tl__media--rise {
   transform: translateY(52px) scale(0.94);
