@@ -291,6 +291,10 @@
         applyCat(tab.getAttribute("data-cat"));
       });
     });
+    // применяем фильтр сразу при загрузке по активной вкладке,
+    // чтобы графические работы не показывались в UX/UI
+    var activeTab = document.querySelector(".works__tab.is-active") || worksTabs[0];
+    if (activeTab) applyCat(activeTab.getAttribute("data-cat"));
   }
 
   // --- Карточки модалки Hero Study: выбор по клику ---
