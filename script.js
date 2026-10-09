@@ -249,6 +249,30 @@
     window.addEventListener("resize", fill, { passive: true });
   }
 
+  // --- Хиро-леттеринг: PORT статичен, folio циклично меняет стиль ---
+  var pfFolio = document.querySelector(".pf__folio");
+  if (pfFolio) {
+    var fos = pfFolio.querySelectorAll(".pf__fo");
+    if (fos.length > 1 && !reduceMotion) {
+      var fi = 0;
+      var pfTimer = null;
+      var pfTick = function () {
+        fos[fi].classList.remove("is-on");
+        fi = (fi + 1) % fos.length;
+        fos[fi].classList.add("is-on");
+      };
+      var pfStart = function () { if (!pfTimer) pfTimer = setInterval(pfTick, 1700); };
+      var pfStop = function () { if (pfTimer) { clearInterval(pfTimer); pfTimer = null; } };
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(function (es) {
+          es.forEach(function (e) { e.isIntersecting ? pfStart() : pfStop(); });
+        }, { threshold: 0.2 }).observe(pfFolio);
+      } else {
+        pfStart();
+      }
+    }
+  }
+
   // --- Before/After слайдер (Было/Стало) ---
   Array.prototype.forEach.call(document.querySelectorAll("[data-ba]"), function (ba) {
     var before = ba.querySelector("[data-ba-before]");
