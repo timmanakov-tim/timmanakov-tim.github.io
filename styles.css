@@ -250,11 +250,13 @@ img { max-width: 100%; display: block; }
 }
 @media (prefers-reduced-motion: reduce) { .lk { transition: none; } }
 .intro__line {
-  max-width: 28ch;
+  max-width: 26ch;
+  margin-inline: auto;
+  text-align: center;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(24px, 4vw, 46px);
-  line-height: 1.18;
+  font-size: clamp(21px, 3.3vw, 38px);
+  line-height: 1.2;
   letter-spacing: -0.025em;
   color: var(--fg);
 }
@@ -2329,11 +2331,11 @@ textarea:focus-visible {
 .works__filter {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 1fr;
-  width: 100%;
+  grid-auto-columns: 1fr;       /* табы одинаковой ширины */
+  width: min(100%, 420px);      /* компактно и по центру */
   gap: 4px;
   padding: 4px;
-  margin: 0 0 clamp(26px, 4vw, 48px);
+  margin: 0 auto clamp(26px, 4vw, 48px);
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--bg-soft);
