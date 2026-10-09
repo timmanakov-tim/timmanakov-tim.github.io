@@ -2157,11 +2157,11 @@ textarea:focus-visible {
 /* Тёмная тема: даём контраст — лого инвертируем в белый, карту подсвечиваем */
 :root[data-theme="dark"] .tl__plus-media { border-color: rgba(255, 255, 255, 0.16); }
 :root[data-theme="dark"] .tl__plus-media--logo img { filter: invert(1); }
-:root[data-theme="dark"] .tl__plus-media:not(.tl__plus-media--logo) img { filter: brightness(1.22) contrast(1.06); }
+:root[data-theme="dark"] .tl__plus-media:not(.tl__plus-media--logo) img { filter: invert(1) hue-rotate(180deg); }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .tl__plus-media { border-color: rgba(255, 255, 255, 0.16); }
   :root:not([data-theme="light"]) .tl__plus-media--logo img { filter: invert(1); }
-  :root:not([data-theme="light"]) .tl__plus-media:not(.tl__plus-media--logo) img { filter: brightness(1.22) contrast(1.06); }
+  :root:not([data-theme="light"]) .tl__plus-media:not(.tl__plus-media--logo) img { filter: invert(1) hue-rotate(180deg); }
 }
 
 /* ==================================================================
