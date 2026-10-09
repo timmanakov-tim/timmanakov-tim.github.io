@@ -244,6 +244,7 @@ img { max-width: 100%; display: block; }
 .lk--6 { top: -4.91%;  width: 100.62%; }  /* bold    813×291, PORT relY 55 */
 .lk--7 { top: 12.63%;  width: 87%; }      /* brush   703×215, PORT relY 5  */
 .lk--8 { top: 14.39%; width: 106.56%; left: 5%; }  /* groovy 861×198 — воздух от T */
+.lk--9 { top: 14.39%; width: 96.41%; }     /* outline 779×198, PORT relY 0 */
 :root[data-theme="dark"] .intro__lockup { filter: invert(1) hue-rotate(180deg); }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .intro__lockup { filter: invert(1) hue-rotate(180deg); }
