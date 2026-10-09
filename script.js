@@ -249,6 +249,30 @@
     window.addEventListener("resize", fill, { passive: true });
   }
 
+  // --- Хиро-леттеринг: перебор стилей folio с кросс-фейдом (PORT статичен) ---
+  var lockEl = document.querySelector(".intro__lockup");
+  if (lockEl) {
+    var lockLayers = lockEl.querySelectorAll(".lk");
+    if (lockLayers.length > 1 && !reduceMotion) {
+      var li = 0;
+      var lockTimer = null;
+      var lockTick = function () {
+        lockLayers[li].classList.remove("is-on");
+        li = (li + 1) % lockLayers.length;
+        lockLayers[li].classList.add("is-on");
+      };
+      var lockStart = function () { if (!lockTimer) lockTimer = setInterval(lockTick, 2200); };
+      var lockStop = function () { if (lockTimer) { clearInterval(lockTimer); lockTimer = null; } };
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(function (es) {
+          es.forEach(function (e) { e.isIntersecting ? lockStart() : lockStop(); });
+        }, { threshold: 0.2 }).observe(lockEl);
+      } else {
+        lockStart();
+      }
+    }
+  }
+
 
   // --- Before/After слайдер (Было/Стало) ---
   Array.prototype.forEach.call(document.querySelectorAll("[data-ba]"), function (ba) {
