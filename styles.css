@@ -242,6 +242,7 @@ img { max-width: 100%; display: block; }
 .lk--4 { top: 14.39%;  width: 99.63%; }   /* bubble  805×198 */
 .lk--5 { top: 14.39%;  width: 106.31%; left: 5%; }  /* groovy  859×198 — воздух от T */
 .lk--6 { top: -4.91%;  width: 100.62%; }  /* bold    813×291, PORT relY 55 */
+.lk--7 { top: 12.63%;  width: 87%; }      /* brush   703×215, PORT relY 5  */
 :root[data-theme="dark"] .intro__lockup { filter: invert(1) hue-rotate(180deg); }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .intro__lockup { filter: invert(1) hue-rotate(180deg); }
