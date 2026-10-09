@@ -191,16 +191,16 @@ img { max-width: 100%; display: block; }
 .nav__theme-moon { display: grid; place-items: center; width: 18px; height: 18px; color: var(--fg); }
 .nav__theme-sun svg,
 .nav__theme-moon svg { width: 100%; height: 100%; display: block; }
-/* светлая тема → солнце, тёмная → луна (как в системе токенов) */
-.nav__theme-moon { display: none; }
+/* светлая тема → луна, тёмная → солнце */
+.nav__theme-sun { display: none; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .nav__theme-sun { display: none; }
-  :root:not([data-theme="light"]) .nav__theme-moon { display: grid; }
+  :root:not([data-theme="light"]) .nav__theme-moon { display: none; }
+  :root:not([data-theme="light"]) .nav__theme-sun { display: grid; }
 }
-:root[data-theme="dark"] .nav__theme-sun { display: none; }
-:root[data-theme="dark"] .nav__theme-moon { display: grid; }
-:root[data-theme="light"] .nav__theme-sun { display: grid; }
-:root[data-theme="light"] .nav__theme-moon { display: none; }
+:root[data-theme="dark"] .nav__theme-moon { display: none; }
+:root[data-theme="dark"] .nav__theme-sun { display: grid; }
+:root[data-theme="light"] .nav__theme-moon { display: grid; }
+:root[data-theme="light"] .nav__theme-sun { display: none; }
 
 @media (max-width: 560px) {
   .nav__links { display: none; }
