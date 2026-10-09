@@ -249,27 +249,38 @@
     window.addEventListener("resize", fill, { passive: true });
   }
 
-  // --- Хиро-леттеринг: перебор стилей folio с кросс-фейдом (PORT статичен) ---
+  // --- Хиро-леттеринг: перебор стилей folio с кросс-фейдом (PORT статичен).
+  //     Крутится только во вьюпорте; при наведении курсора замирает на текущем. ---
   var lockEl = document.querySelector(".intro__lockup");
   if (lockEl) {
     var lockLayers = lockEl.querySelectorAll(".lk");
     if (lockLayers.length > 1 && !reduceMotion) {
       var li = 0;
       var lockTimer = null;
+      var lockInView = false;
+      var lockHover = false;
       var lockTick = function () {
         lockLayers[li].classList.remove("is-on");
         li = (li + 1) % lockLayers.length;
         lockLayers[li].classList.add("is-on");
       };
-      var lockStart = function () { if (!lockTimer) lockTimer = setInterval(lockTick, 100); };
-      var lockStop = function () { if (lockTimer) { clearInterval(lockTimer); lockTimer = null; } };
+      // крутим только когда блок виден и на него не наведён курсор
+      var lockSync = function () {
+        var run = lockInView && !lockHover;
+        if (run && !lockTimer) lockTimer = setInterval(lockTick, 280);
+        else if (!run && lockTimer) { clearInterval(lockTimer); lockTimer = null; }
+      };
       if ("IntersectionObserver" in window) {
         new IntersectionObserver(function (es) {
-          es.forEach(function (e) { e.isIntersecting ? lockStart() : lockStop(); });
+          es.forEach(function (e) { lockInView = e.isIntersecting; });
+          lockSync();
         }, { threshold: 0.2 }).observe(lockEl);
       } else {
-        lockStart();
+        lockInView = true;
+        lockSync();
       }
+      lockEl.addEventListener("pointerenter", function () { lockHover = true; lockSync(); });
+      lockEl.addEventListener("pointerleave", function () { lockHover = false; lockSync(); });
     }
   }
 
