@@ -240,7 +240,7 @@ img { max-width: 100%; display: block; }
 .lk--2 { top: -2.46%;  width: 90.47%; }   /* faceted 731×289 */
 .lk--3 { top: 14.39%;  width: 110.15%; left: 4%; }  /* graffiti 890×198 — воздух от T */
 .lk--4 { top: 14.39%;  width: 99.63%; }   /* bubble  805×198 */
-.lk--5 { top: 14.39%;  width: 106.31%; left: 4%; }  /* groovy  859×198 — воздух от T */
+.lk--5 { top: 14.39%;  width: 106.31%; left: 6%; }  /* groovy  859×198 — воздух от T */
 :root[data-theme="dark"] .intro__lockup { filter: invert(1) hue-rotate(180deg); }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .intro__lockup { filter: invert(1) hue-rotate(180deg); }
