@@ -231,7 +231,7 @@ img { max-width: 100%; display: block; }
 .lk--2 { top: -3.86%;  width: 90.97%; }   /* 735×297, PORT relY 52 */
 .lk--3 { top: 14.39%;  width: 110.15%; }  /* 890×198, PORT relY 0  */
 .lk--4 { top: 14.39%;  width: 99.63%; }   /* 805×198, PORT relY 0  */
-.lk--5 { top: 14.39%;  width: 106.31%; }  /* 859×198, PORT relY 0  */
+.lk--5 { top: 14.39%;  width: 106.06%; }  /* 857×198, PORT relY 0  */
 .lk[hidden] { display: none; }
 :root[data-theme="dark"] .intro__lockup { filter: invert(1) hue-rotate(180deg); }
 @media (prefers-color-scheme: dark) {
