@@ -211,17 +211,41 @@ img { max-width: 100%; display: block; }
   padding-top: clamp(44px, 8vw, 104px);
   padding-bottom: clamp(24px, 3.5vw, 40px);
 }
-/* Хиро-леттеринг «PORT» — статично, по центру над интро-текстом */
-.intro__word {
-  display: block;
-  width: min(100%, 460px);
-  height: auto;
+/* Хиро-леттеринг «Portfolio» по центру: один статичный PORT + слои folio.
+   Слои folio БЕЗ PORT (прозрачны в его области) → PORT никогда не двоится. */
+.intro__lockup {
+  position: relative;
+  width: min(100%, 720px);
   margin: 0 auto clamp(20px, 3.5vw, 48px);
+  aspect-ratio: 808 / 285;
 }
-:root[data-theme="dark"] .intro__word { filter: invert(1) hue-rotate(180deg); }
+.pf-port {
+  position: absolute;
+  left: 0; top: 14.39%;
+  width: 51.86%; height: auto; /* 419/808 */
+  z-index: 0;
+}
+.lk {
+  position: absolute;
+  left: 0;
+  display: block;
+  height: auto;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease);
+  will-change: opacity;
+}
+.lk.is-on { opacity: 1; }
+.lk--1 { top: 1.05%;   width: 100.62%; }  /* script  813×285 */
+.lk--2 { top: -2.46%;  width: 90.47%; }   /* faceted 731×289 */
+.lk--3 { top: 14.39%;  width: 110.15%; }  /* graffiti 890×198 */
+.lk--4 { top: 14.39%;  width: 99.63%; }   /* bubble  805×198 */
+.lk--5 { top: 14.39%;  width: 106.31%; }  /* groovy  859×198 */
+:root[data-theme="dark"] .intro__lockup { filter: invert(1) hue-rotate(180deg); }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .intro__word { filter: invert(1) hue-rotate(180deg); }
+  :root:not([data-theme="light"]) .intro__lockup { filter: invert(1) hue-rotate(180deg); }
 }
+@media (prefers-reduced-motion: reduce) { .lk { transition: none; } }
 .intro__line {
   max-width: 28ch;
   font-family: var(--font-display);
