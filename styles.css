@@ -211,16 +211,26 @@ img { max-width: 100%; display: block; }
   padding-top: clamp(44px, 8vw, 104px);
   padding-bottom: clamp(24px, 3.5vw, 40px);
 }
-/* Хиро-леттеринг «Portfolio» — статично, по центру над интро-текстом */
-.intro__word {
-  display: block;
+/* Хиро-леттеринг «Portfolio» — слои с общим PORT, по центру над интро-текстом.
+   Слои выровнены по левому краю и нижней линии → «PORT» совпадает. */
+.intro__lockup {
+  position: relative;
   width: min(100%, 720px);
-  height: auto;
   margin: 0 auto clamp(20px, 3.5vw, 48px);
+  aspect-ratio: 808 / 285; /* пропорция слоя 1 (референс) */
 }
-:root[data-theme="dark"] .intro__word { filter: invert(1) hue-rotate(180deg); }
+.lk {
+  position: absolute;
+  left: 0; bottom: 0;
+  display: block;
+  height: auto;
+}
+.lk--1 { width: 100%; }            /* 808/808 */
+.lk--2 { width: 90.97%; }          /* 735/808 — тот же масштаб, PORT совпадает */
+.lk[hidden] { display: none; }
+:root[data-theme="dark"] .intro__lockup { filter: invert(1) hue-rotate(180deg); }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .intro__word { filter: invert(1) hue-rotate(180deg); }
+  :root:not([data-theme="light"]) .intro__lockup { filter: invert(1) hue-rotate(180deg); }
 }
 .intro__line {
   max-width: 28ch;
