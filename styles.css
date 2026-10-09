@@ -211,38 +211,17 @@ img { max-width: 100%; display: block; }
   padding-top: clamp(44px, 8vw, 104px);
   padding-bottom: clamp(24px, 3.5vw, 40px);
 }
-/* Хиро-леттеринг «Portfolio» по ширине сетки: PORT статичен, folio меняет стиль */
-.intro__pf {
-  position: relative;
+/* Хиро-леттеринг «Portfolio» — статично, по ширине сетки над интро-текстом */
+.intro__word {
+  display: block;
   width: 100%;
-  aspect-ratio: 802 / 285;
+  height: auto;
   margin-bottom: clamp(20px, 3.5vw, 48px);
 }
-.pf__port {
-  position: absolute;
-  left: 0; top: 14.39%;
-  width: 52.24%; height: 69.47%;
-}
-/* слот folio — справа от PORT, по общей базовой линии */
-.pf__folio {
-  position: absolute;
-  left: 52%; right: 0; top: 0; bottom: 16.1%;
-}
-.pf__fo {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: contain;
-  object-position: left bottom;
-  opacity: 0;
-  transition: opacity 0.7s var(--ease);
-  will-change: opacity;
-}
-.pf__fo.is-on { opacity: 1; }
-:root[data-theme="dark"] .intro__pf { filter: invert(1) hue-rotate(180deg); }
+:root[data-theme="dark"] .intro__word { filter: invert(1) hue-rotate(180deg); }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .intro__pf { filter: invert(1) hue-rotate(180deg); }
+  :root:not([data-theme="light"]) .intro__word { filter: invert(1) hue-rotate(180deg); }
 }
-@media (prefers-reduced-motion: reduce) { .pf__fo { transition: none; } }
 .intro__line {
   max-width: 28ch;
   font-family: var(--font-display);
