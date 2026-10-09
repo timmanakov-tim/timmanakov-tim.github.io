@@ -46,18 +46,22 @@
         <img class="lk lk--7" src="assets/portfolio-word-7.svg?v=1" alt="" aria-hidden="true" />
         <img class="lk lk--8" src="assets/portfolio-word-8.svg?v=2" alt="" aria-hidden="true" />
       </div>
-      <p class="intro__line reveal">
+      <div class="works__filter reveal" role="tablist" aria-label="Фильтр работ">
+        <button class="works__tab is-active" type="button" data-cat="uxui" role="tab" aria-selected="true">UX / UI</button>
+        <button class="works__tab" type="button" data-cat="graph" role="tab" aria-selected="false">Graphic Design</button>
+      </div>
+      <p class="intro__line reveal" data-cat="uxui">
         Привет, я Манаков Тимур – продуктовый дизайнер в EdTech, FinTech
         и Big Data (B2B / B2C / B2G).
+      </p>
+      <p class="intro__line reveal" data-cat="graph" hidden>
+        Привет, я Манаков Тимур – графический дизайнер: айдентика, постеры
+        и типографика для брендов и культурных проектов.
       </p>
     </section>
 
     <!-- Works -->
     <section class="works container" id="work" aria-label="Работы">
-      <div class="works__filter reveal" role="tablist" aria-label="Фильтр работ">
-        <button class="works__tab is-active" type="button" data-cat="uxui" role="tab" aria-selected="true">UX / UI</button>
-        <button class="works__tab" type="button" data-cat="graph" role="tab" aria-selected="false">Graphic Design</button>
-      </div>
       <ul class="works__grid">
         <li class="tile reveal" data-cat="uxui">
           <a class="tile__link" href="case.html?id=tomorrow-school" aria-label="Кейс: Tomorrow School">
@@ -349,6 +353,6 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
-  <script src="script.js?v=26"></script>
+  <script src="script.js?v=27"></script>
 </body>
 </html>

@@ -222,26 +222,32 @@
     });
   }
 
-  // --- Scroll-fill интро-строки: слова затемняются по мере прокрутки ---
-  var introLine = document.querySelector(".intro__line");
-  if (introLine && !reduceMotion) {
-    var text = (introLine.textContent || "").replace(/\s+/g, " ").trim();
-    var words = text.split(" ");
-    introLine.textContent = "";
-    var wEls = [];
-    words.forEach(function (w, i) {
-      var s = document.createElement("span");
-      s.className = "w";
-      s.textContent = w;
-      introLine.appendChild(s);
-      if (i < words.length - 1) introLine.appendChild(document.createTextNode(" "));
-      wEls.push(s);
+  // --- Scroll-fill интро-строк: слова затемняются по мере прокрутки ---
+  var introLines = document.querySelectorAll(".intro__line");
+  if (introLines.length && !reduceMotion) {
+    var introFills = [];
+    Array.prototype.forEach.call(introLines, function (line) {
+      var text = (line.textContent || "").replace(/\s+/g, " ").trim();
+      var words = text.split(" ");
+      line.textContent = "";
+      var wEls = [];
+      words.forEach(function (w, i) {
+        var s = document.createElement("span");
+        s.className = "w";
+        s.textContent = w;
+        line.appendChild(s);
+        if (i < words.length - 1) line.appendChild(document.createTextNode(" "));
+        wEls.push(s);
+      });
+      introFills.push(wEls);
     });
     var fill = function () {
       var vh = window.innerHeight;
       var prog = Math.min(1, (window.scrollY + vh * 0.24) / (vh * 0.72));
-      var n = Math.ceil(prog * wEls.length);
-      for (var i = 0; i < wEls.length; i++) wEls[i].classList.toggle("on", i < n);
+      introFills.forEach(function (wEls) {
+        var n = Math.ceil(prog * wEls.length);
+        for (var i = 0; i < wEls.length; i++) wEls[i].classList.toggle("on", i < n);
+      });
     };
     fill();
     if (lenis) lenis.on("scroll", fill);
@@ -359,6 +365,7 @@
   if (worksTabs.length) {
     var worksTiles = document.querySelectorAll(".works__grid .tile");
     var worksEmpty = document.querySelector(".works__empty");
+    var introByCat = document.querySelectorAll(".intro__line[data-cat]");
     var applyCat = function (cat) {
       var shown = 0;
       Array.prototype.forEach.call(worksTiles, function (tile) {
@@ -371,6 +378,12 @@
         var on = t.getAttribute("data-cat") === cat;
         t.classList.toggle("is-active", on);
         t.setAttribute("aria-selected", on ? "true" : "false");
+      });
+      // приветствие по теме выбранной вкладки
+      Array.prototype.forEach.call(introByCat, function (line) {
+        var on = line.getAttribute("data-cat") === cat;
+        line.hidden = !on;
+        if (on) line.classList.add("is-visible"); // reveal мог не сработать, пока скрыт
       });
     };
     Array.prototype.forEach.call(worksTabs, function (tab) {
