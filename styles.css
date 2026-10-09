@@ -211,45 +211,17 @@ img { max-width: 100%; display: block; }
   padding-top: clamp(44px, 8vw, 104px);
   padding-bottom: clamp(24px, 3.5vw, 40px);
 }
-/* Хиро-леттеринг «Portfolio» — слои с общим PORT, по центру над интро-текстом.
-   Слои выровнены по левому краю и нижней линии → «PORT» совпадает. */
-.intro__lockup {
-  position: relative;
-  width: min(100%, 720px);
-  margin: 0 auto clamp(20px, 3.5vw, 48px);
-  aspect-ratio: 808 / 285; /* пропорция слоя 1 (референс) */
-}
-/* Все слои в одном масштабе и выровнены по левому краю; сдвиг сверху подобран
-   так, чтобы «PORT» каждого слоя попадал в одну и ту же область (бокс слоя 1). */
-/* статичный PORT снизу — всегда непрозрачен, folio-слои кросс-фейдятся поверх */
-.pf-port {
-  position: absolute;
-  left: 0; top: 14.39%;
-  width: 51.86%; height: auto; /* 419/808 */
-  z-index: 0;
-}
-.lk {
-  position: absolute;
-  left: 0;
+/* Хиро-леттеринг «PORT» — статично, по центру над интро-текстом */
+.intro__word {
   display: block;
+  width: min(100%, 460px);
   height: auto;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.8s var(--ease);
-  will-change: opacity;
+  margin: 0 auto clamp(20px, 3.5vw, 48px);
 }
-.lk.is-on { opacity: 1; }
-.lk--1 { top: 1.05%;   width: 100.37%; }  /* 811×285, PORT relY 38 */
-.lk--2 { top: -2.46%;  width: 90.47%; }   /* 731×289, PORT relY 48 */
-.lk--3 { top: 14.39%;  width: 110.15%; }  /* 890×198, PORT relY 0  */
-.lk--4 { top: 14.39%;  width: 99.63%; }   /* 805×198, PORT relY 0  */
-.lk--5 { top: 14.39%;  width: 106.06%; }  /* 857×198, PORT relY 0  */
-.lk[hidden] { display: none; }
-:root[data-theme="dark"] .intro__lockup { filter: invert(1) hue-rotate(180deg); }
+:root[data-theme="dark"] .intro__word { filter: invert(1) hue-rotate(180deg); }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .intro__lockup { filter: invert(1) hue-rotate(180deg); }
+  :root:not([data-theme="light"]) .intro__word { filter: invert(1) hue-rotate(180deg); }
 }
-@media (prefers-reduced-motion: reduce) { .lk { transition: none; } }
 .intro__line {
   max-width: 28ch;
   font-family: var(--font-display);
