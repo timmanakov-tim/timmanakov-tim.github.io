@@ -589,7 +589,7 @@
         "</figure>";
     }
     if (d.cover) {
-      return '<div class="case__cover case__cover--image reveal"><img src="' + d.cover + '" alt="' + data.title + ' – обложка" loading="lazy" /></div>';
+      return '<div class="case__cover case__cover--image reveal"' + (d.coverRatio ? ' style="aspect-ratio:' + d.coverRatio + '"' : "") + '><img src="' + d.cover + '" alt="' + data.title + ' – обложка" loading="lazy" /></div>';
     }
     if (d.heroEmpty) {
       return '<div class="case__cover case__cover--empty reveal" style="aspect-ratio:' + (d.heroEmpty.ratio || "1254 / 708") + '" aria-hidden="true"></div>';
@@ -656,7 +656,7 @@
       "</header>" +
       '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" +
       (data.cover
-        ? '<div class="case__cover case__cover--image reveal"><img src="' + data.cover + '" alt="' + data.title + ' – обложка" loading="lazy" /></div>'
+        ? '<div class="case__cover case__cover--image reveal"' + (data.coverRatio ? ' style="aspect-ratio:' + data.coverRatio + '"' : "") + '><img src="' + data.cover + '" alt="' + data.title + ' – обложка" loading="lazy" /></div>'
         : '<div class="case__cover reveal" data-tone="' + data.tone + '" aria-hidden="true"></div>') +
       (data.article
         ? '<div class="art art--notoc"><div class="art__body">' +
