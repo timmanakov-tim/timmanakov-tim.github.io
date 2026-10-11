@@ -2524,7 +2524,7 @@ textarea:focus-visible {
 .hssucc__thumb { width: 6cqw; height: 6cqw; color: #007aff; display: grid; place-items: center; }
 .hssucc__thumb svg { width: 100%; height: 100%; display: block; }
 .hssucc__title2 { font-family: var(--font-display); font-weight: 600; font-size: 4cqw; margin: 0; }
-.hssucc__text { font-size: 2.5cqw; color: #57534e; max-width: 60cqw; text-align: center; margin: 0; line-height: 1.3; }
+.hssucc__text { font-size: 2.5cqw; color: #57534e; white-space: nowrap; text-align: center; margin: 0; line-height: 1.3; }
 .hssucc__btn {
   appearance: none; -webkit-appearance: none; border: 0;
   background: #2563eb; color: #fafaf9;
