@@ -551,16 +551,11 @@ img { max-width: 100%; display: block; }
 .contact__socials {
   margin-top: 44px;
   display: flex;
-  gap: 26px;
+  gap: 14px;
   justify-content: center;
-  color: var(--fg-muted);
+  flex-wrap: wrap;
 }
-.contact__socials a {
-  display: inline-flex;
-  transition: color 0.2s var(--ease), transform 0.2s var(--ease);
-}
-.contact__socials a:hover { color: var(--fg); transform: translateY(-2px); }
-.contact__socials svg { width: 22px; height: 22px; display: block; }
+.contact__socials .btn svg { width: 18px; height: 18px; display: block; }
 
 /* -------------------------------------------------- Footer */
 .site-footer {
