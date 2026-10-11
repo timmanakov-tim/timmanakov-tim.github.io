@@ -747,12 +747,14 @@ textarea:focus-visible {
   inset: 0;
   background: radial-gradient(120% 120% at 78% 14%, color-mix(in srgb, var(--fg) 7%, transparent), transparent 60%);
 }
-.case__cover--image { background: var(--bg-soft); }
+/* Hero-обложки без светлой подложки — чтобы на тёмной теме не было просветов */
+.case__cover--image { background: transparent; }
 .case__cover--image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .case__cover--image::after { display: none; }
+.case__cover[data-tone] { display: none; }   /* hero-плейсхолдер без картинки — не показываем пустую подложку */
 
 /* Hero с устройством: фон-мокап + видео в области экрана */
-.hero-device { background: var(--bg-soft); container-type: inline-size; }
+.hero-device { background: transparent; container-type: inline-size; }
 .hero-device__bg { position: absolute; inset: 0; }
 .hero-device__screen {
   position: absolute;
@@ -2469,7 +2471,7 @@ textarea:focus-visible {
 }
 
 /* Пустой hero-фрейм (таб без обложки) и узкая media (модалка) */
-.case__cover--empty { background: var(--bg-soft); border: 1px solid var(--line); }
+.case__cover--empty { background: transparent; border: 1px solid var(--line); }
 .tl__media--narrow { max-width: 680px; margin-inline: auto; }
 
 /* -------------------------------------------------- Success-модалка «Изменение ИУП» (800×548, анимированная) */
