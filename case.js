@@ -550,9 +550,61 @@
       .join("");
   }
 
+  // Hero-визуал (обложка / девайс-мокап / анимация) — общий для обычного и таб-рендера
+  function heroMediaHtml(d) {
+    if (d.hideHero) return "";
+    if (d.heroDevice) {
+      var sc = d.heroDevice.screen || {};
+      return '<figure class="case__cover case__cover--image hero-device reveal" style="aspect-ratio:' + (d.heroDevice.ratio || "1254 / 708") + '">' +
+        '<img class="hero-device__bg" src="' + d.heroDevice.bg + '" alt="' + data.title + ' – обложка" />' +
+        '<video class="hero-device__screen" style="left:' + sc.left + ";top:" + sc.top + ";width:" + sc.width + ";height:" + sc.height + '" src="' + d.heroDevice.video + '" autoplay muted loop playsinline preload="auto"></video>' +
+        "</figure>";
+    }
+    if (d.heroAnim) {
+      return '<figure class="hero-anim" style="aspect-ratio:' + (d.heroAnim.ratio || "1920 / 807") + '" role="img" aria-label="' + data.title + '">' +
+        '<img class="hero-anim__bg" src="' + d.heroAnim.bg + '" alt="" />' +
+        '<img class="hero-anim__mark" src="' + d.heroAnim.mark + '" alt="' + data.title + '" />' +
+        '<span class="hero-anim__star" aria-hidden="true"></span>' +
+        "</figure>";
+    }
+    if (d.cover) {
+      return '<div class="case__cover case__cover--image reveal"><img src="' + d.cover + '" alt="' + data.title + ' – обложка" loading="lazy" /></div>';
+    }
+    return '<div class="case__cover reveal" data-tone="' + (d.tone || data.tone) + '" aria-hidden="true"></div>';
+  }
+
   var bodyHtml;
   if (data.caseStudy) {
     bodyHtml = caseStudyHtml(data.caseStudy);
+  } else if (data.tabs) {
+    // Hero с табами: контент (подзаголовок + визуал + мета + блоки) переключается
+    var tabBtns = data.tabs
+      .map(function (t, i) {
+        return '<button type="button" class="case__tab' + (i === 0 ? " is-active" : "") +
+          '" data-case-tab="' + t.id + '" role="tab" aria-selected="' + (i === 0 ? "true" : "false") + '">' +
+          t.label + "</button>";
+      })
+      .join("");
+    var tabPanels = data.tabs
+      .map(function (t, i) {
+        var inner =
+          '<p class="case__subtitle reveal">' + (t.subtitleHtml || t.subtitle || "") + "</p>" +
+          (t.meta ? '<dl class="case__meta reveal">' + metaHtml(t.meta) + "</dl>" : "") +
+          heroMediaHtml(t) +
+          (t.overview ? '<p class="tl__lead reveal">' + t.overview + "</p>" : "") +
+          (t.blocks && t.blocks.length
+            ? blocksHtml(t.blocks)
+            : (t.empty || '<p class="tl__lead tl__lead--muted reveal">Раздел готовится.</p>'));
+        return '<div class="case__tab-panel' + (i === 0 ? " is-active" : "") +
+          '" data-case-panel="' + t.id + '" role="tabpanel"' + (i === 0 ? "" : " hidden") + ">" + inner + "</div>";
+      })
+      .join("");
+    bodyHtml =
+      '<header class="case__hero">' +
+      '<h1 class="case__title reveal">' + data.title + "</h1>" +
+      '<div class="case__tabs reveal" role="tablist">' + tabBtns + "</div>" +
+      "</header>" +
+      tabPanels;
   } else if (data.blocks) {
     bodyHtml =
       '<header class="case__hero">' +
@@ -560,25 +612,7 @@
       '<p class="case__subtitle reveal">' + (data.subtitleHtml || data.subtitle) + "</p>" +
       "</header>" +
       (data.meta ? '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" : "") +
-      (data.hideHero
-        ? ""
-        : data.heroDevice
-        ? (function (d) {
-            var sc = d.screen || {};
-            return '<figure class="case__cover case__cover--image hero-device reveal" style="aspect-ratio:' + (d.ratio || "1254 / 708") + '">' +
-              '<img class="hero-device__bg" src="' + d.bg + '" alt="' + data.title + ' – обложка" />' +
-              '<video class="hero-device__screen" style="left:' + sc.left + ";top:" + sc.top + ";width:" + sc.width + ";height:" + sc.height + '" src="' + d.video + '" autoplay muted loop playsinline preload="auto"></video>' +
-              "</figure>";
-          })(data.heroDevice)
-        : data.heroAnim
-        ? '<figure class="hero-anim" style="aspect-ratio:' + (data.heroAnim.ratio || "1920 / 807") + '" role="img" aria-label="' + data.title + '">' +
-            '<img class="hero-anim__bg" src="' + data.heroAnim.bg + '" alt="" />' +
-            '<img class="hero-anim__mark" src="' + data.heroAnim.mark + '" alt="' + data.title + '" />' +
-            '<span class="hero-anim__star" aria-hidden="true"></span>' +
-          "</figure>"
-        : data.cover
-        ? '<div class="case__cover case__cover--image reveal"><img src="' + data.cover + '" alt="' + data.title + ' – обложка" loading="lazy" /></div>'
-        : '<div class="case__cover reveal" data-tone="' + data.tone + '" aria-hidden="true"></div>') +
+      heroMediaHtml(data) +
       (data.overview ? '<p class="tl__lead reveal">' + data.overview + "</p>" : "") +
       blocksHtml(data.blocks);
   } else {
@@ -662,6 +696,33 @@
     );
     Array.prototype.forEach.call(document.querySelectorAll(".art__section"), function (s) {
       spy.observe(s);
+    });
+  }
+
+  // Переключение табов в hero кейса
+  var caseTabBtns = document.querySelectorAll("[data-case-tab]");
+  if (caseTabBtns.length) {
+    var casePanels = document.querySelectorAll("[data-case-panel]");
+    Array.prototype.forEach.call(caseTabBtns, function (btn) {
+      btn.addEventListener("click", function () {
+        var id = btn.getAttribute("data-case-tab");
+        Array.prototype.forEach.call(caseTabBtns, function (b) {
+          var on = b === btn;
+          b.classList.toggle("is-active", on);
+          b.setAttribute("aria-selected", on ? "true" : "false");
+        });
+        Array.prototype.forEach.call(casePanels, function (p) {
+          var on = p.getAttribute("data-case-panel") === id;
+          p.hidden = !on;
+          p.classList.toggle("is-active", on);
+          if (on) {
+            // показываем reveal-элементы только что открытой панели
+            Array.prototype.forEach.call(p.querySelectorAll(".reveal"), function (el) {
+              el.classList.add("is-visible");
+            });
+          }
+        });
+      });
     });
   }
 })();

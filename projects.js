@@ -239,51 +239,67 @@ window.PROJECTS = {
     title: "Hero Study",
     subtitle: "Конструктор учебного контента для вузов",
     tone: 1,
-    cover: "assets/hs-hero-lectures.jpg",
-    heroDevice: {
-      bg: "assets/hs-hero-bg.jpg",
-      video: "assets/hs-hero-screen.mp4?v=3",
-      ratio: "1254 / 708",
-      screen: { left: "22.97%", top: "11.44%", width: "54.23%", height: "53.95%" },
-    },
-    meta: {
-      Роль: "Product Designer",
-      Направление: "EdTech",
-      Платформа: "Web · Desktop",
-      Год: "2026",
-      Срок: "6 месяцев",
-    },
-    // Архитектура один-в-один по макету Figma node 3035-44298
-    blocks: [
+    // Hero с двумя табами: контент переключается при выборе таба
+    tabs: [
       {
-        rows: [
+        id: "constructor",
+        label: "Конструктор учебного контента для вузов",
+        subtitle: "Конструктор учебного контента для вузов",
+        cover: "assets/hs-hero-lectures.jpg",
+        heroDevice: {
+          bg: "assets/hs-hero-bg.jpg",
+          video: "assets/hs-hero-screen.mp4?v=3",
+          ratio: "1254 / 708",
+          screen: { left: "22.97%", top: "11.44%", width: "54.23%", height: "53.95%" },
+        },
+        meta: {
+          Роль: "Product Designer",
+          Направление: "EdTech",
+          Платформа: "Web · Desktop",
+          Год: "2026",
+          Срок: "6 месяцев",
+        },
+        // Архитектура один-в-один по макету Figma node 3035-44298
+        blocks: [
           {
-            label: "Проблема",
-            text: "Преподаватели создают программы в Word, презентации в PowerPoint, тесты в iSpring. Всё хранится отдельно. Если меняется учебный план, нужно вручную обновлять множество файлов.",
+            rows: [
+              {
+                label: "Проблема",
+                text: "Преподаватели создают программы в Word, презентации в PowerPoint, тесты в iSpring. Всё хранится отдельно. Если меняется учебный план, нужно вручную обновлять множество файлов.",
+              },
+              {
+                label: "Задача",
+                text: "Создать конструктор курсов прямо в LMS: в одном месте собирать материалы, задания и тесты, а затем быстро обновлять их при изменениях в программе.",
+              },
+              {
+                label: "Ценность",
+                text: "Меньше ручной работы, меньше ошибок и всегда актуальный учебный контент.",
+              },
+            ],
           },
+          { media: { kind: "image", src: "assets/hs-01.jpg?v=3" } },
+          { media: { kind: "image", src: "assets/hs-02.jpg?v=3" } },
+          { media: { kind: "image", src: "assets/hs-03.jpg?v=3" } },
+          { media: { kind: "image", src: "assets/hs-04.jpg?v=3" } },
+          { media: { kind: "image", src: "assets/hs-05.jpg?v=3" } },
           {
-            label: "Задача",
-            text: "Создать конструктор курсов прямо в LMS: в одном месте собирать материалы, задания и тесты, а затем быстро обновлять их при изменениях в программе.",
-          },
-          {
-            label: "Ценность",
-            text: "Меньше ручной работы, меньше ошибок и всегда актуальный учебный контент.",
+            grid: {
+              ratio: "618 / 272",
+              items: [
+                { modal: "choice" },
+                { modal: "save" },
+              ],
+            },
           },
         ],
       },
-      { media: { kind: "image", src: "assets/hs-01.jpg?v=3" } },
-      { media: { kind: "image", src: "assets/hs-02.jpg?v=3" } },
-      { media: { kind: "image", src: "assets/hs-03.jpg?v=3" } },
-      { media: { kind: "image", src: "assets/hs-04.jpg?v=3" } },
-      { media: { kind: "image", src: "assets/hs-05.jpg?v=3" } },
       {
-        grid: {
-          ratio: "618 / 272",
-          items: [
-            { modal: "choice" },
-            { modal: "save" },
-          ],
-        },
+        id: "iup",
+        label: "Изменение ИУП",
+        subtitle: "Изменение ИУП",
+        hideHero: true,
+        // Контент второго таба — добавить (текст + экраны/Figma)
+        blocks: [],
       },
     ],
   },
