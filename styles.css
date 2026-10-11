@@ -2466,3 +2466,7 @@ textarea:focus-visible {
   .case__tabs { display: flex; width: 100%; }
   .case__tab { flex: 1 1 auto; text-align: center; }
 }
+
+/* Пустой hero-фрейм (таб без обложки) и узкая media (модалка) */
+.case__cover--empty { background: var(--bg-soft); border: 1px solid var(--line); }
+.tl__media--narrow { max-width: 680px; margin-inline: auto; }

@@ -522,7 +522,7 @@
             '<img class="mlogo__mark" src="assets/miru-mark.svg?v=2" alt="MIRU" />' +
             "</div>";
         if (b.media)
-          return '<figure class="tl__media reveal' + (b.media.plain ? " tl__media--plain" : "") + (b.media.anim ? " tl__media--" + b.media.anim : "") + '">' +
+          return '<figure class="tl__media reveal' + (b.media.plain ? " tl__media--plain" : "") + (b.media.narrow ? " tl__media--narrow" : "") + (b.media.anim ? " tl__media--" + b.media.anim : "") + '">' +
             (b.media.label ? '<figcaption class="tl__label">' + b.media.label + "</figcaption>" : "") +
             tlMedia(b.media) + "</figure>";
         if (b.plus)
@@ -569,6 +569,9 @@
     }
     if (d.cover) {
       return '<div class="case__cover case__cover--image reveal"><img src="' + d.cover + '" alt="' + data.title + ' – обложка" loading="lazy" /></div>';
+    }
+    if (d.heroEmpty) {
+      return '<div class="case__cover case__cover--empty reveal" style="aspect-ratio:' + (d.heroEmpty.ratio || "1254 / 708") + '" aria-hidden="true"></div>';
     }
     return '<div class="case__cover reveal" data-tone="' + (d.tone || data.tone) + '" aria-hidden="true"></div>';
   }

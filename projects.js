@@ -297,9 +297,22 @@ window.PROJECTS = {
         id: "iup",
         label: "Изменение ИУП",
         subtitle: "Изменение ИУП",
-        hideHero: true,
-        // Контент второго таба — добавить (текст + экраны/Figma)
-        blocks: [],
+        // Пустой hero-фрейм того же размера, что и у конструктора
+        heroEmpty: { ratio: "1254 / 708" },
+        blocks: [
+          {
+            section: {
+              heading: "Задача",
+              body:
+                "Здесь будет описание задачи — пока текст-рыба. Модуль «Изменение ИУП» помогает студенту пересобрать индивидуальный учебный план: подать запрос, выбрать дисциплину и нужные оценки и подтвердить изменения за несколько шагов. Ниже — экраны этого сценария один в один из макета. Реальный текст и акценты заменим позже.",
+            },
+          },
+          { media: { kind: "image", src: "assets/hs-iup-1.png" } },
+          { media: { kind: "image", src: "assets/hs-iup-2.png" } },
+          { media: { kind: "image", src: "assets/hs-iup-3.png" } },
+          { media: { kind: "image", src: "assets/hs-iup-4.png" } },
+          { media: { kind: "image", src: "assets/hs-iup-5.png", narrow: true } },
+        ],
       },
     ],
   },
