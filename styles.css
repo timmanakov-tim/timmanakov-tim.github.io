@@ -2519,9 +2519,9 @@ textarea:focus-visible {
 }
 .hssucc__badge {
   width: 12cqw; height: 12cqw; border-radius: 50%;
-  background: #f0fdf4; display: grid; place-items: center;
+  background: rgba(0, 122, 255, 0.15); display: grid; place-items: center;
 }
-.hssucc__thumb { width: 6cqw; height: 6cqw; color: #15803d; display: grid; place-items: center; }
+.hssucc__thumb { width: 6cqw; height: 6cqw; color: #007aff; display: grid; place-items: center; }
 .hssucc__thumb svg { width: 100%; height: 100%; display: block; }
 .hssucc__title2 { font-family: var(--font-display); font-weight: 600; font-size: 4cqw; margin: 0; }
 .hssucc__text { font-size: 2.5cqw; color: #57534e; max-width: 60cqw; text-align: center; margin: 0; line-height: 1.3; }
