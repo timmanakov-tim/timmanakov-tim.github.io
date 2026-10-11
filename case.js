@@ -601,11 +601,17 @@
   if (data.caseStudy) {
     bodyHtml = caseStudyHtml(data.caseStudy);
   } else if (data.tabs) {
-    // Hero с табами: контент (подзаголовок + визуал + мета + блоки) переключается
+    // Hero с табами: контент (подзаголовок + визуал + мета + блоки) переключается.
+    // Активный таб берём из URL-хэша, чтобы при обновлении страницы остаться на нём.
+    var hashTab = (location.hash || "").replace(/^#/, "");
+    var activeIdx = 0;
+    for (var ti = 0; ti < data.tabs.length; ti++) {
+      if (data.tabs[ti].id === hashTab) { activeIdx = ti; break; }
+    }
     var tabBtns = data.tabs
       .map(function (t, i) {
-        return '<button type="button" class="case__tab' + (i === 0 ? " is-active" : "") +
-          '" data-case-tab="' + t.id + '" role="tab" aria-selected="' + (i === 0 ? "true" : "false") + '">' +
+        return '<button type="button" class="case__tab' + (i === activeIdx ? " is-active" : "") +
+          '" data-case-tab="' + t.id + '" role="tab" aria-selected="' + (i === activeIdx ? "true" : "false") + '">' +
           t.label + "</button>";
       })
       .join("");
@@ -619,8 +625,8 @@
           (t.blocks && t.blocks.length
             ? blocksHtml(t.blocks)
             : (t.empty || '<p class="tl__lead tl__lead--muted reveal">Раздел готовится.</p>'));
-        return '<div class="case__tab-panel' + (i === 0 ? " is-active" : "") +
-          '" data-case-panel="' + t.id + '" role="tabpanel"' + (i === 0 ? "" : " hidden") + ">" + inner + "</div>";
+        return '<div class="case__tab-panel' + (i === activeIdx ? " is-active" : "") +
+          '" data-case-panel="' + t.id + '" role="tabpanel"' + (i === activeIdx ? "" : " hidden") + ">" + inner + "</div>";
       })
       .join("");
     bodyHtml =
@@ -746,6 +752,11 @@
             });
           }
         });
+        // запоминаем активный таб в URL, чтобы при обновлении вернуться на него
+        try {
+          if (history.replaceState) history.replaceState(null, "", "#" + id);
+          else location.hash = id;
+        } catch (e) { location.hash = id; }
       });
     });
   }
