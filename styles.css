@@ -2486,6 +2486,22 @@ textarea:focus-visible {
   flex-direction: column;
   color: #1c1917;
 }
+.hssucc__head {
+  flex: 0 0 auto;
+  height: 8cqw;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 2cqw;
+}
+.hssucc__close {
+  appearance: none; -webkit-appearance: none;
+  width: 4cqw; height: 4cqw;
+  display: grid; place-items: center;
+  border: 1px solid #e7e5e4; border-radius: 1.25cqw;
+  background: #fff; color: #1c1917; cursor: pointer;
+}
+.hssucc__close svg { width: 2cqw; height: 2cqw; }
 .hssucc__body {
   position: relative;
   flex: 1 1 auto;
