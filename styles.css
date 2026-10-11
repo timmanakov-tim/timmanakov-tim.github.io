@@ -2534,7 +2534,14 @@ textarea:focus-visible {
 }
 .hssucc__btn:hover { background: #1d4ed8; }
 
-@keyframes hssuccPop { 0% { transform: scale(0.3); opacity: 0; } 60% { transform: scale(1.12); } 100% { transform: scale(1); opacity: 1; } }
+@keyframes hssuccToss {
+  0%   { opacity: 0; transform: translateY(1.5cqw) rotate(-18deg) scale(0.72); animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1); }
+  12%  { opacity: 1; }
+  45%  { transform: translateY(-10cqw) rotate(210deg) scale(1.08); animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.45); }
+  72%  { transform: translateY(0) rotate(360deg) scale(1); animation-timing-function: cubic-bezier(0.3, 0.6, 0.4, 1); }
+  84%  { transform: translateY(-2.5cqw) rotate(360deg) scale(1); animation-timing-function: cubic-bezier(0.5, 0, 0.7, 0.5); }
+  100% { opacity: 1; transform: translateY(0) rotate(360deg) scale(1); }
+}
 @keyframes hssuccUp { from { opacity: 0; transform: translateY(1.4cqw); } to { opacity: 1; transform: none; } }
 @keyframes hssuccPiece {
   0% { opacity: 0; transform: translate(-50%, -50%) rotate(0); }
@@ -2542,10 +2549,10 @@ textarea:focus-visible {
   78% { opacity: 1; }
   100% { opacity: 0; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) rotate(var(--rot)); }
 }
-.hssucc.is-playing .hssucc__badge { animation: hssuccPop 0.55s cubic-bezier(0.2, 0.8, 0.2, 1.15) both; }
-.hssucc.is-playing .hssucc__title2 { animation: hssuccUp 0.5s 0.18s both; }
-.hssucc.is-playing .hssucc__text { animation: hssuccUp 0.5s 0.28s both; }
-.hssucc.is-playing .hssucc__btn { animation: hssuccUp 0.5s 0.38s both; }
+.hssucc.is-playing .hssucc__badge { animation: hssuccToss 1.05s both; }
+.hssucc.is-playing .hssucc__title2 { animation: hssuccUp 0.5s 0.58s both; }
+.hssucc.is-playing .hssucc__text { animation: hssuccUp 0.5s 0.7s both; }
+.hssucc.is-playing .hssucc__btn { animation: hssuccUp 0.5s 0.82s both; }
 .hssucc.is-playing .hssucc__piece { animation: hssuccPiece var(--dur, 1.6s) var(--delay, 0s) cubic-bezier(0.2, 0.6, 0.4, 1) forwards; }
 
 @media (prefers-reduced-motion: reduce) {
