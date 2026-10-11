@@ -2391,3 +2391,40 @@ textarea:focus-visible {
 .tl__frame--tint[data-tone="2"] { background: var(--tone-2); }
 .tl__frame--tint[data-tone="3"] { background: var(--tone-3); }
 .tl__frame--tint[data-tone="4"] { background: var(--tone-4); }
+
+/* -------------------------------------------------- Кнопка «наверх» (страницы кейсов) */
+.to-top {
+  position: fixed;
+  right: clamp(16px, 3vw, 32px);
+  bottom: clamp(16px, 3vw, 32px);
+  z-index: 50;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--fg);
+  cursor: pointer;
+  box-shadow: 0 10px 28px -12px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease),
+    visibility 0.3s var(--ease), border-color 0.2s var(--ease);
+}
+.to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.to-top.is-visible:hover {
+  border-color: var(--fg);
+  transform: translateY(-3px);
+}
+.to-top svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}

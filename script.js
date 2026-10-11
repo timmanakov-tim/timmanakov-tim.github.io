@@ -222,6 +222,22 @@
     });
   }
 
+  // --- Кнопка «наверх» (только на страницах кейсов) ---
+  var toTop = document.querySelector(".to-top");
+  if (toTop) {
+    var toTopSync = function () {
+      var y = window.scrollY || document.documentElement.scrollTop || 0;
+      toTop.classList.toggle("is-visible", y > 480);
+    };
+    toTopSync();
+    if (lenis) lenis.on("scroll", toTopSync);
+    else window.addEventListener("scroll", toTopSync, { passive: true });
+    toTop.addEventListener("click", function () {
+      if (lenis) lenis.scrollTo(0, { duration: 1.0 });
+      else window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    });
+  }
+
   // --- Scroll-fill интро-строк: слова затемняются по мере прокрутки ---
   var introLines = document.querySelectorAll(".intro__line");
   if (introLines.length && !reduceMotion) {
