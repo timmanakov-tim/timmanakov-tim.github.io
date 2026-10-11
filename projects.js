@@ -311,7 +311,7 @@ window.PROJECTS = {
           { media: { kind: "image", src: "assets/hs-iup-2.png" } },
           { media: { kind: "image", src: "assets/hs-iup-3.png" } },
           { media: { kind: "image", src: "assets/hs-iup-4.png" } },
-          { media: { kind: "image", src: "assets/hs-iup-5.png", narrow: true } },
+          { successModal: true },
         ],
       },
     ],

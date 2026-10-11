@@ -238,6 +238,54 @@
     });
   }
 
+  // --- Success-модалка «Изменение ИУП»: конфетти + поп-анимация ---
+  var hssucc = document.querySelector("[data-hssucc]");
+  if (hssucc) {
+    var confettiHost = hssucc.querySelector(".hssucc__confetti");
+    var confColors = ["#FACC15", "#22C55E", "#8B5CF6", "#EF4444", "#3B82F6", "#FB923C"];
+    for (var ci = 0; ci < 22; ci++) {
+      var piece = document.createElement("span");
+      piece.className = "hssucc__piece";
+      var ang = Math.random() * Math.PI * 2;
+      var dist = 22 + Math.random() * 36;
+      var tx = Math.cos(ang) * dist;
+      var ty = Math.sin(ang) * dist * 0.5 + (16 + Math.random() * 28); // смещение вниз — «падают»
+      piece.style.setProperty("--c", confColors[ci % confColors.length]);
+      piece.style.setProperty("--tx", tx.toFixed(1) + "cqw");
+      piece.style.setProperty("--ty", ty.toFixed(1) + "cqw");
+      piece.style.setProperty("--rot", Math.round(Math.random() * 720 - 360) + "deg");
+      piece.style.setProperty("--dur", (1.2 + Math.random() * 0.9).toFixed(2) + "s");
+      piece.style.setProperty("--delay", (Math.random() * 0.18).toFixed(2) + "s");
+      confettiHost.appendChild(piece);
+    }
+    var hssuccPlay = function () {
+      hssucc.classList.remove("is-playing");
+      void hssucc.offsetWidth; // reflow — перезапуск CSS-анимаций
+      hssucc.classList.add("is-playing");
+    };
+    if ("IntersectionObserver" in window && !reduceMotion) {
+      var hssuccTimer = null;
+      new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              hssuccPlay();
+              if (!hssuccTimer) hssuccTimer = setInterval(hssuccPlay, 4200);
+            } else if (hssuccTimer) {
+              clearInterval(hssuccTimer);
+              hssuccTimer = null;
+            }
+          });
+        },
+        { threshold: 0.4 }
+      ).observe(hssucc);
+    } else {
+      hssucc.classList.add("is-playing");
+    }
+    var hssuccBtn = hssucc.querySelector(".hssucc__btn");
+    if (hssuccBtn) hssuccBtn.addEventListener("click", function (e) { e.preventDefault(); hssuccPlay(); });
+  }
+
   // --- Scroll-fill интро-строк: слова затемняются по мере прокрутки ---
   var introLines = document.querySelectorAll(".intro__line");
   if (introLines.length && !reduceMotion) {

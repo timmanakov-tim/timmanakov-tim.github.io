@@ -361,9 +361,31 @@
     return '<div class="tl__frame' + mod + '"' + tone + ">" + inner + redact + "</div>";
   }
 
+  // Success-модалка «Изменение ИУП» — один-в-один по макету (800×548), анимированная
+  function hsSuccessHtml() {
+    var icoClose = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+    var icoThumb = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 21h4V9H2v12zM22 10c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L13.17 1 6.59 7.59C6.22 7.95 6 8.45 6 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>';
+    return '<div class="hssucc-wrap reveal">' +
+      '<div class="hssucc" data-hssucc>' +
+        '<div class="hssucc__head">' +
+          '<span class="hssucc__title">Untitled.pdf</span>' +
+          '<button type="button" class="hssucc__close" aria-label="Закрыть">' + icoClose + "</button>" +
+        "</div>" +
+        '<div class="hssucc__body">' +
+          '<div class="hssucc__confetti" aria-hidden="true"></div>' +
+          '<div class="hssucc__badge"><span class="hssucc__thumb">' + icoThumb + "</span></div>" +
+          '<p class="hssucc__title2">Успех!</p>' +
+          '<p class="hssucc__text">Оценки успешно перенесены в новую дисциплину.</p>' +
+          '<button type="button" class="hssucc__btn">На главную</button>' +
+        "</div>" +
+      "</div>" +
+    "</div>";
+  }
+
   function blocksHtml(blocks) {
     return blocks
       .map(function (b) {
+        if (b.successModal) return hsSuccessHtml();
         if (b.heading) return '<h2 class="tl__h2 tl__h2--solo reveal">' + b.heading + "</h2>";
         if (b.section) {
           var s = b.section;
