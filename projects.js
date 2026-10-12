@@ -119,8 +119,8 @@ window.PROJECTS = {
       bg: "assets/ab-hero.jpg",
       video: "assets/ab-hero-screen.mp4",
       ratio: "1020 / 665",
-      // 4 угла экрана в % hero: TL, TR, BR, BL
-      corners: [[46.8, 24], [82.6, 27.6], [84, 53.8], [47.2, 49.5]],
+      // 4 угла экрана в % hero: TL, TR, BR, BL (из вектора Figma 3179-44862)
+      corners: [[45.48, 15.19], [87.65, 27.16], [82.96, 73.23], [41.08, 60.14]],
     },
     meta: {
       Роль: "UX/UI, дизайн-система",
