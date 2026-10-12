@@ -149,7 +149,7 @@ window.PROJECTS = {
   },
 
   "student-app": {
-    title: "Student App",
+    title: "Stemio",
     subtitle: "Мобильное приложение для студентов EdTech-платформы",
     tone: 4,
     meta: {
