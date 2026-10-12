@@ -286,6 +286,62 @@
     if (hssuccBtn) hssuccBtn.addEventListener("click", function (e) { e.preventDefault(); hssuccPlay(); });
   }
 
+  // --- Hero с видео на экране ноутбука: проекция видео на 4 угла экрана (matrix3d) ---
+  var heroLaptops = document.querySelectorAll("[data-hero-laptop]");
+  if (heroLaptops.length) {
+    // Общая 2D-проекция (homography) прямоугольника source → 4 точки dest
+    var adj = function (m) {
+      return [
+        m[4] * m[8] - m[5] * m[7], m[2] * m[7] - m[1] * m[8], m[1] * m[5] - m[2] * m[4],
+        m[5] * m[6] - m[3] * m[8], m[0] * m[8] - m[2] * m[6], m[2] * m[3] - m[0] * m[5],
+        m[3] * m[7] - m[4] * m[6], m[1] * m[6] - m[0] * m[7], m[0] * m[4] - m[1] * m[3],
+      ];
+    };
+    var mmul = function (a, b) {
+      var r = [];
+      for (var i = 0; i < 3; i++) for (var j = 0; j < 3; j++) {
+        var s = 0; for (var k = 0; k < 3; k++) s += a[3 * i + k] * b[3 * k + j]; r[3 * i + j] = s;
+      }
+      return r;
+    };
+    var mvmul = function (m, v) {
+      return [m[0] * v[0] + m[1] * v[1] + m[2] * v[2], m[3] * v[0] + m[4] * v[1] + m[5] * v[2], m[6] * v[0] + m[7] * v[1] + m[8] * v[2]];
+    };
+    var basis = function (p) {
+      var m = [p[0][0], p[1][0], p[2][0], p[0][1], p[1][1], p[2][1], 1, 1, 1];
+      var v = mvmul(adj(m), [p[3][0], p[3][1], 1]);
+      return mmul(m, [v[0], 0, 0, 0, v[1], 0, 0, 0, v[2]]);
+    };
+    var toMatrix3d = function (src, dst) {
+      var H = mmul(basis(dst), adj(basis(src)));
+      for (var i = 0; i < 9; i++) H[i] /= H[8];
+      return [H[0], H[3], 0, H[6], H[1], H[4], 0, H[7], 0, 0, 1, 0, H[2], H[5], 0, H[8]];
+    };
+    Array.prototype.forEach.call(heroLaptops, function (fig) {
+      var video = fig.querySelector(".hero-laptop__screen");
+      var corners;
+      try { corners = JSON.parse(fig.getAttribute("data-hero-laptop")); } catch (e) { return; }
+      var place = function () {
+        var W = fig.clientWidth, Hh = fig.clientHeight;
+        if (!W || !Hh) return;
+        video.style.width = W + "px";
+        video.style.height = Hh + "px";
+        var dst = corners.map(function (c) { return [c[0] / 100 * W, c[1] / 100 * Hh]; });
+        var src = [[0, 0], [W, 0], [W, Hh], [0, Hh]]; // TL, TR, BR, BL — тот же порядок
+        video.style.transform = "matrix3d(" + toMatrix3d(src, dst).join(",") + ")";
+        video.classList.add("is-placed");
+      };
+      place();
+      setTimeout(place, 80);
+      setTimeout(place, 400);
+      // Фрейм может получить размер позже (все дети absolute) — пересчитываем при изменении размера
+      if (window.ResizeObserver) { new ResizeObserver(place).observe(fig); }
+      window.addEventListener("resize", place, { passive: true });
+      window.addEventListener("load", place);
+      if (video.readyState < 1) video.addEventListener("loadedmetadata", place, { once: true });
+    });
+  }
+
   // --- Scroll-fill интро-строк: слова затемняются по мере прокрутки ---
   var introLines = document.querySelectorAll(".intro__line");
   if (introLines.length && !reduceMotion) {

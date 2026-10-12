@@ -114,9 +114,14 @@ window.PROJECTS = {
     title: "Artbridger",
     subtitle: "Редизайн арт-маркетплейса",
     tone: 2,
-    // Hero — фото-мокап MacBook с экраном «Fairs & Exhibitions» (Figma 3173-44858)
-    cover: "assets/ab-hero.jpg",
-    coverRatio: "1020 / 665",
+    // Hero — фото-мокап MacBook, на экран спроецировано видео (Figma 3173-44858)
+    heroLaptop: {
+      bg: "assets/ab-hero.jpg",
+      video: "assets/ab-hero-screen.mp4",
+      ratio: "1020 / 665",
+      // 4 угла экрана в % hero: TL, TR, BR, BL
+      corners: [[46.8, 24], [82.6, 27.6], [84, 53.8], [47.2, 49.5]],
+    },
     meta: {
       Роль: "UX/UI, дизайн-система",
       Год: "2025",

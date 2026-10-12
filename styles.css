@@ -2563,3 +2563,17 @@ textarea:focus-visible {
   .hssucc.is-playing .hssucc__btn { animation: none; }
   .hssucc__piece { display: none; }
 }
+
+/* -------------------------------------------------- Hero: видео на экране ноутбука (перспектива matrix3d) */
+.hero-laptop { position: relative; }
+.hero-laptop__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-laptop__screen {
+  position: absolute; top: 0; left: 0;
+  transform-origin: 0 0;
+  object-fit: cover;
+  opacity: 0;                 /* показываем после позиционирования в JS */
+  transition: opacity 0.35s var(--ease);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.hero-laptop__screen.is-placed { opacity: 1; }

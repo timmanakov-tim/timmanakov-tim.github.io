@@ -655,7 +655,12 @@
         : "") +
       "</header>" +
       '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" +
-      (data.cover
+      (data.heroLaptop
+        ? '<figure class="case__cover case__cover--image hero-laptop reveal" style="aspect-ratio:' + (data.heroLaptop.ratio || "1020 / 665") + '" data-hero-laptop=\'' + JSON.stringify(data.heroLaptop.corners) + '\'>' +
+            '<img class="hero-laptop__bg" src="' + data.heroLaptop.bg + '" alt="' + data.title + ' – обложка" />' +
+            '<video class="hero-laptop__screen" src="' + data.heroLaptop.video + '" autoplay muted loop playsinline preload="auto"></video>' +
+          "</figure>"
+        : data.cover
         ? '<div class="case__cover case__cover--image reveal"' + (data.coverRatio ? ' style="aspect-ratio:' + data.coverRatio + '"' : "") + '><img src="' + data.cover + '" alt="' + data.title + ' – обложка" loading="lazy" /></div>'
         : '<div class="case__cover reveal" data-tone="' + data.tone + '" aria-hidden="true"></div>') +
       (data.article
