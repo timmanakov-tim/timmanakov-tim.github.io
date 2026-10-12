@@ -258,14 +258,14 @@ img { max-width: 100%; display: block; }
 }
 @media (prefers-reduced-motion: reduce) { .lk { transition: none; } }
 .intro__line {
-  max-width: 26ch;
-  margin-inline: auto;
-  text-align: center;
+  max-width: 34ch;
+  margin-inline: 0;
+  text-align: left;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(21px, 3.3vw, 38px);
-  line-height: 1.2;
-  letter-spacing: -0.025em;
+  font-size: clamp(17px, 2.3vw, 27px);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
   color: var(--fg);
 }
 /* Scroll-fill: слова затемняются по мере прокрутки */
