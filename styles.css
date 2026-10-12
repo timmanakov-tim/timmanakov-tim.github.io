@@ -6,8 +6,8 @@
 :root {
   color-scheme: light;
 
-  /* Палитра — светлая тема (тёплый greige, в духе Pamidor) */
-  --bg: #efeeeb;
+  /* Палитра — светлая тема */
+  --bg: #ffffff;
   --bg-soft: #e7e4df;
   --panel: #f5f5f7;
   --fg: #0a0a0a;
