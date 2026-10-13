@@ -334,6 +334,7 @@ img { max-width: 100%; display: block; }
   position: relative;
   aspect-ratio: 1 / 1;
   overflow: hidden;
+  border-radius: clamp(12px, 1.4vw, 18px);
   background: var(--tone-1);
 }
 .tile__media[data-tone="1"] { background: var(--tone-1); }
