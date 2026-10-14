@@ -1029,6 +1029,18 @@ textarea:focus-visible {
 @view-transition { navigation: auto; }
 .site-header { view-transition-name: site-header; }
 
+/* Кастомная анимация перехода (фейд + сдвиг) — применяется на всех страницах */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  animation-fill-mode: both;
+}
+::view-transition-old(root) { animation-name: pageExit; }
+::view-transition-new(root) { animation-name: pageEnter; }
+@keyframes pageExit { to { opacity: 0; transform: translateY(-12px); } }
+@keyframes pageEnter { from { opacity: 0; transform: translateY(18px); } }
+
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
 }
