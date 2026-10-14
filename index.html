@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=113" />
+  <link rel="stylesheet" href="styles.css?v=114" />
 </head>
 <body>
   <a class="skip-link" href="#work">К работам</a>
@@ -139,14 +139,34 @@
 
     <!-- About / CV -->
     <section class="about container" id="about" aria-labelledby="about-title">
-      <div class="section-head reveal">
-        <h2 class="section-title" id="about-title">Обо мне</h2>
+      <div class="abouthero reveal">
+        <div class="abouthero__top">
+          <h2 class="abouthero__title" id="about-title">От идеи — к продукту.</h2>
+          <a class="abouthero__arrow" href="#about-exp" aria-label="К опыту работы">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15.5M5.5 13 12 19.5 18.5 13"/></svg>
+          </a>
+        </div>
+        <div class="abouthero__row">
+          <figure class="abouthero__photo">
+            <img src="assets/tim-photo.png" alt="Тимур Манаков" loading="lazy" />
+          </figure>
+          <div class="abouthero__body">
+            <p class="abouthero__lead">Делаю продукты, которые работают.</p>
+            <div class="abouthero__meta">
+              <p class="abouthero__eyebrow">— Обо мне</p>
+              <div class="abouthero__text">
+                <p>Я продуктовый дизайнер с опытом 8 лет в EdTech, FinTech и Big&nbsp;Data (B2B / B2C / B2G). Проектирую интерфейсы на основе данных и исследований, соблюдая баланс между целями бизнеса и удобством пользователей.</p>
+                <p>Провожу глубинные интервью и юзабилити-тесты, собираю интерактивные прототипы и использую AI-инструменты, чтобы быстрее проверять гипотезы.</p>
+                <a class="abouthero__link" href="#about-exp">Смотреть опыт <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="cv reveal">
+      <div class="cv reveal" id="about-exp">
         <!-- Sidebar -->
         <aside class="cv__aside">
-          <img class="cv__photo" src="assets/tim-photo.png" alt="Тимур Манаков" width="375" height="402" />
           <div class="cv__id">
             <h3 class="cv__name">Манаков Тимур</h3>
             <p class="cv__role">Product (UI/UX) Designer</p>
@@ -213,14 +233,6 @@
 
         <!-- Main -->
         <div class="cv__main">
-          <p class="cv__headline">8 лет опыта в направлениях EdTech, FinTech и Big&nbsp;Data (B2B/B2C/B2G).</p>
-          <p class="cv__summary">
-            Проектирую интерфейсы на основе данных и исследований, соблюдая баланс между
-            целями бизнеса и удобством пользователей. Провожу глубинные интервью и
-            юзабилити-тесты, собираю интерактивные прототипы и использую AI-инструменты,
-            чтобы быстрее проверять гипотезы.
-          </p>
-
           <h4 class="cv__exp-title">Опыт работы</h4>
           <ol class="cv__exp">
             <li class="cv__job">

@@ -2578,3 +2578,96 @@ textarea:focus-visible {
   backface-visibility: hidden;
 }
 .hero-laptop__screen.is-placed { opacity: 1; }
+
+/* -------------------------------------------------- «Обо мне» — шапка (референс Obscura: заголовок+стрелка, фото слева, контент справа) */
+.abouthero { margin-bottom: clamp(56px, 8vw, 112px); }
+.abouthero__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(16px, 3vw, 48px);
+}
+.abouthero__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(38px, 9vw, 118px);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  max-width: 13ch;
+}
+.abouthero__arrow {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: clamp(44px, 6vw, 86px);
+  height: clamp(44px, 6vw, 86px);
+  margin-top: clamp(6px, 1.2vw, 20px);
+  color: var(--fg);
+  transition: transform 0.3s var(--ease);
+}
+.abouthero__arrow:hover { transform: translateY(8px); }
+.abouthero__arrow svg { width: 72%; height: 72%; display: block; }
+
+.abouthero__row {
+  margin-top: clamp(40px, 6vw, 92px);
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) 1.95fr;
+  gap: clamp(28px, 5vw, 84px);
+  align-items: start;
+}
+.abouthero__photo {
+  margin: 0;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: clamp(10px, 1vw, 16px);
+  background: var(--bg-soft);
+}
+.abouthero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
+
+.abouthero__lead {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(26px, 4.6vw, 58px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  max-width: 17ch;
+}
+.abouthero__meta {
+  margin-top: clamp(40px, 6vw, 104px);
+  display: grid;
+  grid-template-columns: minmax(110px, 0.55fr) 1.45fr;
+  gap: clamp(18px, 3vw, 48px);
+}
+.abouthero__eyebrow {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  color: var(--fg-muted);
+}
+.abouthero__text p {
+  margin: 0 0 1.1em;
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.55;
+  color: var(--fg);
+  max-width: 46ch;
+}
+.abouthero__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  font-weight: 500;
+  border-bottom: 1px solid var(--fg);
+  padding-bottom: 2px;
+  transition: gap 0.25s var(--ease);
+}
+.abouthero__link:hover { gap: 16px; }
+
+@media (max-width: 760px) {
+  .abouthero__arrow { display: none; }
+  .abouthero__row { grid-template-columns: 1fr; gap: 24px; }
+  .abouthero__photo { aspect-ratio: 4 / 3; max-height: 60vh; }
+  .abouthero__meta { grid-template-columns: 1fr; gap: 10px; margin-top: 24px; }
+}
