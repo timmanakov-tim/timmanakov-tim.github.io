@@ -251,7 +251,7 @@ window.PROJECTS = {
     tabs: [
       {
         id: "constructor",
-        label: "Конструктор учебного контента для вузов",
+        label: "Конструктор",
         subtitle: "Конструктор учебного контента для вузов",
         cover: "assets/hs-hero-lectures.jpg",
         heroDevice: {
@@ -320,6 +320,21 @@ window.PROJECTS = {
           { media: { kind: "image", src: "assets/hs-iup-3.png" } },
           { media: { kind: "image", src: "assets/hs-iup-4.png" } },
           { successModal: true },
+        ],
+      },
+      {
+        id: "journal",
+        label: "Журнал оценок",
+        subtitle: "Журнал оценок",
+        heroEmpty: { ratio: "1254 / 708" },
+        blocks: [
+          {
+            section: {
+              heading: "Задача",
+              body:
+                "Здесь будет описание задачи — пока текст-рыба. Переработка журнала оценок: преподаватель быстрее находит нужные действия и проходит ключевой сценарий с меньшим числом затруднений. Экраны раздела добавим из макета.",
+            },
+          },
         ],
       },
     ],
