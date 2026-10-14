@@ -355,7 +355,7 @@ window.PROJECTS = {
           {
             laptop: {
               bg: "assets/hs-journal-mac.jpg",
-              screen: "assets/hs-journal-2.jpg",
+              screen: "assets/hs-journal-mac-screen.jpg",
               ratio: "1484 / 910",
               corners: [[18.67, 17.53], [66.04, 4.62], [66.04, 58.19], [18.67, 75]],
             },
