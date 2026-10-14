@@ -2698,3 +2698,28 @@ textarea:focus-visible {
   .abouthero__body { grid-column: 1 / -1; }
   .abouthero__meta { grid-template-columns: 1fr; gap: 10px; margin-top: 28px; }
 }
+
+/* -------------------------------------------------- Чёрный футтер с формой (инверсия, full-bleed) */
+.contact,
+.site-footer {
+  position: relative;
+  isolation: isolate;
+  --fg: #f4f3f0;
+  --fg-muted: #9d998f;
+  --bg: #141311;
+  --bg-soft: #1f1d18;
+  --panel: #0e0e0c;
+  --line: color-mix(in srgb, #f4f3f0 16%, transparent);
+  color: var(--fg);
+}
+.contact::before,
+.site-footer::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset-block: 0;
+  left: calc(50% - 50vw);
+  width: 100vw;
+  background: #0e0e0c;
+}
+.contact__title { color: var(--fg); }
