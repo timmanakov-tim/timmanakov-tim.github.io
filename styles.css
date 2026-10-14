@@ -2370,9 +2370,9 @@ textarea:focus-visible {
   gap: 4px;
   padding: 4px;
   margin: 0 auto clamp(26px, 4vw, 48px);
-  border: 1px solid var(--line);
+  border: 1px solid var(--fg);
   border-radius: 999px;
-  background: var(--bg-soft);
+  background: transparent;
 }
 .works__tab {
   appearance: none;
