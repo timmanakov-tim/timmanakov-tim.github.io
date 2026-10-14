@@ -326,7 +326,11 @@ window.PROJECTS = {
         id: "journal",
         label: "Журнал оценок",
         subtitle: "Журнал оценок",
-        heroEmpty: { ratio: "1254 / 708" },
+        heroThemeSwitch: {
+          light: "assets/hs-journal-light.jpg",
+          dark: "assets/hs-journal-dark.jpg",
+          ratio: "16 / 9",
+        },
         blocks: [
           {
             section: {

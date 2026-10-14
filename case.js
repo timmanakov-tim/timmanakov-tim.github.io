@@ -591,6 +591,13 @@
     if (d.cover) {
       return '<div class="case__cover case__cover--image reveal"' + (d.coverRatio ? ' style="aspect-ratio:' + d.coverRatio + '"' : "") + '><img src="' + d.cover + '" alt="' + data.title + ' – обложка" loading="lazy" /></div>';
     }
+    if (d.heroThemeSwitch) {
+      var ts = d.heroThemeSwitch;
+      return '<figure class="case__cover case__cover--image hero-theme reveal" style="aspect-ratio:' + (ts.ratio || "16 / 9") + '" role="img" aria-label="' + data.title + ' — светлая и тёмная темы">' +
+        '<img class="hero-theme__img" src="' + ts.light + '" alt="" loading="lazy" />' +
+        '<img class="hero-theme__img hero-theme__img--dark" src="' + ts.dark + '" alt="" loading="lazy" />' +
+        "</figure>";
+    }
     if (d.heroEmpty) {
       return '<div class="case__cover case__cover--empty reveal" style="aspect-ratio:' + (d.heroEmpty.ratio || "1254 / 708") + '" aria-hidden="true"></div>';
     }

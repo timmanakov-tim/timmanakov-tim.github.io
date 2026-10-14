@@ -2722,3 +2722,28 @@ textarea:focus-visible {
   background: #0e0e0c;
 }
 .contact__title { color: var(--fg); }
+
+/* -------------------------------------------------- Hero «переключение темы» (кроссфейд светлая↔тёмная) */
+.hero-theme { position: relative; background: transparent; }
+.hero-theme__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+.hero-theme__img--dark {
+  opacity: 0;
+  animation: heroThemeSwitch 7s ease-in-out infinite;
+  will-change: opacity;
+}
+@keyframes heroThemeSwitch {
+  0%, 40% { opacity: 0; }
+  50%, 90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-theme__img--dark { animation: none; opacity: 0; }
+}
