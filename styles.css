@@ -538,7 +538,6 @@ img { max-width: 100%; display: block; }
 /* -------------------------------------------------- Contact */
 .contact { padding-block: clamp(64px, 10vw, 130px); }
 .contact__inner {
-  border-top: 1px solid var(--line);
   padding-top: clamp(56px, 8vw, 100px);
   text-align: center;
 }
