@@ -400,7 +400,7 @@ img { max-width: 100%; display: block; }
   background: color-mix(in srgb, var(--fg) 7%, transparent);
 }
 
-/* Sidebar */
+/* Sidebar — инвертированная карточка: чёрный фон, светлый контент */
 .cv__aside {
   position: sticky;
   top: 92px;
@@ -408,7 +408,13 @@ img { max-width: 100%; display: block; }
   flex-direction: column;
   gap: 26px;
   padding: clamp(20px, 2.4vw, 30px);
+  --panel: #0e0e0c;
+  --fg: #f4f3f0;
+  --fg-muted: #9d998f;
+  --line: color-mix(in srgb, #f4f3f0 14%, transparent);
   background: var(--panel);
+  color: var(--fg);
+  border: 1px solid color-mix(in srgb, #f4f3f0 8%, transparent);
   border-radius: 20px;
 }
 @media (max-width: 760px) {
