@@ -352,6 +352,14 @@ window.PROJECTS = {
           { media: { kind: "image", src: "assets/hs-journal-4.jpg", label: "Отметка посещаемости" } },
           { media: { kind: "image", src: "assets/hs-journal-5.jpg", label: "Отметки проставлены" } },
           { media: { kind: "image", src: "assets/hs-journal-6.jpg", label: "Итоговый журнал" } },
+          {
+            laptop: {
+              bg: "assets/hs-journal-mac.jpg",
+              screen: "assets/hs-journal-2.jpg",
+              ratio: "1484 / 910",
+              corners: [[18.67, 17.53], [66.04, 4.62], [66.04, 58.19], [18.67, 75]],
+            },
+          },
         ],
       },
     ],

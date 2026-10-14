@@ -542,6 +542,15 @@
             '<img class="mlogo__screen" src="assets/miru-logo-screen.svg?v=1" alt="" aria-hidden="true" />' +
             '<img class="mlogo__mark" src="assets/miru-mark.svg?v=2" alt="MIRU" />' +
             "</div>";
+        if (b.laptop) {
+          var lp = b.laptop;
+          return '<figure class="tl__media tl__media--plain reveal">' +
+            (lp.label ? '<figcaption class="tl__label">' + lp.label + "</figcaption>" : "") +
+            '<div class="hero-laptop" style="aspect-ratio:' + (lp.ratio || "1484 / 910") + '" data-hero-laptop=\'' + JSON.stringify(lp.corners) + '\'>' +
+              '<img class="hero-laptop__bg" src="' + lp.bg + '" alt="' + data.title + ' — журнал оценок на ноутбуке" loading="lazy" />' +
+              '<img class="hero-laptop__screen hero-laptop__screen--img" src="' + lp.screen + '" alt="" loading="lazy" />' +
+            "</div></figure>";
+        }
         if (b.media)
           return '<figure class="tl__media reveal' + (b.media.plain ? " tl__media--plain" : "") + (b.media.narrow ? " tl__media--narrow" : "") + (b.media.anim ? " tl__media--" + b.media.anim : "") + '">' +
             (b.media.label ? '<figcaption class="tl__label">' + b.media.label + "</figcaption>" : "") +

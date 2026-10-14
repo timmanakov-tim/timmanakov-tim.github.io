@@ -2595,6 +2595,7 @@ textarea:focus-visible {
   backface-visibility: hidden;
 }
 .hero-laptop__screen.is-placed { opacity: 1; }
+.hero-laptop__screen--img { object-position: top left; }
 
 /* -------------------------------------------------- «Обо мне» — шапка (референс Obscura: заголовок+стрелка, фото слева, контент справа) */
 .abouthero { margin-bottom: clamp(72px, 10vw, 150px); }
