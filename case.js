@@ -544,11 +544,21 @@
             "</div>";
         if (b.laptop) {
           var lp = b.laptop;
+          var screenInner;
+          if (lp.layers) {
+            screenInner = '<div class="hero-laptop__screen hero-laptop__screen--layers"' + (lp.screenBg ? ' style="background:' + lp.screenBg + '"' : "") + ">" +
+              lp.layers.map(function (ly) {
+                return '<img class="lap-layer lap-layer--' + (ly.from || "up") + '" src="' + ly.src + '" alt="" loading="lazy" style="left:' + ly.left + "%;top:" + ly.top + "%;width:" + ly.width + "%;height:" + ly.height + "%;--d:" + (ly.delay || 0) + 's" />';
+              }).join("") +
+              "</div>";
+          } else {
+            screenInner = '<img class="hero-laptop__screen hero-laptop__screen--img" src="' + lp.screen + '" alt="" loading="lazy" />';
+          }
           return '<figure class="tl__media tl__media--plain reveal">' +
             (lp.label ? '<figcaption class="tl__label">' + lp.label + "</figcaption>" : "") +
             '<div class="hero-laptop" style="aspect-ratio:' + (lp.ratio || "1484 / 910") + '" data-hero-laptop=\'' + JSON.stringify(lp.corners) + '\'>' +
               '<img class="hero-laptop__bg" src="' + lp.bg + '" alt="' + data.title + ' — журнал оценок на ноутбуке" loading="lazy" />' +
-              '<img class="hero-laptop__screen hero-laptop__screen--img" src="' + lp.screen + '" alt="" loading="lazy" />' +
+              screenInner +
             "</div></figure>";
         }
         if (b.media)
