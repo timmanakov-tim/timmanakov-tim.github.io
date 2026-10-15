@@ -2517,6 +2517,20 @@ textarea:focus-visible {
 .tl__media--narrow { max-width: 680px; margin-inline: auto; }
 .tl__media--phone { max-width: 420px; margin-inline: auto; }   /* мобильный экран — по центру, в ширину телефона */
 
+/* Desktop + mobile рядом: широкий экран слева, телефон справа */
+.tl__pair {
+  margin-top: clamp(28px, 4vw, 48px);
+  display: grid;
+  grid-template-columns: 1fr clamp(200px, 24%, 280px);
+  gap: clamp(20px, 3vw, 40px);
+  align-items: start;
+}
+.tl__pair figure { margin: 0; min-width: 0; }
+@media (max-width: 680px) {
+  .tl__pair { grid-template-columns: 1fr; justify-items: center; gap: 28px; }
+  .tl__pair-m { max-width: 420px; width: 100%; }
+}
+
 /* -------------------------------------------------- Success-модалка «Изменение ИУП» (800×548, анимированная) */
 .hssucc-wrap { max-width: 800px; margin: clamp(28px, 4vw, 48px) auto 0; }
 .hssucc {

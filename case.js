@@ -509,6 +509,15 @@
                 (c.label ? '<figcaption class="tl__label">' + c.label + "</figcaption>" : "") +
                 tlMedia(c) + "</figure>";
             }).join("") + "</div>";
+        if (b.pair)
+          return '<div class="tl__pair reveal">' +
+            '<figure class="tl__pair-d">' +
+              (b.pair.labelD ? '<figcaption class="tl__label">' + b.pair.labelD + "</figcaption>" : "") +
+              tlMedia({ kind: "image", src: b.pair.desktop }) + "</figure>" +
+            '<figure class="tl__pair-m">' +
+              (b.pair.labelM ? '<figcaption class="tl__label">' + b.pair.labelM + "</figcaption>" : "") +
+              tlMedia({ kind: "image", src: b.pair.mobile }) + "</figure>" +
+          "</div>";
         if (b.miru2) {
           var m2lines = [5.43, 20.19, 35.02, 49.85, 64.61, 79.44, 94.2]
             .map(function (l) { return '<span style="left:' + l + '%"></span>'; }).join("");
