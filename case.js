@@ -620,6 +620,13 @@
     if (d.heroEmpty) {
       return '<div class="case__cover case__cover--empty reveal" style="aspect-ratio:' + (d.heroEmpty.ratio || "1254 / 708") + '" aria-hidden="true"></div>';
     }
+    if (d.heroLaptop) {
+      var lp = d.heroLaptop;
+      return '<figure class="case__cover case__cover--image hero-laptop reveal" style="aspect-ratio:' + (lp.ratio || "1020 / 665") + '" data-hero-laptop=\'' + JSON.stringify(lp.corners) + '\'>' +
+        '<img class="hero-laptop__bg" src="' + lp.bg + '" alt="' + data.title + ' – обложка" />' +
+        '<video class="hero-laptop__screen" src="' + lp.video + '" autoplay muted loop playsinline preload="auto"></video>' +
+      "</figure>";
+    }
     return '<div class="case__cover reveal" data-tone="' + (d.tone || data.tone) + '" aria-hidden="true"></div>';
   }
 
