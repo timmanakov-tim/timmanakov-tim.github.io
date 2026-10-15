@@ -143,6 +143,9 @@ window.PROJECTS = {
       { media: { kind: "image", src: "assets/ab-3.jpg" } },
       { media: { kind: "image", src: "assets/ab-4.jpg" } },
       { media: { kind: "image", src: "assets/ab-5.jpg" } },
+      // Страница «О нас» — desktop и mobile (Figma 3247-71720)
+      { media: { kind: "image", src: "assets/ab-6.jpg" } },
+      { media: { kind: "image", src: "assets/ab-7.jpg", phone: true } },
     ],
   },
 

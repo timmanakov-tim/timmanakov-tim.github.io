@@ -562,7 +562,7 @@
             "</div></figure>";
         }
         if (b.media)
-          return '<figure class="tl__media reveal' + (b.media.plain ? " tl__media--plain" : "") + (b.media.narrow ? " tl__media--narrow" : "") + (b.media.anim ? " tl__media--" + b.media.anim : "") + '">' +
+          return '<figure class="tl__media reveal' + (b.media.plain ? " tl__media--plain" : "") + (b.media.narrow ? " tl__media--narrow" : "") + (b.media.phone ? " tl__media--phone" : "") + (b.media.anim ? " tl__media--" + b.media.anim : "") + '">' +
             (b.media.label ? '<figcaption class="tl__label">' + b.media.label + "</figcaption>" : "") +
             tlMedia(b.media) + "</figure>";
         if (b.plus)

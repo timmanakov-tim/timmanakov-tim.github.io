@@ -2515,6 +2515,7 @@ textarea:focus-visible {
 /* Пустой hero-фрейм (таб без обложки) и узкая media (модалка) */
 .case__cover--empty { background: transparent; border: 1px solid var(--line); }
 .tl__media--narrow { max-width: 680px; margin-inline: auto; }
+.tl__media--phone { max-width: 420px; margin-inline: auto; }   /* мобильный экран — по центру, в ширину телефона */
 
 /* -------------------------------------------------- Success-модалка «Изменение ИУП» (800×548, анимированная) */
 .hssucc-wrap { max-width: 800px; margin: clamp(28px, 4vw, 48px) auto 0; }
