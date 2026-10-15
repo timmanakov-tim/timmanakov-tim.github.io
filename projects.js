@@ -361,10 +361,10 @@ window.PROJECTS = {
               // интерфейс собирается по компонентам: сайдбар → шапка → фильтр → заголовок → таблица
               layers: [
                 { src: "assets/hs-jr-a.jpg", left: 0,     top: 0,      width: 5,     height: 100,    from: "left", delay: 0 },
-                { src: "assets/hs-jr-b.jpg", left: 5,     top: 0,      width: 95,    height: 21.407, from: "top",  delay: 0.12 },
-                { src: "assets/hs-jr-c.jpg", left: 5,     top: 21.407, width: 20.25, height: 78.593, from: "left", delay: 0.24 },
-                { src: "assets/hs-jr-d.jpg", left: 25.25, top: 21.407, width: 74.75, height: 9.378,  from: "top",  delay: 0.36 },
-                { src: "assets/hs-jr-e.jpg", left: 25.25, top: 30.785, width: 74.75, height: 69.215, from: "up",   delay: 0.48 },
+                { src: "assets/hs-jr-b.jpg", left: 5,     top: 0,      width: 95,    height: 21.407, from: "top",  delay: 0.28 },
+                { src: "assets/hs-jr-c.jpg", left: 5,     top: 21.407, width: 20.25, height: 78.593, from: "left", delay: 0.56 },
+                { src: "assets/hs-jr-d.jpg", left: 25.25, top: 21.407, width: 74.75, height: 9.378,  from: "top",  delay: 0.84 },
+                { src: "assets/hs-jr-e.jpg", left: 25.25, top: 30.785, width: 74.75, height: 69.215, from: "up",   delay: 1.12 },
               ],
             },
           },
