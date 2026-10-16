@@ -361,9 +361,9 @@ window.PROJECTS = {
           { media: { kind: "image", src: "assets/hs-journal-6.png", label: "Итоговый журнал" } },
           {
             laptop: {
-              bg: "assets/hs-journal-mac.jpg",
-              ratio: "1484 / 910",
-              corners: [[18.67, 17.53], [66.04, 4.62], [66.04, 58.19], [18.67, 75]],
+              bg: "assets/hs-journal-mac.jpg?v=2",
+              ratio: "2200 / 1663",
+              corners: [[7.06, 17.53], [65.46, 4.62], [65.46, 58.19], [7.06, 75.0]],
               screenBg: "#151515",
               // интерфейс собирается по компонентам: сайдбар → шапка → фильтр → заголовок → таблица
               layers: [
