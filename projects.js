@@ -161,14 +161,7 @@ window.PROJECTS = {
     heroVideo: "assets/stemio-hero.mp4",
     heroVideoRatio: "1440 / 800",
     fullbleed: { src: "assets/stemio-brand.jpg", bg: "#070014" },
-    meta: {
-      Роль: "Product Designer (UX/UI)",
-      Направление: "EdTech",
-      Год: "2026",
-      Платформа: "Mobile · iOS / Android",
-      Срок: "в работе",
-    },
-    // Тексты убраны — ниже будут добавляться экраны
+    // Мета и тексты убраны — ниже будут добавляться экраны
   },
 
   adata: {

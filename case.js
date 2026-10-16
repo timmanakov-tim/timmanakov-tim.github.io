@@ -722,7 +722,7 @@
         ? '<div class="case__actions reveal"><a class="btn btn--primary" href="' + data.link + '" target="_blank" rel="noopener">Смотреть проект <span aria-hidden="true">↗</span></a></div>'
         : "") +
       "</header>" +
-      '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" +
+      (data.meta ? '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" : "") +
       (data.heroVideo
         ? '<div class="case__cover case__cover--image case__cover--video reveal"' + (data.heroVideoRatio ? ' style="aspect-ratio:' + data.heroVideoRatio + '"' : "") + '><video src="' + data.heroVideo + '" autoplay muted loop playsinline preload="metadata"' + (data.heroPoster ? ' poster="' + data.heroPoster + '"' : "") + "></video></div>"
         : data.heroLaptop
