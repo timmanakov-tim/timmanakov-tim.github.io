@@ -807,7 +807,14 @@ textarea:focus-visible {
   margin-inline: calc(50% - 50vw);
   margin-top: clamp(40px, 6vw, 72px);
 }
-.case__fullbleed-img { display: block; width: 100%; height: auto; }
+.case__fullbleed-img {
+  display: block;
+  width: 100%;
+  max-width: var(--container);   /* контент по ширине сетки */
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  height: auto;
+}
 .case__cover[data-tone] { display: none; }   /* hero-плейсхолдер без картинки — не показываем пустую подложку */
 
 /* Hero с устройством: фон-мокап + видео в области экрана */
