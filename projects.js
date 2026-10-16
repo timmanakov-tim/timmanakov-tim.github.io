@@ -157,6 +157,8 @@ window.PROJECTS = {
     title: "Stemio",
     subtitle: "Мобильное приложение для студентов EdTech-платформы",
     tone: 4,
+    heroVideo: "assets/stemio-hero.mp4",
+    heroVideoRatio: "1440 / 800",
     meta: {
       Роль: "Product Designer (UX/UI)",
       Направление: "EdTech",

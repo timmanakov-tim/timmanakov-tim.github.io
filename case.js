@@ -723,7 +723,9 @@
         : "") +
       "</header>" +
       '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" +
-      (data.heroLaptop
+      (data.heroVideo
+        ? '<div class="case__cover case__cover--image case__cover--video reveal"' + (data.heroVideoRatio ? ' style="aspect-ratio:' + data.heroVideoRatio + '"' : "") + '><video src="' + data.heroVideo + '" autoplay muted loop playsinline preload="metadata"' + (data.heroPoster ? ' poster="' + data.heroPoster + '"' : "") + "></video></div>"
+        : data.heroLaptop
         ? '<figure class="case__cover case__cover--image hero-laptop reveal" style="aspect-ratio:' + (data.heroLaptop.ratio || "1020 / 665") + '" data-hero-laptop=\'' + JSON.stringify(data.heroLaptop.corners) + '\'>' +
             '<img class="hero-laptop__bg" src="' + data.heroLaptop.bg + '" alt="' + data.title + ' – обложка" />' +
             '<video class="hero-laptop__screen" src="' + data.heroLaptop.video + '" autoplay muted loop playsinline preload="auto"></video>' +
