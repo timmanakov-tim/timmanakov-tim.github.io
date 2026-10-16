@@ -733,6 +733,9 @@
         : data.cover
         ? '<div class="case__cover case__cover--image reveal"' + (data.coverRatio ? ' style="aspect-ratio:' + data.coverRatio + '"' : "") + '><img src="' + data.cover + '" alt="' + data.title + ' – обложка" loading="lazy" /></div>'
         : '<div class="case__cover reveal" data-tone="' + data.tone + '" aria-hidden="true"></div>') +
+      (data.fullbleed
+        ? '<div class="case__fullbleed reveal" style="background:' + (data.fullbleed.bg || "#070014") + '"><img class="case__fullbleed-img" src="' + data.fullbleed.src + '" alt="' + data.title + '" loading="lazy" /></div>'
+        : "") +
       (data.article
         ? '<div class="art art--notoc"><div class="art__body">' +
             '<p class="art__lead reveal">' + data.overview + "</p>" +

@@ -103,6 +103,7 @@ html.lenis, html.lenis body { height: auto; }
 
 body {
   margin: 0;
+  overflow-x: clip;   /* full-bleed секции не дают горизонтальной прокрутки */
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
@@ -799,6 +800,14 @@ textarea:focus-visible {
 .case__cover--image img,
 .case__cover--image video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .case__cover--image::after { display: none; }
+/* Full-bleed секция под хиро: тёмный фон от края до края экрана */
+.case__fullbleed {
+  position: relative;
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  margin-top: clamp(40px, 6vw, 72px);
+}
+.case__fullbleed-img { display: block; width: 100%; height: auto; }
 .case__cover[data-tone] { display: none; }   /* hero-плейсхолдер без картинки — не показываем пустую подложку */
 
 /* Hero с устройством: фон-мокап + видео в области экрана */
