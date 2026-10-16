@@ -157,6 +157,7 @@ img { max-width: 100%; display: block; }
   height: 72px;
 }
 .nav__logo {
+  position: relative;
   display: inline-flex;
   align-items: center;
 }
@@ -165,6 +166,18 @@ img { max-width: 100%; display: block; }
   height: 40px;
   display: block;
   border-radius: 50%;
+  transition: opacity 0.25s var(--ease);
+}
+/* Ховер: смена на красный вариант аватара */
+.nav__logo-img--hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.nav__logo:hover .nav__logo-img--hover,
+.nav__logo:focus-visible .nav__logo-img--hover { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .nav__logo-img { transition: none; }
 }
 .nav__right {
   display: flex;
