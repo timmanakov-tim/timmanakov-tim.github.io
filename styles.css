@@ -774,7 +774,7 @@ textarea:focus-visible {
 }
 
 /* Тональные блоки-плейсхолдеры (обложка, медиа, галерея) */
-.case__cover { margin-top: clamp(40px, 6vw, 72px); aspect-ratio: 16 / 9; }
+.case__cover { margin: clamp(40px, 6vw, 72px) 0 0; aspect-ratio: 16 / 9; }   /* сброс дефолтного margin у <figure>, чтобы хиро были одной ширины */
 .case__media { margin-top: 40px; aspect-ratio: 16 / 10; }
 .case__tile { aspect-ratio: 4 / 3; }
 .case__cover,
