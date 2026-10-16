@@ -518,6 +518,25 @@
               (b.pair.labelM ? '<figcaption class="tl__label">' + b.pair.labelM + "</figcaption>" : "") +
               tlMedia({ kind: "image", src: b.pair.mobile }) + "</figure>" +
           "</div>";
+        if (b.carousel) {
+          var slides = b.carousel;
+          var czTabs = slides.map(function (s, i) {
+            var num = (i + 1 < 10 ? "0" : "") + (i + 1);
+            return '<button type="button" class="cz__tab' + (i === 0 ? " is-active" : "") + '" data-cz-tab="' + i + '" aria-label="Экран ' + num + '">' + num + "</button>";
+          }).join("");
+          var czSlides = slides.map(function (s) {
+            return '<div class="cz__slide" data-lenis-prevent>' +
+              '<div class="cz__pair">' +
+                '<figure class="cz__d">' + tlMedia({ kind: "image", src: s.desktop }) + "</figure>" +
+                '<figure class="cz__m">' + tlMedia({ kind: "image", src: s.mobile }) + "</figure>" +
+              "</div>" +
+            "</div>";
+          }).join("");
+          return '<div class="cz reveal" data-carousel>' +
+            '<div class="cz__bar"><div class="cz__tabs" role="tablist">' + czTabs + "</div></div>" +
+            '<div class="cz__track" data-cz-track>' + czSlides + "</div>" +
+          "</div>";
+        }
         if (b.miru2) {
           var m2lines = [5.43, 20.19, 35.02, 49.85, 64.61, 79.44, 94.2]
             .map(function (l) { return '<span style="left:' + l + '%"></span>'; }).join("");

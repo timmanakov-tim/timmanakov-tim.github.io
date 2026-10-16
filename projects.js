@@ -143,8 +143,13 @@ window.PROJECTS = {
       { media: { kind: "image", src: "assets/ab-3.jpg" } },
       { media: { kind: "image", src: "assets/ab-4.jpg" } },
       { media: { kind: "image", src: "assets/ab-5.jpg" } },
-      // Страница «О нас» — desktop и mobile рядом (Figma 3247-71720)
-      { pair: { desktop: "assets/ab-6.jpg", mobile: "assets/ab-7.jpg" } },
+      // Карусель страниц (desktop + mobile рядом), перелистывание нумерованными табами
+      {
+        carousel: [
+          { desktop: "assets/ab-6.jpg", mobile: "assets/ab-7.jpg" }, // О нас
+          { desktop: "assets/ab-8.jpg", mobile: "assets/ab-9.jpg" }, // The Weight of the Hidden and Sunken
+        ],
+      },
     ],
   },
 

@@ -342,6 +342,37 @@
     });
   }
 
+  // --- Карусель страниц: нумерованные табы + горизонтальный скролл ---
+  var carousels = document.querySelectorAll("[data-carousel]");
+  Array.prototype.forEach.call(carousels, function (cz) {
+    var track = cz.querySelector("[data-cz-track]");
+    var tabs = cz.querySelectorAll(".cz__tab");
+    var slides = track ? track.querySelectorAll(".cz__slide") : [];
+    if (!track || !tabs.length) return;
+    var setActive = function (idx) {
+      Array.prototype.forEach.call(tabs, function (t, i) {
+        t.classList.toggle("is-active", i === idx);
+      });
+    };
+    Array.prototype.forEach.call(tabs, function (tab, i) {
+      tab.addEventListener("click", function () {
+        track.scrollTo({ left: i * track.clientWidth, behavior: "smooth" });
+        if (slides[i]) slides[i].scrollTop = 0;   // новый экран — сверху
+        setActive(i);
+      });
+    });
+    // при ручном горизонтальном скролле подсвечиваем нужный таб
+    var raf = null;
+    track.addEventListener("scroll", function () {
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = null;
+        var idx = Math.round(track.scrollLeft / track.clientWidth);
+        setActive(Math.max(0, Math.min(tabs.length - 1, idx)));
+      });
+    }, { passive: true });
+  });
+
   // --- Scroll-fill интро-строк: слова затемняются по мере прокрутки ---
   var introLines = document.querySelectorAll(".intro__line");
   if (introLines.length && !reduceMotion) {
