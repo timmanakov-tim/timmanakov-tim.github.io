@@ -2471,7 +2471,7 @@ textarea:focus-visible {
   grid-auto-columns: 1fr;        /* табы одинаковой ширины */
   gap: 8px;
   width: min(100%, 560px);
-  margin: clamp(16px, 2.4vw, 28px) auto 0;   /* по центру экрана */
+  margin: clamp(16px, 2.4vw, 28px) 0 0;   /* по левому краю */
   padding: 4px;
   background: transparent;
   border: 1px solid var(--line);
