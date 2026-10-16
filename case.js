@@ -741,9 +741,9 @@
             '<p class="art__lead reveal">' + data.overview + "</p>" +
             articleHtml(data.article, data.tone) +
           "</div></div>"
-        : '<p class="case__overview reveal">' + data.overview + "</p>" +
-          sectionsHtml(data.sections) +
-          galleryHtml(data.gallery));
+        : (data.overview ? '<p class="case__overview reveal">' + data.overview + "</p>" : "") +
+          (data.sections ? sectionsHtml(data.sections) : "") +
+          (data.gallery ? galleryHtml(data.gallery) : ""));
   }
 
   root.innerHTML =
