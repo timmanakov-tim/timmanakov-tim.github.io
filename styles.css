@@ -2901,3 +2901,34 @@ textarea:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .hero-theme__img--dark { animation: none; opacity: 0; }
 }
+
+/* Экран-переключатель: кроссфейд между двумя состояниями (свернуть ↔ развернуть) */
+.tl__swap {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--bg-soft);
+}
+.tl__swap-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+.tl__swap-img--b {
+  opacity: 0;
+  animation: tlSwap 6s ease-in-out infinite;
+  will-change: opacity;
+}
+@keyframes tlSwap {
+  0%, 40% { opacity: 0; }
+  50%, 90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tl__swap-img--b { animation: none; opacity: 0; }
+}

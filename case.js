@@ -589,6 +589,13 @@
               screenInner +
             "</div></figure>";
         }
+        if (b.swap)
+          return '<figure class="tl__media reveal">' +
+            (b.swap.label ? '<figcaption class="tl__label">' + b.swap.label + "</figcaption>" : "") +
+            '<div class="tl__swap" style="aspect-ratio:' + (b.swap.ratio || "16 / 9") + '" role="img" aria-label="' + (b.swap.alt || data.title) + '">' +
+              '<img class="tl__swap-img" src="' + b.swap.a + '" alt="" loading="lazy" />' +
+              '<img class="tl__swap-img tl__swap-img--b" src="' + b.swap.b + '" alt="" loading="lazy" />' +
+            "</div></figure>";
         if (b.media)
           return '<figure class="tl__media reveal' + (b.media.plain ? " tl__media--plain" : "") + (b.media.narrow ? " tl__media--narrow" : "") + (b.media.phone ? " tl__media--phone" : "") + (b.media.anim ? " tl__media--" + b.media.anim : "") + '">' +
             (b.media.label ? '<figcaption class="tl__label">' + b.media.label + "</figcaption>" : "") +

@@ -359,6 +359,7 @@ window.PROJECTS = {
           { media: { kind: "image", src: "assets/hs-journal-4.png", label: "Отметка посещаемости" } },
           { media: { kind: "image", src: "assets/hs-journal-5.png", label: "Отметки проставлены" } },
           { media: { kind: "image", src: "assets/hs-journal-6.png", label: "Итоговый журнал" } },
+          { swap: { a: "assets/hs-journal-expand.png", b: "assets/hs-journal-collapse.png", ratio: "1913 / 1084", label: "Свернуть журнал", alt: "Журнал — развёрнутый и свёрнутый вид по свитчу «Свернуть таблицу»" } },
           {
             laptop: {
               bg: "assets/hs-journal-mac.jpg?v=2",
