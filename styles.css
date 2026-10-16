@@ -2383,7 +2383,7 @@ textarea:focus-visible {
   margin: 0 0 clamp(24px, 4vw, 48px);
   background: transparent;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 16px;   /* концентрично: таб 12px + отступ 4px */
 }
 .works__tab {
   appearance: none;
@@ -2471,7 +2471,7 @@ textarea:focus-visible {
   padding: 4px;
   background: transparent;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 16px;          /* концентрично: таб 12px + отступ 4px */
   overflow-x: auto;             /* на узких экранах табы прокручиваются внутри пилюли */
   scrollbar-width: none;
 }
@@ -2528,7 +2528,7 @@ textarea:focus-visible {
   padding: 4px;
   background: transparent;
   border: 1px solid var(--line);
-  border-radius: 12px;   /* concentric: радиус таба 11px + отступ 2px */
+  border-radius: 16px;   /* концентрично: таб 12px + отступ 4px */
 }
 .cz__tab {
   appearance: none; -webkit-appearance: none; border: 0;
