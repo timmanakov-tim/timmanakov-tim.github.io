@@ -2537,10 +2537,10 @@ textarea:focus-visible {
 .cz__tabs {
   display: inline-flex;
   gap: 6px;
-  padding: 6px;
-  background: var(--bg-soft);
+  padding: 2px;
+  background: transparent;
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: 13px;   /* concentric: радиус таба 11px + отступ 2px */
 }
 .cz__tab {
   appearance: none; -webkit-appearance: none; border: 0;
