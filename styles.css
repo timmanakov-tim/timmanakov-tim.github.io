@@ -2363,47 +2363,34 @@ textarea:focus-visible {
    Переключатель категорий работ (UX/UI ↔ Graphic Design)
    ================================================================== */
 .works__filter {
-  display: flex;
-  gap: clamp(20px, 3vw, 44px);
-  width: 100%;
-  padding: 0;
+  display: inline-flex;
+  gap: 6px;
+  padding: 2px;
   margin: 0 0 clamp(26px, 4vw, 48px);
-  border: 0;
-  border-bottom: 1px solid var(--line);   /* общая базовая линия */
-  border-radius: 0;
   background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 13px;
 }
 .works__tab {
   appearance: none;
   -webkit-appearance: none;
   border: 0;
   background: transparent;
-  padding: 0 0 14px;
-  border-radius: 0;
+  padding: 10px 18px;
+  border-radius: 11px;
   font-family: var(--font-display);
   font-weight: 500;
   font-size: 15px;
   letter-spacing: -0.01em;
-  text-align: left;
+  text-align: center;
+  white-space: nowrap;
   color: var(--fg-muted);
   cursor: pointer;
-  position: relative;
-  transition: color 0.2s var(--ease);
-}
-.works__tab::after {          /* подчёркивание активного таба */
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: -1px;
-  height: 2px;
-  background: var(--fg);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.3s var(--ease);
+  transition: color 0.2s var(--ease), background 0.25s var(--ease);
 }
 .works__tab:hover { color: var(--fg); }
-.works__tab.is-active { color: var(--fg); }
-.works__tab.is-active::after { transform: scaleX(1); }
-.works__tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+.works__tab.is-active { background: var(--fg); color: var(--bg); }
+.works__tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .tile--hidden { display: none; }
 
@@ -2462,17 +2449,16 @@ textarea:focus-visible {
 
 /* -------------------------------------------------- Табы в hero кейса */
 .case__tabs {
-  display: flex;
+  display: inline-flex;
   flex-wrap: nowrap;
-  gap: clamp(20px, 3vw, 44px);
-  width: 100%;                  /* во всю ширину сетки */
+  gap: 6px;
+  max-width: 100%;
   margin-top: clamp(18px, 2.4vw, 28px);
-  padding: 0;
-  border: 0;
-  border-bottom: 1px solid var(--line);   /* общая базовая линия */
-  border-radius: 0;
+  padding: 2px;
   background: transparent;
-  overflow-x: auto;             /* на узких экранах табы прокручиваются, линия сохраняется */
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  overflow-x: auto;             /* на узких экранах табы прокручиваются внутри пилюли */
   scrollbar-width: none;
 }
 .case__tabs::-webkit-scrollbar { display: none; }
@@ -2482,33 +2468,21 @@ textarea:focus-visible {
   flex: 0 0 auto;
   border: 0;
   background: transparent;
-  padding: 0 0 14px;
-  border-radius: 0;
+  padding: 10px 18px;
+  border-radius: 11px;
   font-family: var(--font-display);
   font-weight: 500;
   font-size: clamp(15px, 1.4vw, 17px);
   letter-spacing: -0.01em;
   color: var(--fg-muted);
   white-space: nowrap;
-  text-align: left;
+  text-align: center;
   cursor: pointer;
-  position: relative;
-  transition: color 0.2s var(--ease);
-}
-.case__tab::after {           /* подчёркивание активного таба */
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: -1px;
-  height: 2px;
-  background: var(--fg);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.3s var(--ease);
+  transition: color 0.2s var(--ease), background 0.25s var(--ease);
 }
 .case__tab:hover { color: var(--fg); }
-.case__tab.is-active { color: var(--fg); }
-.case__tab.is-active::after { transform: scaleX(1); }
-.case__tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+.case__tab.is-active { background: var(--fg); color: var(--bg); }
+.case__tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .case__tab-panel[hidden] { display: none; }
 .tl__lead--muted { color: var(--fg-muted); }
 
