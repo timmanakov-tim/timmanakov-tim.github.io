@@ -148,6 +148,7 @@ window.PROJECTS = {
         carousel: [
           { desktop: "assets/ab-6.jpg", mobile: "assets/ab-7.jpg" }, // О нас
           { desktop: "assets/ab-8.jpg", mobile: "assets/ab-9.jpg" }, // The Weight of the Hidden and Sunken
+          { desktop: "assets/ab-10.jpg", mobile: "assets/ab-11.jpg" }, // Artist Portfolio
         ],
       },
     ],
