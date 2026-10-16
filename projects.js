@@ -353,12 +353,12 @@ window.PROJECTS = {
                 "Все пять журналов свели в один экран: слева — фильтр и список дисциплин, справа — единая таблица, где преподаватель и проставляет оценки, и отмечает посещаемость. Ниже — основной сценарий работы с журналом, шаг за шагом.",
             },
           },
-          { media: { kind: "image", src: "assets/hs-journal-1.jpg", label: "Пустое состояние" } },
-          { media: { kind: "image", src: "assets/hs-journal-2.jpg", label: "Журнал открыт" } },
-          { media: { kind: "image", src: "assets/hs-journal-3.jpg", label: "Развёрнутая таблица" } },
-          { media: { kind: "image", src: "assets/hs-journal-4.jpg", label: "Отметка посещаемости" } },
-          { media: { kind: "image", src: "assets/hs-journal-5.jpg", label: "Отметки проставлены" } },
-          { media: { kind: "image", src: "assets/hs-journal-6.jpg", label: "Итоговый журнал" } },
+          { media: { kind: "image", src: "assets/hs-journal-1.png", label: "Пустое состояние" } },
+          { media: { kind: "image", src: "assets/hs-journal-2.png", label: "Журнал открыт" } },
+          { media: { kind: "image", src: "assets/hs-journal-3.png", label: "Развёрнутая таблица" } },
+          { media: { kind: "image", src: "assets/hs-journal-4.png", label: "Отметка посещаемости" } },
+          { media: { kind: "image", src: "assets/hs-journal-5.png", label: "Отметки проставлены" } },
+          { media: { kind: "image", src: "assets/hs-journal-6.png", label: "Итоговый журнал" } },
           {
             laptop: {
               bg: "assets/hs-journal-mac.jpg",
