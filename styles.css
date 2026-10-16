@@ -2377,10 +2377,13 @@ textarea:focus-visible {
    Переключатель категорий работ (UX/UI ↔ Graphic Design)
    ================================================================== */
 .works__filter {
-  display: inline-flex;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;        /* табы одинаковой ширины */
   gap: 8px;
+  width: min(100%, 400px);
+  margin: 0 auto clamp(24px, 4vw, 48px);   /* по центру экрана */
   padding: 4px;
-  margin: 0 0 clamp(24px, 4vw, 48px);
   background: transparent;
   border: 1px solid var(--line);
   border-radius: 16px;   /* концентрично: таб 12px + отступ 4px */
@@ -2463,11 +2466,12 @@ textarea:focus-visible {
 
 /* -------------------------------------------------- Табы в hero кейса */
 .case__tabs {
-  display: inline-flex;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;        /* табы одинаковой ширины */
   gap: 8px;
-  max-width: 100%;
-  margin-top: clamp(16px, 2.4vw, 28px);
+  width: min(100%, 560px);
+  margin: clamp(16px, 2.4vw, 28px) auto 0;   /* по центру экрана */
   padding: 4px;
   background: transparent;
   border: 1px solid var(--line);
@@ -2479,7 +2483,6 @@ textarea:focus-visible {
 .case__tab {
   appearance: none;
   -webkit-appearance: none;
-  flex: 0 0 auto;
   border: 0;
   background: transparent;
   padding: 8px 16px;
@@ -2521,7 +2524,7 @@ textarea:focus-visible {
 
 /* -------------------------------------------------- Карусель страниц с нумерованными табами (горизонтальный скролл) */
 .cz { margin-top: clamp(28px, 4vw, 48px); }
-.cz__bar { display: flex; margin-bottom: clamp(16px, 1.8vw, 20px); }
+.cz__bar { display: flex; justify-content: center; margin-bottom: clamp(16px, 1.8vw, 20px); }
 .cz__tabs {
   display: inline-flex;
   gap: 8px;
