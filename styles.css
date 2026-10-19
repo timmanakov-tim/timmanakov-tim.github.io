@@ -158,37 +158,14 @@ img { max-width: 100%; display: block; }
   height: 72px;
 }
 .nav__logo {
-  position: relative;
   display: inline-flex;
-  width: 40px;
-  height: 40px;
+  align-items: center;
 }
 .nav__logo-img {
-  position: absolute;
-  inset: 0;
   width: 40px;
   height: 40px;
+  display: block;
   border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.25s var(--ease);
-}
-/* базовый вариант виден, на ховере — кроссфейд в красный */
-.nav__logo-img:not(.nav__logo-img--hover) { opacity: 1; }
-.nav__logo:hover .nav__logo-img:not(.nav__logo-img--hover),
-.nav__logo:focus-visible .nav__logo-img:not(.nav__logo-img--hover) { opacity: 0; }
-.nav__logo:hover .nav__logo-img--hover,
-.nav__logo:focus-visible .nav__logo-img--hover { opacity: 1; }
-
-/* выбор пары логотипов по теме: светлая — без круга, тёмная — с кругом */
-.nav__logo-img--dark { display: none; }
-:root[data-theme="dark"] .nav__logo-img--light { display: none; }
-:root[data-theme="dark"] .nav__logo-img--dark { display: block; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .nav__logo-img--light { display: none; }
-  :root:not([data-theme="light"]) .nav__logo-img--dark { display: block; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .nav__logo-img { transition: none; }
 }
 .nav__right {
   display: flex;
