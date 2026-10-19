@@ -88,20 +88,6 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-/* iOS corner smoothing (сквиркл) — сглаживание всех скруглённых прямоугольников.
-   superellipse(4) ≈ iOS continuous corner. Работает там, где есть corner-shape. */
-* { corner-shape: superellipse(4); }
-/* круги и капсулы оставляем классическими */
-.nav__logo-img,
-.nav__theme,
-.to-top,
-.btn,
-.cv__tags li,
-.ba__label,
-.ba__grip,
-.hsdd__radio,
-.hssucc__badge { corner-shape: round; }
-
 html { scroll-behavior: smooth; }
 
 @media (prefers-reduced-motion: reduce) {
