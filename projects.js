@@ -8,6 +8,8 @@ window.PROJECTS = {
   "tomorrow-school": {
     title: "Tomorrow School",
     subtitle: "MVP для школы программирования по модели École 42",
+    card: "assets/ts-card.jpg",
+    cardMeta: "Школа программирования",
     subtitleHtml:
       'MVP для школы программирования по модели <a href="https://42.fr/en/homepage/" target="_blank" rel="noopener">École 42</a>',
     tone: 3,
@@ -106,6 +108,8 @@ window.PROJECTS = {
   artbridger: {
     title: "Artbridger",
     subtitle: "Редизайн арт-маркетплейса",
+    card: "assets/ab-card.jpg",
+    cardMeta: "Редизайн арт-маркетплейса",
     tone: 2,
     // Hero — фото-мокап MacBook, на экран спроецировано видео (Figma 3173-44858)
     heroLaptop: {
@@ -144,6 +148,8 @@ window.PROJECTS = {
   "student-app": {
     title: "Stemio",
     subtitle: "Мобильное приложение для студентов EdTech-платформы",
+    card: "assets/stemio-card.jpg",
+    cardMeta: "Мобильное приложение для студентов",
     tone: 4,
     heroVideo: "assets/stemio-hero.mp4",
     heroVideoRatio: "1440 / 800",
@@ -154,6 +160,7 @@ window.PROJECTS = {
   adata: {
     title: "Adata",
     subtitle: "Аналитическая платформа",
+    cardMeta: "Аналитическая платформа",
     tone: 2,
     overview:
       "Adata – платформа для работы с данными: дашборды, отчёты и настройки. Задача – сделать сложную аналитику понятной и без перегруза. (Черновой текст – заменим на реальный кейс.)",
@@ -168,6 +175,8 @@ window.PROJECTS = {
   miru: {
     title: "Miru",
     subtitle: "Эмпатия как украшение",
+    card: "assets/miru-card.jpg",
+    cardMeta: "Эмпатия как украшение",
     tone: 1,
     hideHero: true,
     // Архитектура один-в-один по макету Figma node 3065-86087
@@ -207,6 +216,8 @@ window.PROJECTS = {
   "hero-study": {
     title: "Hero Study",
     subtitle: "Конструктор учебного контента для вузов",
+    card: "assets/hs-card.jpg",
+    cardMeta: "Конструктор учебного контента для вузов",
     tone: 1,
     // Hero с двумя табами: контент переключается при выборе таба
     tabs: [

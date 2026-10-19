@@ -746,14 +746,29 @@
           (data.gallery ? galleryHtml(data.gallery) : ""));
   }
 
+  // Рекомендации: превью всех остальных работ
+  var moreHtml = ids
+    .filter(function (k) { return k !== id; })
+    .map(function (k) {
+      var d = projects[k];
+      var media = d.card
+        ? '<div class="tile__media tile__media--image"' + (d.tone ? ' data-tone="' + d.tone + '"' : "") + '><img src="' + d.card + '" alt="' + d.title + ' – обложка" loading="lazy" /></div>'
+        : '<div class="tile__media" data-tone="' + (d.tone || 1) + '"></div>';
+      return '<li class="tile reveal"><a class="tile__link" href="case.html?id=' + k + '" aria-label="Кейс: ' + d.title + '">' +
+        media +
+        '<div class="tile__cap"><h3 class="tile__title">' + d.title + '</h3><p class="tile__meta">' + (d.cardMeta || d.subtitle) + "</p></div>" +
+        "</a></li>";
+    })
+    .join("");
+
   root.innerHTML =
     '<div class="container">' +
     '<a class="case__back reveal" href="index.html#work"><span aria-hidden="true">←</span> Работы</a>' +
     bodyHtml +
-    '<a class="case__next reveal" href="case.html?id=' + nextId + '">' +
-    '<span class="case__next-label">Следующий проект</span>' +
-    '<span class="case__next-title">' + nextData.title + ' <span aria-hidden="true">→</span></span>' +
-    "</a>" +
+    '<section class="case__more reveal" aria-label="Другие работы">' +
+    '<p class="case__more-label">Другие работы</p>' +
+    '<ul class="works__grid">' + moreHtml + "</ul>" +
+    "</section>" +
     "</div>";
 
   // Содержание вынесено за сетку и появляется только после главного вижуала:
@@ -762,7 +777,7 @@
   if (data.article && "IntersectionObserver" in window) {
     var toc = document.querySelector(".art__toc");
     var cover = document.querySelector(".case__cover");
-    var endEl = document.querySelector(".case__next");
+    var endEl = document.querySelector(".case__more");
     if (toc && cover) {
       var pastCover = false;
       var nearEnd = false;

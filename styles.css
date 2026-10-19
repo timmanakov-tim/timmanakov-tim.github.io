@@ -896,6 +896,20 @@ textarea:focus-visible {
 }
 .case__next:hover .case__next-title { transform: translateX(10px); }
 
+/* Рекомендации внизу кейса — превью всех других работ */
+.case__more {
+  margin-top: clamp(64px, 9vw, 120px);
+  padding-top: 40px;
+  border-top: 1px solid var(--line);
+}
+.case__more-label {
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  color: var(--fg-muted);
+  margin: 0 0 clamp(24px, 4vw, 40px);
+}
+.case__more .works__grid { margin: 0; }
+
 .case__notfound {
   padding-top: clamp(80px, 15vw, 160px);
   display: flex;
