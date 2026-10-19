@@ -767,7 +767,7 @@
     bodyHtml +
     '<section class="case__more reveal" aria-label="Другие работы">' +
     '<p class="case__more-label">Другие работы</p>' +
-    '<ul class="works__grid">' + moreHtml + "</ul>" +
+    '<ul class="case__more-track">' + moreHtml + "</ul>" +
     "</section>" +
     "</div>";
 

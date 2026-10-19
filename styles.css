@@ -88,6 +88,20 @@
 *::before,
 *::after { box-sizing: border-box; }
 
+/* iOS corner smoothing (сквиркл) — сглаживание всех скруглённых прямоугольников.
+   superellipse(4) ≈ iOS continuous corner. Работает там, где есть corner-shape. */
+* { corner-shape: superellipse(4); }
+/* круги и капсулы оставляем классическими */
+.nav__logo-img,
+.nav__theme,
+.to-top,
+.btn,
+.cv__tags li,
+.ba__label,
+.ba__grip,
+.hsdd__radio,
+.hssucc__badge { corner-shape: round; }
+
 html { scroll-behavior: smooth; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -908,7 +922,26 @@ textarea:focus-visible {
   color: var(--fg-muted);
   margin: 0 0 clamp(24px, 4vw, 40px);
 }
-.case__more .works__grid { margin: 0; }
+/* Горизонтальный скролл маленьких плиток */
+.case__more-track {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 8px;
+  display: flex;
+  gap: clamp(16px, 2vw, 24px);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  scroll-padding-left: var(--gutter);
+}
+.case__more-track::-webkit-scrollbar { display: none; }
+.case__more-track .tile {
+  flex: 0 0 clamp(200px, 26vw, 280px);
+  scroll-snap-align: start;
+  margin: 0;
+}
+.case__more-track .tile__title { font-size: 18px; }
+.case__more-track .tile__meta { font-size: 14px; }
 
 .case__notfound {
   padding-top: clamp(80px, 15vw, 160px);
