@@ -150,53 +150,6 @@
     yearEl.textContent = new Date().getFullYear();
   }
 
-  // --- Форма связи (без бэкенда: собираем mailto) ---
-  const form = document.getElementById("contact-form");
-  if (form) {
-    const status = form.querySelector(".form__status");
-    const RECIPIENT = "tim.manakov@gmail.com";
-
-    const setStatus = function (text, type) {
-      if (!status) return;
-      status.textContent = text;
-      status.dataset.type = type || "";
-    };
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const name = form.elements["name"].value.trim();
-      const email = form.elements["email"].value.trim();
-      const message = form.elements["message"].value.trim();
-
-      // Базовая валидация
-      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      if (!name || !message || !emailOk) {
-        setStatus("Заполните имя, корректный email и сообщение.", "error");
-        const firstInvalid = !name
-          ? form.elements["name"]
-          : !emailOk
-          ? form.elements["email"]
-          : form.elements["message"];
-        if (firstInvalid && firstInvalid.focus) firstInvalid.focus();
-        return;
-      }
-
-      const subject = "Сообщение с портфолио — " + name;
-      const body =
-        "Имя: " + name + "\nEmail: " + email + "\n\n" + message;
-      const mailto =
-        "mailto:" +
-        RECIPIENT +
-        "?subject=" +
-        encodeURIComponent(subject) +
-        "&body=" +
-        encodeURIComponent(body);
-
-      setStatus("Открываю почтовый клиент…", "ok");
-      window.location.href = mailto;
-    });
-  }
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
