@@ -2889,7 +2889,7 @@ textarea:focus-visible {
   --bg: #141311;
   --bg-soft: #1f1d18;
   --panel: #0e0e0c;
-  --line: color-mix(in srgb, #f4f3f0 16%, transparent);
+  --line: color-mix(in srgb, #f4f3f0 10%, transparent);
   color: var(--fg);
 }
 .contact::before,
