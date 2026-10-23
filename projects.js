@@ -213,6 +213,26 @@ window.PROJECTS = {
     ],
   },
 
+  "anton-sylenko": {
+    title: "Anton Sylenko",
+    subtitle: "Логотип и фирменный стиль личного бренда",
+    card: "assets/anton-card.jpg",
+    cardMeta: "Логотип и фирменный стиль",
+    tone: 1,
+    hideHero: true,
+    // Презентация один-в-один по макету Figma node 3367-33321 (секции full-bleed)
+    blocks: [
+      { bleed: "assets/anton-1.jpg" },
+      { bleed: "assets/anton-2.jpg" },
+      { bleed: "assets/anton-3.jpg" },
+      { bleed: "assets/anton-4.jpg" },
+      { bleed: "assets/anton-5.jpg" },
+      { bleed: "assets/anton-6.jpg" },
+      { bleed: "assets/anton-7.jpg" },
+      { bleed: "assets/anton-8.jpg" },
+    ],
+  },
+
   "hero-study": {
     title: "Hero Study",
     subtitle: "Конструктор учебного контента для вузов",

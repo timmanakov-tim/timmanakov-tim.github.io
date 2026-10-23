@@ -589,6 +589,8 @@
               screenInner +
             "</div></figure>";
         }
+        if (b.bleed)
+          return '<img class="case__bleed-img" src="' + b.bleed + '" alt="' + (b.alt || "") + '" loading="lazy" />';
         if (b.swap)
           return '<figure class="tl__media reveal">' +
             (b.swap.label ? '<figcaption class="tl__label">' + b.swap.label + "</figcaption>" : "") +

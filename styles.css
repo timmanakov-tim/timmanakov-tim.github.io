@@ -794,6 +794,17 @@ textarea:focus-visible {
 }
 .case__cover[data-tone] { display: none; }   /* hero-плейсхолдер без картинки — не показываем пустую подложку */
 
+/* Графический кейс: секции дизайна от края до края, без зазоров (один в один) */
+.case__bleed-img {
+  display: block;
+  width: 100vw;
+  max-width: none;   /* перебиваем глобальный img{max-width:100%} */
+  margin-inline: calc(50% - 50vw);
+  margin-top: clamp(40px, 6vw, 72px);
+  height: auto;
+}
+.case__bleed-img + .case__bleed-img { margin-top: -1px; }   /* бесшовная стыковка секций */
+
 /* Hero с устройством: фон-мокап + видео в области экрана */
 .hero-device { background: transparent; container-type: inline-size; }
 .hero-device__bg { position: absolute; inset: 0; }
