@@ -2618,9 +2618,7 @@ textarea:focus-visible {
 .cz__track {
   display: flex;
   overflow-x: auto;
-  overflow-y: hidden;
   scroll-snap-type: x mandatory;
-  height: clamp(460px, 72vh, 780px);
   border-radius: var(--radius);
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
@@ -2630,10 +2628,7 @@ textarea:focus-visible {
 .cz__slide {
   flex: 0 0 100%;
   scroll-snap-align: start;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: none;
-  overscroll-behavior-y: contain;
+  overflow: visible;
 }
 .cz__slide::-webkit-scrollbar { display: none; }
 .cz__pair {
