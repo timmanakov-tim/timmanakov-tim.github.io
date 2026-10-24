@@ -242,9 +242,9 @@ window.PROJECTS = {
     cardMeta: "Новогодний лендинг Aviasales",
     tone: 2,
     hideHero: true,
-    // Первый экран из макета Figma node 3316-6826: статичная подложка + анимированные снежинки
+    // Экран из макета Figma node 3316-6826 (full-bleed, один в один)
     blocks: [
-      { snowHero: { base: "assets/warm-base.jpg", alt: "Тёплые страны — первый экран лендинга", count: 22 } },
+      { bleed: "assets/warm-1.jpg" },
     ],
   },
 

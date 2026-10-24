@@ -589,33 +589,6 @@
               screenInner +
             "</div></figure>";
         }
-        if (b.snowHero) {
-          var sh = b.snowHero;
-          var n = sh.count || 22;
-          var flakes = "";
-          for (var fi = 0; fi < n; fi++) {
-            var fimg = Math.random() < 0.6 ? "assets/snow-a.png" : "assets/snow-b.png";
-            var size = (10 + Math.random() * 18).toFixed(1);   // 10–28 px
-            var x = (Math.random() * 100).toFixed(2);          // 0–100 %
-            var dur = (16 + Math.random() * 16).toFixed(1);    // 16–32 s
-            var delay = (-Math.random() * dur).toFixed(1);     // разнобой, старт в середине падения
-            var drift = (0.6 + Math.random() * 2).toFixed(2);  // 0.6–2.6 vw
-            var sway = (4 + Math.random() * 5).toFixed(1);     // 4–9 s
-            var spin = (16 + Math.random() * 16).toFixed(1);   // 16–32 s
-            var op = (0.45 + Math.random() * 0.4).toFixed(2);  // 0.45–0.85
-            var steps = Math.round(55 + Math.random() * 30);   // 55–85 ступеней → падение «по пиксельно»
-            flakes +=
-              '<span class="sf" style="--x:' + x + "%;--dur:" + dur + "s;--delay:" + delay + "s;--steps:" + steps + '">' +
-                '<span class="sf__sway" style="--drift:' + drift + "vw;--sway:" + sway + 's">' +
-                  '<img class="sf__img" src="' + fimg + '" alt="" aria-hidden="true" loading="lazy" style="width:' + size + "px;--spin:" + spin + "s;opacity:" + op + '" />' +
-                "</span>" +
-              "</span>";
-          }
-          return '<figure class="case__snow">' +
-            '<img class="case__snow-img" src="' + sh.base + '" alt="' + (sh.alt || data.title) + '" loading="lazy" />' +
-            '<div class="snow" aria-hidden="true">' + flakes + "</div>" +
-          "</figure>";
-        }
         if (b.bleed)
           return '<img class="case__bleed-img" src="' + b.bleed + '" alt="' + (b.alt || "") + '" loading="lazy" />';
         if (b.bleedVideo)

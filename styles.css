@@ -805,59 +805,6 @@ textarea:focus-visible {
 }
 .case__bleed-img + .case__bleed-img { margin-top: -1px; }   /* бесшовная стыковка секций */
 
-/* -------------------------------------------------- Хиро со снежинками (Тёплые страны) */
-/* Подложка (вязаный фон + форма + карточки) статична; анимируется только слой .snow поверх. */
-.case__snow {
-  position: relative;
-  display: block;
-  width: 100vw;
-  max-width: none;
-  margin-inline: calc(50% - 50vw);
-  margin-top: clamp(40px, 6vw, 72px);
-  overflow: hidden;          /* обрезаем снежинки за границами экрана */
-  line-height: 0;
-}
-.case__snow-img { display: block; width: 100%; height: auto; }
-.snow {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-.sf {
-  position: absolute;
-  top: 0;
-  left: var(--x);
-  will-change: transform;
-  /* падение «по пиксельно»: ступенчатый спуск вместо плавного, бесконечный цикл */
-  animation: sf-fall var(--dur) steps(var(--steps, 70), end) var(--delay) infinite;
-}
-.sf__sway {
-  display: block;
-  animation: sf-sway var(--sway) ease-in-out var(--delay) infinite alternate;
-}
-.sf__img {
-  display: block;
-  will-change: transform;
-  animation: sf-spin var(--spin) linear infinite;
-}
-/* Падение сверху вниз: старт и финиш за кадром → бесшовный повтор.
-   Высота хиро = 56.25vw (16:9), диапазон -12vw…68vw перекрывает её с запасом. */
-@keyframes sf-fall {
-  from { transform: translate3d(0, -12vw, 0); }
-  to   { transform: translate3d(0, 68vw, 0); }
-}
-@keyframes sf-sway {
-  from { transform: translateX(calc(var(--drift) * -1)); }
-  to   { transform: translateX(var(--drift)); }
-}
-@keyframes sf-spin {
-  to { transform: rotate(360deg); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .snow { display: none; }   /* уважаем настройку: никакого движения */
-}
-
 /* Hero с устройством: фон-мокап + видео в области экрана */
 .hero-device { background: transparent; container-type: inline-size; }
 .hero-device__bg { position: absolute; inset: 0; }
