@@ -332,18 +332,14 @@ img { max-width: 100%; display: block; }
 
 /* -------------------------------------------------- Works (full-bleed gallery) */
 .works {
-  /* Полотно работ во всю ширину экрана — архитектура бесшовных полос */
-  max-width: none;
-  padding-inline: 0;
-  width: 100vw;
-  margin-inline: calc(50% - 50vw);
+  --tile-gap: 8px;
   padding-bottom: var(--section-gap);
 }
 .works__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  column-gap: 0;
-  row-gap: 0;
+  column-gap: var(--tile-gap);
+  row-gap: clamp(32px, 4vw, 52px);
 }
 @media (max-width: 900px) {
   .works__grid { grid-template-columns: repeat(2, 1fr); }
@@ -394,21 +390,6 @@ img { max-width: 100%; display: block; }
   letter-spacing: -0.02em;
 }
 .tile__meta { margin-top: 4px; color: var(--fg-muted); font-size: 16px; }
-
-/* Главная: бесшовная мозаика работ — подпись поверх снимка */
-.works__grid .tile__link { position: relative; }
-.works__grid .tile__media { border-radius: 0; }
-.works__grid .tile__cap {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  padding: clamp(16px, 2vw, 28px);
-  padding-top: clamp(48px, 7vw, 96px);
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.18) 55%, rgba(0, 0, 0, 0));
-  color: #fff;
-  pointer-events: none;
-}
-.works__grid .tile__title { color: #fff; }
-.works__grid .tile__meta { color: rgba(255, 255, 255, 0.82); }
 
 /* -------------------------------------------------- About / CV */
 .about { padding-bottom: var(--section-gap); }
