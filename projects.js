@@ -151,10 +151,12 @@ window.PROJECTS = {
     card: "assets/stemio-card.jpg",
     cardMeta: "Мобильное приложение для студентов",
     tone: 4,
-    heroVideo: "assets/stemio-hero.mp4",
-    heroVideoRatio: "1440 / 800",
-    fullbleed: { src: "assets/stemio-brand.jpg", bg: "#070014" },
-    // Мета и тексты убраны — ниже будут добавляться экраны
+    hideHero: true,
+    // Архитектура как у Anton Sylenko — секции от края до края
+    blocks: [
+      { bleedVideo: "assets/stemio-hero.mp4" },
+      { bleed: "assets/stemio-brand.jpg" },
+    ],
   },
 
   adata: {

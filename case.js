@@ -591,6 +591,8 @@
         }
         if (b.bleed)
           return '<img class="case__bleed-img" src="' + b.bleed + '" alt="' + (b.alt || "") + '" loading="lazy" />';
+        if (b.bleedVideo)
+          return '<video class="case__bleed-img" src="' + b.bleedVideo + '" autoplay muted loop playsinline preload="metadata"' + (b.poster ? ' poster="' + b.poster + '"' : "") + "></video>";
         if (b.swap)
           return '<figure class="tl__media reveal">' +
             (b.swap.label ? '<figcaption class="tl__label">' + b.swap.label + "</figcaption>" : "") +
