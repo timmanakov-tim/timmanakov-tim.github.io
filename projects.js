@@ -235,6 +235,19 @@ window.PROJECTS = {
     ],
   },
 
+  "warm-countries": {
+    title: "Тёплые страны",
+    subtitle: "Новогодний лендинг Aviasales",
+    card: "assets/warm-card.jpg",
+    cardMeta: "Новогодний лендинг Aviasales",
+    tone: 2,
+    hideHero: true,
+    // Экран из макета Figma node 3316-6826 (full-bleed)
+    blocks: [
+      { bleed: "assets/warm-1.jpg" },
+    ],
+  },
+
   "hero-study": {
     title: "Hero Study",
     subtitle: "Конструктор учебного контента для вузов",
