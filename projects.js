@@ -128,12 +128,12 @@ window.PROJECTS = {
           body: "Трансформировать визуальный язык бренда из «мягкого и дружелюбного» в строгий, премиальный минимализм. На старте был только макет главной страницы; требовалось масштабировать его в полноценную систему. Уйти от скруглённых форм в сторону «серьёзной» эстетики арт-рынка.",
         },
       },
-      // Блоки ровно в том порядке, что и в макете Figma (3246-71533)
-      { media: { kind: "image", src: "assets/ab-1.jpg" } },
-      { media: { kind: "image", src: "assets/ab-2.jpg" } },
-      { media: { kind: "image", src: "assets/ab-3.jpg" } },
-      { media: { kind: "image", src: "assets/ab-4.jpg" } },
-      { media: { kind: "image", src: "assets/ab-5.jpg" } },
+      // Дизайн-слайды от края до края (архитектура как у Anton Sylenko), порядок по макету Figma 3246-71533
+      { bleed: "assets/ab-1.jpg" },
+      { bleed: "assets/ab-2.jpg" },
+      { bleed: "assets/ab-3.jpg" },
+      { bleed: "assets/ab-4.jpg" },
+      { bleed: "assets/ab-5.jpg" },
       // Карусель страниц (desktop + mobile рядом), перелистывание нумерованными табами
       {
         carousel: [
