@@ -224,14 +224,14 @@ window.PROJECTS = {
     hideHero: true,
     // Презентация один-в-один по макету Figma node 3367-33321 (секции full-bleed)
     blocks: [
-      { bleed: "assets/anton-1.jpg" },
-      { bleed: "assets/anton-2.jpg" },
-      { bleed: "assets/anton-3.jpg" },
-      { bleed: "assets/anton-4.jpg" },
-      { bleed: "assets/anton-5.jpg" },
-      { bleed: "assets/anton-6.jpg" },
-      { bleed: "assets/anton-7.jpg" },
-      { bleed: "assets/anton-8.jpg" },
+      { bleed: "assets/anton-1.jpg?v=2" },
+      { bleed: "assets/anton-2.jpg?v=2" },
+      { bleed: "assets/anton-3.jpg?v=2" },
+      { bleed: "assets/anton-4.jpg?v=2" },
+      { bleed: "assets/anton-5.jpg?v=2" },
+      { bleed: "assets/anton-6.jpg?v=2" },
+      { bleed: "assets/anton-7.jpg?v=2" },
+      { bleed: "assets/anton-8.jpg?v=2" },
     ],
   },
 
