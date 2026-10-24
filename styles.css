@@ -829,7 +829,8 @@ textarea:focus-visible {
   top: 0;
   left: var(--x);
   will-change: transform;
-  animation: sf-fall var(--dur) linear var(--delay) infinite;
+  /* падение «по пиксельно»: ступенчатый спуск вместо плавного, бесконечный цикл */
+  animation: sf-fall var(--dur) steps(var(--steps, 70), end) var(--delay) infinite;
 }
 .sf__sway {
   display: block;

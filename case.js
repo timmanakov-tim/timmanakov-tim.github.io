@@ -603,8 +603,9 @@
             var sway = (4 + Math.random() * 5).toFixed(1);     // 4–9 s
             var spin = (16 + Math.random() * 16).toFixed(1);   // 16–32 s
             var op = (0.45 + Math.random() * 0.4).toFixed(2);  // 0.45–0.85
+            var steps = Math.round(55 + Math.random() * 30);   // 55–85 ступеней → падение «по пиксельно»
             flakes +=
-              '<span class="sf" style="--x:' + x + "%;--dur:" + dur + "s;--delay:" + delay + 's">' +
+              '<span class="sf" style="--x:' + x + "%;--dur:" + dur + "s;--delay:" + delay + "s;--steps:" + steps + '">' +
                 '<span class="sf__sway" style="--drift:' + drift + "vw;--sway:" + sway + 's">' +
                   '<img class="sf__img" src="' + fimg + '" alt="" aria-hidden="true" loading="lazy" style="width:' + size + "px;--spin:" + spin + "s;opacity:" + op + '" />' +
                 "</span>" +
