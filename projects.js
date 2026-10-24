@@ -238,7 +238,7 @@ window.PROJECTS = {
   "warm-countries": {
     title: "Тёплые страны",
     subtitle: "Новогодний лендинг Aviasales",
-    card: "assets/warm-card.jpg",
+    card: "assets/warm-card.jpg?v=2",
     cardMeta: "Новогодний лендинг Aviasales",
     tone: 2,
     hideHero: true,
