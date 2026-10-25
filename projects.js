@@ -259,14 +259,14 @@ window.PROJECTS = {
     hideHero: true,
     // Презентация бренда один-в-один по макету Figma node 3430-368 (секции full-bleed)
     blocks: [
-      { bleed: "assets/sb-1.jpg" },
-      { bleed: "assets/sb-2.jpg" },
-      { bleed: "assets/sb-3.jpg" },
-      { bleed: "assets/sb-4.jpg" },
-      { bleed: "assets/sb-5.jpg" },
-      { bleed: "assets/sb-6.jpg" },
-      { bleed: "assets/sb-7.jpg" },
-      { bleed: "assets/sb-8.jpg" },
+      { bleed: "assets/sb-1.jpg?v=2" },
+      { bleed: "assets/sb-2.jpg?v=2" },
+      { bleed: "assets/sb-3.jpg?v=2" },
+      { bleed: "assets/sb-4.jpg?v=2" },
+      { bleed: "assets/sb-5.jpg?v=2" },
+      { bleed: "assets/sb-6.jpg?v=2" },
+      { bleed: "assets/sb-7.jpg?v=2" },
+      { bleed: "assets/sb-8.jpg?v=2" },
     ],
   },
 
