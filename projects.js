@@ -250,6 +250,26 @@ window.PROJECTS = {
     ],
   },
 
+  "stemio-brand": {
+    title: "Stemio",
+    subtitle: "Логотип и фирменный стиль",
+    card: "assets/sb-card.jpg",
+    cardMeta: "Логотип и фирменный стиль",
+    tone: 4,
+    hideHero: true,
+    // Презентация бренда один-в-один по макету Figma node 3430-368 (секции full-bleed)
+    blocks: [
+      { bleed: "assets/sb-1.jpg" },
+      { bleed: "assets/sb-2.jpg" },
+      { bleed: "assets/sb-3.jpg" },
+      { bleed: "assets/sb-4.jpg" },
+      { bleed: "assets/sb-5.jpg" },
+      { bleed: "assets/sb-6.jpg" },
+      { bleed: "assets/sb-7.jpg" },
+      { bleed: "assets/sb-8.jpg" },
+    ],
+  },
+
   "hero-study": {
     title: "Hero Study",
     subtitle: "Конструктор учебного контента для вузов",
