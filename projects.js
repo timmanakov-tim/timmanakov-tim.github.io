@@ -237,9 +237,11 @@ window.PROJECTS = {
 
   "warm-countries": {
     title: "Тёплые страны",
-    subtitle: "Новогодний лендинг Aviasales",
+    subtitle: "Сезонное новогоднее оформление главной Aviasales",
+    overview:
+      "Новогодний облик главной страницы Aviasales: вязаная «свитерная» айдентика, уютные иллюстрации и тёплая палитра создают праздничное настроение и мягко подсказывают сбежать от зимы – в тёплые страны.",
     card: "assets/warm-card.jpg?v=2",
-    cardMeta: "Новогодний лендинг Aviasales",
+    cardMeta: "Сезонное оформление Aviasales",
     tone: 2,
     hideHero: true,
     // Экран из макета Figma node 3316-6826 (full-bleed, один в один)
