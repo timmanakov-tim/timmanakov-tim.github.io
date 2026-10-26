@@ -1531,7 +1531,8 @@ textarea:focus-visible {
 .tl__list li:first-child { margin-top: 0; }
 
 /* Подблок: 20px label + 16px light */
-.tl__sub { margin-top: clamp(40px, 5vw, 72px); max-width: 920px; }
+.tl__sub { margin-top: clamp(40px, 5vw, 72px); max-width: 800px; margin-inline: auto; }
+.tl__sub .tl__text { max-width: none; }
 .tl__label {
   margin: 0;
   font-family: var(--font-display);
