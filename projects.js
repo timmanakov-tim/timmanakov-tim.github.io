@@ -195,22 +195,13 @@ window.PROJECTS = {
       },
       { miru2: true },
       { fan: true },
-      { media: { kind: "image", src: "assets/miru-merch.jpg", plain: true } },
-      {
-        compare: [
-          { kind: "image", src: "assets/miru-r1a.jpg" },
-          { kind: "image", src: "assets/miru-r1b.jpg" },
-        ],
-        plain: true,
-      },
-      {
-        compare: [
-          { kind: "image", src: "assets/miru-r2a.jpg" },
-          { kind: "image", src: "assets/miru-r2b.jpg" },
-        ],
-        plain: true,
-      },
-      { media: { kind: "image", src: "assets/miru-web.jpg", plain: true } },
+      // Продуктовая часть (кепка → мерч → кулон → коробка) один-в-один из Figma node 3492-30924
+      { bleed: "assets/mir-1.jpg" },
+      { bleed: "assets/mir-2.jpg" },
+      { bleed: "assets/mir-3.jpg" },
+      { bleed: "assets/mir-4.jpg" },
+      { bleed: "assets/mir-5.jpg" },
+      { bleed: "assets/mir-6.jpg" },
     ],
   },
 
