@@ -797,9 +797,9 @@ textarea:focus-visible {
 /* Графический кейс: секции дизайна от края до края, без зазоров (один в один) */
 .case__bleed-img {
   display: block;
-  width: 100vw;
+  width: calc(100vw - 80px);   /* по 40px отступа слева и справа — не впритык к краю */
   max-width: none;   /* перебиваем глобальный img{max-width:100%} */
-  margin-inline: calc(50% - 50vw);
+  margin-inline: calc(50% - 50vw + 40px);
   margin-top: clamp(40px, 6vw, 72px);
   height: auto;
 }
