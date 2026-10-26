@@ -181,37 +181,16 @@ window.PROJECTS = {
     cardMeta: "Эмпатия как украшение",
     tone: 1,
     hideHero: true,
-    // Архитектура один-в-один по макету Figma node 3065-86087
+    // Архитектура один-в-один по макету Figma node 3492-29541 (секции full-bleed)
     blocks: [
-      { mirulogo: true },
-      {
-        subhead: {
-          label: "О продукте",
-          text: [
-            "Кулон, для людей интровертов, который считывает эмоции и мимику собеседника, улавливает настроение и невысказанное — и тихо подсказывает на скрытый наушник, как найти общий язык.",
-            "Название — от японского 見る, «видеть».",
-            "Технология спрятана не в гаджет на виду, а в украшение: серебряный вихрь с тёплым голубым ядром — искра понимания.",
-          ],
-        },
-      },
-      { miru2: true },
-      { fan: true },
-      { media: { kind: "image", src: "assets/miru-merch.jpg", plain: true } },
-      {
-        compare: [
-          { kind: "image", src: "assets/miru-r1a.jpg" },
-          { kind: "image", src: "assets/miru-r1b.jpg" },
-        ],
-        plain: true,
-      },
-      {
-        compare: [
-          { kind: "image", src: "assets/miru-r2a.jpg" },
-          { kind: "image", src: "assets/miru-r2b.jpg" },
-        ],
-        plain: true,
-      },
-      { media: { kind: "image", src: "assets/miru-web.jpg", plain: true } },
+      { bleed: "assets/miru-1.jpg" },
+      { bleed: "assets/miru-2.jpg" },
+      { bleed: "assets/miru-3.jpg" },
+      { bleed: "assets/miru-4.jpg" },
+      { bleed: "assets/miru-5.jpg" },
+      { bleed: "assets/miru-6.jpg" },
+      { bleed: "assets/miru-7.jpg" },
+      { bleed: "assets/miru-8.jpg" },
     ],
   },
 
