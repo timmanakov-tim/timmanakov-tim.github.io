@@ -563,7 +563,7 @@
             '<img class="fan__frame" src="assets/miru-fan-frame.svg?v=1" alt="" aria-hidden="true" />' +
             '<img class="fan__card fan__card--a" src="assets/miru-fan-a.png?v=2" alt="Miru — пост в Instagram" loading="lazy" />' +
             '<img class="fan__card fan__card--b" src="assets/miru-fan-b.png?v=2" alt="Miru — пост в Instagram" loading="lazy" />' +
-            '<img class="fan__card fan__card--c" src="assets/miru-fan-c.png?v=2" alt="Miru — пост в Instagram" loading="lazy" />' +
+            '<img class="fan__card fan__card--c" src="assets/miru-fan-c.png?v=3" alt="Miru — пост в Instagram" loading="lazy" />' +
             "</div>";
         if (b.mirulogo)
           return '<div class="mlogo reveal" role="img" aria-label="MIRU — эмпатия как украшение">' +
