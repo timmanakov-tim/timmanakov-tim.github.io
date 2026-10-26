@@ -177,7 +177,7 @@ window.PROJECTS = {
   miru: {
     title: "Miru",
     subtitle: "Эмпатия как украшение",
-    card: "assets/miru-card.jpg",
+    card: "assets/miru-card.jpg?v=2",
     cardMeta: "Эмпатия как украшение",
     tone: 1,
     hideHero: true,
