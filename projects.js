@@ -208,7 +208,7 @@ window.PROJECTS = {
   "anton-sylenko": {
     title: "Anton Sylenko",
     subtitle: "Логотип и фирменный стиль личного бренда",
-    card: "assets/anton-card.jpg",
+    card: "assets/anton-card.jpg?v=2",
     cardMeta: "Логотип и фирменный стиль",
     tone: 1,
     hideHero: true,
