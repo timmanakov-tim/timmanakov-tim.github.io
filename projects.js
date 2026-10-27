@@ -243,7 +243,7 @@ window.PROJECTS = {
   "stemio-brand": {
     title: "Stemio",
     subtitle: "Логотип и фирменный стиль",
-    card: "assets/sb-card.jpg?v=2",
+    card: "assets/sb-card.jpg?v=3",
     cardMeta: "Логотип и фирменный стиль",
     tone: 4,
     hideHero: true,
