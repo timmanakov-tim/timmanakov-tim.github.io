@@ -263,7 +263,7 @@ window.PROJECTS = {
   "illustrations": {
     title: "Иллюстрации",
     subtitle: "Кастомные иллюстрации и иконки",
-    card: "assets/ill-card.jpg?v=2",
+    card: "assets/ill-card.jpg?v=3",
     cardMeta: "Кастомные иллюстрации и иконки",
     tone: 2,
     hideHero: true,
