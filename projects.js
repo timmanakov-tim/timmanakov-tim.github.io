@@ -230,7 +230,7 @@ window.PROJECTS = {
     subtitle: "Сезонное новогоднее оформление главной Aviasales",
     overview:
       "Новогодний облик главной страницы Aviasales: вязаная «свитерная» айдентика, уютные иллюстрации и тёплая палитра создают праздничное настроение и мягко подсказывают сбежать от зимы – в тёплые страны.",
-    card: "assets/warm-card.jpg?v=2",
+    card: "assets/warm-card.jpg?v=3",
     cardMeta: "Сезонное оформление Aviasales",
     tone: 2,
     hideHero: true,
