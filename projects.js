@@ -260,6 +260,30 @@ window.PROJECTS = {
     ],
   },
 
+  "illustrations": {
+    title: "Иллюстрации",
+    subtitle: "Кастомные иллюстрации и иконки",
+    card: "assets/ill-card.jpg",
+    cardMeta: "Кастомные иллюстрации и иконки",
+    tone: 2,
+    hideHero: true,
+    // Витрина иллюстраций один-в-один по макету Figma node 3367-32713 (секции full-bleed)
+    blocks: [
+      { bleed: "assets/ill-1.jpg" },
+      { bleed: "assets/ill-2.jpg" },
+      { bleed: "assets/ill-3.jpg" },
+      { bleed: "assets/ill-4.jpg" },
+      { bleed: "assets/ill-5.jpg" },
+      { bleed: "assets/ill-6.jpg" },
+      { bleed: "assets/ill-7.jpg" },
+      { bleed: "assets/ill-8.jpg" },
+      { bleed: "assets/ill-9.jpg" },
+      { bleed: "assets/ill-10.jpg" },
+      { bleed: "assets/ill-11.jpg" },
+      { bleed: "assets/ill-12.jpg" },
+    ],
+  },
+
   "hero-study": {
     title: "Hero Study",
     subtitle: "Конструктор учебного контента для вузов",
