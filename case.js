@@ -753,9 +753,9 @@
           (data.gallery ? galleryHtml(data.gallery) : ""));
   }
 
-  // Рекомендации: превью всех остальных работ
+  // Рекомендации: превью других работ того же направления (графика / UX-UI)
   var moreHtml = ids
-    .filter(function (k) { return k !== id; })
+    .filter(function (k) { return k !== id && projects[k].cat === data.cat; })
     .map(function (k) {
       var d = projects[k];
       var media = d.card

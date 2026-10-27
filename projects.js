@@ -6,6 +6,7 @@
 
 window.PROJECTS = {
   "tomorrow-school": {
+    cat: "uxui",
     title: "Tomorrow School",
     subtitle: "MVP для школы программирования по модели École 42",
     card: "assets/ts-card.jpg",
@@ -106,6 +107,7 @@ window.PROJECTS = {
   },
 
   artbridger: {
+    cat: "uxui",
     title: "Artbridger",
     subtitle: "Редизайн арт-маркетплейса",
     card: "assets/ab-card.jpg",
@@ -146,6 +148,7 @@ window.PROJECTS = {
   },
 
   "student-app": {
+    cat: "uxui",
     title: "Stemio",
     subtitle: "Мобильное приложение для студентов EdTech-платформы",
     card: "assets/stemio-card.jpg",
@@ -160,6 +163,7 @@ window.PROJECTS = {
   },
 
   adata: {
+    cat: "uxui",
     title: "Adata",
     subtitle: "Аналитическая платформа",
     cardMeta: "Аналитическая платформа",
@@ -175,6 +179,7 @@ window.PROJECTS = {
   },
 
   miru: {
+    cat: "graph",
     title: "Miru",
     subtitle: "Эмпатия как украшение",
     card: "assets/miru-card.jpg?v=3",
@@ -206,6 +211,7 @@ window.PROJECTS = {
   },
 
   "anton-sylenko": {
+    cat: "graph",
     title: "Anton Sylenko",
     subtitle: "Логотип и фирменный стиль личного бренда",
     card: "assets/anton-card.jpg?v=2",
@@ -226,6 +232,7 @@ window.PROJECTS = {
   },
 
   "warm-countries": {
+    cat: "uxui",
     title: "Тёплые страны",
     subtitle: "Сезонное новогоднее оформление главной Aviasales",
     overview:
@@ -241,6 +248,7 @@ window.PROJECTS = {
   },
 
   "stemio-brand": {
+    cat: "graph",
     title: "Stemio",
     subtitle: "Логотип и фирменный стиль",
     card: "assets/sb-card.jpg?v=3",
@@ -261,6 +269,7 @@ window.PROJECTS = {
   },
 
   "illustrations": {
+    cat: "graph",
     title: "Иллюстрации",
     subtitle: "Кастомные иллюстрации и иконки",
     card: "assets/ill-card.jpg?v=3",
@@ -285,6 +294,7 @@ window.PROJECTS = {
   },
 
   "hero-study": {
+    cat: "uxui",
     title: "Hero Study",
     subtitle: "Конструктор учебного контента для вузов",
     card: "assets/hs-card.jpg",
