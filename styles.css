@@ -1733,7 +1733,7 @@ textarea:focus-visible {
   width: 27.94%;
   height: auto;
   transform-origin: 50% 50%;
-  animation: mlogo-spin 16s linear infinite;
+  animation: mlogo-spin 8s linear infinite;
   will-change: transform;
 }
 /* слово MIRU — статично (459/698), зазор от знака 44/698 */
