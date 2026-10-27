@@ -567,8 +567,12 @@
             "</div>";
         if (b.mirulogo)
           return '<div class="mlogo reveal" role="img" aria-label="MIRU — эмпатия как украшение">' +
-            '<img class="mlogo__screen" src="assets/miru-hero.jpg?v=1" alt="MIRU — эмпатия как украшение" loading="eager" />' +
-            "</div>";
+            '<img class="mlogo__screen" src="assets/miru-hero.jpg?v=3" alt="" aria-hidden="true" loading="eager" />' +
+            '<div class="mlogo__logo">' +
+              '<img class="mlogo__sign" src="assets/miru-sign.png?v=2" alt="" aria-hidden="true" />' +
+              '<img class="mlogo__word" src="assets/miru-word.png?v=1" alt="MIRU" />' +
+            "</div>" +
+          "</div>";
         if (b.laptop) {
           var lp = b.laptop;
           var screenInner;

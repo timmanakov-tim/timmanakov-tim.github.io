@@ -1719,16 +1719,31 @@ textarea:focus-visible {
   overflow: hidden;
 }
 .mlogo__screen { display: block; width: 100%; height: auto; }
-/* знак — вращение по часовой стрелке вокруг центра, в зазоре слева от «MIRU» */
-.mlogo__mark {
+/* логотип (знак + слово) поверх фото, по центру; группа = 36.26% ширины кадра */
+.mlogo__logo {
   position: absolute;
-  left: 22.25%; top: 36.16%; width: 15.47%; height: 27.63%;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 36.26%;
+  display: flex;
+  align-items: center;
+}
+/* знак MIRU — вращение вокруг своей оси (195/698 ширины группы) */
+.mlogo__sign {
+  width: 27.94%;
+  height: auto;
   transform-origin: 50% 50%;
-  animation: mlogo-spin 14s linear infinite;
+  animation: mlogo-spin 16s linear infinite;
   will-change: transform;
 }
+/* слово MIRU — статично (459/698), зазор от знака 44/698 */
+.mlogo__word {
+  width: 65.76%;
+  height: auto;
+  margin-left: 6.3%;
+}
 @keyframes mlogo-spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .mlogo__mark { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .mlogo__sign { animation: none; } }
 
 /* ===== Miru: веер постов — при наведении плавно раскладывается в ряд ===== */
 .fan {
