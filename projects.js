@@ -241,9 +241,17 @@ window.PROJECTS = {
     cardMeta: "Сезонное оформление Aviasales",
     tone: 2,
     hideHero: true,
-    // Экран из макета Figma node 3316-6826 (full-bleed, один в один)
+    // Полный кейс один в один по макету Figma node 3626-111446 (секции full-bleed)
     blocks: [
-      { bleed: "assets/warm-1.jpg" },
+      { bleed: "assets/warm-1.jpg?v=4" },
+      { bleed: "assets/warm-2.jpg?v=4" },
+      { bleed: "assets/warm-3.jpg?v=4" },
+      { bleed: "assets/warm-4.jpg?v=4" },
+      { bleed: "assets/warm-5.jpg?v=4" },
+      { bleed: "assets/warm-6.jpg?v=4" },
+      { bleed: "assets/warm-7.jpg?v=4" },
+      { bleed: "assets/warm-8.jpg?v=4" },
+      { bleed: "assets/warm-9.jpg?v=4" },
     ],
   },
 
