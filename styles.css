@@ -832,18 +832,21 @@ textarea:focus-visible {
    размера самого объекта, поэтому амплитуда масштабируется под экран. */
 .wfloat__item--top { animation: wfloat-top 6s ease-in-out infinite; }
 .wfloat__item--bot { animation: wfloat-bot 6s ease-in-out infinite; }
-.wfloat__item--mid { animation: wfloat-mid 6.6s ease-in-out infinite; }
+.wfloat__item--mid { animation: wfloat-mid 6s ease-in-out infinite; }
+/* На пике (50%) верхний и нижний съезжают к центру на 173px макета (43.25% от
+   своей высоты 400px): зазор 237px → 64px. Центр в этот момент строго на месте. */
 @keyframes wfloat-top {
   0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(19%); }
+  50%      { transform: translateY(43.25%); }
 }
 @keyframes wfloat-bot {
   0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-19%); }
+  50%      { transform: translateY(-43.25%); }
 }
 @keyframes wfloat-mid {
-  0%, 100% { transform: translateY(-3.5%); }
-  50%      { transform: translateY(3.5%); }
+  0%, 50%, 100% { transform: translateY(0); }
+  25%           { transform: translateY(-3%); }
+  75%           { transform: translateY(3%); }
 }
 @media (prefers-reduced-motion: reduce) {
   .wfloat__item { animation: none !important; }
