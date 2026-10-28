@@ -852,6 +852,35 @@ textarea:focus-visible {
   .wfloat__item { animation: none !important; }
 }
 
+/* Бегущая строка иконок поверх ленты (ряд из макета «Тёплые страны») */
+.wmarquee {
+  position: absolute;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+.wmarquee__track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  will-change: transform;
+  animation: wmarquee-run 36s linear infinite;
+}
+.wmarquee__item {
+  height: 100%;
+  width: auto;
+  flex: 0 0 auto;
+  user-select: none;
+}
+/* трек содержит два одинаковых набора; сдвиг на половину ширины = бесшовный цикл */
+@keyframes wmarquee-run {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wmarquee__track { animation: none !important; }
+}
+
 /* Hero с устройством: фон-мокап + видео в области экрана */
 .hero-device { background: transparent; container-type: inline-size; }
 .hero-device__bg { position: absolute; inset: 0; }

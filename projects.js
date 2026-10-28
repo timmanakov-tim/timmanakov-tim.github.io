@@ -265,6 +265,23 @@ window.PROJECTS = {
         { src: "assets/warm-fins.png?v=1", x: 760, y: 4432, w: 400, role: "bot" },
       ],
     },
+    // Бегущая строка иконок (ряд node 3626-113094, slide y=11325, высота 400)
+    marquee: {
+      y: 11325,
+      h: 400,
+      slideH: 13188,
+      speed: 36, // секунд на полный цикл
+      gap: 0.1, // зазор между иконками, доля от высоты строки
+      items: [
+        "assets/warm-ic-1.png?v=1",
+        "assets/warm-ic-2.png?v=1",
+        "assets/warm-ic-3.png?v=1",
+        "assets/warm-ic-4.png?v=1",
+        "assets/warm-mask.png?v=1",
+        "assets/warm-trunks.png?v=1",
+        "assets/warm-fins.png?v=1",
+      ],
+    },
   },
 
   "stemio-brand": {

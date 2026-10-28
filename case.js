@@ -393,6 +393,19 @@
       .join("");
   }
 
+  // Бегущая строка (data.marquee): лента иконок, дублируем набор дважды для
+  // бесшовной зацикленной прокрутки (сдвиг на -50% ширины трека).
+  function marqueeHtml(m) {
+    var one = m.items
+      .map(function (src) {
+        return '<img class="wmarquee__item" src="' + src + '" alt="" aria-hidden="true" loading="lazy" draggable="false" />';
+      })
+      .join("");
+    return '<div class="wmarquee" data-marq data-fy="' + m.y + '" data-fh="' + m.h +
+      '" data-slh="' + m.slideH + '" data-gap="' + m.gap + '" data-speed="' + m.speed + '">' +
+      '<div class="wmarquee__track">' + one + one + "</div></div>";
+  }
+
   function blocksHtml(blocks) {
     var html = blocks
       .map(function (b) {
@@ -642,9 +655,13 @@
         return "";
       })
       .join("");
-    // Если у кейса есть парящие объекты — оборачиваем ленту в сцену и кладём их поверх
-    if (data.floats && blocks === data.blocks) {
-      html = '<div class="wfloat" data-wfloat>' + html + floatItemsHtml(data.floats) + "</div>";
+    // Если у кейса есть парящие объекты / бегущая строка — оборачиваем ленту в
+    // сцену и кладём оверлеи поверх полос.
+    if ((data.floats || data.marquee) && blocks === data.blocks) {
+      html = '<div class="wfloat" data-wfloat>' + html +
+        (data.floats ? floatItemsHtml(data.floats) : "") +
+        (data.marquee ? marqueeHtml(data.marquee) : "") +
+        "</div>";
     }
     return html;
   }
@@ -900,11 +917,34 @@
         el.style.width = (fw / slw) * stackWidth + "px";
       });
     };
-    placeFloats();
+    // Бегущая строка: контейнер привязан к full-bleed полосе, иконки — квадраты
+    // в высоту строки, зазор считаем от высоты (как в макете).
+    var marq = wfloat.querySelector("[data-marq]");
+    var marqTrack = marq && marq.querySelector(".wmarquee__track");
+    var placeMarquee = function () {
+      if (!marq || !fbands.length) return;
+      var first = fbands[0], last = fbands[fbands.length - 1];
+      var stackLeft = first.offsetLeft, stackWidth = first.offsetWidth, stackTop = first.offsetTop;
+      var stackHeight = last.offsetTop + last.offsetHeight - first.offsetTop;
+      var fy = +marq.getAttribute("data-fy"), fh = +marq.getAttribute("data-fh"), slh = +marq.getAttribute("data-slh");
+      var h = (fh / slh) * stackHeight;
+      marq.style.left = stackLeft + "px";
+      marq.style.top = stackTop + (fy / slh) * stackHeight + "px";
+      marq.style.width = stackWidth + "px";
+      marq.style.height = h + "px";
+      var gap = (+marq.getAttribute("data-gap") || 0.1) * h;
+      Array.prototype.forEach.call(marq.querySelectorAll(".wmarquee__item"), function (im) {
+        im.style.marginRight = gap + "px";
+      });
+      marqTrack.style.animationDuration = (+marq.getAttribute("data-speed") || 36) + "s";
+    };
+
+    var placeAll = function () { placeFloats(); placeMarquee(); };
+    placeAll();
     Array.prototype.forEach.call(fbands, function (b) {
-      if (!b.complete) b.addEventListener("load", placeFloats, { once: true });
+      if (!b.complete) b.addEventListener("load", placeAll, { once: true });
     });
-    window.addEventListener("resize", placeFloats);
-    window.addEventListener("load", placeFloats);
+    window.addEventListener("resize", placeAll);
+    window.addEventListener("load", placeAll);
   }
 })();
