@@ -852,6 +852,30 @@ textarea:focus-visible {
   .wfloat__item { animation: none !important; }
 }
 
+/* Видео-хиро карточка поверх ленты (форма из макета «Тёплые страны») */
+.whero {
+  position: absolute;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+  background: #1b1b2b; /* подложка, пока видео грузится */
+}
+.whero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.whero__overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 /* Бегущая строка иконок поверх ленты (ряд из макета «Тёплые страны») */
 .wmarquee {
   position: absolute;

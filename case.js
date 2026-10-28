@@ -393,6 +393,17 @@
       .join("");
   }
 
+  // Видео-хиро (data.videoHero): видео под карточкой + оверлей с логотипом и
+  // подписями поверх. Форма (скруглённая карточка) задаётся позже в placeAll.
+  function videoHeroHtml(v) {
+    return '<div class="whero" data-whero data-fx="' + v.x + '" data-fy="' + v.y +
+      '" data-fw="' + v.w + '" data-fh="' + v.h + '" data-fr="' + v.r +
+      '" data-slw="' + v.slideW + '" data-slh="' + v.slideH + '">' +
+      '<video class="whero__video" src="' + v.src + '" autoplay muted loop playsinline preload="auto"></video>' +
+      '<img class="whero__overlay" src="' + v.overlay + '" alt="SUMMER TRAVEL" draggable="false" />' +
+      "</div>";
+  }
+
   // Бегущая строка (data.marquee): лента иконок, дублируем набор дважды для
   // бесшовной зацикленной прокрутки (сдвиг на -50% ширины трека).
   function marqueeHtml(m) {
@@ -657,8 +668,9 @@
       .join("");
     // Если у кейса есть парящие объекты / бегущая строка — оборачиваем ленту в
     // сцену и кладём оверлеи поверх полос.
-    if ((data.floats || data.marquee) && blocks === data.blocks) {
+    if ((data.floats || data.marquee || data.videoHero) && blocks === data.blocks) {
       html = '<div class="wfloat" data-wfloat>' + html +
+        (data.videoHero ? videoHeroHtml(data.videoHero) : "") +
         (data.floats ? floatItemsHtml(data.floats) : "") +
         (data.marquee ? marqueeHtml(data.marquee) : "") +
         "</div>";
@@ -939,7 +951,24 @@
       marqTrack.style.animationDuration = (+marq.getAttribute("data-speed") || 36) + "s";
     };
 
-    var placeAll = function () { placeFloats(); placeMarquee(); };
+    // Видео-хиро: карточка привязана к координатам макета, скругление — доля ширины
+    var whero = wfloat.querySelector("[data-whero]");
+    var placeHero = function () {
+      if (!whero || !fbands.length) return;
+      var first = fbands[0], last = fbands[fbands.length - 1];
+      var stackLeft = first.offsetLeft, stackWidth = first.offsetWidth, stackTop = first.offsetTop;
+      var stackHeight = last.offsetTop + last.offsetHeight - first.offsetTop;
+      var fx = +whero.getAttribute("data-fx"), fy = +whero.getAttribute("data-fy");
+      var fw = +whero.getAttribute("data-fw"), fh = +whero.getAttribute("data-fh"), fr = +whero.getAttribute("data-fr");
+      var slw = +whero.getAttribute("data-slw"), slh = +whero.getAttribute("data-slh");
+      whero.style.left = stackLeft + (fx / slw) * stackWidth + "px";
+      whero.style.top = stackTop + (fy / slh) * stackHeight + "px";
+      whero.style.width = (fw / slw) * stackWidth + "px";
+      whero.style.height = (fh / slh) * stackHeight + "px";
+      whero.style.borderRadius = (fr / slw) * stackWidth + "px";
+    };
+
+    var placeAll = function () { placeFloats(); placeMarquee(); placeHero(); };
     placeAll();
     Array.prototype.forEach.call(fbands, function (b) {
       if (!b.complete) b.addEventListener("load", placeAll, { once: true });

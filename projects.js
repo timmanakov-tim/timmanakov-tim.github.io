@@ -241,19 +241,28 @@ window.PROJECTS = {
     cardMeta: "Сезонное оформление Aviasales",
     tone: 2,
     hideHero: true,
+    // Видео в хиро-карточке (форма сохранена: та же скруглённая карточка,
+    // логотип SUMMER TRAVEL и подписи UX / Mobile app / UI / Created / 2026
+    // лежат оверлеем поверх видео). Координаты карточки — в системе макета.
+    videoHero: {
+      src: "assets/warm-hero.mp4",
+      overlay: "assets/warm-hero-overlay.png?v=2",
+      x: 48, y: 192, w: 1824, h: 1085, r: 99,
+      slideW: 1920, slideH: 13188,
+    },
     // Полный кейс один в один по макету Figma node 3626-111446 (секции full-bleed)
     // Фон экспортирован без трёх продуктов (маска/плавки/ласты) — они вынесены
     // в floats и парят поверх ленты: верхний и нижний плавно стягиваются к центру.
     blocks: [
-      { bleed: "assets/warm-1.jpg?v=5" },
-      { bleed: "assets/warm-2.jpg?v=5" },
-      { bleed: "assets/warm-3.jpg?v=5" },
-      { bleed: "assets/warm-4.jpg?v=5" },
-      { bleed: "assets/warm-5.jpg?v=5" },
-      { bleed: "assets/warm-6.jpg?v=5" },
-      { bleed: "assets/warm-7.jpg?v=5" },
-      { bleed: "assets/warm-8.jpg?v=5" },
-      { bleed: "assets/warm-9.jpg?v=5" },
+      { bleed: "assets/warm-1.jpg?v=6" },
+      { bleed: "assets/warm-2.jpg?v=6" },
+      { bleed: "assets/warm-3.jpg?v=6" },
+      { bleed: "assets/warm-4.jpg?v=6" },
+      { bleed: "assets/warm-5.jpg?v=6" },
+      { bleed: "assets/warm-6.jpg?v=6" },
+      { bleed: "assets/warm-7.jpg?v=6" },
+      { bleed: "assets/warm-8.jpg?v=6" },
+      { bleed: "assets/warm-9.jpg?v=6" },
     ],
     // Парящие объекты (координаты в системе макета 1920×13188, node 3626-113111)
     floats: {
