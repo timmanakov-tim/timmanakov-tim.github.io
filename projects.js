@@ -242,17 +242,29 @@ window.PROJECTS = {
     tone: 2,
     hideHero: true,
     // Полный кейс один в один по макету Figma node 3626-111446 (секции full-bleed)
+    // Фон экспортирован без трёх продуктов (маска/плавки/ласты) — они вынесены
+    // в floats и парят поверх ленты: верхний и нижний плавно стягиваются к центру.
     blocks: [
-      { bleed: "assets/warm-1.jpg?v=4" },
-      { bleed: "assets/warm-2.jpg?v=4" },
-      { bleed: "assets/warm-3.jpg?v=4" },
-      { bleed: "assets/warm-4.jpg?v=4" },
-      { bleed: "assets/warm-5.jpg?v=4" },
-      { bleed: "assets/warm-6.jpg?v=4" },
-      { bleed: "assets/warm-7.jpg?v=4" },
-      { bleed: "assets/warm-8.jpg?v=4" },
-      { bleed: "assets/warm-9.jpg?v=4" },
+      { bleed: "assets/warm-1.jpg?v=5" },
+      { bleed: "assets/warm-2.jpg?v=5" },
+      { bleed: "assets/warm-3.jpg?v=5" },
+      { bleed: "assets/warm-4.jpg?v=5" },
+      { bleed: "assets/warm-5.jpg?v=5" },
+      { bleed: "assets/warm-6.jpg?v=5" },
+      { bleed: "assets/warm-7.jpg?v=5" },
+      { bleed: "assets/warm-8.jpg?v=5" },
+      { bleed: "assets/warm-9.jpg?v=5" },
     ],
+    // Парящие объекты (координаты в системе макета 1920×13188, node 3626-113111)
+    floats: {
+      slideW: 1920,
+      slideH: 13188,
+      items: [
+        { src: "assets/warm-mask.png?v=1", x: 760, y: 3184, w: 400, role: "top" },
+        { src: "assets/warm-trunks.png?v=1", x: 773, y: 3821, w: 374, role: "mid" },
+        { src: "assets/warm-fins.png?v=1", x: 760, y: 4432, w: 400, role: "bot" },
+      ],
+    },
   },
 
   "stemio-brand": {

@@ -381,8 +381,20 @@
     "</div>";
   }
 
+  // Парящие объекты поверх ленты (data.floats): собираем картинки с координатами макета
+  function floatItemsHtml(f) {
+    return f.items
+      .map(function (it) {
+        return '<img class="wfloat__item wfloat__item--' + it.role + '" src="' + it.src +
+          '" alt="" aria-hidden="true" loading="lazy" draggable="false"' +
+          ' data-fx="' + it.x + '" data-fy="' + it.y + '" data-fw="' + it.w +
+          '" data-slw="' + f.slideW + '" data-slh="' + f.slideH + '" />';
+      })
+      .join("");
+  }
+
   function blocksHtml(blocks) {
-    return blocks
+    var html = blocks
       .map(function (b) {
         if (b.successModal) return hsSuccessHtml();
         if (b.heading) return '<h2 class="tl__h2 tl__h2--solo reveal">' + b.heading + "</h2>";
@@ -630,6 +642,11 @@
         return "";
       })
       .join("");
+    // Если у кейса есть парящие объекты — оборачиваем ленту в сцену и кладём их поверх
+    if (data.floats && blocks === data.blocks) {
+      html = '<div class="wfloat" data-wfloat>' + html + floatItemsHtml(data.floats) + "</div>";
+    }
+    return html;
   }
 
   // Hero-визуал (обложка / девайс-мокап / анимация) — общий для обычного и таб-рендера
@@ -859,5 +876,35 @@
         } catch (e) { location.hash = id; }
       });
     });
+  }
+
+  // Парящие объекты: позиционируем поверх full-bleed ленты по координатам макета.
+  // Левая/верхняя привязка — в px относительно .wfloat (как и у полос), поэтому
+  // всё точно совпадает при любой ширине экрана; само «парение» — CSS-трансформом.
+  var wfloat = document.querySelector("[data-wfloat]");
+  if (wfloat) {
+    var fitems = wfloat.querySelectorAll(".wfloat__item");
+    var fbands = wfloat.querySelectorAll(".case__bleed-img");
+    var placeFloats = function () {
+      if (!fbands.length) return;
+      var first = fbands[0], last = fbands[fbands.length - 1];
+      var stackLeft = first.offsetLeft;
+      var stackWidth = first.offsetWidth;
+      var stackTop = first.offsetTop;
+      var stackHeight = last.offsetTop + last.offsetHeight - first.offsetTop;
+      Array.prototype.forEach.call(fitems, function (el) {
+        var fx = +el.getAttribute("data-fx"), fy = +el.getAttribute("data-fy"), fw = +el.getAttribute("data-fw");
+        var slw = +el.getAttribute("data-slw"), slh = +el.getAttribute("data-slh");
+        el.style.left = stackLeft + (fx / slw) * stackWidth + "px";
+        el.style.top = stackTop + (fy / slh) * stackHeight + "px";
+        el.style.width = (fw / slw) * stackWidth + "px";
+      });
+    };
+    placeFloats();
+    Array.prototype.forEach.call(fbands, function (b) {
+      if (!b.complete) b.addEventListener("load", placeFloats, { once: true });
+    });
+    window.addEventListener("resize", placeFloats);
+    window.addEventListener("load", placeFloats);
   }
 })();
