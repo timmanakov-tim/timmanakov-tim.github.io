@@ -201,11 +201,12 @@ window.PROJECTS = {
       { miru2: true },
       { fan: true },
       // Продуктовая часть (кепка → мерч → кулон → коробка) один-в-один из Figma node 3492-30924
-      { bleed: "assets/mir-1.jpg?v=5" },
-      { bleed: "assets/mir-2.jpg?v=5" },
-      { bleed: "assets/mir-3.jpg?v=5" },
-      { bleed: "assets/mir-4.jpg?v=5" },
-      { bleed: "assets/mir-5.jpg?v=5" },
+      { bleed: "assets/mir-1.jpg?v=6" },
+      { bleed: "assets/mir-2.jpg?v=6" },
+      { bleed: "assets/mir-3.jpg?v=6" },
+      { bleed: "assets/mir-4.jpg?v=6" },
+      { bleed: "assets/mir-5.jpg?v=6" },
+      { bleed: "assets/mir-6.jpg?v=6" },
     ],
   },
 
