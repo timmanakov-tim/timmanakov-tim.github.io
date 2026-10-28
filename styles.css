@@ -802,8 +802,18 @@ textarea:focus-visible {
   margin-inline: calc(50% - 50vw + 40px);
   margin-top: clamp(40px, 6vw, 72px);
   height: auto;
+  border-radius: var(--radius);   /* скруглённый блок — как у хиро (.mlogo) */
 }
-.case__bleed-img + .case__bleed-img { margin-top: -1px; }   /* бесшовная стыковка секций */
+/* внутренние стыки ленты — без скругления, чтобы картинка оставалась бесшовной */
+.case__bleed-img + .case__bleed-img {
+  margin-top: -1px;   /* бесшовная стыковка секций */
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.case__bleed-img:has(+ .case__bleed-img) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
 
 /* Hero с устройством: фон-мокап + видео в области экрана */
 .hero-device { background: transparent; container-type: inline-size; }
