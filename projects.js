@@ -263,8 +263,7 @@ window.PROJECTS = {
       { bleed: "assets/sb-4.jpg?v=4" },
       { bleed: "assets/sb-5.jpg?v=4" },
       { bleed: "assets/sb-6.jpg?v=4" },
-      { bleed: "assets/sb-7.jpg?v=4" },
-      { bleed: "assets/sb-8.jpg?v=4" },
+      { bleed: "assets/sb-7.jpg?v=5" },
     ],
   },
 
