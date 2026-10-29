@@ -878,6 +878,41 @@ textarea:focus-visible {
   object-fit: contain;
 }
 
+/* Горизонтальный скролл строки фильтров (белые пилюли на вязаном фоне) */
+.whs {
+  position: absolute;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+.whs__track {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: max-content;
+  will-change: transform;
+  animation: whs-scroll 9s ease-in-out infinite alternate;
+}
+.whs__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  background: var(--whs-pill, #fff);
+  color: var(--whs-text, #131313);
+  font-family: "Lato", var(--font-sans);
+  font-weight: 400;
+  white-space: nowrap;
+}
+.whs__chip--icon { justify-content: center; }
+.whs__ic, .whs__chev { width: 1em; height: 1em; flex: 0 0 auto; display: block; }
+@keyframes whs-scroll {
+  0%, 14%   { transform: translateX(0); }
+  86%, 100% { transform: translateX(calc(-1 * var(--whs-shift, 0px))); }
+}
+@media (prefers-reduced-motion: reduce) { .whs__track { animation: none !important; } }
+
 /* Анимированный ползунок времени поверх ленты (на белой карточке, не по теме) */
 .wslider { display: contents; }
 .wslider__patch { position: absolute; z-index: 2; pointer-events: none; }

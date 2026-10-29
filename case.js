@@ -428,6 +428,21 @@
       "</div>";
   }
 
+  // Горизонтальный скролл (data.hscroll): HTML-чипы в окне-клипе, авто-прокрутка.
+  var WHS_SORT = '<svg class="whs__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4v15"/><path d="M5 7l3-3 3 3"/><path d="M16 20V5"/><path d="M13 17l3 3 3-3"/></svg>';
+  var WHS_CHEV = '<svg class="whs__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+  function hscrollHtml(hs) {
+    var chips = hs.items.map(function (it) {
+      if (it.icon === "sort") return '<span class="whs__chip whs__chip--icon">' + WHS_SORT + "</span>";
+      return '<span class="whs__chip">' + it.text + (it.chevron ? WHS_CHEV : "") + "</span>";
+    }).join("");
+    return '<div class="whs" data-whs data-slw="' + hs.slideW + '" data-slh="' + hs.slideH +
+      '" data-x="' + hs.x + '" data-y="' + hs.y + '" data-w="' + hs.w + '" data-h="' + hs.h +
+      '" data-gap="' + hs.gap + '" data-padx="' + hs.padX + '" data-radius="' + hs.radius + '" data-fs="' + hs.fontSize +
+      '" style="--whs-pill:' + hs.pillCol + ";--whs-text:" + hs.textCol + '">' +
+      '<div class="whs__track">' + chips + "</div></div>";
+  }
+
   function videoHeroHtml(v) {
     return '<div class="whero" data-whero data-fx="' + v.x + '" data-fy="' + v.y +
       '" data-fw="' + v.w + '" data-fh="' + v.h + '" data-fr="' + v.r +
@@ -705,13 +720,14 @@
       .join("");
     // Если у кейса есть парящие объекты / бегущая строка — оборачиваем ленту в
     // сцену и кладём оверлеи поверх полос.
-    if ((data.floats || data.marquee || data.videoHero || data.captions || data.timeSlider) && blocks === data.blocks) {
+    if ((data.floats || data.marquee || data.videoHero || data.captions || data.timeSlider || data.hscroll) && blocks === data.blocks) {
       html = '<div class="wfloat" data-wfloat>' + html +
         (data.videoHero ? videoHeroHtml(data.videoHero) : "") +
         (data.floats ? floatItemsHtml(data.floats) : "") +
         (data.marquee ? marqueeHtml(data.marquee) : "") +
         (data.captions ? captionsHtml(data.captions) : "") +
         (data.timeSlider ? sliderHtml(data.timeSlider) : "") +
+        (data.hscroll ? hscrollHtml(data.hscroll) : "") +
         "</div>";
     }
     return html;
@@ -1117,7 +1133,45 @@
       }
     }
 
-    var placeAll = function () { placeFloats(); placeMarquee(); placeHero(); placeCaptions(); placeSlider(); };
+    // Горизонтальный скролл строки фильтров: позиционирование + масштаб чипов
+    var whs = wfloat.querySelector("[data-whs]");
+    var placeHScroll = function () {};
+    if (whs) {
+      var whsTrack = whs.querySelector(".whs__track");
+      var whsChips = whs.querySelectorAll(".whs__chip");
+      var hd = whs.dataset;
+      var hslw = +hd.slw, hslh = +hd.slh, hx = +hd.x, hyy = +hd.y, hww = +hd.w, hhh = +hd.h;
+      var hgap = +hd.gap, hpadx = +hd.padx, hradius = +hd.radius, hfs = +hd.fs;
+      placeHScroll = function () {
+        if (!fbands.length) return;
+        var first = fbands[0], last = fbands[fbands.length - 1];
+        var sL = first.offsetLeft, sW = first.offsetWidth, sT = first.offsetTop;
+        var sH = last.offsetTop + last.offsetHeight - first.offsetTop;
+        var k = sW / hslw;
+        whs.style.left = sL + hx * k + "px";
+        whs.style.top = sT + (hyy / hslh) * sH + "px";
+        whs.style.width = hww * k + "px";
+        whs.style.height = hhh * k + "px";
+        whsTrack.style.gap = hgap * k + "px";
+        Array.prototype.forEach.call(whsChips, function (c) {
+          c.style.fontSize = hfs * k + "px";
+          c.style.borderRadius = hradius * k + "px";
+          if (c.classList.contains("whs__chip--icon")) {
+            c.style.width = 87 * k + "px"; c.style.height = 87 * k + "px"; c.style.padding = "0";
+          } else {
+            c.style.height = 81 * k + "px"; c.style.padding = "0 " + hpadx * k + "px";
+          }
+        });
+        var shift = Math.max(0, whsTrack.scrollWidth - hww * k);
+        whs.style.setProperty("--whs-shift", shift + "px");
+      };
+      placeHScroll();
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        whsTrack.style.animation = "none";
+      }
+    }
+
+    var placeAll = function () { placeFloats(); placeMarquee(); placeHero(); placeCaptions(); placeSlider(); placeHScroll(); };
     placeAll();
     Array.prototype.forEach.call(fbands, function (b) {
       if (!b.complete) b.addEventListener("load", placeAll, { once: true });
