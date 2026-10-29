@@ -254,7 +254,7 @@ window.PROJECTS = {
     // Фон экспортирован без трёх продуктов (маска/плавки/ласты) — они вынесены
     // в floats и парят поверх ленты: верхний и нижний плавно стягиваются к центру.
     blocks: [
-      { bleed: "assets/warm-1.jpg?v=8" },
+      { bleed: "assets/warm-1.png?v=1" },
       { bleed: "assets/warm-2.jpg?v=8" },
       { bleed: "assets/warm-3.jpg?v=8" },
       { bleed: "assets/warm-4.jpg?v=8" },
