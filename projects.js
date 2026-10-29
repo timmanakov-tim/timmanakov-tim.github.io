@@ -257,15 +257,15 @@ window.PROJECTS = {
     // адаптируется под тему (светлая/тёмная), а белый контент (экраны, карточки)
     // остаётся белым.
     blocks: [
-      { bleed: "assets/warm-1.png?v=14" },
-      { bleed: "assets/warm-2.png?v=14" },
-      { bleed: "assets/warm-3.png?v=14" },
-      { bleed: "assets/warm-4.png?v=14" },
-      { bleed: "assets/warm-5.png?v=14" },
-      { bleed: "assets/warm-6.png?v=14" },
-      { bleed: "assets/warm-7.png?v=14" },
-      { bleed: "assets/warm-8.png?v=14" },
-      { bleed: "assets/warm-9.png?v=14" },
+      { bleed: "assets/warm-1.png?v=15" },
+      { bleed: "assets/warm-2.png?v=15" },
+      { bleed: "assets/warm-3.png?v=15" },
+      { bleed: "assets/warm-4.png?v=15" },
+      { bleed: "assets/warm-5.png?v=15" },
+      { bleed: "assets/warm-6.png?v=15" },
+      { bleed: "assets/warm-7.png?v=15" },
+      { bleed: "assets/warm-8.png?v=15" },
+      { bleed: "assets/warm-9.png?v=15" },
     ],
     // Парящие объекты (координаты в системе обрезанного макета 1920×12333)
     floats: {
