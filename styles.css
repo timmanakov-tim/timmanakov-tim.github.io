@@ -878,6 +878,24 @@ textarea:focus-visible {
   object-fit: contain;
 }
 
+/* Анимированный ползунок времени поверх ленты (на белой карточке, не по теме) */
+.wslider { display: contents; }
+.wslider__patch { position: absolute; z-index: 2; pointer-events: none; }
+.wslider__handle {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+  will-change: left, opacity;
+}
+.wslider__time {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+  white-space: nowrap;
+  font-family: "Rubik", var(--font-sans);
+  font-weight: 400;
+}
+
 /* Подписи поверх ленты — цвет по теме (тёмные на светлой, светлые на тёмной) */
 .wcap {
   position: absolute;

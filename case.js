@@ -411,6 +411,22 @@
       .join("");
   }
 
+  // Анимированный ползунок времени (data.timeSlider): белые «заплатки» прячут
+  // запечённые ползунок и время, поверх — анимируемые ручка и живое время.
+  function sliderHtml(s) {
+    var h = s.handle, t = s.time;
+    return '<div class="wslider" data-wslider' +
+      ' data-slw="' + s.slideW + '" data-slh="' + s.slideH + '"' +
+      ' data-hx0="' + h.x0 + '" data-hx1="' + h.x1 + '" data-hy="' + h.y + '" data-hsize="' + h.size + '" data-hr="' + h.r + '"' +
+      ' data-tx="' + t.x + '" data-ty="' + t.y + '" data-tw="' + t.w + '" data-th="' + t.h + '" data-tsize="' + t.size + '" data-hours="' + t.hours + '"' +
+      ' data-suffix="' + t.suffix + '">' +
+      '<div class="wslider__patch wslider__patch--h" style="background:' + s.patchCol + '"></div>' +
+      '<div class="wslider__patch wslider__patch--t" style="background:' + s.patchCol + '"></div>' +
+      '<span class="wslider__time" style="color:' + t.col + '">00:00' + t.suffix + "</span>" +
+      '<div class="wslider__handle" style="background:' + h.col + '"></div>' +
+      "</div>";
+  }
+
   function videoHeroHtml(v) {
     return '<div class="whero" data-whero data-fx="' + v.x + '" data-fy="' + v.y +
       '" data-fw="' + v.w + '" data-fh="' + v.h + '" data-fr="' + v.r +
@@ -688,12 +704,13 @@
       .join("");
     // Если у кейса есть парящие объекты / бегущая строка — оборачиваем ленту в
     // сцену и кладём оверлеи поверх полос.
-    if ((data.floats || data.marquee || data.videoHero || data.captions) && blocks === data.blocks) {
+    if ((data.floats || data.marquee || data.videoHero || data.captions || data.timeSlider) && blocks === data.blocks) {
       html = '<div class="wfloat" data-wfloat>' + html +
         (data.videoHero ? videoHeroHtml(data.videoHero) : "") +
         (data.floats ? floatItemsHtml(data.floats) : "") +
         (data.marquee ? marqueeHtml(data.marquee) : "") +
         (data.captions ? captionsHtml(data.captions) : "") +
+        (data.timeSlider ? sliderHtml(data.timeSlider) : "") +
         "</div>";
     }
     return html;
@@ -1009,7 +1026,82 @@
       });
     };
 
-    var placeAll = function () { placeFloats(); placeMarquee(); placeHero(); placeCaptions(); };
+    // Анимированный ползунок времени: позиционирование + цикл анимации
+    var ws = wfloat.querySelector("[data-wslider]");
+    var placeSlider = function () {};
+    if (ws) {
+      var sHandle = ws.querySelector(".wslider__handle");
+      var sTime = ws.querySelector(".wslider__time");
+      var sPatchH = ws.querySelector(".wslider__patch--h");
+      var sPatchT = ws.querySelector(".wslider__patch--t");
+      var d = ws.dataset;
+      var slw = +d.slw, slh = +d.slh;
+      var hx0 = +d.hx0, hx1 = +d.hx1, hy = +d.hy, hsize = +d.hsize, hr = +d.hr;
+      var tx = +d.tx, ty = +d.ty, tw = +d.tw, th = +d.th, tsize = +d.tsize, hours = +d.hours;
+      var suffix = d.suffix;
+      var sg = { k: 0, sL: 0 };
+      placeSlider = function () {
+        if (!fbands.length) return;
+        var first = fbands[0], last = fbands[fbands.length - 1];
+        var sL = first.offsetLeft, sW = first.offsetWidth, sT = first.offsetTop;
+        var sH = last.offsetTop + last.offsetHeight - first.offsetTop;
+        var k = sW / slw;
+        sg.k = k; sg.sL = sL;
+        var hyPx = sT + (hy / slh) * sH;
+        sHandle.style.width = hsize * k + "px";
+        sHandle.style.height = hsize * k + "px";
+        sHandle.style.borderRadius = hr * k + "px";
+        sHandle.style.top = hyPx + "px";
+        sPatchH.style.left = sL + (hx0 - 1) * k + "px";
+        sPatchH.style.top = sT + ((hy - 1) / slh) * sH + "px";
+        sPatchH.style.width = (hsize + 2) * k + "px";
+        sPatchH.style.height = (hsize + 2) * k + "px";
+        var tyPx = sT + (ty / slh) * sH;
+        sTime.style.left = sL + tx * k + "px";
+        sTime.style.top = tyPx + "px";
+        sTime.style.fontSize = tsize * k + "px";
+        sTime.style.lineHeight = th * k + "px";
+        sTime.style.height = th * k + "px";
+        sPatchT.style.left = sL + (tx - 3) * k + "px";
+        sPatchT.style.top = sT + ((ty - 3) / slh) * sH + "px";
+        sPatchT.style.width = (tw + 8) * k + "px";
+        sPatchT.style.height = (th + 6) * k + "px";
+      };
+      var fmt = function (v) {
+        var H = Math.floor(v), M = Math.floor((v - H) * 60);
+        return (H < 10 ? "0" : "") + H + ":" + (M < 10 ? "0" : "") + M;
+      };
+      var ease = function (p) { return p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; };
+      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var applyFrac = function (frac, op) {
+        if (sg.k) sHandle.style.left = sg.sL + (hx0 + frac * (hx1 - hx0)) * sg.k + "px";
+        sHandle.style.opacity = op;
+        sTime.style.opacity = op;
+        sTime.textContent = fmt(frac * hours) + suffix;
+      };
+      placeSlider();
+      if (reduce) {
+        applyFrac(0, 1); // статично на 00:00
+      } else {
+        // Цикл: едем 00:00→12:00, держим, плавно гаснем, сбрасываем к началу
+        var t0 = null, CYCLE = 6.2;
+        var step = function (ts) {
+          if (t0 == null) t0 = ts;
+          var tc = ((ts - t0) / 1000) % CYCLE;
+          var frac, op = 1;
+          if (tc < 3) { frac = ease(tc / 3); }
+          else if (tc < 4.6) { frac = 1; }
+          else if (tc < 5.0) { frac = 1; op = 1 - (tc - 4.6) / 0.4; }
+          else if (tc < 5.4) { frac = 0; op = (tc - 5.0) / 0.4; }
+          else { frac = 0; }
+          applyFrac(frac, op);
+          requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+    }
+
+    var placeAll = function () { placeFloats(); placeMarquee(); placeHero(); placeCaptions(); placeSlider(); };
     placeAll();
     Array.prototype.forEach.call(fbands, function (b) {
       if (!b.complete) b.addEventListener("load", placeAll, { once: true });
