@@ -7,7 +7,7 @@
 
   const root = document.documentElement;
 
-  // --- Тема: запоминаем выбор, стартуем от системной ---
+  // --- Тема: запоминаем выбор, по умолчанию светлая ---
   const THEME_KEY = "portfolio-theme";
   const toggle = document.querySelector("[data-theme-toggle]");
 
@@ -27,7 +27,7 @@
     }
   }
 
-  applyTheme(storedTheme());
+  applyTheme(storedTheme() || "light");
 
   if (toggle) {
     toggle.addEventListener("click", function () {
