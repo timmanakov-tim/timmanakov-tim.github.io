@@ -419,6 +419,7 @@
       ' data-slw="' + s.slideW + '" data-slh="' + s.slideH + '"' +
       ' data-hx0="' + h.x0 + '" data-hx1="' + h.x1 + '" data-hy="' + h.y + '" data-hsize="' + h.size + '" data-hr="' + h.r + '"' +
       ' data-tx="' + t.x + '" data-ty="' + t.y + '" data-tw="' + t.w + '" data-th="' + t.h + '" data-tsize="' + t.size + '" data-hours="' + t.hours + '"' +
+      ' data-steps="' + t.steps.join(",") + '" data-glide="' + t.glide + '" data-pause="' + t.pause + '"' +
       ' data-suffix="' + t.suffix + '">' +
       '<div class="wslider__patch wslider__patch--h" style="background:' + s.patchCol + '"></div>' +
       '<div class="wslider__patch wslider__patch--t" style="background:' + s.patchCol + '"></div>' +
@@ -1068,33 +1069,48 @@
         sPatchT.style.height = (th + 6) * k + "px";
       };
       var fmt = function (v) {
-        var H = Math.floor(v), M = Math.floor((v - H) * 60);
-        return (H < 10 ? "0" : "") + H + ":" + (M < 10 ? "0" : "") + M;
+        var H = Math.round(v); // снапим к целому часу — читаемо, синхронно делению
+        return (H < 10 ? "0" : "") + H + ":00";
       };
       var ease = function (p) { return p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; };
       var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      var applyFrac = function (frac, op) {
-        if (sg.k) sHandle.style.left = sg.sL + (hx0 + frac * (hx1 - hx0)) * sg.k + "px";
-        sHandle.style.opacity = op;
-        sTime.style.opacity = op;
-        sTime.textContent = fmt(frac * hours) + suffix;
+      // t — час (0..12); позиция ручки непрерывна, подпись снапится к целому часу
+      var applyTime = function (t, op) {
+        if (sg.k) sHandle.style.left = sg.sL + (hx0 + (t / hours) * (hx1 - hx0)) * sg.k + "px";
+        sHandle.style.opacity = op; // гаснет только ручка на сбросе
+        sTime.style.opacity = 1;    // подпись всегда видна (бейдж не пустеет)
+        sTime.textContent = fmt(t) + suffix;
       };
+      var steps = d.steps.split(",").map(Number);
+      var GLIDE = +d.glide, PAUSE = +d.pause, first = steps[0], lastStep = steps[steps.length - 1];
       placeSlider();
       if (reduce) {
-        applyFrac(0, 1); // статично на 00:00
+        applyTime(first, 1); // статично на первом делении (6:00)
       } else {
-        // Цикл: едем 00:00→12:00, держим, плавно гаснем, сбрасываем к началу
-        var t0 = null, CYCLE = 6.2;
+        // Таймлайн: пауза → (шаг к следующему делению + пауза) ×N → держим →
+        // плавно гаснем → появляемся на первом делении → цикл.
+        var segs = [{ d: PAUSE, a: first, b: first, f: 0 }];
+        for (var i = 1; i < steps.length; i++) {
+          segs.push({ d: GLIDE, a: steps[i - 1], b: steps[i], f: 0 });
+          segs.push({ d: PAUSE, a: steps[i], b: steps[i], f: 0 });
+        }
+        segs.push({ d: 700, a: lastStep, b: lastStep, f: 0 }); // держим на 12:00
+        segs.push({ d: 400, a: lastStep, b: lastStep, f: 1 }); // гаснем
+        segs.push({ d: 400, a: first, b: first, f: 2 });       // появляемся на 6:00
+        var total = segs.reduce(function (s, x) { return s + x.d; }, 0);
+        var t0 = null;
         var step = function (ts) {
           if (t0 == null) t0 = ts;
-          var tc = ((ts - t0) / 1000) % CYCLE;
-          var frac, op = 1;
-          if (tc < 3) { frac = ease(tc / 3); }
-          else if (tc < 4.6) { frac = 1; }
-          else if (tc < 5.0) { frac = 1; op = 1 - (tc - 4.6) / 0.4; }
-          else if (tc < 5.4) { frac = 0; op = (tc - 5.0) / 0.4; }
-          else { frac = 0; }
-          applyFrac(frac, op);
+          var el = (ts - t0) % total;
+          var acc = 0, seg = null, p = 0;
+          for (var j = 0; j < segs.length; j++) {
+            if (el < acc + segs[j].d) { seg = segs[j]; p = (el - acc) / segs[j].d; break; }
+            acc += segs[j].d;
+          }
+          if (!seg) { seg = segs[segs.length - 1]; p = 1; }
+          var t = seg.a + (seg.b - seg.a) * ease(p);
+          var op = seg.f === 0 ? 1 : seg.f === 1 ? (1 - p) : p;
+          applyTime(t, op);
           requestAnimationFrame(step);
         };
         requestAnimationFrame(step);
