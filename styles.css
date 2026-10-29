@@ -856,10 +856,12 @@ textarea:focus-visible {
 .whero {
   position: absolute;
   z-index: 2;
-  overflow: hidden;
   pointer-events: none;
   background: #1b1b2b; /* подложка, пока видео грузится */
+  /* точная форма карточки из элемента Vector (сквиркл), один в один */
+  clip-path: url(#whero-squircle);
 }
+.whero__clip { position: absolute; width: 0; height: 0; }
 .whero__video {
   position: absolute;
   inset: 0;

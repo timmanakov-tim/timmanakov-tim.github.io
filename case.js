@@ -395,10 +395,18 @@
 
   // Видео-хиро (data.videoHero): видео под карточкой + оверлей с логотипом и
   // подписями поверх. Форма (скруглённая карточка) задаётся позже в placeAll.
+  // Точная форма карточки из элемента Vector (node 3626-113068), нормализованная
+  // в objectBoundingBox (0..1) — «сквиркл» с органичными краями, один в один.
+  var WHERO_CLIP = "M 0.9912 0.49986 C 0.9912 0.63088 0.99414 0.76181 0.99984 0.89256 C 1.00244 0.95235 0.97316 1.00257 0.93719 0.9999 L 0.93674 0.9999 C 0.64556 0.97861 0.354 0.97861 0.06282 0.9999 C 0.02684 1.00257 -0.00249 0.95235 0.00017 0.89256 C 0.00587 0.76181 0.00875 0.63088 0.0088 0.49986 L 0.0088 0.50014 C 0.0088 0.36912 0.00587 0.23819 0.00017 0.10744 C -0.00243 0.04765 0.02684 -0.00257 0.06282 0.0001 C 0.354 0.02139 0.64556 0.02139 0.93674 0.0001 L 0.93719 0.0001 C 0.97316 -0.00257 1.00244 0.04765 0.99984 0.10744 C 0.99414 0.23819 0.99126 0.36921 0.9912 0.50014 L 0.9912 0.49986 Z";
+
   function videoHeroHtml(v) {
     return '<div class="whero" data-whero data-fx="' + v.x + '" data-fy="' + v.y +
       '" data-fw="' + v.w + '" data-fh="' + v.h + '" data-fr="' + v.r +
       '" data-slw="' + v.slideW + '" data-slh="' + v.slideH + '">' +
+      '<svg class="whero__clip" width="0" height="0" aria-hidden="true"><defs>' +
+        '<clipPath id="whero-squircle" clipPathUnits="objectBoundingBox">' +
+          '<path d="' + WHERO_CLIP + '" />' +
+        "</clipPath></defs></svg>" +
       '<video class="whero__video" src="' + v.src + '" autoplay muted loop playsinline preload="auto"></video>' +
       '<img class="whero__overlay" src="' + v.overlay + '" alt="SUMMER TRAVEL" draggable="false" />' +
       "</div>";
@@ -965,7 +973,7 @@
       whero.style.top = stackTop + (fy / slh) * stackHeight + "px";
       whero.style.width = (fw / slw) * stackWidth + "px";
       whero.style.height = (fh / slh) * stackHeight + "px";
-      whero.style.borderRadius = (fr / slw) * stackWidth + "px";
+      // форма задаётся точным контуром (clip-path), радиус больше не нужен
     };
 
     var placeAll = function () { placeFloats(); placeMarquee(); placeHero(); };
