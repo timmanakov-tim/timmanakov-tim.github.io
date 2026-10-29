@@ -257,15 +257,15 @@ window.PROJECTS = {
     // адаптируется под тему (светлая/тёмная), а белый контент (экраны, карточки)
     // остаётся белым.
     blocks: [
-      { bleed: "assets/warm-1.png?v=11" },
-      { bleed: "assets/warm-2.png?v=11" },
-      { bleed: "assets/warm-3.png?v=11" },
-      { bleed: "assets/warm-4.png?v=11" },
-      { bleed: "assets/warm-5.png?v=11" },
-      { bleed: "assets/warm-6.png?v=11" },
-      { bleed: "assets/warm-7.png?v=11" },
-      { bleed: "assets/warm-8.png?v=11" },
-      { bleed: "assets/warm-9.png?v=11" },
+      { bleed: "assets/warm-1.png?v=12" },
+      { bleed: "assets/warm-2.png?v=12" },
+      { bleed: "assets/warm-3.png?v=12" },
+      { bleed: "assets/warm-4.png?v=12" },
+      { bleed: "assets/warm-5.png?v=12" },
+      { bleed: "assets/warm-6.png?v=12" },
+      { bleed: "assets/warm-7.png?v=12" },
+      { bleed: "assets/warm-8.png?v=12" },
+      { bleed: "assets/warm-9.png?v=12" },
     ],
     // Парящие объекты (координаты в системе обрезанного макета 1920×12333)
     floats: {
@@ -312,9 +312,11 @@ window.PROJECTS = {
       slideW: 1920,
       slideH: 12333,
       patchCol: "#ffffff",
-      handle: { x0: 1306, x1: 1515.6, y: 3059, size: 24, r: 7.12, col: "#e7233a" },
+      // Шкала по меткам: 12:00 = x1515 (на сером маркере), 20px/час; x0 — время 0
+      handle: { x0: 1275, x1: 1515, y: 3074, size: 24, r: 7.12, col: "#e7233a" },
+      bakedHandleX: 1314, // запечённый левый ползунок (00:00) — прячем заплаткой
       // Пошагово по делениям: 6:00 → 7:00 → … → 12:00, пауза между шагами ~850мс
-      time: { x: 1600, y: 3003, w: 120, h: 29, size: 19, col: "#131313", suffix: " – 23:59", hours: 12, steps: [6, 7, 8, 9, 10, 11, 12], glide: 420, pause: 850 },
+      time: { x: 1600, y: 3016, w: 120, h: 29, size: 19, col: "#131313", suffix: " – 23:59", hours: 12, steps: [6, 7, 8, 9, 10, 11, 12], glide: 420, pause: 850 },
     },
   },
 

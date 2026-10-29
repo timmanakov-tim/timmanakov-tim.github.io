@@ -417,7 +417,7 @@
     var h = s.handle, t = s.time;
     return '<div class="wslider" data-wslider' +
       ' data-slw="' + s.slideW + '" data-slh="' + s.slideH + '"' +
-      ' data-hx0="' + h.x0 + '" data-hx1="' + h.x1 + '" data-hy="' + h.y + '" data-hsize="' + h.size + '" data-hr="' + h.r + '"' +
+      ' data-hx0="' + h.x0 + '" data-hx1="' + h.x1 + '" data-hy="' + h.y + '" data-hsize="' + h.size + '" data-hr="' + h.r + '" data-phx="' + s.bakedHandleX + '"' +
       ' data-tx="' + t.x + '" data-ty="' + t.y + '" data-tw="' + t.w + '" data-th="' + t.h + '" data-tsize="' + t.size + '" data-hours="' + t.hours + '"' +
       ' data-steps="' + t.steps.join(",") + '" data-glide="' + t.glide + '" data-pause="' + t.pause + '"' +
       ' data-suffix="' + t.suffix + '">' +
@@ -1037,7 +1037,7 @@
       var sPatchT = ws.querySelector(".wslider__patch--t");
       var d = ws.dataset;
       var slw = +d.slw, slh = +d.slh;
-      var hx0 = +d.hx0, hx1 = +d.hx1, hy = +d.hy, hsize = +d.hsize, hr = +d.hr;
+      var hx0 = +d.hx0, hx1 = +d.hx1, hy = +d.hy, hsize = +d.hsize, hr = +d.hr, phx = +d.phx;
       var tx = +d.tx, ty = +d.ty, tw = +d.tw, th = +d.th, tsize = +d.tsize, hours = +d.hours;
       var suffix = d.suffix;
       var sg = { k: 0, sL: 0 };
@@ -1053,10 +1053,10 @@
         sHandle.style.height = hsize * k + "px";
         sHandle.style.borderRadius = hr * k + "px";
         sHandle.style.top = hyPx + "px";
-        sPatchH.style.left = sL + (hx0 - 1) * k + "px";
-        sPatchH.style.top = sT + ((hy - 1) / slh) * sH + "px";
-        sPatchH.style.width = (hsize + 2) * k + "px";
-        sPatchH.style.height = (hsize + 2) * k + "px";
+        sPatchH.style.left = sL + (phx - 2) * k + "px";
+        sPatchH.style.top = sT + ((hy - 2) / slh) * sH + "px";
+        sPatchH.style.width = (hsize + 4) * k + "px";
+        sPatchH.style.height = (hsize + 4) * k + "px";
         var tyPx = sT + (ty / slh) * sH;
         sTime.style.left = sL + tx * k + "px";
         sTime.style.top = tyPx + "px";
