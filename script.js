@@ -377,7 +377,7 @@
       // крутим только когда блок виден и на него не наведён курсор
       var lockSync = function () {
         var run = lockInView && !lockHover;
-        if (run && !lockTimer) lockTimer = setInterval(lockTick, 280);
+        if (run && !lockTimer) lockTimer = setInterval(lockTick, 750);
         else if (!run && lockTimer) { clearInterval(lockTimer); lockTimer = null; }
       };
       if ("IntersectionObserver" in window) {
