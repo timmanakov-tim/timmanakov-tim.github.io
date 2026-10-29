@@ -253,16 +253,19 @@ window.PROJECTS = {
     // Полный кейс один в один по макету Figma node 3626-111446 (секции full-bleed)
     // Фон экспортирован без трёх продуктов (маска/плавки/ласты) — они вынесены
     // в floats и парят поверх ленты: верхний и нижний плавно стягиваются к центру.
+    // Полосы — прозрачные PNG: пустой фон слайда прозрачен, поэтому подложка
+    // адаптируется под тему (светлая/тёмная), а белый контент (экраны, карточки)
+    // остаётся белым.
     blocks: [
-      { bleed: "assets/warm-1.png?v=1" },
-      { bleed: "assets/warm-2.jpg?v=8" },
-      { bleed: "assets/warm-3.jpg?v=8" },
-      { bleed: "assets/warm-4.jpg?v=8" },
-      { bleed: "assets/warm-5.jpg?v=8" },
-      { bleed: "assets/warm-6.jpg?v=8" },
-      { bleed: "assets/warm-7.jpg?v=8" },
-      { bleed: "assets/warm-8.jpg?v=8" },
-      { bleed: "assets/warm-9.jpg?v=8" },
+      { bleed: "assets/warm-1.png?v=9" },
+      { bleed: "assets/warm-2.png?v=9" },
+      { bleed: "assets/warm-3.png?v=9" },
+      { bleed: "assets/warm-4.png?v=9" },
+      { bleed: "assets/warm-5.png?v=9" },
+      { bleed: "assets/warm-6.png?v=9" },
+      { bleed: "assets/warm-7.png?v=9" },
+      { bleed: "assets/warm-8.png?v=9" },
+      { bleed: "assets/warm-9.png?v=9" },
     ],
     // Парящие объекты (координаты в системе обрезанного макета 1920×12333)
     floats: {
