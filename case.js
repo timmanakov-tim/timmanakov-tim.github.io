@@ -856,7 +856,7 @@
 
   // Рекомендации: превью других работ того же направления (графика / UX-UI)
   var moreHtml = ids
-    .filter(function (k) { return k !== id && projects[k].cat === data.cat; })
+    .filter(function (k) { return k !== id && projects[k].cat === data.cat && !projects[k].hidden; })
     .map(function (k) {
       var d = projects[k];
       var media = d.card
