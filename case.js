@@ -399,6 +399,18 @@
   // в objectBoundingBox (0..1) — «сквиркл» с органичными краями, один в один.
   var WHERO_CLIP = "M 0.9912 0.49986 C 0.9912 0.63088 0.99414 0.76181 0.99984 0.89256 C 1.00244 0.95235 0.97316 1.00257 0.93719 0.9999 L 0.93674 0.9999 C 0.64556 0.97861 0.354 0.97861 0.06282 0.9999 C 0.02684 1.00257 -0.00249 0.95235 0.00017 0.89256 C 0.00587 0.76181 0.00875 0.63088 0.0088 0.49986 L 0.0088 0.50014 C 0.0088 0.36912 0.00587 0.23819 0.00017 0.10744 C -0.00243 0.04765 0.02684 -0.00257 0.06282 0.0001 C 0.354 0.02139 0.64556 0.02139 0.93674 0.0001 L 0.93719 0.0001 C 0.97316 -0.00257 1.00244 0.04765 0.99984 0.10744 C 0.99414 0.23819 0.99126 0.36921 0.9912 0.50014 L 0.9912 0.49986 Z";
 
+  // Подписи поверх ленты (data.captions): HTML-текст с цветом темы (var(--fg)),
+  // позиционируется по координатам макета. Размер/перенос масштабируются в placeAll.
+  function captionsHtml(c) {
+    return c.items
+      .map(function (it, i) {
+        return '<p class="wcap" data-wcap="' + i + '" data-fx="' + it.x + '" data-fy="' + it.y +
+          '" data-fw="' + it.w + '" data-fs="' + it.size + '" data-flh="' + it.lh +
+          '" data-slw="' + c.slideW + '" data-slh="' + c.slideH + '">' + it.text + "</p>";
+      })
+      .join("");
+  }
+
   function videoHeroHtml(v) {
     return '<div class="whero" data-whero data-fx="' + v.x + '" data-fy="' + v.y +
       '" data-fw="' + v.w + '" data-fh="' + v.h + '" data-fr="' + v.r +
@@ -676,11 +688,12 @@
       .join("");
     // Если у кейса есть парящие объекты / бегущая строка — оборачиваем ленту в
     // сцену и кладём оверлеи поверх полос.
-    if ((data.floats || data.marquee || data.videoHero) && blocks === data.blocks) {
+    if ((data.floats || data.marquee || data.videoHero || data.captions) && blocks === data.blocks) {
       html = '<div class="wfloat" data-wfloat>' + html +
         (data.videoHero ? videoHeroHtml(data.videoHero) : "") +
         (data.floats ? floatItemsHtml(data.floats) : "") +
         (data.marquee ? marqueeHtml(data.marquee) : "") +
+        (data.captions ? captionsHtml(data.captions) : "") +
         "</div>";
     }
     return html;
@@ -976,7 +989,27 @@
       // форма задаётся точным контуром (clip-path), радиус больше не нужен
     };
 
-    var placeAll = function () { placeFloats(); placeMarquee(); placeHero(); };
+    // Подписи: позиция/ширина/кегль/интерлиньяж масштабируются от ширины ленты
+    var caps = wfloat.querySelectorAll("[data-wcap]");
+    var placeCaptions = function () {
+      if (!caps.length || !fbands.length) return;
+      var first = fbands[0], last = fbands[fbands.length - 1];
+      var stackLeft = first.offsetLeft, stackWidth = first.offsetWidth, stackTop = first.offsetTop;
+      var stackHeight = last.offsetTop + last.offsetHeight - first.offsetTop;
+      Array.prototype.forEach.call(caps, function (el) {
+        var fx = +el.getAttribute("data-fx"), fy = +el.getAttribute("data-fy"), fw = +el.getAttribute("data-fw");
+        var fs = +el.getAttribute("data-fs"), flh = +el.getAttribute("data-flh");
+        var slw = +el.getAttribute("data-slw"), slh = +el.getAttribute("data-slh");
+        var k = stackWidth / slw;
+        el.style.left = stackLeft + fx * k + "px";
+        el.style.top = stackTop + (fy / slh) * stackHeight + "px";
+        el.style.width = fw * k + "px";
+        el.style.fontSize = fs * k + "px";
+        el.style.lineHeight = flh / fs;
+      });
+    };
+
+    var placeAll = function () { placeFloats(); placeMarquee(); placeHero(); placeCaptions(); };
     placeAll();
     Array.prototype.forEach.call(fbands, function (b) {
       if (!b.complete) b.addEventListener("load", placeAll, { once: true });

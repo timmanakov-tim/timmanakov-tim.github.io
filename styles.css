@@ -878,6 +878,16 @@ textarea:focus-visible {
   object-fit: contain;
 }
 
+/* Подписи поверх ленты — цвет по теме (тёмные на светлой, светлые на тёмной) */
+.wcap {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  color: var(--fg);
+  font-family: "Cabin", var(--font-sans);
+  pointer-events: none;
+}
+
 /* Бегущая строка иконок поверх ленты (ряд из макета «Тёплые страны») */
 .wmarquee {
   position: absolute;

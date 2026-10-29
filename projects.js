@@ -257,15 +257,15 @@ window.PROJECTS = {
     // адаптируется под тему (светлая/тёмная), а белый контент (экраны, карточки)
     // остаётся белым.
     blocks: [
-      { bleed: "assets/warm-1.png?v=9" },
-      { bleed: "assets/warm-2.png?v=9" },
-      { bleed: "assets/warm-3.png?v=9" },
-      { bleed: "assets/warm-4.png?v=9" },
-      { bleed: "assets/warm-5.png?v=9" },
-      { bleed: "assets/warm-6.png?v=9" },
-      { bleed: "assets/warm-7.png?v=9" },
-      { bleed: "assets/warm-8.png?v=9" },
-      { bleed: "assets/warm-9.png?v=9" },
+      { bleed: "assets/warm-1.png?v=10" },
+      { bleed: "assets/warm-2.png?v=10" },
+      { bleed: "assets/warm-3.png?v=10" },
+      { bleed: "assets/warm-4.png?v=10" },
+      { bleed: "assets/warm-5.png?v=10" },
+      { bleed: "assets/warm-6.png?v=10" },
+      { bleed: "assets/warm-7.png?v=10" },
+      { bleed: "assets/warm-8.png?v=10" },
+      { bleed: "assets/warm-9.png?v=10" },
     ],
     // Парящие объекты (координаты в системе обрезанного макета 1920×12333)
     floats: {
@@ -292,6 +292,16 @@ window.PROJECTS = {
         "assets/warm-mask.png?v=1",
         "assets/warm-trunks.png?v=1",
         "assets/warm-fins.png?v=1",
+      ],
+    },
+    // Подписи вынесены из полос в HTML, чтобы цвет адаптировался под тему
+    // (тёмные на светлой, светлые на тёмной). Координаты — обрезанный макет.
+    captions: {
+      slideW: 1920,
+      slideH: 12333,
+      items: [
+        { x: 966, y: 6453, w: 604, size: 24, lh: 32, text: "В основе – кастомные иллюстрации, фактуры вязаного текстиля, тёплая красная палитра и сезонные детали." },
+        { x: 966, y: 7975, w: 604, size: 24, lh: 32, text: "Интерфейс объединяет поиск туров, бронирование и сопровождение поездки в цельной, запоминающейся атмосфере." },
       ],
     },
   },
