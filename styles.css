@@ -849,6 +849,14 @@ textarea:focus-visible {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
+/* Мобильный — лента во всю ширину экрана, без боковых отступов */
+@media (max-width: 560px) {
+  .case__bleed-img {
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+    border-radius: 0;
+  }
+}
 
 /* Сцена с парящими объектами поверх full-bleed ленты (кейс «Тёплые страны») */
 .wfloat { position: relative; }
