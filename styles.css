@@ -349,13 +349,7 @@ img { max-width: 100%; display: block; }
   .works__grid > .tile { min-width: 0; } /* чтобы 1fr-колонки были равны, а подпись обрезалась */
   .tile__cap { padding-top: 10px; }
   .tile__title { font-size: 16px; line-height: 1.12; }
-  .tile__meta {
-    font-size: 13px;
-    margin-top: 3px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  .tile__meta { display: none; } /* на мобильном показываем только заголовки */
 }
 
 .tile__link { display: block; color: inherit; }
