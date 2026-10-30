@@ -603,6 +603,12 @@ img { max-width: 100%; display: block; }
 }
 .contact__socials .btn svg { width: 16px; height: 16px; display: block; }
 
+/* Футтер-контакт на мобильном — по левому краю */
+@media (max-width: 560px) {
+  .contact__inner { text-align: left; }
+  .contact__socials { justify-content: flex-start; }
+}
+
 /* -------------------------------------------------- Footer */
 .site-footer {
   display: flex;
