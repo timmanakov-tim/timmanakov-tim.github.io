@@ -164,6 +164,7 @@ window.PROJECTS = {
 
   adata: {
     cat: "uxui",
+    hidden: true,
     title: "Adata",
     subtitle: "Аналитическая платформа",
     cardMeta: "Аналитическая платформа",
