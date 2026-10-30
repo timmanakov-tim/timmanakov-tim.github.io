@@ -429,10 +429,11 @@ img { max-width: 100%; display: block; }
   background: var(--fg);
   color: var(--panel);
 }
-/* На тёмной теме все чипсы — сплошная заливка, как в тёмной плашке опыта */
-[data-theme="dark"] .cv__tags li {
-  background: var(--fg);
-  color: var(--panel);
+/* На тёмной теме все чипсы — приглушённая полупрозрачная заливка (единый стиль) */
+[data-theme="dark"] .cv__tags li,
+[data-theme="dark"] .cv__job-body .cv__tags li {
+  background: color-mix(in srgb, var(--fg) 7%, transparent);
+  color: var(--fg);
 }
 
 /* Sidebar — инвертированная карточка: чёрный фон, светлый контент */
