@@ -787,6 +787,8 @@ textarea:focus-visible {
 }
 
 /* Тональные блоки-плейсхолдеры (обложка, медиа, галерея) */
+/* Скрытый h1 для доступности (постерные кейсы с заголовком, запечённым в полосу) */
+.case__title--sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .case__cover { margin: clamp(40px, 6vw, 72px) 0 0; aspect-ratio: 16 / 9; }   /* сброс дефолтного margin у <figure>, чтобы хиро были одной ширины */
 .case__media { margin-top: 40px; aspect-ratio: 16 / 10; }
 .case__tile { aspect-ratio: 4 / 3; }
