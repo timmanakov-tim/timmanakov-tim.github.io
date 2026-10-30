@@ -564,6 +564,16 @@ img { max-width: 100%; display: block; }
   border-radius: 50%;
   background: var(--fg-muted);
 }
+/* Блок опыта на мобильном — шрифты и интерлиньяж по 4px-сетке */
+@media (max-width: 560px) {
+  .cv__exp-title,
+  .cv__job-company,
+  .cv__job-role { font-size: 16px; line-height: 24px; }
+  .cv__job-dates,
+  .cv__job-domain { font-size: 12px; line-height: 16px; }
+  .cv__points { font-size: 16px; line-height: 24px; }
+  .cv__tags li { font-size: 12px; line-height: 16px; }
+}
 
 /* -------------------------------------------------- Contact */
 .contact { padding-block: clamp(64px, 10vw, 128px); }
