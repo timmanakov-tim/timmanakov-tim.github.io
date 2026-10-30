@@ -345,7 +345,17 @@ img { max-width: 100%; display: block; }
   .works__grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 560px) {
-  .works__grid { grid-template-columns: 1fr; }
+  .works__grid { grid-template-columns: repeat(2, 1fr); column-gap: 12px; row-gap: 26px; }
+  .works__grid > .tile { min-width: 0; } /* чтобы 1fr-колонки были равны, а подпись обрезалась */
+  .tile__cap { padding-top: 10px; }
+  .tile__title { font-size: 16px; line-height: 1.12; }
+  .tile__meta {
+    font-size: 13px;
+    margin-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .tile__link { display: block; color: inherit; }
