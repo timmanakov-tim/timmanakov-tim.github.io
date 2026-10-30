@@ -419,20 +419,19 @@ img { max-width: 100%; display: block; }
   border-radius: 999px;
   font-size: 12px;
   line-height: 1.2;
-  color: var(--fg);
-  background: color-mix(in srgb, var(--fg) 7%, transparent);
+  /* сплошная заливка: в светлой теме чёрный фон + белый текст,
+     на тёмных поверхностях инверсия (белый фон + тёмный текст) */
+  background: var(--fg);
+  color: var(--panel);
 }
-/* Чипсы — чёрно-белые: на тёмных поверхностях чистый белый, без тёплого оттенка */
+/* на тёмных поверхностях — чистый белый фон, без тёплого оттенка */
 .cv__aside .cv__tags li,
 :root[data-theme="dark"] .cv__tags li {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.09);
+  background: #ffffff;
+  color: #111111;
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .cv__tags li {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.09);
-  }
+  :root:not([data-theme="light"]) .cv__tags li { background: #ffffff; color: #111111; }
 }
 
 /* Sidebar — инвертированная карточка: чёрный фон, светлый контент */
