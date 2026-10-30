@@ -819,7 +819,7 @@
       "</header>" +
       (data.meta ? '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" : "") +
       heroMediaHtml(data) +
-      (data.overview ? '<p class="tl__lead reveal">' + data.overview + "</p>" : "") +
+      (data.overview && !data.hideOverview ? '<p class="tl__lead reveal">' + data.overview + "</p>" : "") +
       blocksHtml(data.blocks);
   } else {
     bodyHtml =
