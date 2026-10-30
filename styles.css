@@ -429,6 +429,11 @@ img { max-width: 100%; display: block; }
   background: var(--fg);
   color: var(--panel);
 }
+/* На тёмной теме все чипсы — сплошная заливка, как в тёмной плашке опыта */
+[data-theme="dark"] .cv__tags li {
+  background: var(--fg);
+  color: var(--panel);
+}
 
 /* Sidebar — инвертированная карточка: чёрный фон, светлый контент */
 .cv__aside {
