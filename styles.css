@@ -2465,6 +2465,13 @@ textarea:focus-visible {
   line-height: 1;
 }
 .tl__plus .tl__label { text-align: center; }
+/* Мобильный — две колонки в ряд, знак «+» между ними */
+@media (max-width: 560px) {
+  .tl__plus { flex-wrap: nowrap; gap: 12px; }
+  .tl__plus-item { flex: 1; min-width: 0; gap: 10px; }
+  .tl__plus-media { width: 100%; }
+  .tl__plus-sign { flex: none; font-size: 32px; }
+}
 /* Тёмная тема: даём контраст — лого инвертируем в белый, карту подсвечиваем */
 :root[data-theme="dark"] .tl__plus-media { border-color: rgba(255, 255, 255, 0.16); }
 :root[data-theme="dark"] .tl__plus-media--logo img { filter: invert(1); }
