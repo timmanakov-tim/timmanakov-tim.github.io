@@ -3072,6 +3072,16 @@ textarea:focus-visible {
   .abouthero__body { grid-column: 1 / -1; }
   .abouthero__meta { grid-template-columns: 1fr; gap: 8px; margin-top: 28px; }
 }
+@media (max-width: 560px) {
+  /* фото «обо мне» — размером как превью работы, с отступами вокруг */
+  .abouthero__photo {
+    width: clamp(150px, 46vw, 180px);
+    aspect-ratio: 1 / 1;
+    max-height: none;
+    margin: 4px 0 24px;
+    border-radius: 16px;
+  }
+}
 
 /* -------------------------------------------------- Чёрный футтер с формой (инверсия, full-bleed) */
 .contact,
