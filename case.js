@@ -1089,7 +1089,8 @@
         return (H < 10 ? "0" : "") + H + ":00";
       };
       var ease = function (p) { return p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; };
-      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      // Анимация ползунка отключена — рендерим статично (как при prefers-reduced-motion)
+      var reduce = true;
       // t — час (0..12); позиция ручки непрерывна, подпись снапится к целому часу
       var applyTime = function (t, op) {
         if (sg.k) sHandle.style.left = sg.sL + (hx0 + (t / hours) * (hx1 - hx0)) * sg.k + "px";
