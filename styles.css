@@ -3081,6 +3081,8 @@ textarea:focus-visible {
     margin: 4px 0 24px;
     border-radius: 16px;
   }
+  /* на мобильном прячем описательные абзацы, оставляем заголовок и CTA */
+  .abouthero__text p { display: none; }
 }
 
 /* -------------------------------------------------- Чёрный футтер с формой (инверсия, full-bleed) */
