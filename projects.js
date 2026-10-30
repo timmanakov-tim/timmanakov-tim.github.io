@@ -233,7 +233,6 @@ window.PROJECTS = {
 
   "warm-countries": {
     cat: "uxui",
-    hidden: true, // временно скрыт из UX/UI (сетка на главной + рекомендации)
     title: "Тёплые страны",
     subtitle: "Зимняя концепция туристического агентства",
     overview:
