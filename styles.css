@@ -424,16 +424,22 @@ img { max-width: 100%; display: block; }
 .hero__btn--primary:hover { opacity: 0.88; }
 .hero__btn:active { transform: translateY(1px); }
 .hero__btn-arrow { font-size: 15px; }
-.hero__avatar { justify-self: center; }
-.hero__avatar img {
+.hero__avatar { position: relative; justify-self: center; }
+.hero__avatar-img {
   width: clamp(180px, 22vw, 360px);
   height: auto;
   display: block;
   border-radius: 50%;
+  transition: opacity 0.2s var(--ease);
 }
-:root[data-theme="dark"] .hero__avatar img { filter: invert(1) brightness(1.12); }
+/* Отдельная версия для тёмной темы (круг #f5f5f5, портрет #262626 — из Figma),
+   а не CSS-инверсия. Тёмный вариант лежит оверлеем поверх светлого. */
+.hero__avatar-img--dark { position: absolute; inset: 0; width: 100%; opacity: 0; }
+:root[data-theme="dark"] .hero__avatar-img--light { opacity: 0; }
+:root[data-theme="dark"] .hero__avatar-img--dark { opacity: 1; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .hero__avatar img { filter: invert(1) brightness(1.12); }
+  :root:not([data-theme="light"]) .hero__avatar-img--light { opacity: 0; }
+  :root:not([data-theme="light"]) .hero__avatar-img--dark { opacity: 1; }
 }
 .hero__lead {
   justify-self: start;
