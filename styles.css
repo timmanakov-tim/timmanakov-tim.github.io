@@ -128,6 +128,11 @@ img { max-width: 100%; display: block; }
   padding-inline: var(--gutter);
 }
 
+/* Главная: хедер во всю ширину с боковым отступом 64px (--gutter уже ≤64),
+   основной контент — во всю ширину с боковым отступом 204px. */
+body:not(.is-case) .site-header .nav { max-width: none; }
+#top .container { max-width: none; padding-inline: clamp(24px, 10.63vw, 204px); }
+
 .skip-link {
   position: absolute;
   left: -1000px;
