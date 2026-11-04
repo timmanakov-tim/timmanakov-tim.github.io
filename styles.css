@@ -309,23 +309,25 @@ body:not(.is-case) .site-header[data-compact="true"] .nav__links { justify-self:
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s var(--ease);
 }
-/* Светлая тема — костяшка справа, видно солнце (слева) */
-:root[data-theme="light"] .theme-switch__knob { transform: translateX(24px); }
-:root[data-theme="light"] .theme-switch__moon { opacity: 0; }
-:root[data-theme="light"] .theme-switch__sun { opacity: 1; }
-/* Тёмная тема — костяшка слева, видно луну (справа) */
-:root[data-theme="dark"] .theme-switch__knob { transform: translateX(0); }
-:root[data-theme="dark"] .theme-switch__sun { opacity: 0; }
-:root[data-theme="dark"] .theme-switch__moon { opacity: 1; }
+/* Светлая тема — костяшка слева, видна луна (справа), трек тёмный */
+:root[data-theme="light"] .theme-switch__knob { transform: translateX(0); }
+:root[data-theme="light"] .theme-switch__sun { opacity: 0; }
+:root[data-theme="light"] .theme-switch__moon { opacity: 1; }
+/* Тёмная тема — костяшка справа, видно солнце (слева), трек светлее (#525252) */
+:root[data-theme="dark"] .theme-switch { background: #525252; }
+:root[data-theme="dark"] .theme-switch__knob { transform: translateX(24px); }
+:root[data-theme="dark"] .theme-switch__moon { opacity: 0; }
+:root[data-theme="dark"] .theme-switch__sun { opacity: 1; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-switch__knob { transform: translateX(0); }
-  :root:not([data-theme="light"]) .theme-switch__sun { opacity: 0; }
-  :root:not([data-theme="light"]) .theme-switch__moon { opacity: 1; }
+  :root:not([data-theme="light"]) .theme-switch { background: #525252; }
+  :root:not([data-theme="light"]) .theme-switch__knob { transform: translateX(24px); }
+  :root:not([data-theme="light"]) .theme-switch__moon { opacity: 0; }
+  :root:not([data-theme="light"]) .theme-switch__sun { opacity: 1; }
 }
 /* Нажатие — оранжевая вспышка и чуть шире костяшка (как pressed-состояние) */
 .theme-switch:active { background: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent); }
 .theme-switch:active .theme-switch__knob { width: 26px; }
-:root[data-theme="light"] .theme-switch:active .theme-switch__knob { transform: translateX(20px); }
+:root[data-theme="dark"] .theme-switch:active .theme-switch__knob { transform: translateX(20px); }
 @media (prefers-reduced-motion: reduce) {
   .theme-switch__knob, .theme-switch__sun, .theme-switch__moon { transition: none; }
 }
