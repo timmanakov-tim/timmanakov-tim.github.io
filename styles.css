@@ -1770,6 +1770,23 @@ textarea:focus-visible {
 }
 .tl__text + .tl__text { margin-top: 1em; }
 
+/* Tomorrow School — архитектура как в референсе UNIKO: текстовые секции
+   (заголовок + абзац) прижаты в правую колонку, слева — пустое пространство.
+   На мобильном — одна колонка на всю ширину. */
+[data-case="tomorrow-school"] .tl__sub {
+  max-width: 460px;
+  margin-left: auto;
+  margin-right: 0;
+  margin-top: clamp(72px, 10vw, 150px);
+}
+@media (max-width: 760px) {
+  [data-case="tomorrow-school"] .tl__sub {
+    max-width: none;
+    margin-left: 0;
+    margin-top: clamp(40px, 8vw, 56px);
+  }
+}
+
 /* Две колонки: Проблема | Решение */
 .tl__twocol {
   margin-top: clamp(40px, 5vw, 72px);

@@ -871,6 +871,7 @@
     })
     .join("");
 
+  root.setAttribute("data-case", id);
   root.innerHTML =
     '<div class="container">' +
     '<a class="case__back reveal" href="index.html#work"><span aria-hidden="true">←</span> Работы</a>' +
