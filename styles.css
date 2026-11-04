@@ -130,8 +130,38 @@ img { max-width: 100%; display: block; }
 
 /* Главная: хедер во всю ширину с боковым отступом 64px (--gutter уже ≤64),
    основной контент — во всю ширину с боковым отступом 204px. */
-body:not(.is-case) .site-header .nav { max-width: none; }
 #top .container { max-width: none; }  /* отступ по бокам = --gutter (до 64px), как у хедера */
+
+/* Хедер главной: сверху ссылки слева + тумблер справа. При скролле на 2-й экран
+   (data-compact) слева появляется аватар, ссылки уезжают в центр. */
+body:not(.is-case) .site-header .nav {
+  max-width: none;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  column-gap: 0;
+  align-items: center;
+}
+body:not(.is-case) .nav__links { justify-self: start; }
+body:not(.is-case) .theme-switch { justify-self: end; }
+.nav__avatar {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: width 0.35s var(--ease), opacity 0.3s var(--ease), margin-right 0.35s var(--ease);
+}
+.nav__avatar-img { width: 32px; height: 32px; border-radius: 50%; display: block; }
+.nav__avatar-img--dark { position: absolute; inset: 0; opacity: 0; }
+:root[data-theme="dark"] .nav__avatar-img--light { opacity: 0; }
+:root[data-theme="dark"] .nav__avatar-img--dark { opacity: 1; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .nav__avatar-img--light { opacity: 0; }
+  :root:not([data-theme="light"]) .nav__avatar-img--dark { opacity: 1; }
+}
+.site-header[data-compact="true"] .nav__avatar { width: 32px; opacity: 1; margin-right: 24px; }
+body:not(.is-case) .site-header[data-compact="true"] .nav__links { justify-self: center; }
 
 .skip-link {
   position: absolute;

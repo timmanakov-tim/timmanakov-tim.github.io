@@ -137,8 +137,13 @@
   // --- Тень/линия у шапки при скролле ---
   const header = document.querySelector(".site-header");
   if (header) {
+    const heroEl = document.querySelector(".hero");
     const onScroll = function () {
-      header.setAttribute("data-scrolled", window.scrollY > 8 ? "true" : "false");
+      const y = window.scrollY;
+      header.setAttribute("data-scrolled", y > 8 ? "true" : "false");
+      // компактный хедер (аватар слева + ссылки по центру) — при уходе за хиро, на 2-й экран
+      var threshold = heroEl ? heroEl.offsetHeight * 0.65 : (window.innerHeight || 800) * 0.65;
+      header.setAttribute("data-compact", y > threshold ? "true" : "false");
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
