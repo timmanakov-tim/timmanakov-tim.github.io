@@ -557,29 +557,24 @@ body:not(.is-case) .site-header[data-compact="true"] .nav__links { justify-self:
   --tile-gap: 8px;
   padding-bottom: var(--section-gap);
 }
+/* Сетка работ — 2 колонки, ландшафтные плитки (как в макете 2-го экрана) */
 .works__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: var(--tile-gap);
-  row-gap: clamp(32px, 4vw, 52px);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
-@media (max-width: 900px) {
-  .works__grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 560px) {
-  .works__grid { grid-template-columns: repeat(2, 1fr); column-gap: 12px; row-gap: 26px; }
-  .works__grid > .tile { min-width: 0; } /* чтобы 1fr-колонки были равны, а подпись обрезалась */
-  .tile__cap { padding-top: 10px; }
-  .tile__title { font-size: 16px; line-height: 1.12; }
-  .tile__meta { display: none; } /* на мобильном показываем только заголовки */
+.works__grid > .tile { min-width: 0; }
+@media (max-width: 700px) {
+  .works__grid { grid-template-columns: 1fr; gap: 14px; }
 }
 
 .tile__link { display: block; color: inherit; }
+.tile__cap { display: none; } /* без текстовых подписей — только мокап-обложки */
 .tile__media {
   position: relative;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 746 / 400;
   overflow: hidden;
-  border-radius: clamp(12px, 1.4vw, 16px);
+  border-radius: 20px;
   background: var(--tone-1);
 }
 .tile__media[data-tone="1"] { background: var(--tone-1); }
