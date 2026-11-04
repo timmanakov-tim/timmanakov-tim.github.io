@@ -180,6 +180,35 @@
     });
   }
 
+  // --- Scroll-spy: подсветка текущего раздела в навигации (оранжевый + подчёркивание) ---
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav__links a[href^="#"]'));
+  if (navLinks.length && "IntersectionObserver" in window) {
+    var spy = [];
+    navLinks.forEach(function (a) {
+      var hash = a.getAttribute("href");
+      var sel = hash === "#top" ? ".hero" : hash; // «Главная» → секция хиро
+      var el = document.querySelector(sel);
+      if (el) spy.push({ el: el, link: a });
+    });
+    if (spy.length) {
+      var setCurrent = function (link) {
+        navLinks.forEach(function (a) { a.classList.toggle("is-current", a === link); });
+      };
+      var spyObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              var t = spy.filter(function (s) { return s.el === e.target; })[0];
+              if (t) setCurrent(t.link);
+            }
+          });
+        },
+        { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+      );
+      spy.forEach(function (s) { spyObserver.observe(s.el); });
+    }
+  }
+
   // --- Кнопка «наверх» (только на страницах кейсов) ---
   var toTop = document.querySelector(".to-top");
   if (toTop) {

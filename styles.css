@@ -229,6 +229,11 @@ body:not(.is-case) .site-header[data-compact="true"] .nav__links { justify-self:
 }
 .nav__links a:hover { color: var(--fg); }
 .nav__links a:hover::after { transform: scaleX(1); }
+/* Фокус и текущий раздел (scroll-spy) — оранжевый + подчёркивание снизу */
+.nav__links a:focus-visible,
+.nav__links a.is-current { color: var(--accent); outline: none; }
+.nav__links a:focus-visible::after,
+.nav__links a.is-current::after { transform: scaleX(1); background: var(--accent); }
 
 .nav__theme {
   width: 32px;
