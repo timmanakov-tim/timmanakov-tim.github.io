@@ -149,6 +149,7 @@ window.PROJECTS = {
 
   "student-app": {
     cat: "uxui",
+    hidden: true,
     title: "Stemio",
     subtitle: "Мобильное приложение для студентов EdTech-платформы",
     card: "assets/stemio-card.jpg",
