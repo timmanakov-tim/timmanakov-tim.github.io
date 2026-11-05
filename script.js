@@ -186,7 +186,7 @@
     var spy = [];
     navLinks.forEach(function (a) {
       var hash = a.getAttribute("href");
-      var sel = hash === "#top" ? ".hero" : hash; // «Главная» → секция хиро
+      var sel = hash === "#top" ? ".intro, .hero" : hash; // «Главная» → первый экран (леттеринг)
       var el = document.querySelector(sel);
       if (el) spy.push({ el: el, link: a });
     });
