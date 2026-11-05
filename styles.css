@@ -380,6 +380,8 @@ body:not(.is-case) .theme-switch { justify-self: end; }
   :root:not([data-theme="light"]) .intro__lockup { filter: invert(1) hue-rotate(180deg); }
 }
 @media (prefers-reduced-motion: reduce) { .lk { transition: none; } }
+/* «folio» на мобильном — сдвиг влево на 4px и вверх на 4px (было 8/8) */
+@media (max-width: 560px) { .lk { transform: translate(4px, 4px); } }
 .intro__line {
   max-width: 34ch;
   margin-inline: 0;
