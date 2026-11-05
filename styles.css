@@ -330,6 +330,8 @@ body:not(.is-case) .theme-switch { justify-self: end; }
 @media (max-width: 560px) {
   /* На мобильном навигация в хедере скрыта — остаются аватар и тумблер */
   .nav__links { display: none; }
+  /* Боковые отступы от краёв — 16px */
+  :root { --gutter: 16px; }
 }
 
 /* -------------------------------------------------- Intro */
