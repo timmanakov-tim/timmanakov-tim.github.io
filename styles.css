@@ -569,8 +569,50 @@ body:not(.is-case) .theme-switch { justify-self: end; }
   .works__grid { grid-template-columns: 1fr; gap: 14px; }
 }
 
-.tile__link { display: block; color: inherit; }
-.tile__cap { display: none; } /* без текстовых подписей — только мокап-обложки */
+.tile__link { display: block; color: inherit; position: relative; }
+.tile__cap { display: none; } /* текстовых подписей нет — название появляется по наведению */
+/* Название проекта — появляется по наведению снизу слева */
+.tile__name {
+  position: absolute;
+  left: 36px;
+  right: 36px;
+  bottom: 36px;
+  z-index: 2;
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 46px;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.4s var(--ease), transform 0.5s var(--ease);
+  pointer-events: none;
+}
+/* тёмный градиент снизу для читаемости названия */
+.tile__media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) 48%);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  pointer-events: none;
+}
+.tile__link:hover .tile__name,
+.tile__link:focus-visible .tile__name { opacity: 1; transform: translateY(0); }
+.tile__link:hover .tile__media::before,
+.tile__link:focus-visible .tile__media::before { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .tile__name { transition: opacity 0.2s var(--ease); transform: none; }
+}
+/* Мобильный — название видно всегда (нет ховера), компактнее */
+@media (max-width: 700px) {
+  .tile__name { opacity: 1; transform: none; font-size: 26px; line-height: 30px; left: 20px; right: 20px; bottom: 20px; }
+  .tile__media::before { opacity: 1; }
+}
 .tile__media {
   position: relative;
   aspect-ratio: 746 / 400;
