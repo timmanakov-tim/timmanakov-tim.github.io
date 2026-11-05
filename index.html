@@ -37,30 +37,21 @@
   </header>
 
   <main id="top">
-    <!-- Hero -->
-    <section class="hero container" aria-label="Интро">
-      <div class="hero__name reveal">
-        <h1 class="hero__title">Product Designer</h1>
-        <ul class="hero__tags">
-          <li>UX/UI</li>
-          <li>Graphic Design</li>
-          <li>Branding</li>
-        </ul>
-        <!-- Кнопки отключены по просьбе
-        <div class="hero__actions">
-          <a class="hero__btn hero__btn--ghost" href="#about">Обо мне</a>
-          <a class="hero__btn hero__btn--primary" href="#work">Работы <span class="hero__btn-arrow" aria-hidden="true">↗</span></a>
-        </div>
-        -->
-
-      </div>
-      <div class="hero__avatar reveal" role="img" aria-label="Тим Манаков — портрет">
-        <img class="hero__avatar-img hero__avatar-img--light" src="assets/avatar-hero.svg?v=2" alt="Тим Манаков" width="280" height="280" />
-        <img class="hero__avatar-img hero__avatar-img--dark" src="assets/avatar-hero-dark.svg?v=1" alt="" aria-hidden="true" width="280" height="280" />
-      </div>
-      <div class="hero__intro reveal">
-        <p class="hero__greeting">Привет, меня зовут Тимур!</p>
-        <p class="hero__lead">Проектирую цифровые продукты, превращая сложные задачи бизнеса и пользователей в понятные пользовательские сценарии и функциональные интерфейсы. Также занимаюсь графическим дизайном и визуальной айдентикой.</p>
+    <!-- Intro — анимированный леттеринг «Portfolio» -->
+    <section class="intro container" aria-label="Интро">
+      <div class="intro__lockup reveal" role="img" aria-label="Portfolio">
+        <!-- Один статичный PORT -->
+        <img class="pf-port" src="assets/portfolio-port.svg?v=1" alt="" aria-hidden="true" />
+        <!-- Слои только с folio (без PORT) — перебор стилей кросс-фейдом -->
+        <img class="lk lk--1 is-on" src="assets/portfolio-word.svg?v=5" alt="" aria-hidden="true" />
+        <img class="lk lk--2" src="assets/portfolio-word-2.svg?v=3" alt="" aria-hidden="true" />
+        <img class="lk lk--3" src="assets/portfolio-word-3.svg?v=3" alt="" aria-hidden="true" />
+        <!-- lk--4 (bubble) отключён по просьбе -->
+        <img class="lk lk--5" src="assets/portfolio-word-5.svg?v=3" alt="" aria-hidden="true" />
+        <img class="lk lk--6" src="assets/portfolio-word-6.svg?v=1" alt="" aria-hidden="true" />
+        <img class="lk lk--7" src="assets/portfolio-word-7.svg?v=1" alt="" aria-hidden="true" />
+        <img class="lk lk--8" src="assets/portfolio-word-8.svg?v=2" alt="" aria-hidden="true" />
+        <img class="lk lk--9" src="assets/portfolio-word-9.svg?v=1" alt="" aria-hidden="true" />
       </div>
     </section>
 
