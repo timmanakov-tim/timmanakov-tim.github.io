@@ -382,6 +382,8 @@ body:not(.is-case) .theme-switch { justify-self: end; }
 @media (prefers-reduced-motion: reduce) { .lk { transition: none; } }
 /* «folio» на мобильном — влево на 4px, выше (было 8/8 → 4/0) */
 @media (max-width: 560px) { .lk { transform: translate(4px, 0px); } }
+/* groovy-варианты (lk5/lk8) — ещё вниз на 2px и влево на 4px → translate(0, 2) */
+@media (max-width: 560px) { .lk--5, .lk--8 { transform: translate(0px, 2px); } }
 .intro__line {
   max-width: 34ch;
   margin-inline: 0;
