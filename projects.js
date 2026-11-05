@@ -312,132 +312,132 @@ window.PROJECTS = {
     ],
   },
 
-  "hero-study": {
+  // Hero Study (LMS для вузов) — три самостоятельных кейса, по одному на плитку
+  "hs-constructor": {
     cat: "uxui",
-    title: "Hero Study",
+    title: "Конструктор",
     subtitle: "Конструктор учебного контента для вузов",
-    card: "assets/hs-card.jpg",
+    card: "assets/grid-construction.jpg?v=2",
     cardMeta: "Конструктор учебного контента для вузов",
     tone: 1,
-    // Hero с двумя табами: контент переключается при выборе таба
-    tabs: [
+    heroDevice: {
+      bg: "assets/hs-hero-bg.jpg",
+      video: "assets/hs-hero-screen.mp4?v=3",
+      ratio: "1254 / 708",
+      screen: { left: "22.97%", top: "11.44%", width: "54.23%", height: "53.95%" },
+    },
+    // Архитектура один-в-один по макету Figma node 3035-44298
+    blocks: [
       {
-        id: "constructor",
-        label: "Конструктор",
-        subtitle: "Конструктор учебного контента для вузов",
-        cover: "assets/hs-hero-lectures.jpg",
-        heroDevice: {
-          bg: "assets/hs-hero-bg.jpg",
-          video: "assets/hs-hero-screen.mp4?v=3",
-          ratio: "1254 / 708",
-          screen: { left: "22.97%", top: "11.44%", width: "54.23%", height: "53.95%" },
+        rows: [
+          {
+            label: "Проблема",
+            text: "Преподаватели создают программы в Word, презентации в PowerPoint, тесты в iSpring. Всё хранится отдельно. Если меняется учебный план, нужно вручную обновлять множество файлов.",
+          },
+          {
+            label: "Задача",
+            text: "Создать конструктор курсов прямо в LMS: в одном месте собирать материалы, задания и тесты, а затем быстро обновлять их при изменениях в программе.",
+          },
+          {
+            label: "Ценность",
+            text: "Меньше ручной работы, меньше ошибок и всегда актуальный учебный контент.",
+          },
+        ],
+      },
+      { media: { kind: "image", src: "assets/hs-01.jpg?v=3" } },
+      { media: { kind: "image", src: "assets/hs-02.jpg?v=3" } },
+      { media: { kind: "image", src: "assets/hs-03.jpg?v=3" } },
+      { media: { kind: "image", src: "assets/hs-04.jpg?v=3" } },
+      { media: { kind: "image", src: "assets/hs-05.jpg?v=3" } },
+      {
+        grid: {
+          ratio: "618 / 272",
+          items: [
+            { modal: "choice" },
+            { modal: "save" },
+          ],
         },
-        // Архитектура один-в-один по макету Figma node 3035-44298
-        blocks: [
-          {
-            rows: [
-              {
-                label: "Проблема",
-                text: "Преподаватели создают программы в Word, презентации в PowerPoint, тесты в iSpring. Всё хранится отдельно. Если меняется учебный план, нужно вручную обновлять множество файлов.",
-              },
-              {
-                label: "Задача",
-                text: "Создать конструктор курсов прямо в LMS: в одном месте собирать материалы, задания и тесты, а затем быстро обновлять их при изменениях в программе.",
-              },
-              {
-                label: "Ценность",
-                text: "Меньше ручной работы, меньше ошибок и всегда актуальный учебный контент.",
-              },
-            ],
-          },
-          { media: { kind: "image", src: "assets/hs-01.jpg?v=3" } },
-          { media: { kind: "image", src: "assets/hs-02.jpg?v=3" } },
-          { media: { kind: "image", src: "assets/hs-03.jpg?v=3" } },
-          { media: { kind: "image", src: "assets/hs-04.jpg?v=3" } },
-          { media: { kind: "image", src: "assets/hs-05.jpg?v=3" } },
-          {
-            grid: {
-              ratio: "618 / 272",
-              items: [
-                { modal: "choice" },
-                { modal: "save" },
-              ],
-            },
-          },
-        ],
       },
+    ],
+  },
+
+  "hs-journal": {
+    cat: "uxui",
+    title: "Журнал оценок",
+    subtitle: "Единый журнал оценок и посещаемости",
+    card: "assets/grid-jurnal.jpg?v=2",
+    cardMeta: "Единый журнал оценок и посещаемости",
+    tone: 1,
+    heroThemeSwitch: {
+      light: "assets/hs-journal-light.jpg",
+      dark: "assets/hs-journal-dark.jpg",
+      ratio: "16 / 9",
+    },
+    blocks: [
       {
-        id: "iup",
-        label: "Изменение ИУП",
-        subtitle: "Изменение ИУП",
-        // Пустой hero-фрейм того же размера, что и у конструктора
-        heroEmpty: { ratio: "1254 / 708" },
-        blocks: [
-          {
-            section: {
-              heading: "Задача",
-              body:
-                "Здесь будет описание задачи — пока текст-рыба. Модуль «Изменение ИУП» помогает студенту пересобрать индивидуальный учебный план: подать запрос, выбрать дисциплину и нужные оценки и подтвердить изменения за несколько шагов. Ниже — экраны этого сценария один в один из макета. Реальный текст и акценты заменим позже.",
-            },
-          },
-          { media: { kind: "image", src: "assets/hs-iup-1.jpg", label: "Шаг 1 — заполнение формы" } },
-          { media: { kind: "image", src: "assets/hs-iup-2.jpg", label: "Шаг 2 — выбор новой дисциплины" } },
-          { media: { kind: "image", src: "assets/hs-iup-3.jpg", label: "Шаг 3 — выбор оценок" } },
-          { media: { kind: "image", src: "assets/hs-iup-4.jpg", label: "Шаг 3 — оценки выбраны" } },
-          { media: { kind: "image", src: "assets/hs-iup-5.jpg", label: "Шаг 3 — перенос в новую дисциплину" } },
-          { media: { kind: "image", src: "assets/hs-iup-6.jpg", label: "Шаг 4 — отправка на согласование" } },
-          { successModal: true },
-        ],
-      },
-      {
-        id: "journal",
-        label: "Журнал оценок",
-        subtitle: "Журнал оценок",
-        heroThemeSwitch: {
-          light: "assets/hs-journal-light.jpg",
-          dark: "assets/hs-journal-dark.jpg",
-          ratio: "16 / 9",
+        section: {
+          heading: "Задача",
+          body:
+            "В продукте было 5 журналов оценок, разбросанных по разным страницам: преподаватели путались в них, теряли время на поиск нужного и переключение между журналами, а лишняя информация усложняла восприятие интерфейса. Задача — объединить их в один журнал: убрать лишнее, упростить навигацию и дать возможность проставлять оценки и отмечать посещаемость в одном окне.",
         },
-        blocks: [
-          {
-            section: {
-              heading: "Задача",
-              body:
-                "В продукте было 5 журналов оценок, разбросанных по разным страницам: преподаватели путались в них, теряли время на поиск нужного и переключение между журналами, а лишняя информация усложняла восприятие интерфейса. Задача — объединить их в один журнал: убрать лишнее, упростить навигацию и дать возможность проставлять оценки и отмечать посещаемость в одном окне.",
-            },
-          },
-          {
-            section: {
-              heading: "Решение",
-              body:
-                "Все пять журналов свели в один экран: слева — фильтр и список дисциплин, справа — единая таблица, где преподаватель и проставляет оценки, и отмечает посещаемость. Ниже — основной сценарий работы с журналом, шаг за шагом.",
-            },
-          },
-          { media: { kind: "image", src: "assets/hs-journal-1.png", label: "Пустое состояние" } },
-          { media: { kind: "image", src: "assets/hs-journal-2.png", label: "Журнал открыт" } },
-          { media: { kind: "image", src: "assets/hs-journal-3.png", label: "Развёрнутая таблица" } },
-          { media: { kind: "image", src: "assets/hs-journal-4.png", label: "Отметка посещаемости" } },
-          { media: { kind: "image", src: "assets/hs-journal-5.png", label: "Отметки проставлены" } },
-          { media: { kind: "image", src: "assets/hs-journal-6.png", label: "Итоговый журнал" } },
-          { swap: { a: "assets/hs-journal-expand.png", b: "assets/hs-journal-collapse.png", ratio: "1913 / 1084", label: "Свернуть журнал", alt: "Журнал — развёрнутый и свёрнутый вид по свитчу «Свернуть таблицу»" } },
-          {
-            laptop: {
-              bg: "assets/hs-journal-mac.jpg?v=2",
-              ratio: "2200 / 1663",
-              corners: [[7.06, 17.53], [65.46, 4.62], [65.46, 58.19], [7.06, 75.0]],
-              screenBg: "#151515",
-              // интерфейс собирается по компонентам: сайдбар → шапка → фильтр → заголовок → таблица
-              layers: [
-                { src: "assets/hs-jr-a.jpg", left: 0,     top: 0,      width: 5,     height: 100,    from: "left", delay: 0 },
-                { src: "assets/hs-jr-b.jpg", left: 5,     top: 0,      width: 95,    height: 21.407, from: "top",  delay: 0.28 },
-                { src: "assets/hs-jr-c.jpg", left: 5,     top: 21.407, width: 20.25, height: 78.593, from: "left", delay: 0.56 },
-                { src: "assets/hs-jr-d.jpg", left: 25.25, top: 21.407, width: 74.75, height: 9.378,  from: "top",  delay: 0.84 },
-                { src: "assets/hs-jr-e.jpg", left: 25.25, top: 30.785, width: 74.75, height: 69.215, from: "up",   delay: 1.12 },
-              ],
-            },
-          },
-        ],
       },
+      {
+        section: {
+          heading: "Решение",
+          body:
+            "Все пять журналов свели в один экран: слева — фильтр и список дисциплин, справа — единая таблица, где преподаватель и проставляет оценки, и отмечает посещаемость. Ниже — основной сценарий работы с журналом, шаг за шагом.",
+        },
+      },
+      { media: { kind: "image", src: "assets/hs-journal-1.png", label: "Пустое состояние" } },
+      { media: { kind: "image", src: "assets/hs-journal-2.png", label: "Журнал открыт" } },
+      { media: { kind: "image", src: "assets/hs-journal-3.png", label: "Развёрнутая таблица" } },
+      { media: { kind: "image", src: "assets/hs-journal-4.png", label: "Отметка посещаемости" } },
+      { media: { kind: "image", src: "assets/hs-journal-5.png", label: "Отметки проставлены" } },
+      { media: { kind: "image", src: "assets/hs-journal-6.png", label: "Итоговый журнал" } },
+      { swap: { a: "assets/hs-journal-expand.png", b: "assets/hs-journal-collapse.png", ratio: "1913 / 1084", label: "Свернуть журнал", alt: "Журнал — развёрнутый и свёрнутый вид по свитчу «Свернуть таблицу»" } },
+      {
+        laptop: {
+          bg: "assets/hs-journal-mac.jpg?v=2",
+          ratio: "2200 / 1663",
+          corners: [[7.06, 17.53], [65.46, 4.62], [65.46, 58.19], [7.06, 75.0]],
+          screenBg: "#151515",
+          // интерфейс собирается по компонентам: сайдбар → шапка → фильтр → заголовок → таблица
+          layers: [
+            { src: "assets/hs-jr-a.jpg", left: 0,     top: 0,      width: 5,     height: 100,    from: "left", delay: 0 },
+            { src: "assets/hs-jr-b.jpg", left: 5,     top: 0,      width: 95,    height: 21.407, from: "top",  delay: 0.28 },
+            { src: "assets/hs-jr-c.jpg", left: 5,     top: 21.407, width: 20.25, height: 78.593, from: "left", delay: 0.56 },
+            { src: "assets/hs-jr-d.jpg", left: 25.25, top: 21.407, width: 74.75, height: 9.378,  from: "top",  delay: 0.84 },
+            { src: "assets/hs-jr-e.jpg", left: 25.25, top: 30.785, width: 74.75, height: 69.215, from: "up",   delay: 1.12 },
+          ],
+        },
+      },
+    ],
+  },
+
+  "hs-iup": {
+    cat: "uxui",
+    title: "Изменение ИУП",
+    subtitle: "Изменение индивидуального учебного плана",
+    card: "assets/grid-iup.jpg?v=2",
+    cardMeta: "Изменение индивидуального учебного плана",
+    tone: 1,
+    // Пустой hero-фрейм того же размера, что и у конструктора
+    heroEmpty: { ratio: "1254 / 708" },
+    blocks: [
+      {
+        section: {
+          heading: "Задача",
+          body:
+            "Здесь будет описание задачи — пока текст-рыба. Модуль «Изменение ИУП» помогает студенту пересобрать индивидуальный учебный план: подать запрос, выбрать дисциплину и нужные оценки и подтвердить изменения за несколько шагов. Ниже — экраны этого сценария один в один из макета. Реальный текст и акценты заменим позже.",
+        },
+      },
+      { media: { kind: "image", src: "assets/hs-iup-1.jpg", label: "Шаг 1 — заполнение формы" } },
+      { media: { kind: "image", src: "assets/hs-iup-2.jpg", label: "Шаг 2 — выбор новой дисциплины" } },
+      { media: { kind: "image", src: "assets/hs-iup-3.jpg", label: "Шаг 3 — выбор оценок" } },
+      { media: { kind: "image", src: "assets/hs-iup-4.jpg", label: "Шаг 3 — оценки выбраны" } },
+      { media: { kind: "image", src: "assets/hs-iup-5.jpg", label: "Шаг 3 — перенос в новую дисциплину" } },
+      { media: { kind: "image", src: "assets/hs-iup-6.jpg", label: "Шаг 4 — отправка на согласование" } },
+      { successModal: true },
     ],
   },
 };
