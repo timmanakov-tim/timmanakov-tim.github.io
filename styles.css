@@ -512,7 +512,7 @@ body:not(.is-case) .theme-switch { justify-self: end; }
     gap: 28px;
     padding-block: 32px 48px;
   }
-  .hero__avatar { order: -1; }
+  .hero__avatar { order: -1; justify-self: start; }
   .hero__name { align-items: flex-start; }
   .hero__tags { justify-content: flex-start; }
   .hero__actions { justify-content: flex-start; }
