@@ -137,7 +137,7 @@
   // --- Тень/линия у шапки при скролле ---
   const header = document.querySelector(".site-header");
   if (header) {
-    const heroEl = document.querySelector(".hero");
+    const heroEl = document.querySelector(".lead, .hero");
     const onScroll = function () {
       const y = window.scrollY;
       header.setAttribute("data-scrolled", y > 8 ? "true" : "false");
@@ -186,7 +186,7 @@
     var spy = [];
     navLinks.forEach(function (a) {
       var hash = a.getAttribute("href");
-      var sel = hash === "#top" ? ".intro, .hero" : hash; // «Главная» → первый экран (леттеринг)
+      var sel = hash === "#top" ? ".lead, .intro, .hero" : hash; // «Главная» → первый экран
       var el = document.querySelector(sel);
       if (el) spy.push({ el: el, link: a });
     });

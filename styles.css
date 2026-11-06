@@ -335,6 +335,79 @@ body:not(.is-case) .theme-switch { justify-self: end; }
 }
 
 /* -------------------------------------------------- Intro */
+/* -------------------------------------------------- Первый экран: фото + кто ты */
+.lead {
+  min-height: calc(100svh - 72px);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: clamp(32px, 6vw, 88px);
+  padding-block: clamp(28px, 5vw, 80px);
+}
+.lead__photo { margin: 0; }
+.lead__photo img {
+  width: clamp(200px, 25vw, 320px);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 24px;
+  display: block;
+}
+.lead__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(34px, 4.6vw, 58px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+.lead__role {
+  margin: 12px 0 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(17px, 1.8vw, 22px);
+  color: var(--accent);
+}
+.lead__pitch {
+  margin: 22px 0 0;
+  max-width: 46ch;
+  font-size: clamp(16px, 1.5vw, 19px);
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+.lead__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.lead__tags li {
+  padding: 7px 15px;
+  border-radius: 100px;
+  background: color-mix(in srgb, var(--fg) 8%, transparent);
+  font-size: 14px;
+  line-height: 1;
+  color: var(--fg-muted);
+}
+.lead__actions { margin-top: 30px; }
+.lead__actions .hero__btn-arrow { font-size: 17px; }
+/* Планшет/мобильный — фото сверху, текст под ним */
+@media (max-width: 760px) {
+  .lead {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    align-content: start;
+    gap: 22px;
+    min-height: auto;
+    padding-block: 20px 44px;
+  }
+  .lead__photo img { width: clamp(132px, 42vw, 188px); }
+  .lead__pitch { margin-top: 16px; }
+}
+
 .intro {
   padding-top: clamp(44px, 8vw, 104px);
   padding-bottom: clamp(24px, 3.5vw, 40px);

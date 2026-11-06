@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Geist:wght@400..700&display=swap" rel="stylesheet" />
   <script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("portfolio-theme")||"light")}catch(e){document.documentElement.setAttribute("data-theme","light")}</script>
-  <link rel="stylesheet" href="styles.css?v=196" />
+  <link rel="stylesheet" href="styles.css?v=197" />
 </head>
 <body>
   <a class="skip-link" href="#work">К работам</a>
@@ -37,21 +37,21 @@
   </header>
 
   <main id="top">
-    <!-- Intro — анимированный леттеринг «Portfolio» -->
-    <section class="intro container" aria-label="Интро">
-      <div class="intro__lockup reveal" role="img" aria-label="Portfolio">
-        <!-- Один статичный PORT -->
-        <img class="pf-port" src="assets/portfolio-port.svg?v=1" alt="" aria-hidden="true" />
-        <!-- Слои только с folio (без PORT) — перебор стилей кросс-фейдом -->
-        <img class="lk lk--1 is-on" src="assets/portfolio-word.svg?v=5" alt="" aria-hidden="true" />
-        <img class="lk lk--2" src="assets/portfolio-word-2.svg?v=3" alt="" aria-hidden="true" />
-        <img class="lk lk--3" src="assets/portfolio-word-3.svg?v=3" alt="" aria-hidden="true" />
-        <!-- lk--4 (bubble) отключён по просьбе -->
-        <img class="lk lk--5" src="assets/portfolio-word-5.svg?v=3" alt="" aria-hidden="true" />
-        <img class="lk lk--6" src="assets/portfolio-word-6.svg?v=1" alt="" aria-hidden="true" />
-        <img class="lk lk--7" src="assets/portfolio-word-7.svg?v=1" alt="" aria-hidden="true" />
-        <img class="lk lk--8" src="assets/portfolio-word-8.svg?v=2" alt="" aria-hidden="true" />
-        <img class="lk lk--9" src="assets/portfolio-word-9.svg?v=1" alt="" aria-hidden="true" />
+    <!-- Первый экран — фото + кто ты (вместо леттеринга) -->
+    <section class="lead container" aria-label="Коротко обо мне">
+      <figure class="lead__photo reveal">
+        <img src="assets/tim-photo.jpg?v=2" alt="Тимур Манаков" />
+      </figure>
+      <div class="lead__text reveal">
+        <h1 class="lead__name">Тимур Манаков</h1>
+        <p class="lead__role">Продуктовый дизайнер</p>
+        <p class="lead__pitch">Проектирую цифровые продукты: превращаю сложные задачи бизнеса и пользователей в понятные сценарии и интерфейсы.</p>
+        <ul class="lead__tags">
+          <li>8 лет опыта</li><li>EdTech</li><li>FinTech</li><li>Big&nbsp;Data</li>
+        </ul>
+        <div class="lead__actions">
+          <a class="hero__btn hero__btn--primary" href="#work">Смотреть кейсы <span class="hero__btn-arrow" aria-hidden="true">↓</span></a>
+        </div>
       </div>
     </section>
 
@@ -362,6 +362,6 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
-  <script src="script.js?v=35"></script>
+  <script src="script.js?v=36"></script>
 </body>
 </html>
