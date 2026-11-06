@@ -507,16 +507,16 @@ body:not(.is-case) .theme-switch { justify-self: end; }
   .hero {
     grid-template-columns: 1fr;
     min-height: auto;
-    justify-items: center;
-    text-align: center;
+    justify-items: start;
+    text-align: left;
     gap: 28px;
     padding-block: 32px 48px;
   }
   .hero__avatar { order: -1; }
-  .hero__name { align-items: center; }
-  .hero__tags { justify-content: center; }
-  .hero__actions { justify-content: center; }
-  .hero__intro { justify-self: center; text-align: center; max-width: 460px; }
+  .hero__name { align-items: flex-start; }
+  .hero__tags { justify-content: flex-start; }
+  .hero__actions { justify-content: flex-start; }
+  .hero__intro { justify-self: start; text-align: left; max-width: 460px; }
 }
 
 .btn {
