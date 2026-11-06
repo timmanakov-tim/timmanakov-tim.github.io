@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Geist:wght@400..700&display=swap" rel="stylesheet" />
   <script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("portfolio-theme")||"light")}catch(e){document.documentElement.setAttribute("data-theme","light")}</script>
-  <link rel="stylesheet" href="styles.css?v=197" />
+  <link rel="stylesheet" href="styles.css?v=198" />
 </head>
 <body>
   <a class="skip-link" href="#work">К работам</a>
@@ -37,21 +37,25 @@
   </header>
 
   <main id="top">
-    <!-- Первый экран — фото + кто ты (вместо леттеринга) -->
-    <section class="lead container" aria-label="Коротко обо мне">
-      <figure class="lead__photo reveal">
-        <img src="assets/tim-photo.jpg?v=2" alt="Тимур Манаков" />
-      </figure>
-      <div class="lead__text reveal">
-        <h1 class="lead__name">Тимур Манаков</h1>
-        <p class="lead__role">Продуктовый дизайнер</p>
-        <p class="lead__pitch">Проектирую цифровые продукты: превращаю сложные задачи бизнеса и пользователей в понятные сценарии и интерфейсы.</p>
-        <ul class="lead__tags">
-          <li>8 лет опыта</li><li>EdTech</li><li>FinTech</li><li>Big&nbsp;Data</li>
+    <!-- Первый экран — Product Designer (макет Figma 3793-34068) -->
+    <section class="hero container" aria-label="Коротко обо мне">
+      <div class="hero__name reveal">
+        <h1 class="hero__title">Product Designer</h1>
+        <ul class="hero__tags">
+          <li>UX/UI</li><li>EdTech</li><li>B2B</li><li>B2C</li>
         </ul>
-        <div class="lead__actions">
-          <a class="hero__btn hero__btn--primary" href="#work">Смотреть кейсы <span class="hero__btn-arrow" aria-hidden="true">↓</span></a>
+        <div class="hero__actions">
+          <a class="hero__btn hero__btn--ghost" href="#about">Обо мне</a>
+          <a class="hero__btn hero__btn--primary" href="#work">Работы <span class="hero__btn-arrow" aria-hidden="true">↗</span></a>
         </div>
+      </div>
+      <div class="hero__avatar reveal">
+        <img class="hero__avatar-img hero__avatar-img--light" src="assets/avatar-hero.svg?v=2" alt="Тимур Манаков" />
+        <img class="hero__avatar-img hero__avatar-img--dark" src="assets/avatar-hero-dark.svg?v=1" alt="" aria-hidden="true" />
+      </div>
+      <div class="hero__intro reveal">
+        <p class="hero__greeting">Привет, меня зовут Тимур!</p>
+        <p class="hero__lead">Проектирую цифровые продукты, превращая сложные задачи бизнеса и пользователей в понятные, функциональные и визуально цельные интерфейсы.</p>
       </div>
     </section>
 
