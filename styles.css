@@ -513,9 +513,13 @@ body:not(.is-case) .theme-switch { justify-self: end; }
     padding-block: 32px 48px;
   }
   .hero__avatar { order: -1; justify-self: start; }
-  .hero__name { align-items: flex-start; }
+  .hero__name { align-items: flex-start; justify-self: stretch; }
   .hero__tags { justify-content: flex-start; }
-  .hero__actions { justify-content: flex-start; }
+  /* Кнопки — во всю ширину (каждая растягивается поровну) */
+  .hero__actions { justify-content: flex-start; width: 100%; }
+  .hero__actions .hero__btn { flex: 1; justify-content: center; }
+  /* Без иконки ↗ в главной кнопке на мобильном */
+  .hero__actions .hero__btn-arrow { display: none; }
   .hero__intro { justify-self: start; text-align: left; max-width: 460px; }
 }
 
