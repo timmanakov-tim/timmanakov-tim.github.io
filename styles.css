@@ -1131,6 +1131,12 @@ textarea:focus-visible {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
+/* Полоса сразу под видео-обложкой — встык, без верхнего отступа и скругления */
+.case__hero-cover + .case__bleed-img {
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
 /* Мобильный — лента во всю ширину экрана, без боковых отступов */
 @media (max-width: 560px) {
   .case__bleed-img {
@@ -1186,6 +1192,14 @@ textarea:focus-visible {
 .case__hero-label--tr { top: 5.1%; right: 6.5%; }
 .case__hero-label--bl { bottom: 5.1%; left: 6.5%; }
 .case__hero-label--br { bottom: 5.1%; right: 6.5%; }
+/* Десктоп — обложка в той же колонке, что и полосы (встык, скруглён только верх) */
+@media (min-width: 561px) {
+  .case__hero-cover {
+    width: calc(100vw - 80px);
+    margin-inline: calc(50% - 50vw + 40px);
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+}
 @media (max-width: 560px) {
   .case__hero-cover {
     aspect-ratio: auto;
