@@ -246,24 +246,10 @@ window.PROJECTS = {
     hideHero: true,
     hideHeader: true,
     hideOverview: true,
-    // Полный кейс один-в-один по макету Figma node 3851-99306.
-    // Главный экран (обложка) — видео-хиро по макету node 3698-29747:
-    // фон-видео (крыло самолёта / закат) + белые подписи и лого Summer Travel.
-    // Остальные 13 полос — флэт-экспорт секций, нарезанный full-bleed; заголовок/
-    // подписи запечены в полосы, поэтому текстовый хедер скрыт (hideHeader).
+    // Полный кейс один-в-один по макету Figma node 3851-99306: 13 полос —
+    // флэт-экспорт секций, нарезанный full-bleed; заголовок/подписи запечены
+    // в полосы, поэтому текстовый хедер скрыт (hideHeader).
     blocks: [
-      {
-        heroCover: {
-          video: "assets/hero.mp4?v=1",
-          poster: "assets/warm-1.jpg?v=21",
-          ratio: "1920 / 1180",
-          topLeft: "UX",
-          topCenter: "Mobile app",
-          topRight: "UI",
-          bottomLeft: "Created",
-          bottomRight: "2026",
-        },
-      },
       { bleed: "assets/warm-1.jpg?v=21" },
       { bleed: "assets/warm-2.jpg?v=21" },
       { bleed: "assets/warm-3.jpg?v=21" },
