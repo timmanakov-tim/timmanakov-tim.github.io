@@ -21,7 +21,7 @@
       '<div class="container case__notfound reveal">' +
       "<h1>Кейс не найден</h1>" +
       "<p>Возможно, ссылка устарела.</p>" +
-      '<a class="btn btn--ghost" href="index.html#work">← Ко всем работам</a>' +
+      '<a class="btn btn--ghost" href="index.html#work">← Ко всем кейсам</a>' +
       "</div>";
     return;
   }
@@ -874,10 +874,10 @@
   root.setAttribute("data-case", id);
   root.innerHTML =
     '<div class="container">' +
-    '<a class="case__back reveal" href="index.html#work"><span aria-hidden="true">←</span> Работы</a>' +
+    '<a class="case__back reveal" href="index.html#work"><span aria-hidden="true">←</span> Кейсы</a>' +
     bodyHtml +
-    '<section class="case__more reveal" aria-label="Другие работы">' +
-    '<p class="case__more-label">Другие работы</p>' +
+    '<section class="case__more reveal" aria-label="Другие кейсы">' +
+    '<p class="case__more-label">Другие кейсы</p>' +
     '<ul class="case__more-track">' + moreHtml + "</ul>" +
     "</section>" +
     "</div>";
