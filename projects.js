@@ -230,7 +230,6 @@ window.PROJECTS = {
     // «warm country app» (node 3567-34301); warm-1 (текст-обложка) и warm-2
     // (палитра) заменены HTML, фото телефона вырезано в warm-phone.jpg.
     blocks: [
-      { subhead: { label: "Айдентика", text: "В основе — кастомные 3D-иллюстрации, фактуры вязаного текстиля, тёплая красная палитра и сезонные детали." } },
       { palette: [
         { name: "Punch Red", hex: "#E7233A", rgb: "231, 35, 58", cmyk: "0, 85, 75, 9" },
         { name: "Dark Wine", hex: "#800F1C", rgb: "128, 15, 28", cmyk: "0, 88, 78, 50" },
