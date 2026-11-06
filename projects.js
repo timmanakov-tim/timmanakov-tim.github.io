@@ -12,7 +12,7 @@ window.PROJECTS = {
     cardMeta: "Школа программирования",
     tone: 3,
     cover: "assets/ts-hero.jpg",
-    heroAnim: { bg: "assets/ts-hero-bg.jpg?v=2", mark: "assets/ts-hero-mark.svg?v=2", ratio: "1920 / 807" },
+    heroAnim: { bg: "assets/ts-hero-bg.jpg?v=3", mark: "assets/ts-hero-mark.svg?v=2", ratio: "1920 / 807" },
     link: "https://tomorrow-school.188.130.160.95.sslip.io/",
     overview:
       "Инновационная школа программирования, работающая по методологии французской школы École 42.",
