@@ -680,6 +680,18 @@
               screenInner +
             "</div></figure>";
         }
+        if (b.heroCover) {
+          var hc = b.heroCover;
+          var lbl = function (pos, txt) {
+            return txt ? '<span class="case__hero-label case__hero-label--' + pos + '">' + txt + "</span>" : "";
+          };
+          return '<section class="case__hero-cover" style="aspect-ratio:' + (hc.ratio || "1920 / 1180") + '" aria-label="' + (data.title || "") + '">' +
+            '<video class="case__hero-cover-video" src="' + hc.video + '" autoplay muted loop playsinline preload="auto"' + (hc.poster ? ' poster="' + hc.poster + '"' : "") + "></video>" +
+            (hc.logo ? '<img class="case__hero-cover-logo" src="' + hc.logo + '" alt="' + (hc.logoAlt || "Summer Travel") + '" />' : "") +
+            lbl("tl", hc.topLeft) + lbl("tc", hc.topCenter) + lbl("tr", hc.topRight) +
+            lbl("bl", hc.bottomLeft) + lbl("br", hc.bottomRight) +
+            "</section>";
+        }
         if (b.bleed)
           return '<img class="case__bleed-img" src="' + b.bleed + '" alt="' + (b.alt || "") + '" loading="lazy" />';
         if (b.bleedVideo)
