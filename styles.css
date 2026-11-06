@@ -132,21 +132,35 @@ img { max-width: 100%; display: block; }
    основной контент — во всю ширину с боковым отступом 204px. */
 #top .container { max-width: none; }  /* отступ по бокам = --gutter (до 64px), как у хедера */
 
-/* Хедер главной: аватар слева (всегда), ссылки по центру, тумблер справа. */
+/* Хедер главной: на первом экране — ссылки слева + тумблер справа (без аватара).
+   При скролле на следующие экраны аватар плавно появляется слева. */
 body:not(.is-case) .site-header .nav {
   max-width: none;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: auto 1fr auto;
   column-gap: 0;
   align-items: center;
 }
 body:not(.is-case) .nav__links { justify-self: start; }
 body:not(.is-case) .theme-switch { justify-self: end; }
+/* Аватар скрыт на первом экране (ширина 0), появляется в компактном хедере */
+body:not(.is-case) .nav__avatar {
+  width: 0;
+  margin-right: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: width 0.28s var(--ease), margin-right 0.28s var(--ease), opacity 0.28s var(--ease);
+}
+body:not(.is-case) .site-header[data-compact="true"] .nav__avatar {
+  width: 32px;
+  margin-right: 24px;
+  opacity: 1;
+}
 .nav__avatar {
   display: inline-flex;
   align-items: center;
   position: relative;
-  width: 32px;          /* аватар в левом углу — всегда виден */
+  width: 32px;
   margin-right: 24px;
 }
 .nav__avatar-img { width: 32px; height: 32px; border-radius: 50%; display: block; }
