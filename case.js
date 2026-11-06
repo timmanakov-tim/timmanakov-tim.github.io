@@ -492,6 +492,20 @@
             : '<p class="tl__text">' + st + "</p>";
           return '<div class="tl__sub reveal">' + (b.subhead.label ? '<p class="tl__label">' + b.subhead.label + "</p>" : "") + body + "</div>";
         }
+        if (b.palette) {
+          return '<div class="tl__palette reveal">' +
+            b.palette.map(function (c) {
+              var fg = c.light ? "#131313" : "#ffffff";
+              var meta = [["HEX", (c.hex || "").replace("#", "")], ["RGB", c.rgb], ["CMYK", c.cmyk]]
+                .filter(function (r) { return r[1]; })
+                .map(function (r) { return '<span><em>' + r[0] + "</em>" + r[1] + "</span>"; })
+                .join("");
+              return '<div class="tl__sw" style="background:' + c.hex + ";color:" + fg + '">' +
+                '<span class="tl__sw-name">' + c.name + "</span>" +
+                '<span class="tl__sw-meta">' + meta + "</span>" +
+                "</div>";
+            }).join("") + "</div>";
+        }
         if (b.grid) {
           var gr = b.grid.ratio || "16 / 9";
           var icoClose = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>';

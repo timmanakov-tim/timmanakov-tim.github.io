@@ -224,26 +224,33 @@ window.PROJECTS = {
     card: "assets/warm-card.jpg?v=3",
     cardMeta: "Зимняя концепция туристического агентства",
     tone: 2,
-    hideHero: true,
-    hideHeader: true,
-    hideOverview: true,
-    // Полный кейс один-в-один по макету Figma node 3851-99306: 13 полос —
-    // флэт-экспорт секций, нарезанный full-bleed; заголовок/подписи запечены
-    // в полосы, поэтому текстовый хедер скрыт (hideHeader).
+    cover: "assets/warm-3.jpg?v=21",
+    coverRatio: "2400 / 1772",
+    // Пересобрано в архитектуре Tomorrow: текст в HTML (узкая правая колонка),
+    // палитра — HTML-блок, визуалы — контейнерные медиа. Исходный макет Figma
+    // «warm country app» (node 3567-34301); warm-1 (текст-обложка) и warm-2
+    // (палитра) заменены HTML, фото телефона вырезано в warm-phone.jpg.
     blocks: [
-      { bleed: "assets/warm-1.jpg?v=21" },
-      { bleed: "assets/warm-2.jpg?v=21" },
-      { bleed: "assets/warm-3.jpg?v=21" },
-      { bleed: "assets/warm-4.jpg?v=21" },
-      { bleed: "assets/warm-5.jpg?v=21" },
-      { bleed: "assets/warm-6.jpg?v=21" },
-      { bleed: "assets/warm-7.jpg?v=21" },
-      { bleed: "assets/warm-8.jpg?v=21" },
-      { bleed: "assets/warm-9.jpg?v=21" },
-      { bleed: "assets/warm-10.jpg?v=21" },
-      { bleed: "assets/warm-11.jpg?v=21" },
-      { bleed: "assets/warm-12.jpg?v=21" },
-      { bleed: "assets/warm-13.jpg?v=21" },
+      { subhead: { label: "Айдентика", text: "В основе — кастомные 3D-иллюстрации, фактуры вязаного текстиля, тёплая красная палитра и сезонные детали." } },
+      { palette: [
+        { name: "Punch Red", hex: "#E7233A", rgb: "231, 35, 58", cmyk: "0, 85, 75, 9" },
+        { name: "Dark Wine", hex: "#800F1C", rgb: "128, 15, 28", cmyk: "0, 88, 78, 50" },
+        { name: "Night Bordeaux", hex: "#580A13", rgb: "88, 10, 19", cmyk: "0, 89, 78, 65" },
+        { name: "Graphite", hex: "#2B2B2B", rgb: "43, 43, 43", cmyk: "0, 0, 0, 83" },
+        { name: "Silver", hex: "#989898", rgb: "152, 152, 152", cmyk: "0, 0, 0, 40", light: true },
+      ] },
+      { media: { kind: "image", src: "assets/warm-phone.jpg?v=1" } },
+      { media: { kind: "image", src: "assets/warm-4.jpg?v=21" } },
+      { media: { kind: "image", src: "assets/warm-9.jpg?v=21" } },
+      { media: { kind: "image", src: "assets/warm-8.jpg?v=21" } },
+      { subhead: { label: "Интерфейс", text: "Интерфейс объединяет поиск туров, бронирование и сопровождение поездки в цельной, запоминающейся атмосфере." } },
+      { media: { kind: "image", src: "assets/warm-5.jpg?v=21" } },
+      { media: { kind: "image", src: "assets/warm-6.jpg?v=21" } },
+      { media: { kind: "image", src: "assets/warm-7.jpg?v=21" } },
+      { media: { kind: "image", src: "assets/warm-10.jpg?v=21" } },
+      { media: { kind: "image", src: "assets/warm-11.jpg?v=21" } },
+      { media: { kind: "image", src: "assets/warm-12.jpg?v=21" } },
+      { media: { kind: "image", src: "assets/warm-13.jpg?v=21" } },
     ],
   },
 
