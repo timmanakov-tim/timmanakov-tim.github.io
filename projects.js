@@ -8,11 +8,8 @@ window.PROJECTS = {
   "tomorrow-school": {
     cat: "uxui",
     title: "Tomorrow School",
-    subtitle: "MVP для школы программирования по модели École 42",
     card: "assets/ts-card.jpg",
     cardMeta: "Школа программирования",
-    subtitleHtml:
-      'MVP для школы программирования по модели <a href="https://42.fr/en/homepage/" target="_blank" rel="noopener">École 42</a>',
     tone: 3,
     cover: "assets/ts-hero.jpg",
     heroAnim: { bg: "assets/ts-hero-bg.jpg?v=2", mark: "assets/ts-hero-mark.svg?v=2", ratio: "1920 / 807" },

@@ -829,7 +829,7 @@
         ? '<h1 class="case__title--sr">' + data.title + "</h1>"
         : '<header class="case__hero">' +
           '<h1 class="case__title reveal">' + data.title + "</h1>" +
-          '<p class="case__subtitle reveal">' + (data.subtitleHtml || data.subtitle) + "</p>" +
+          ((data.subtitleHtml || data.subtitle) ? '<p class="case__subtitle reveal">' + (data.subtitleHtml || data.subtitle) + "</p>" : "") +
           "</header>") +
       (data.meta ? '<dl class="case__meta reveal">' + metaHtml(data.meta) + "</dl>" : "") +
       heroMediaHtml(data) +
