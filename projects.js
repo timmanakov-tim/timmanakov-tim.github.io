@@ -256,8 +256,6 @@ window.PROJECTS = {
         heroCover: {
           video: "assets/hero.mp4?v=1",
           poster: "assets/warm-1.jpg?v=21",
-          logo: "assets/summer-travel-logo.svg?v=1",
-          logoAlt: "Summer Travel",
           ratio: "1920 / 1180",
           topLeft: "UX",
           topCenter: "Mobile app",
