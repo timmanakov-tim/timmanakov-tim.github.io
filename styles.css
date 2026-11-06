@@ -505,22 +505,26 @@ body:not(.is-case) .theme-switch { justify-self: end; }
 /* Планшет/мобильный — одна колонка, аватар сверху по центру */
 @media (max-width: 860px) {
   .hero {
-    grid-template-columns: 1fr;
-    min-height: auto;
-    justify-items: start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     text-align: left;
-    gap: 28px;
+    gap: 0;
+    min-height: auto;
     padding-block: 32px 48px;
   }
-  .hero__avatar { order: -1; justify-self: start; }
-  .hero__name { align-items: flex-start; justify-self: stretch; }
-  .hero__tags { justify-content: flex-start; }
-  /* Кнопки — во всю ширину (каждая растягивается поровну) */
-  .hero__actions { justify-content: flex-start; width: 100%; }
+  /* Разворачиваем обёртки, чтобы выстроить всё в одну колонку и задать порядок:
+     аватар → заголовок → теги → приветствие → питч → кнопки */
+  .hero__name, .hero__intro { display: contents; }
+  .hero__avatar { order: 1; margin-bottom: 28px; }
+  .hero__title { order: 2; }
+  .hero__tags { order: 3; justify-content: flex-start; }   /* margin-top:16 из базы */
+  .hero__greeting { order: 4; margin-top: 28px; }
+  .hero__lead { order: 5; max-width: 460px; }
+  /* Кнопки — под текстом, во всю ширину (каждая растягивается поровну) */
+  .hero__actions { order: 6; margin-top: 28px; width: 100%; justify-content: flex-start; }
   .hero__actions .hero__btn { flex: 1; justify-content: center; }
-  /* Без иконки ↗ в главной кнопке на мобильном */
-  .hero__actions .hero__btn-arrow { display: none; }
-  .hero__intro { justify-self: start; text-align: left; max-width: 460px; }
+  .hero__actions .hero__btn-arrow { display: none; }       /* без иконки ↗ */
 }
 
 .btn {
