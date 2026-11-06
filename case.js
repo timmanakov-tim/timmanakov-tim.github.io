@@ -490,7 +490,7 @@
           var body = Array.isArray(st)
             ? st.map(function (p) { return '<p class="tl__text">' + p + "</p>"; }).join("")
             : '<p class="tl__text">' + st + "</p>";
-          return '<div class="tl__sub reveal"><p class="tl__label">' + b.subhead.label + "</p>" + body + "</div>";
+          return '<div class="tl__sub reveal">' + (b.subhead.label ? '<p class="tl__label">' + b.subhead.label + "</p>" : "") + body + "</div>";
         }
         if (b.grid) {
           var gr = b.grid.ratio || "16 / 9";
