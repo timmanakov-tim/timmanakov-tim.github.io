@@ -108,6 +108,7 @@ window.PROJECTS = {
 
   artbridger: {
     cat: "uxui",
+    hidden: true,
     title: "Artbridger",
     subtitle: "Редизайн арт-маркетплейса",
     card: "assets/ab-card.jpg",
