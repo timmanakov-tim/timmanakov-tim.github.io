@@ -136,11 +136,11 @@ img { max-width: 100%; display: block; }
 body:not(.is-case) .site-header .nav {
   max-width: none;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr auto;
   column-gap: 0;
   align-items: center;
 }
-body:not(.is-case) .nav__links { justify-self: center; }
+body:not(.is-case) .nav__links { justify-self: start; }
 body:not(.is-case) .theme-switch { justify-self: end; }
 .nav__avatar {
   display: inline-flex;
