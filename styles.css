@@ -3329,9 +3329,6 @@ textarea:focus-visible {
 
 /* 12-колоночная сетка (как в референсе Obscura) */
 .abouthero__top,
-/* Секция «Обо мне» (заголовок «От идеи — к продукту» + био + CV) отключена целиком */
-#about { display: none; }
-
 .abouthero__row {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
