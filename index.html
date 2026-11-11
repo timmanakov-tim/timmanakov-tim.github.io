@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Geist:wght@400..700&display=swap" rel="stylesheet" />
   <script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("portfolio-theme")||"light")}catch(e){document.documentElement.setAttribute("data-theme","light")}</script>
-  <link rel="stylesheet" href="styles.css?v=207" />
+  <link rel="stylesheet" href="styles.css?v=209" />
 </head>
 <body>
   <a class="skip-link" href="#work">К кейсам</a>
@@ -75,10 +75,15 @@
           <span class="tile__name">Tomorrow School</span>
           </a>
         </li>
-        <li class="tile reveal" data-cat="uxui">
+        <li class="tile tile--featured reveal" data-cat="uxui">
           <a class="tile__link" href="case.html?id=warm-countries" aria-label="Кейс: Тёплые страны">
             <div class="tile__media tile__media--image"><img src="assets/grid-warm.jpg?v=2" alt="Тёплые страны — обложка" loading="lazy" /></div>
-          <span class="tile__name">Тёплые страны</span>
+            <div class="tile__overlay">
+              <span class="tile__kicker">Кейс · UX/UI</span>
+              <span class="tile__name">Тёплые страны</span>
+              <span class="tile__desc">Зимний концепт тревел-сервиса: айдентика и интерфейс поиска и брони.</span>
+              <span class="tile__result">+23% к конверсии в бронирование</span>
+            </div>
           </a>
         </li>
         <li class="tile reveal" data-cat="uxui">
@@ -230,15 +235,17 @@
               </div>
               <div class="cv__job-body">
                 <p class="cv__job-role">Product Designer</p>
+                <p class="cv__job-context">Образовательная платформа школы программирования.</p>
                 <ul class="cv__points">
-                  <li>Провёл юзабилити-тесты со студентами: выявил перегрузку ключевого учебного сценария и переработал его структуру.</li>
-                  <li>Спроектировал интерфейс встроенного редактора кода — студенты выполняют задачи на одном экране, не уходя в сторонние приложения.</li>
-                  <li>Упростил анкету: пользователи понимали логику заполнения и проходили сценарий без критических ошибок.</li>
-                  <li>Запуск за 3 месяца.</li>
+                  <li>Проектировал визуальный интерфейс образовательной платформы, создал UI Kit и базовую дизайн-систему с нуля.</li>
+                  <li>Переработал структуру программы обучения: сгруппировал материалы и задания по логическим разделам и сделал новое визуальное решение для упрощения навигации.</li>
+                  <li>Оптимизировал поиск учебных заданий за счёт изменения информационной архитектуры и организации контента.</li>
+                  <li>Переработал сценарий регистрации: изменил последовательность полей анкеты и спроектировал автозаполнение данных по ИИН через интеграцию с eGov.</li>
+                  <li>Обеспечил автозаполнение 16 из 23 полей анкеты, сократив объём ручного ввода данных.</li>
                 </ul>
                 <ul class="cv__tags">
-                  <li>Юзабилити-тесты</li><li>UI-kit</li><li>Токены светлой/тёмной тем</li>
-                  <li>Анализ конкурентов</li><li>Интервью со стейкхолдерами</li>
+                  <li>Интервью со стейкхолдерами</li><li>Менторы и студенты</li><li>Usability-тестирование</li>
+                  <li>Анализ конкурентов</li><li>UI-kit</li><li>Дизайн-система</li>
                 </ul>
               </div>
             </li>

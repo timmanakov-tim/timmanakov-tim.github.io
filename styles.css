@@ -634,6 +634,71 @@ body:not(.is-case) .site-header[data-compact="true"] .nav__avatar {
   .tile__name { opacity: 1; transform: none; font-size: 26px; line-height: 30px; left: 20px; right: 20px; bottom: 20px; }
   .tile__media::before { opacity: 1; }
 }
+
+/* Featured-карточка кейса — подпись поверх обложки всегда видна:
+   название + короткое описание + результат, тёмный градиент для читаемости. */
+.tile--featured .tile__media::before {
+  opacity: 1;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.35) 38%, rgba(0, 0, 0, 0) 68%);
+}
+.tile--featured .tile__overlay {
+  position: absolute;
+  left: 36px;
+  right: 36px;
+  bottom: 36px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  color: #fff;
+  pointer-events: none;
+}
+.tile--featured .tile__kicker {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+}
+.tile--featured .tile__name {
+  position: static;
+  left: auto; right: auto; bottom: auto;
+  opacity: 1;
+  transform: none;
+  transition: none;
+  font-size: clamp(26px, 3vw, 34px);
+  line-height: 1.08;
+}
+.tile--featured .tile__desc {
+  margin: 0;
+  max-width: 34ch;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.86);
+}
+.tile--featured .tile__result {
+  margin-top: 2px;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  padding: 7px 14px;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+@media (max-width: 700px) {
+  .tile--featured .tile__overlay { left: 20px; right: 20px; bottom: 20px; gap: 8px; }
+  .tile--featured .tile__desc { font-size: 14px; }
+}
 .tile__media {
   position: relative;
   aspect-ratio: 746 / 400;
@@ -831,6 +896,8 @@ body:not(.is-case) .site-header[data-compact="true"] .nav__avatar {
 .cv__job-domain { color: var(--fg-muted); font-size: 12px; }
 .cv__job-body { min-width: 0; }
 .cv__job-role { font-weight: 600; font-size: 16px; margin-bottom: 12px; }
+.cv__job-role:has(+ .cv__job-context) { margin-bottom: 4px; }
+.cv__job-context { margin: 0 0 14px; font-size: 14px; line-height: 20px; color: var(--fg-muted); }
 .cv__points {
   display: flex;
   flex-direction: column;
