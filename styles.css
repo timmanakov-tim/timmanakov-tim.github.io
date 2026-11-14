@@ -947,12 +947,12 @@ body:not(.is-case) .site-header[data-compact="true"] .nav__avatar {
 }
 
 /* -------------------------------------------------- Contact */
-.contact { padding-block: clamp(64px, 10vw, 128px); }
+.contact { padding-block: clamp(40px, 6vw, 72px); }
 .contact__inner {
-  padding-top: clamp(56px, 8vw, 100px);
-  text-align: center;
+  padding-top: 0;
+  text-align: left;
 }
-.contact__title { font-size: clamp(32px, 6vw, 60px); letter-spacing: -0.03em; }
+.contact__title { font-size: clamp(24px, 3.5vw, 34px); letter-spacing: -0.02em; }
 .contact__lead { margin-top: 16px; color: var(--fg-muted); }
 .contact__email {
   display: inline-block;
@@ -966,19 +966,13 @@ body:not(.is-case) .site-header[data-compact="true"] .nav__avatar {
 }
 .contact__email:hover { border-color: var(--fg); }
 .contact__socials {
-  margin-top: 44px;
+  margin-top: 24px;
   display: flex;
-  gap: 16px;
-  justify-content: center;
+  gap: 12px;
+  justify-content: flex-start;
   flex-wrap: wrap;
 }
 .contact__socials .btn svg { width: 16px; height: 16px; display: block; }
-
-/* Футтер-контакт на мобильном — по левому краю */
-@media (max-width: 560px) {
-  .contact__inner { text-align: left; }
-  .contact__socials { justify-content: flex-start; }
-}
 
 /* -------------------------------------------------- Footer */
 .site-footer {
