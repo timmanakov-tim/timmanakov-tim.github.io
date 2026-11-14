@@ -891,6 +891,23 @@ body:not(.is-case) .site-header[data-compact="true"] .nav__avatar {
   .cv__job { grid-template-columns: 1fr; gap: 12px; border-bottom: none; }
 }
 .cv__job-side { display: flex; flex-direction: column; gap: 4px; }
+/* Логотип компании над названием — монохром, адаптируется к теме через mask + currentColor */
+.cv__logo {
+  height: 18px;
+  display: block;
+  align-self: flex-start;
+  flex: none;
+  color: var(--fg);
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: left center; mask-position: left center;
+  -webkit-mask-size: contain; mask-size: contain;
+  margin-bottom: 8px;
+}
+.cv__logo--alem    { width: 64px; -webkit-mask-image: url(assets/logo-alem.svg);    mask-image: url(assets/logo-alem.svg); }
+.cv__logo--hero    { width: 93px; -webkit-mask-image: url(assets/logo-hero.svg);    mask-image: url(assets/logo-hero.svg); }
+.cv__logo--adata   { width: 62px; -webkit-mask-image: url(assets/logo-adata.svg);   mask-image: url(assets/logo-adata.svg); }
+.cv__logo--silkway { width: 84px; -webkit-mask-image: url(assets/logo-silkway.svg); mask-image: url(assets/logo-silkway.svg); }
 .cv__job-company { font-family: var(--font-display); font-weight: 600; font-size: 16px; }
 .cv__job-dates { color: var(--fg-muted); font-size: 12px; }
 .cv__job-domain { color: var(--fg-muted); font-size: 12px; }
