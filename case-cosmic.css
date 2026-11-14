@@ -210,7 +210,7 @@ img { max-width: 100%; display: block; }
 .meta__val { font-size: 15px; color: var(--fg); line-height: 1.5; }
 
 /* Мокап ноутбука */
-.hero__mockup { margin-top: clamp(48px, 7vw, 96px); display: flex; justify-content: center; }
+.hero__mockup { margin-top: clamp(48px, 7vw, 96px); display: flex; flex-direction: column; align-items: center; }
 .laptop { width: min(760px, 100%); }
 .laptop__screen {
   border-radius: 18px 18px 4px 4px; padding: 14px;
@@ -220,6 +220,24 @@ img { max-width: 100%; display: block; }
 }
 .laptop__base { height: 16px; border-radius: 0 0 16px 16px; background: linear-gradient(180deg, #1a2138, #0c1122); border: 1px solid var(--glass-border-soft); position: relative; }
 .laptop__base::after { content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 90px; height: 6px; border-radius: 0 0 8px 8px; background: rgba(255,255,255,0.10); }
+
+/* Кнопка «Смотреть демо» под мокапом — в стиле кнопки «Вернуться к задаче» внутри мокапа */
+.demo { margin-top: 36px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+.demo__btn {
+  display: inline-flex; align-items: center; gap: 10px; padding: 16px 28px; border-radius: 14px;
+  font-family: var(--font-display); font-size: 17px; font-weight: 600; color: #06122e; text-decoration: none;
+  background: linear-gradient(90deg, var(--accent), var(--cyan));
+  box-shadow: 0 10px 36px -10px rgba(56,224,255,0.65);
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.demo__btn span { transition: transform 0.2s var(--ease); }
+.demo__btn:active { transform: scale(0.97); }
+.demo__btn:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .demo__btn:hover { transform: translateY(-2px); box-shadow: 0 16px 44px -10px rgba(56,224,255,0.8); }
+  .demo__btn:hover span { transform: translate(2px, -2px); }
+}
+.demo__note { margin: 0; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; color: var(--fg-dim); }
 
 .app { border-radius: 12px; background: linear-gradient(180deg, #0b1024, #070a17); border: 1px solid var(--glass-border-soft); padding: clamp(16px, 2.4vw, 26px); min-height: 260px; }
 .app__top { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }

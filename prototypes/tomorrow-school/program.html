@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tomorrow School — Программа обучения</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Manrope:wght@400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --text: #fafafa;
+    --text-muted: #b0b4ba;
+    --text-dim: rgba(250, 250, 250, 0.4);
+    --accent: #38abff;
+    --accent-deep: #0087ff;
+    --nav-active: #97cfff;
+    --done: #a3e635;
+    --glass: rgba(94, 129, 151, 0.2);
+    --glass-edge: rgba(255, 255, 255, 0.14);
+    --bg-from: #031026;
+    --bg-to: #274761;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: linear-gradient(to bottom left, var(--bg-from), var(--bg-to));
+    color: var(--text);
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* Холст 1440×1024 как во фрейме Figma */
+  .viewport { position: relative; width: 100%; overflow: hidden; }
+  .stage {
+    position: absolute; top: 0; left: 0;
+    width: 1440px; height: 1024px;
+    transform-origin: 0 0; overflow: hidden;
+    background: var(--bg-from);
+  }
+  .stage > .grad {
+    position: absolute; left: 0; top: 0;
+    width: 1024px; height: 1024px;
+    transform: scaleX(1.40625); transform-origin: 0 0;
+    background: linear-gradient(225deg, var(--bg-from), var(--bg-to));
+  }
+  .abs { position: absolute; }
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    box-shadow: inset 0 0 0 1px var(--glass-edge);
+  }
+  /* Обводка из Figma: 1px inside, белый линейный градиент 60% → 40% → 0 → 0 → 40% → 60%.
+     Градиент задан в нормализованных координатах фрейма, поэтому рисуем его SVG-картинкой,
+     растянутой на весь блок (preserveAspectRatio=none), и оставляем только рамку через mask. */
+  .edge { --bw: 1px; }
+  .edge::before {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    border-radius: inherit; padding: var(--bw); pointer-events: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0.1277' y1='-0.0155' x2='1' y2='1.0227'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.6'/%3E%3Cstop offset='.0856' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='.1948' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.7837' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.9006' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='.6'/%3E%3C/linearGradient%3E%3Crect width='1' height='1' fill='url(%23g)'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+    -webkit-mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  }
+  /* Карточки (.spin): градиент обводки из Figma медленно вращается по часовой стрелке (оборот 30 с).
+     Вращение задано SMIL-анимацией внутри SVG, растянутого на карточку, поэтому в начальный
+     момент блики стоят точно как в макете, а на широких блоках движутся пропорционально. */
+  .spin.edge::before {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0.1277' y1='-0.0155' x2='1' y2='1.0227'%3E%3CanimateTransform attributeName='gradientTransform' type='rotate' from='0 .5 .5' to='360 .5 .5' dur='30s' repeatCount='indefinite'/%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.6'/%3E%3Cstop offset='.0856' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='.1948' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.7837' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.9006' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='.6'/%3E%3C/linearGradient%3E%3Crect width='1' height='1' fill='url(%23g)'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+  }
+  /* без анимации — статичная обводка из макета */
+  @media (prefers-reduced-motion: reduce) { .spin.edge::before { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0.1277' y1='-0.0155' x2='1' y2='1.0227'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.6'/%3E%3Cstop offset='.0856' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='.1948' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.7837' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.9006' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='.6'/%3E%3C/linearGradient%3E%3Crect width='1' height='1' fill='url(%23g)'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; } }
+  .ic { display: block; flex: none; }
+
+  /* ── Header ── */
+  .topbar {
+    left: 0; top: 0; width: 1440px; height: 72px; padding: 16px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 100px; }
+  .nav { display: flex; align-items: center; gap: 16px; }
+  .nav a {
+    display: flex; align-items: center; height: 28px; padding: 4px 12px; border-radius: 8px;
+    font-size: 14px; line-height: 20px; transition: background .2s;
+  }
+  .nav a:hover { background: rgba(151, 207, 255, 0.12); }
+  .nav a.active {
+    color: var(--nav-active); background: rgba(151, 207, 255, 0.3);
+    backdrop-filter: blur(4px); position: relative;
+  }
+  .topbar-right { display: flex; align-items: center; gap: 20px; }
+  .timer {
+    position: relative; background: rgba(94, 129, 151, 0.2);
+    height: 40px; padding: 8px 16px; border-radius: 24px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-size: 16px; line-height: 24px;
+  }
+  .timer-day { color: var(--text-muted); }
+  .timer-time { min-width: 64px; font-variant-numeric: tabular-nums; }
+  .avatar-sm { width: 40px; height: 40px; border-radius: 50%; display: block; }
+
+  /* ── Title bar ── */
+  .titlebar {
+    left: 0; top: 72px; width: 1440px; height: 72px; padding: 16px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .title { font-family: "Manrope", sans-serif; font-weight: 600; font-size: 32px; line-height: 40px; }
+  .dates { display: flex; align-items: center; gap: 16px; font-size: 16px; line-height: 24px; }
+  .badge {
+    height: 28px; padding: 4px 8px; border-radius: 8px;
+    background: rgba(245, 158, 11, 0.1);
+    backdrop-filter: blur(5px);
+    color: #fbbf24; font-size: 14px; line-height: 20px;
+  }
+
+  /* ── Student card ── */
+  .student {
+    left: 32px; top: 400px; width: 184px; height: 184px;
+    padding: 28px 16px; border-radius: 24px;
+    /* новый стиль карточек: 6% заливка, градиентная обводка (.edge), тень, размытие и лёгкий шум */
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.4' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='discrete' tableValues='0 0 0 0 0 0 .05 .05 0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"), rgba(94, 129, 151, 0.06);
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+  }
+  .student-top { display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .student-top img { width: 64px; height: 64px; border-radius: 50%; display: block; }
+  .level-pill {
+    margin-top: -4px; position: relative;
+    padding: 0 12px; border-radius: 8px;
+    background: #5e8197;
+    font-size: 16px; line-height: 28px; white-space: nowrap;
+  }
+  .student-name { font-size: 20px; line-height: 28px; }
+  .student-stub {
+    left: 216px; top: 468px; width: 4px; height: 52px;
+    background: rgba(250, 250, 250, 0.2); border-radius: 0 2px 2px 0;
+  }
+
+  /* ── Weeks ── */
+  .week {
+    position: absolute; left: 494px; width: 130px; height: 40px;
+    --c: var(--done); --bg: rgba(0, 161, 41, 0.2); --stub: rgba(0, 161, 41, 0.2);
+  }
+  .week .label {
+    position: absolute; left: 2px; top: 0; width: 124px; height: 40px;
+    padding: 4px 16px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg); color: var(--c);
+    backdrop-filter: blur(4px);
+    font-size: 20px; line-height: 32px; white-space: nowrap;
+  }
+  .week::before, .week::after {
+    content: ""; position: absolute; top: 16px; width: 2px; height: 8px; background: var(--stub);
+  }
+  .week::before { left: 0; border-radius: 2px 0 0 2px; }
+  .week::after { left: 126px; border-radius: 0 2px 2px 0; }
+  .week.current { --c: #97cfff; --bg: rgba(56, 171, 255, 0.24); }
+  .week.locked { --c: var(--text-dim); --bg: rgba(94, 129, 151, 0.2); --stub: rgba(94, 129, 151, 0.2); }
+
+  /* ── Tracks ── */
+  .track { position: absolute; left: 624px; height: 80px; display: flex; }
+  .link { position: relative; width: 32px; height: 80px; flex: none; }
+  .link::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 24px; height: 1px;
+    background: var(--done);
+  }
+  .link.off::before { background: rgba(250, 250, 250, 0.2); }
+  .link:first-child::before { left: -2px; } /* стыкуем с коннектором плашки недели */
+  .node {
+    width: 96px; flex: none;
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+    color: var(--done); font-size: 14px; line-height: 20px; text-align: center;
+  }
+  .node img { display: block; transition: transform .25s ease, filter .25s ease; }
+  .node.raid { gap: 12px; }
+  .node.raid img { height: 44px; object-fit: contain; }
+  .node.now { color: var(--text); }
+  .node.off { color: var(--text-dim); }
+  a.node { cursor: pointer; }
+  a.node:hover img { transform: scale(1.08); filter: drop-shadow(0 4px 12px rgba(163, 230, 53, 0.35)); }
+  a.node.now:hover img { filter: drop-shadow(0 4px 12px rgba(56, 171, 255, 0.45)); }
+
+  /* ── Карточка Quest 9 (шаблон Figma SkillsSection) ── */
+  .qcard {
+    left: 232px; top: 160px; width: 536px; z-index: 20; border-radius: 24px; overflow: hidden;
+    /* стекло: полупрозрачный фон + размытие и насыщенность подложки */
+    background: rgba(94, 129, 151, 0.12);
+    backdrop-filter: blur(24px) saturate(140%); -webkit-backdrop-filter: blur(24px) saturate(140%);
+    box-shadow: 0 16px 40px rgba(3, 16, 38, 0.32);
+    transform-origin: 100% 50%;
+  }
+  .qcard[hidden] { display: none; }
+  .qcard.show { animation: qcard-in .2s ease; }
+  @keyframes qcard-in { from { opacity: 0; transform: translateX(8px) scale(.98); } }
+  .qcard-head { padding: 20px; background: rgba(3, 16, 38, 0.2); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .qcard-status { flex: none; padding: 4px 8px; border-radius: 8px; font-size: 14px; line-height: 20px; }
+  .qcard-status.done { background: rgba(163, 230, 53, 0.12); color: #a3e635; }
+  .qcard-status.now { background: rgba(56, 171, 255, 0.2); color: #97cfff; }
+  .qcard-status.locked { background: rgba(250, 250, 250, 0.08); color: var(--text-dim); }
+  .qcard-head h2, .qcard h3 { font-family: "Manrope", sans-serif; font-weight: 400; font-size: 20px; line-height: 28px; }
+  .qcard-body { padding: 20px; background: rgba(3, 16, 38, 0.2); display: flex; flex-direction: column; gap: 32px; }
+  .qcard-progress { display: flex; flex-direction: column; gap: 12px; }
+  .qcard-row { display: flex; justify-content: space-between; font-size: 16px; line-height: 24px; }
+  .qcard-segs { display: flex; gap: 4px; height: 16px; }
+  .qcard-segs i { flex: 1; border-radius: 4px; background: rgba(250, 250, 250, 0.16); overflow: hidden; }
+  .qcard-segs b { display: block; height: 100%; border-radius: 4px; background: #a3e635; }
+  .qcard-block { display: flex; flex-direction: column; gap: 16px; }
+  .qcard-list { padding-left: 24px; list-style: disc; font-size: 16px; line-height: 24px; color: var(--text-muted); }
+  .qcard-list code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 14px; line-height: 1; color: #e6e8ea; }
+  .qcard-alert { display: flex; gap: 16px; padding: 12px 16px; border-radius: 12px; background: rgba(202, 138, 4, 0.2); }
+  .qcard-alert img { flex: none; }
+  .qcard-alert-title { font-family: "Open Sans", sans-serif; font-weight: 600; font-size: 16px; line-height: 24px; color: #facc15; }
+  .qcard-alert ul { margin-top: 4px; padding-left: 16px; list-style: disc; font-family: "Open Sans", sans-serif; font-size: 14px; line-height: 20px; color: #fef9c3; }
+
+  /* ── CTA ── */
+  .cta {
+    left: 496px; top: 884px; width: 912px; height: 88px; padding: 16px; border-radius: 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    background: rgba(94, 129, 151, 0.06); --bw: 1.5px;
+  }
+  .cta-text { width: 280px; display: flex; flex-direction: column; gap: 8px; }
+  .cta-label { font-size: 14px; line-height: 20px; color: var(--text-muted); }
+  .cta-quest { font-size: 20px; line-height: 28px; }
+  .btn {
+    width: 256px; height: 48px; padding: 12px 24px; border-radius: 12px; border: 0;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    background: var(--accent);
+    color: var(--text); font: inherit; font-size: 16px; letter-spacing: -0.32px; text-decoration: none;
+    cursor: pointer; transition: filter .2s, transform .2s;
+  }
+  .btn:hover { filter: brightness(1.08); }
+  .btn:active { transform: translateY(1px); }
+
+  /* ── Модальное окно «Вы открыли новый навык» (макет Figma 5162:54330) ──
+     Появляется через 3 с после открытия страницы. Слои экспортированы из макета (assets/md-*.png)
+     и стоят в тех же координатах холста 1440×1024; каждый слой анимируется отдельно. */
+  .md { position: absolute; inset: 0; z-index: 50; overflow: hidden; }
+  .md[hidden] { display: none; }
+  .md:focus { outline: none; }
+  .md-scrim {
+    position: absolute; inset: 0; background: rgba(3, 16, 38, 0.6);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  }
+  .md-layer { position: absolute; display: block; pointer-events: none; }
+  .md-bg { left: 0; top: 0; width: 1440px; height: 1024px; }
+  .md-band { left: 166px; top: 399.47px; width: 1108px; height: 221.78px; }
+  .md-glow { left: 512.61px; top: 290.09px; width: 414.77px; height: 441.81px; }
+  .md-hex { left: 611px; top: 389.91px; width: 225.99px; height: 250.18px; }
+  .md-hex-stroke { left: 623px; top: 401.91px; width: 193.99px; height: 218.18px; }
+  .md-star { left: 672.59px; top: 464.59px; width: 94.82px; height: 94.82px; }
+  .md-title {
+    position: absolute; left: 291px; top: 241px; width: 857px; height: 82px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Helvetica Neue", Inter, sans-serif; font-size: 32px; line-height: 40px; font-weight: 400; color: #a3e635; isolation: isolate;
+  }
+  .md-title::before { /* заливка: градиент 20% и линии сверху/снизу */
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background:
+      linear-gradient(90deg, rgba(34,60,84,0), #a3e635 50%, rgba(34,60,84,0)) top / 100% 1px no-repeat,
+      linear-gradient(90deg, rgba(34,60,84,0), #a3e635 50%, rgba(34,60,84,0)) bottom / 100% 1px no-repeat,
+      linear-gradient(90deg, rgba(36,64,88,0) 7%, rgba(163,230,53,0.2) 36%, rgba(163,230,53,0.2) 64%, rgba(36,64,88,0) 93%);
+  }
+  .md-line {
+    position: absolute; left: 282px; top: 698px; width: 876px; height: 2px; opacity: 0.3;
+    background: linear-gradient(90deg, rgba(3,16,38,0), #fafafa 50%, rgba(3,16,38,0));
+  }
+  /* подпись, описание и кнопки под линией: заголовок 20/28, описание 16/24, кнопки 48 */
+  .md-info {
+    position: absolute; left: 400px; top: 724px; width: 640px;
+    display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;
+  }
+  /* иерархия: заголовок Manrope 24/32 → итог 16/24 → пояснение 14/20 приглушённое; группы разделены отступами 12, 4 и 32 */
+  .md-text { font-family: "Manrope", sans-serif; font-weight: 600; font-size: 24px; line-height: 32px; letter-spacing: -0.24px; color: #fafafa; }
+  .md-desc { font-size: 16px; line-height: 24px; color: #b0b4ba; }
+  .md-desc span { display: block; white-space: nowrap; } /* строка 1 — что пройдено, строка 2 — что теперь умеете */
+  .md-desc span:first-child { font-size: 16px; line-height: 24px; color: #e4e4e7; } /* что пройдено — светлее */
+  .md-desc span + span { margin-top: 4px; font-size: 14px; line-height: 20px; } /* что теперь умеете */
+  .md-quest { font-weight: inherit; color: #a3e635; } /* названия квестов — зелёным, как в книге навыков */
+  .md-actions { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 20px; } /* 12 + 20 = 32 до кнопок */
+  .md-actions .btn { width: auto; }
+  .md-later {
+    height: 48px; padding: 12px 24px; border: 0; border-radius: 12px; cursor: pointer;
+    background: rgba(94, 129, 151, 0.2); color: var(--text); font: inherit; font-size: 16px; letter-spacing: -0.32px;
+    transition: background .2s;
+  }
+  .md-later:hover { background: rgba(94, 129, 151, 0.35); }
+  .md-close {
+    position: absolute; left: 1352px; top: 64px; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 50%;
+    background: none; cursor: pointer; transition: transform .2s ease;
+  }
+  .md-close:hover { transform: scale(1.12); }
+  .md-close:focus-visible { outline: 2px solid #38abff; outline-offset: 2px; }
+  .md-close svg { display: block; }
+
+  /* Анимация появления: фон и размытие → полоса с узором раскрывается от центра → вспышка свечения →
+     шестиугольник «выпрыгивает» → звезда проворачивается → плашка с названием, линия и подпись */
+  .md.open .md-scrim { animation: md-fade .5s ease both; }
+  .md.open .md-bg { animation: md-fade 1s ease .1s both; }
+  .md.open .md-band { animation: md-wipe .9s cubic-bezier(.2,.8,.2,1) .35s both; }
+  .md.open .md-glow { animation: md-glow 1s ease .45s both; }
+  .md.open .md-hex, .md.open .md-hex-stroke { animation: md-pop .7s cubic-bezier(.34,1.56,.64,1) .45s both; }
+  /* праздничная часть остаётся, но текст и кнопки догоняют её быстрее: действия доступны примерно через 1,2 с */
+  .md.open .md-star { animation: md-star .7s cubic-bezier(.34,1.56,.64,1) .6s both, md-pulse 2.4s ease-in-out 1.5s infinite; }
+  .md.open .md-title { animation: md-bar .5s cubic-bezier(.23,1,.32,1) .7s both; }
+  .md.open .md-line { animation: md-line .5s cubic-bezier(.23,1,.32,1) .8s both; }
+  .md.open .md-text { animation: md-rise .4s cubic-bezier(.23,1,.32,1) .85s both; }
+  .md.open .md-desc { animation: md-rise .4s cubic-bezier(.23,1,.32,1) .9s both; }
+  .md.open .md-actions { animation: md-rise .4s cubic-bezier(.23,1,.32,1) .8s both; }
+  .md.open .md-close { animation: md-fade .3s ease .8s both; }
+  .md.closing { animation: md-fade .3s ease reverse both; }
+  @keyframes md-fade { from { opacity: 0; } }
+  @keyframes md-wipe { from { clip-path: inset(0 50%); opacity: 0; } }
+  @keyframes md-glow { from { opacity: 0; transform: scale(.4); } 60% { opacity: 1; transform: scale(1.08); } }
+  @keyframes md-pop { from { opacity: 0; transform: scale(.4); } }
+  @keyframes md-star { from { opacity: 0; transform: scale(.6) rotate(-90deg); } }
+  @keyframes md-pulse { 50% { transform: scale(1.08); filter: drop-shadow(0 0 12px rgba(209, 254, 23, 0.6)); } }
+  @keyframes md-bar { from { opacity: 0; transform: scaleX(.3); } }
+  @keyframes md-line { from { opacity: 0; transform: scaleX(0); } }
+  @keyframes md-rise { from { opacity: 0; transform: translateY(12px); } }
+  @media (prefers-reduced-motion: reduce) {
+    .md.open *, .md.open .md-scrim { animation: md-fade .3s ease both !important; }
+  }
+</style>
+</head>
+<body>
+<div class="viewport" id="viewport">
+  <div class="stage" id="stage">
+    <div class="grad"></div>
+
+    <!-- Header -->
+    <header class="abs topbar">
+      <div class="topbar-left">
+        <a href="index.html"><img class="ic" src="assets/logo.svg" width="100" height="32" alt="Tomorrow School"></a>
+        <nav class="nav">
+          <a href="index.html">Главная</a>
+          <a href="program.html" class="active edge spin" aria-current="page">Программа обучения</a>
+          <a href="skills.html">Книга навыков</a>
+        </nav>
+      </div>
+      <div class="topbar-right">
+        <div class="timer edge spin" role="timer" aria-label="Учебное время за сегодня, пятница">
+          <span class="timer-day">Пт</span>
+          <img class="ic" src="assets/pg-timer.svg" width="24" height="24" alt="">
+          <time class="timer-time" datetime="PT0H0M0S" aria-label="Время за сегодня">0:00:00</time>
+        </div>
+        <img class="avatar-sm" src="assets/avatar-header.png" alt="Профиль">
+      </div>
+    </header>
+
+    <!-- Title -->
+    <div class="abs titlebar">
+      <h1 class="title">Go</h1>
+      <div class="dates">
+        <span>25 Ноября 2026 - 21 Декабря 2026</span>
+        <span class="badge">В процессе</span>
+      </div>
+    </div>
+
+    <!-- Student -->
+    <div class="abs student edge spin">
+      <div class="student-top">
+        <img src="assets/pg-avatar64.png" alt="Данияр">
+        <span class="level-pill">Уровень 30/100</span>
+      </div>
+      <span class="student-name">Данияр</span>
+    </div>
+    <div class="abs student-stub"></div>
+
+    <!-- Connecting curves -->
+    <img class="abs" src="assets/curve-1.svg" width="273" height="239" style="left:220px;top:238.5px" alt="">
+    <img class="abs" src="assets/curve-2.svg" width="273" height="78" style="left:220px;top:412.5px" alt="">
+    <img class="abs" src="assets/curve-3.svg" width="273" height="78" style="left:220px;top:495.5px" alt="">
+    <img class="abs" src="assets/curve-4.svg?v=2" width="273" height="234" style="left:220px;top:507.5px" alt="">
+
+    <!-- Weeks -->
+    <div class="week" style="top:220px"><span class="label edge spin">Неделя 1</span></div>
+    <div class="week" style="top:392px"><span class="label edge spin">Неделя 2</span></div>
+    <div class="week current" style="top:552px"><span class="label edge spin">Неделя 3</span></div>
+    <div class="week locked" style="top:720px"><span class="label edge spin">Неделя 4</span></div>
+
+    <!-- Week 1 -->
+    <div class="track" style="top:216px">
+      <i class="link"></i><a href="#" class="node" data-q="quest-01"><img src="assets/node-done.svg" width="44" height="44" alt="">Quest 1</a>
+      <i class="link"></i><a href="#" class="node" data-q="quest-02"><img src="assets/node-done.svg" width="44" height="44" alt="">Quest 2</a>
+      <i class="link"></i><a href="#" class="node" data-q="quest-03"><img src="assets/node-done.svg" width="44" height="44" alt="">Quest 3</a>
+      <i class="link"></i><a href="#" class="node raid" data-q="quad"><img src="assets/node-raid-done.svg" width="40" height="43" alt="">Quad</a>
+      <i class="link"></i><a href="#" class="node" data-q="checkpoint-1"><img src="assets/node-done.svg" width="44" height="44" alt="">Checkpoint 1</a>
+      <i class="link"></i><a href="#" class="node" data-q="quadchecker-1"><img src="assets/node-done.svg" width="44" height="44" alt="">Quadchecker</a>
+    </div>
+
+    <!-- Week 2 -->
+    <div class="track" style="top:388px">
+      <i class="link"></i><a href="#" class="node" data-q="quest-04"><img src="assets/node-done.svg" width="44" height="44" alt="">Quest 4</a>
+      <i class="link"></i><a href="#" class="node" data-q="quest-05"><img src="assets/node-done.svg" width="44" height="44" alt="">Quest 5</a>
+      <i class="link"></i><a href="#" class="node" data-q="quest-06"><img src="assets/node-done.svg" width="44" height="44" alt="">Quest 6</a>
+      <i class="link"></i><a href="#" class="node" data-q="quest-07"><img src="assets/node-done.svg" width="44" height="44" alt="">Quest 7</a>
+      <i class="link"></i><a href="#" class="node raid" data-q="sudoku"><img src="assets/node-raid-done.svg" width="40" height="43" alt="">Sudoku</a>
+    </div>
+
+    <!-- Week 3 -->
+    <div class="track" style="top:548px">
+      <i class="link"></i><a href="#" class="node" data-q="quest-08"><img src="assets/node-done.svg" width="44" height="44" alt="">Quest 8</a>
+      <i class="link"></i><a href="lesson.html?from=program.html#quest-09" class="node now" data-q="quest-09"><img src="assets/node-current.png" width="44" height="44" alt="">Quest 9</a>
+      <i class="link off"></i><div class="node raid off" data-q="hakathon" tabindex="0"><img src="assets/node-hack.svg" width="40" height="43" alt="">Hakathon</div>
+      <i class="link off"></i><div class="node raid off" data-q="quadchecker-3" tabindex="0"><img src="assets/node-raid-locked.svg" width="40" height="43" alt="">Quadchecker</div>
+    </div>
+
+    <!-- Week 4 -->
+    <div class="track" style="top:716px">
+      <i class="link off"></i><div class="node off" data-q="quest-11" tabindex="0"><img src="assets/node-lock.svg" width="44" height="44" alt="">Quest 11</div>
+      <i class="link off"></i><div class="node off" data-q="quest-12" tabindex="0"><img src="assets/node-lock.svg" width="44" height="44" alt="">Quest 12</div>
+    </div>
+
+
+    <!-- Карточка квеста по шаблону Figma «SkillsSection» (1186:87562); данные — assets/quests.js -->
+    <section class="abs qcard edge spin" id="q-card" role="tooltip" hidden>
+      <header class="qcard-head"><h2 class="qcard-title"></h2><span class="qcard-status"></span></header>
+      <div class="qcard-body">
+        <div class="qcard-progress">
+          <div class="qcard-row"><span>Урок выполнен на</span><span class="qcard-pct"></span></div>
+          <div class="qcard-segs"></div>
+        </div>
+        <div class="qcard-block">
+          <h3>Чему научитесь:</h3>
+          <ul class="qcard-list"></ul>
+        </div>
+        <div class="qcard-block">
+          <h3>Навыки, которые вы освоите</h3>
+          <div class="qcard-skills"></div>
+        </div>
+        <div class="qcard-alert">
+          <img src="assets/qp-warning.svg" width="24" height="24" alt="">
+          <div>
+            <p class="qcard-alert-title">Требования:</p>
+            <ul class="qcard-req"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="abs cta edge spin">
+      <div class="cta-text">
+        <span class="cta-label">Вы остановились на</span>
+        <span class="cta-quest">Go Quest 9</span>
+      </div>
+      <a class="btn" href="lesson.html?from=program.html">
+        Продолжить обучение
+        <img class="ic" src="assets/ic-arrow.svg" width="24" height="24" alt="">
+      </a>
+    </section>
+    <!-- Модальное окно «Новый навык получен» (Figma 5162:54330), появляется через 3 с -->
+    <div class="md" id="skill-modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="md-title" aria-describedby="md-text" hidden>
+      <div class="md-scrim" data-close></div>
+      <img class="md-layer md-bg" src="assets/md-bg.png" alt="">
+      <img class="md-layer md-band" src="assets/md-band.png" alt="">
+      <img class="md-layer md-glow" src="assets/md-hex-glow.png" alt="">
+      <img class="md-layer md-hex" src="assets/md-hex.png" alt="">
+      <img class="md-layer md-star" src="assets/md-star.png" alt="">
+      <img class="md-layer md-hex-stroke" src="assets/md-hex-stroke.png" alt="">
+      <h2 class="md-title" id="md-title">Основы синтаксиса</h2>
+      <i class="md-line" aria-hidden="true"></i>
+      <div class="md-info">
+        <h3 class="md-text">Новый навык получен!</h3>
+        <p class="md-desc" id="md-text"><span>Вы прошли <b class="md-quest">Quest 02</b>, <b class="md-quest">Quest 03</b> и <b class="md-quest">Checkpoint 1</b>.</span> <span>Теперь вы пишете на Go с нуля: пакеты, переменные, условия, циклы и функции.</span></p>
+        <div class="md-actions">
+          <a class="btn" href="skills.html?skill=0">Смотреть в книге навыков<img class="ic" src="assets/ic-arrow.svg" width="24" height="24" alt=""></a>
+          <button class="md-later" type="button">Позже</button>
+        </div>
+      </div>
+      <button class="md-close" type="button" aria-label="Закрыть">
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#fafafa"/><path d="M9.17 14.83l5.66-5.66M14.83 14.83L9.17 9.17" stroke="#0b1b32" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/skills.js"></script>
+<script src="assets/quests.js"></script>
+<script src="assets/timer.js"></script>
+<script src="assets/notifications.js"></script>
+<script>
+  // Вписывает холст 1440×1024 в окно; на узких экранах — по ширине с вертикальной прокруткой
+  (function () {
+    const vp = document.getElementById('viewport');
+    const stage = document.getElementById('stage');
+    function fit() {
+      const scale = Math.min(window.innerWidth / 1440, window.innerHeight / 1024) || 1;
+      const k = window.innerWidth < 1000 ? window.innerWidth / 1440 : scale;
+      stage.style.transform = 'scale(' + k + ')';
+      stage.style.left = Math.max(0, (window.innerWidth - 1440 * k) / 2) + 'px';
+      vp.style.height = Math.max(window.innerHeight, 1024 * k) + 'px';
+    }
+    fit();
+    window.addEventListener('resize', fit);
+  })();
+</script>
+<script>
+  window.REVEAL = [
+    ['.topbar-left > *, .topbar-right > *', 0, 40],
+    ['.titlebar > *', 60, 40],
+    ['.student', 120, 0, 'pop'],
+    ['.student-stub', 180],
+    ['img[src*="curve-"]', 200, 50, 'wipe'],
+    ['.week', 260, 50],
+    ['.track > *', 320, 20, 'pop'],
+    ['.cta', 480]
+  ];
+</script>
+<script>
+  // Модалка «Новый навык получен»: через 3 с после перехода на страницу; «Смотреть в книге навыков» открывает навык
+  // в книге, «Позже», крестик, клик по фону или Esc закрывают
+  (function () {
+    const modal = document.getElementById('skill-modal');
+    const closeBtn = modal.querySelector('.md-close');
+    const goBtn = modal.querySelector('.md-actions .btn');
+    const focusables = [goBtn, modal.querySelector('.md-later'), closeBtn];
+    let lastFocus;
+    function open() {
+      lastFocus = document.activeElement;
+      modal.hidden = false;
+      modal.classList.remove('closing');
+      modal.classList.add('open');
+      // фокус на само окно, а не на кнопку — без обводки; Tab переходит к кнопкам
+      modal.focus({ preventScroll: true });
+    }
+    function close() {
+      if (modal.hidden || modal.classList.contains('closing')) return;
+      modal.classList.add('closing');
+      setTimeout(() => {
+        modal.hidden = true;
+        modal.classList.remove('open', 'closing');
+        if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+      }, 300);
+    }
+    closeBtn.addEventListener('click', close);
+    modal.querySelector('.md-later').addEventListener('click', close);
+    modal.querySelector('[data-close]').addEventListener('click', close);
+    document.addEventListener('keydown', e => {
+      if (modal.hidden) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'Tab') { // фокус ходит по кнопкам модалки
+        e.preventDefault();
+        const i = focusables.indexOf(document.activeElement);
+        focusables[(i + (e.shiftKey ? -1 : 1) + focusables.length) % focusables.length].focus();
+      }
+    });
+    setTimeout(open, 3000);
+  })();
+</script>
+<script src="assets/reveal.js"></script>
+</body>
+</html>

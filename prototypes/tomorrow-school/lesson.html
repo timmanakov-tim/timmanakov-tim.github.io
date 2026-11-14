@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tomorrow School — Quest 09</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Manrope:wght@400;500&family=Open+Sans:wght@400&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --text: #fafafa;
+    --text-muted: #b0b4ba;
+    --text-dim: rgba(250, 250, 250, 0.4);
+    --accent: #38abff;
+    --line: rgba(250, 250, 250, 0.24);
+    --glass-edge: rgba(255, 255, 255, 0.14);
+    --bg-from: #031026;
+    --bg-to: #274761;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: linear-gradient(to bottom left, var(--bg-from), var(--bg-to));
+    color: var(--text); font-family: "Inter", system-ui, sans-serif; font-weight: 400;
+    overflow-x: hidden; -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+  /* Холст 1440×1080 как во фрейме Figma */
+  .viewport { position: relative; width: 100%; overflow: hidden; }
+  .stage {
+    position: absolute; top: 0; left: 0; width: 1440px; height: 1080px;
+    transform-origin: 0 0; overflow: hidden;
+  }
+  .stage > .grad {
+    position: absolute; left: 0; top: 0; width: 1080px; height: 1080px;
+    transform: scaleX(1.33333); transform-origin: 0 0;
+    background: linear-gradient(225deg, var(--bg-from), var(--bg-to));
+  }
+  .abs { position: absolute; }
+  .ic { display: block; flex: none; }
+  /* Обводка из Figma: 1px inside, белый линейный градиент 60% → 40% → 0 → 0 → 40% → 60%.
+     Градиент задан в нормализованных координатах фрейма, поэтому рисуем его SVG-картинкой,
+     растянутой на весь блок (preserveAspectRatio=none), и оставляем только рамку через mask. */
+  .edge { --bw: 1px; }
+  .edge::before {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    border-radius: inherit; padding: var(--bw); pointer-events: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0.1277' y1='-0.0155' x2='1' y2='1.0227'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.6'/%3E%3Cstop offset='.0856' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='.1948' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.7837' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.9006' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='.6'/%3E%3C/linearGradient%3E%3Crect width='1' height='1' fill='url(%23g)'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+    -webkit-mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  }
+  /* Карточки (.spin): градиент обводки из Figma медленно вращается по часовой стрелке (оборот 30 с).
+     Вращение задано SMIL-анимацией внутри SVG, растянутого на карточку, поэтому в начальный
+     момент блики стоят точно как в макете, а на широких блоках движутся пропорционально. */
+  .spin.edge::before {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0.1277' y1='-0.0155' x2='1' y2='1.0227'%3E%3CanimateTransform attributeName='gradientTransform' type='rotate' from='0 .5 .5' to='360 .5 .5' dur='30s' repeatCount='indefinite'/%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.6'/%3E%3Cstop offset='.0856' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='.1948' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.7837' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.9006' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='.6'/%3E%3C/linearGradient%3E%3Crect width='1' height='1' fill='url(%23g)'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+  }
+  /* без анимации — статичная обводка из макета */
+  @media (prefers-reduced-motion: reduce) { .spin.edge::before { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0.1277' y1='-0.0155' x2='1' y2='1.0227'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.6'/%3E%3Cstop offset='.0856' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='.1948' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.7837' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.9006' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='.6'/%3E%3C/linearGradient%3E%3Crect width='1' height='1' fill='url(%23g)'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; } }
+
+  /* ── Top bar ── */
+  .topbar {
+    left: 0; top: 0; width: 1440px; height: 72px; padding: 16px 40px;
+    border-bottom: 1px solid rgba(250, 250, 250, 0.3);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .back { display: flex; align-items: center; gap: 16px; font-size: 20px; line-height: 28px; letter-spacing: 0.1px; }
+  .back img { transition: transform .2s; }
+  .back:hover img { transform: translateX(-3px); }
+  .topbar-right { display: flex; align-items: center; gap: 20px; }
+  .timer {
+    position: relative; height: 40px; padding: 8px 16px; border-radius: 24px;
+    background: rgba(94, 129, 151, 0.2);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-size: 16px; line-height: 24px;
+  }
+  .timer-day { color: var(--text-muted); }
+  .timer-time { min-width: 64px; font-variant-numeric: tabular-nums; }
+  .icon-btn {
+    position: relative; width: 40px; height: 40px; padding: 8px; border-radius: 24px;
+    background: rgba(94, 129, 151, 0.2); transition: background .2s;
+  }
+  .icon-btn:hover, .icon-btn[aria-expanded="true"] { background: rgba(94, 129, 151, 0.35); }
+
+  .avatar-sm { width: 40px; height: 40px; border-radius: 50%; display: block; }
+
+  /* ── Columns ── */
+  /* Ширины боковых колонок: свёрнутая колонка сужается до полосы 64px, «Задание» растягивается */
+  @property --toc-w { syntax: "<length>"; inherits: true; initial-value: 340px; }
+  @property --side-w { syntax: "<length>"; inherits: true; initial-value: 340px; }
+  /* ширина панелей меняет вёрстку на каждом кадре, поэтому анимация короткая — 300 мс */
+  .stage { --toc-w: 340px; --side-w: 340px; transition: --toc-w .3s cubic-bezier(.23,1,.32,1), --side-w .3s cubic-bezier(.23,1,.32,1); }
+  .stage.toc-closed { --toc-w: 64px; }
+  .stage.side-closed { --side-w: 64px; }
+  .stage.no-anim, .stage.no-anim * { transition: none !important; }
+  .col { position: absolute; top: 72px; height: 1008px; display: flex; flex-direction: column; overflow: hidden; }
+  .fold { transition: opacity .25s ease, visibility .25s; }
+  .toc-closed .toc .fold, .side-closed .side .fold { opacity: 0; visibility: hidden; pointer-events: none; }
+  .fold-title { white-space: nowrap; overflow: hidden; max-width: 260px; transition: max-width .3s cubic-bezier(.23,1,.32,1), opacity .25s; }
+  .toc-closed .toc .fold-title, .side-closed .side .fold-title { max-width: 0; opacity: 0; }
+  .col-head {
+    height: 56px; flex: none; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: "Manrope", sans-serif; font-size: 20px; line-height: 28px;
+  }
+  .panel-toggle { opacity: .9; transition: opacity .2s, transform .3s cubic-bezier(.23,1,.32,1); }
+  .toc-closed .toc .panel-toggle, .side-closed .side .panel-toggle { transform: rotate(180deg); }
+  .panel-toggle:hover { opacity: 1; }
+
+  /* Содержание */
+  .toc { left: 0; width: var(--toc-w); border-right: 1px solid var(--line); }
+  .toc .col-head { width: calc(var(--toc-w) - 1px); padding: 0 16px 0 40px; transition: padding .3s cubic-bezier(.23,1,.32,1); }
+  .toc-closed .toc .col-head { padding: 0 24px; }
+  .toc-list { padding: 16px 16px 16px 40px; display: flex; flex-direction: column; gap: 4px; }
+  .lesson-item {
+    width: 283px; height: 40px; padding: 8px 16px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: "Open Sans", sans-serif; font-size: 16px; line-height: 24px; letter-spacing: -0.32px;
+  }
+  a.lesson-item { transition: background .2s; }
+  a.lesson-item:hover { background: rgba(56, 171, 255, 0.1); }
+  .lesson-item.current {
+    position: relative;
+    background: rgba(56, 171, 255, 0.24);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  }
+  .lesson-item.locked { color: var(--text-dim); cursor: not-allowed; text-align: left; }
+  .lesson-item.locked:hover { background: rgba(250, 250, 250, 0.04); }
+  .lesson-item.locked.shake img { animation: lock-shake .45s ease; }
+  @keyframes lock-shake { 20%, 60% { transform: rotate(-14deg); } 40%, 80% { transform: rotate(14deg); } }
+  .toc nav { position: relative; }
+  .toc-hint {
+    position: absolute; left: 40px; width: 283px; padding: 8px 12px; border-radius: 8px;
+    background: rgba(3, 16, 38, 0.9); box-shadow: inset 0 0 0 1px var(--line);
+    font-size: 12px; line-height: 16px; color: var(--text-muted);
+    opacity: 0; transform: translateY(-4px); pointer-events: none;
+    transition: opacity .2s, transform .2s;
+  }
+  .toc-hint.show { opacity: 1; transform: none; }
+  .lesson-item.locked img { opacity: .4; }
+
+  /* Задание */
+  .task { left: var(--toc-w); width: calc(1440px - var(--toc-w) - var(--side-w)); }
+  .task .col-head { padding: 8px 16px; transition: border-color .2s; }
+  .task.coding .col-head { border-bottom-color: transparent; }
+  .task-body[hidden] { display: none; }
+
+  /* Шапка центрального блока по макету Figma (5134:51890): путь слева, переключатель «Задание / Code editor» справа */
+  .head-crumbs { font-family: "Open Sans", sans-serif; font-size: 14px; line-height: 20px; color: var(--text); white-space: nowrap; }
+  .head-crumbs span { color: rgba(250, 250, 250, 0.5); }
+  .view-tabs {
+    display: flex; align-items: center; gap: 4px; height: 36px; padding: 4px; border-radius: 12px;
+    background: rgba(3, 16, 38, 0.2); box-shadow: inset 0 0 0 1px rgba(250, 250, 250, 0.24);
+  }
+  .view-tabs[hidden] { display: none; }
+  .view-tab {
+    position: relative; height: 28px; padding: 4px 16px; border-radius: 8px;
+    font-family: "Open Sans", sans-serif; font-size: 14px; line-height: 20px; color: var(--text);
+    transition: background .2s;
+  }
+  .view-tab:hover { background: rgba(250, 250, 250, 0.08); }
+  .view-tab[aria-selected="true"] { background: rgba(56, 171, 255, 0.24); }
+
+  /* Code editor: фон #262626, Roboto Mono 12/20, номера строк 60%, подсветка как в макете */
+  .code-editor {
+    flex: 1; min-height: 0; overflow: auto; background: #262626;
+    font-family: "Roboto Mono", ui-monospace, monospace; font-size: 12px; line-height: 20px; color: var(--text);
+    scrollbar-width: thin; scrollbar-color: rgba(250,250,250,.2) transparent;
+  }
+  .code-editor[hidden] { display: none; }
+  .ce-scroll { display: flex; gap: 16px; padding: 16px; min-height: 100%; min-width: max-content; }
+  .ce-lines { flex: none; width: 20px; margin: 0; font: inherit; text-align: right; color: rgba(250, 250, 250, 0.6); user-select: none; }
+  .ce-area { position: relative; flex: 1; min-width: 0; }
+  .ce-hl, .ce-input { margin: 0; padding: 0; border: 0; font: inherit; letter-spacing: 0; white-space: pre; tab-size: 4; }
+  .ce-hl { pointer-events: none; }
+  .ce-input {
+    position: absolute; inset: 0; width: 100%; height: 100%; resize: none; outline: none; overflow: hidden;
+    background: none; color: transparent; caret-color: var(--text);
+  }
+  .ce-input::selection { background: rgba(56, 171, 255, 0.32); }
+  .ce-hl .c { color: rgba(250, 250, 250, 0.6); }
+  .ce-hl .k { color: #89ceff; }
+  .ce-hl .f { color: #ffd479; }
+  .ce-hl .s { color: #c3e88d; }
+  .task-body {
+    flex: 1; min-height: 0; overflow-y: auto; padding: 16px 40px 40px;
+    display: flex; flex-direction: column; gap: 32px;
+    scrollbar-width: thin; scrollbar-color: rgba(250,250,250,.2) transparent;
+  }
+
+  /* ── Задание Foreach (контент из старой платформы в стиле макета) ── */
+  .ex { display: flex; flex-direction: column; gap: 24px; font-size: 16px; line-height: 24px; }
+  .ex-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .ex-crumbs {
+    display: flex; align-items: center; gap: 8px;
+    font-family: "Open Sans", sans-serif; font-size: 14px; line-height: 20px;
+    color: var(--text-muted);
+  }
+  .ex-crumbs a { transition: color .2s; }
+  .ex-crumbs a:hover { color: var(--text); }
+  .ex-crumbs [aria-current] { color: #97cfff; }
+  .ex-status {
+    display: inline-flex; align-items: center; padding: 4px 8px; border-radius: 8px;
+    background: rgba(163, 230, 53, 0.12);
+    color: #a3e635; font-size: 12px; line-height: 16px;
+  }
+  .ex-card { position: relative; border-radius: 20px; background: rgba(94, 129, 151, 0.2); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); overflow: hidden; }
+  .ex-meta { display: flex; align-items: center; gap: 24px; padding: 16px 20px; font-size: 16px; line-height: 24px; }
+  .ex-meta-item { display: inline-flex; align-items: center; gap: 8px; }
+  .ex-meta-item img, .ex-meta-item svg { flex: none; }
+  .ex-video { position: relative; display: block; border-radius: 12px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--line); }
+  .ex-video .video { transition: transform .4s ease, filter .3s ease; }
+  .ex-video:hover .video { transform: scale(1.02); filter: brightness(.85); }
+  .ex-play {
+    position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%;
+    background: rgba(3, 16, 38, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    box-shadow: inset 0 0 0 1px rgba(250, 250, 250, 0.24); transition: transform .2s ease, background .2s ease;
+  }
+  .ex-play::after {
+    content: ""; position: absolute; left: 26px; top: 20px;
+    border-left: 20px solid #fafafa; border-top: 12px solid transparent; border-bottom: 12px solid transparent;
+  }
+  .ex-video:hover .ex-play { transform: scale(1.08); background: rgba(56, 171, 255, 0.8); }
+  .ex-card-head { width: 100%; display: flex; align-items: center; gap: 12px; padding: 16px 20px; text-align: left; }
+  .ex-chip {
+    padding: 4px 8px; border-radius: 8px; background: rgba(250, 250, 250, 0.1);
+    font-family: "Open Sans", sans-serif; font-size: 12px; line-height: 16px; letter-spacing: 0.4px;
+  }
+  .ex-chip.req { background: rgba(56, 171, 255, 0.2); color: #97cfff; }
+  .ex-stars { display: inline-flex; gap: 4px; margin-left: 4px; }
+  .ex-stars svg { width: 16px; height: 16px; }
+  .ex-chevron { margin-left: auto; transition: transform .3s ease; }
+  .ex-card.collapsed .ex-chevron { transform: rotate(180deg); }
+  .ex-table {
+    display: grid; grid-template-columns: repeat(3, 1fr); margin: 0 20px 20px;
+    box-shadow: inset 0 1px 0 var(--line); transition: opacity .25s;
+  }
+  .ex-card.collapsed .ex-table { display: none; }
+  .ex-table > div { text-align: center; }
+  .ex-table > div + div { box-shadow: inset 1px 0 0 var(--line); }
+  .ex-table dt { padding: 12px 8px; font-size: 12px; line-height: 16px; color: var(--text-muted); box-shadow: inset 0 -1px 0 var(--line); }
+  .ex-table dd { padding: 12px 8px; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 14px; line-height: 20px; }
+  .ex-section { display: flex; flex-direction: column; gap: 16px; }
+  .ex-section h2 {
+    padding-bottom: 12px; box-shadow: inset 0 -1px 0 var(--line);
+    font-family: "Manrope", sans-serif; font-weight: 500; font-size: 20px; line-height: 28px; color: var(--text-muted);
+  }
+  .ex-section p { color: rgba(250, 250, 250, 0.9); }
+  .ex code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 14px; }
+  .ex p code { line-height: 1; padding: 0 4px; border-radius: 4px; background: rgba(3, 16, 38, 0.6); box-shadow: inset 0 0 0 1px var(--line); }
+  .ex-code { position: relative; border-radius: 12px; background: #262626; box-shadow: inset 0 0 0 1px var(--line); }
+  .ex-code pre { padding: 16px 20px; overflow-x: auto; tab-size: 4; }
+  .ex-code code { font-size: 14px; line-height: 20px; color: #e6e8ea; white-space: pre; }
+  .ex-code .k { color: #a78bfa; }
+  .ex-code .f { color: #38abff; }
+  .ex-code .n { color: #fb923c; }
+  .ex-code .s { color: #a3e635; }
+  .ex-code.term code { color: var(--text-muted); }
+  .ex-copy {
+    position: absolute; top: 8px; right: 8px; padding: 4px 8px; border-radius: 4px;
+    font-family: "Open Sans", sans-serif; font-size: 12px; line-height: 16px; color: #97cfff;
+    background: rgba(56, 171, 255, 0.1); opacity: 0; transition: opacity .2s, background .2s;
+  }
+  .ex-code:hover .ex-copy, .ex-copy:focus-visible { opacity: 1; }
+  .ex-copy:hover { background: rgba(56, 171, 255, 0.2); }
+  .task-title { font-family: "Manrope", sans-serif; font-weight: 500; font-size: 20px; line-height: 28px; }
+  .video { display: block; width: 100%; height: auto; aspect-ratio: 680 / 439.6; object-fit: cover; }
+  .lesson-panel { animation: panel-in .35s ease; }
+  @keyframes panel-in { from { opacity: 0; translate: 0 8px; } }
+
+  /* Правая колонка */
+  .side { left: calc(1440px - var(--side-w)); width: var(--side-w); border-left: 1px solid var(--line); }
+  .skills { flex: none; padding: 16px 40px 16px 16px; display: flex; flex-direction: column; gap: 24px; transition: padding .3s cubic-bezier(.23,1,.32,1); }
+  .side-closed .skills { padding: 16px 24px; }
+  .side-closed .sources { box-shadow: none; }
+  .side-head {
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: "Manrope", sans-serif; font-size: 20px; line-height: 28px;
+  }
+
+  .sources {
+    flex: none; padding: 20px 40px 20px 16px;
+    /* разделители тенью — не добавляют высоты, блок остаётся 172px */
+    box-shadow: inset 0 1px 0 var(--line), inset 0 -1px 0 var(--line);
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .sources .side-head { font-family: Helvetica, Arial, sans-serif; line-height: 24px; }
+  .source {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-family: "Open Sans", sans-serif; font-size: 14px; line-height: 20px;
+  }
+  .source a { width: 235px; transition: color .2s; }
+  .source a:hover { color: #97cfff; }
+  .source a.trunc { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .source > img { height: 20px; object-fit: contain; }
+  .sources-list { display: flex; flex-direction: column; gap: 24px; }
+
+  .assistant { flex: 1; display: flex; flex-direction: column; }
+  .assistant-hero {
+    flex: 1; min-height: 0; padding: 16px; position: relative;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+  }
+  /* AI-шар: основа — картинка из макета; внутри хаотично плывут мягкие волны (пятна света разной формы
+     и скорости), их края дрожат через SVG-фильтр турбулентности; сверху стеклянный блик. Весь шар «дышит». */
+  .orb { position: relative; flex: none; width: 80px; height: 80px; animation: orb 5s ease-in-out infinite; }
+  @keyframes orb { 50% { transform: scale(1.06); filter: brightness(1.15); } }
+  .orb > img { position: absolute; inset: 0; width: 80px; height: 80px; }
+  .orb-core {
+    position: absolute; inset: 8px; border-radius: 50%; overflow: hidden; isolation: isolate;
+  }
+  .orb-waves { position: absolute; inset: -8px; padding: 8px; filter: url(#orb-warp); }
+  .orb-waves > i { margin: 8px; } /* искажаются только волны, край шара ровный */
+  .orb-w { position: absolute; display: block; mix-blend-mode: screen; filter: blur(4px); }
+  .orb-w.dark { mix-blend-mode: multiply; } /* тёмные волны дают глубину и видимое движение */
+  .orb-w.w1 { left: -4px; top: 6px; width: 44px; height: 36px; background: radial-gradient(closest-side, rgba(209,254,23,.9), rgba(209,254,23,0)); animation: orb-w1 7.3s ease-in-out infinite, orb-morph 5.1s ease-in-out infinite; }
+  .orb-w.w2 { left: 22px; top: 26px; width: 40px; height: 46px; background: radial-gradient(closest-side, rgba(96,150,20,.85), rgba(96,150,20,0)); animation: orb-w2 9.7s ease-in-out infinite, orb-morph 6.7s ease-in-out -2s infinite; }
+  .orb-w.w3 { left: 18px; top: -6px; width: 34px; height: 40px; background: radial-gradient(closest-side, rgba(238,255,174,.9), rgba(238,255,174,0)); animation: orb-w3 11.3s ease-in-out infinite, orb-morph 4.3s ease-in-out -1s infinite; }
+  .orb-w.w4 { left: 20px; top: 20px; width: 24px; height: 24px; background: radial-gradient(closest-side, rgba(255,255,240,.95), rgba(255,255,240,0)); animation: orb-w4 6.1s ease-in-out infinite; }
+  .orb-w.w5 { left: -10px; top: 30px; width: 84px; height: 22px; background: radial-gradient(closest-side, rgba(80,130,25,.7), rgba(80,130,25,0)); animation: orb-w5 8.9s ease-in-out infinite; }
+  @keyframes orb-w1 { 0%,100% { transform: translate(0,0) rotate(0); } 23% { transform: translate(18px,10px) rotate(70deg); } 51% { transform: translate(6px,24px) rotate(160deg); } 78% { transform: translate(-6px,8px) rotate(250deg); } }
+  @keyframes orb-w2 { 0%,100% { transform: translate(0,0) rotate(0); } 31% { transform: translate(-16px,-14px) rotate(-90deg); } 62% { transform: translate(-4px,-24px) rotate(-200deg); } 84% { transform: translate(8px,-6px) rotate(-280deg); } }
+  @keyframes orb-w3 { 0%,100% { transform: translate(0,0); } 19% { transform: translate(-12px,16px); } 47% { transform: translate(10px,26px); } 73% { transform: translate(14px,4px); } }
+  @keyframes orb-w4 { 0%,100% { transform: translate(0,0) scale(1); opacity: .9; } 37% { transform: translate(-5px,4px) scale(1.3); opacity: 1; } 69% { transform: translate(4px,-3px) scale(.8); opacity: .7; } }
+  @keyframes orb-w5 { 0%,100% { transform: translateY(0) rotate(-20deg) scaleX(1); } 33% { transform: translateY(-16px) rotate(15deg) scaleX(.8); } 66% { transform: translateY(10px) rotate(-5deg) scaleX(1.1); } }
+  @keyframes orb-morph { 0%,100% { border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; } 33% { border-radius: 63% 37% 41% 59% / 58% 62% 38% 42%; } 66% { border-radius: 37% 63% 55% 45% / 46% 37% 63% 54%; } }
+  .orb-gloss {
+    position: absolute; inset: 8px; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle at 32% 26%, rgba(255,255,255,.45), rgba(255,255,255,0) 32%);
+    box-shadow: inset 0 0 8px rgba(255,255,255,.35), inset -4px -6px 12px rgba(30,60,10,.25);
+  }
+  .assistant-text { width: 307px; padding: 16px 0; display: flex; flex-direction: column; gap: 16px; text-align: center; }
+  .assistant-title { font-size: 20px; line-height: 28px; }
+  .assistant-desc { font-size: 16px; line-height: 24px; color: rgba(250, 250, 250, 0.8); }
+  .ask { height: 96px; flex: none; padding: 20px 16px; border-top: 1px solid rgba(250, 250, 250, 0.3); display: flex; align-items: flex-end; }
+  .ask-bar {
+    width: 307px; height: 56px; padding: 16px; border-radius: 12px;
+    background: rgba(250, 250, 250, 0.05); border: 1px solid rgba(250, 250, 250, 0.4);
+    display: flex; align-items: center; gap: 16px; transition: border-color .2s;
+  }
+  .ask-bar:focus-within { border-color: rgba(151, 207, 255, 0.8); }
+  .ask-bar input {
+    flex: 1; min-width: 0; background: none; border: 0; outline: none; color: var(--text);
+    font-family: "Open Sans", sans-serif; font-size: 16px; line-height: 24px;
+  }
+  .ask-bar input::placeholder { color: rgba(250, 250, 250, 0.5); }
+  .ask-bar button { width: 24px; height: 24px; transition: transform .2s; }
+  .ask-bar button:hover { transform: translateX(2px); }
+  .ask-bar button:disabled { opacity: .4; cursor: default; transform: none; }
+
+  /* ── Чат с AI-помощником ── */
+  .side.chatting .assistant-hero, .side.chatting .orb { display: none; }
+  .chat { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .chat[hidden] { display: none; }
+  .chat-reset {
+    align-self: flex-end; margin: 12px 16px 0; padding: 4px 8px; border-radius: 8px;
+    font-family: "Open Sans", sans-serif; font-size: 12px; line-height: 16px; color: #97cfff;
+    transition: background .2s;
+  }
+  .chat-reset:hover { background: rgba(56, 171, 255, 0.12); }
+  .chat-log {
+    flex: 1; min-height: 0; overflow-y: auto; padding: 12px 16px 16px;
+    display: flex; flex-direction: column; gap: 12px;
+    scrollbar-width: thin; scrollbar-color: rgba(250,250,250,.2) transparent;
+  }
+  .msg {
+    max-width: 92%; padding: 8px 12px; border-radius: 12px;
+    font-size: 14px; line-height: 20px; overflow-wrap: anywhere;
+    animation: msg-in .25s ease;
+  }
+  @keyframes msg-in { from { opacity: 0; translate: 0 8px; } }
+  .msg.user { align-self: flex-end; background: rgba(56, 171, 255, 0.24); border-bottom-right-radius: 4px; }
+  .msg.bot {
+    align-self: flex-start; background: rgba(250, 250, 250, 0.05);
+    box-shadow: inset 0 0 0 1px var(--line); border-bottom-left-radius: 4px;
+  }
+  .msg.bot p + p, .msg.bot p + ul, .msg.bot ul + p, .msg.bot pre + p, .msg.bot p + pre { margin-top: 8px; }
+  .msg.bot ul { padding-left: 16px; list-style: disc; }
+  .msg.bot code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px; line-height: 1;
+    background: rgba(3, 16, 38, 0.6); padding: 0 4px; border-radius: 4px;
+  }
+  .msg.bot pre {
+    background: rgba(3, 16, 38, 0.7); border-radius: 8px; padding: 12px; overflow-x: auto;
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .msg.bot pre code { background: none; padding: 0; font-size: 12px; line-height: 16px; white-space: pre; }
+  .msg.notice { align-self: stretch; max-width: none; text-align: center; font-size: 12px; line-height: 16px; color: var(--text-muted); background: none; padding: 4px 0; }
+  .msg.error { align-self: stretch; max-width: none; background: rgba(239, 68, 68, 0.12); box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.4); color: #fecaca; }
+  .typing { display: inline-flex; gap: 4px; padding: 4px 0; }
+  .typing i { width: 8px; height: 8px; border-radius: 50%; background: rgba(250,250,250,.6); animation: blink 1.2s infinite ease-in-out; }
+  .typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
+  @keyframes blink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .orb, .orb-w { animation: none !important; } .orb-waves { filter: none; } .msg { animation: none; } .typing i { animation: none; } }
+</style>
+</head>
+<body>
+<div class="viewport" id="viewport">
+  <div class="stage" id="stage">
+    <div class="grad"></div>
+
+    <!-- Top bar -->
+    <header class="abs topbar">
+      <a href="index.html" class="back" id="back">
+        <img class="ic" src="assets/ls-back.svg" width="32" height="32" alt="">
+        <span>Назад</span>
+      </a>
+      <div class="topbar-right">
+        <div class="timer edge spin" role="timer" aria-label="Учебное время за сегодня, пятница">
+          <span class="timer-day">Пт</span>
+          <img class="ic" src="assets/ls-timer.svg" width="24" height="24" alt="">
+          <time class="timer-time" datetime="PT0H0M0S" aria-label="Время за сегодня">0:00:00</time>
+        </div>
+        <img class="avatar-sm" src="assets/avatar-header.png" alt="Профиль">
+      </div>
+    </header>
+
+    <!-- Содержание -->
+    <aside class="col toc">
+      <div class="col-head">
+        <span class="fold-title">Содержание</span>
+        <button class="panel-toggle" type="button" data-panel="toc" aria-expanded="true" aria-label="Свернуть содержание"><img class="ic" src="assets/ls-panel.svg" width="16" height="16" alt=""></button>
+      </div>
+      <nav class="toc-nav fold">
+        <ul class="toc-list">
+          <li><a href="#quest-09" class="lesson-item current edge spin" data-lesson="quest-09" aria-current="page">Quest 09</a></li>
+          <li><a href="#foreach" class="lesson-item" data-lesson="foreach">Foreach</a></li>
+          <li><button type="button" class="lesson-item locked" aria-disabled="true">Map<img class="ic" src="assets/ls-lock.svg" width="16" height="16" alt="Закрыто"></button></li>
+          <li><button type="button" class="lesson-item locked" aria-disabled="true">Any<img class="ic" src="assets/ls-lock.svg" width="16" height="16" alt="Закрыто"></button></li>
+          <li><button type="button" class="lesson-item locked" aria-disabled="true">Countif<img class="ic" src="assets/ls-lock.svg" width="16" height="16" alt="Закрыто"></button></li>
+          <li><button type="button" class="lesson-item locked" aria-disabled="true">Issorted<img class="ic" src="assets/ls-lock.svg" width="16" height="16" alt="Закрыто"></button></li>
+          <li><button type="button" class="lesson-item locked" aria-disabled="true">Doop<img class="ic" src="assets/ls-lock.svg" width="16" height="16" alt="Закрыто"></button></li>
+          <li><button type="button" class="lesson-item locked" aria-disabled="true">Softwordarr<img class="ic" src="assets/ls-lock.svg" width="16" height="16" alt="Закрыто"></button></li>
+          <li><button type="button" class="lesson-item locked" aria-disabled="true">Advancedsortwordarr<img class="ic" src="assets/ls-lock.svg" width="16" height="16" alt="Закрыто"></button></li>
+        </ul>
+        <div class="toc-hint" id="toc-hint" role="status" aria-live="polite"></div>
+      </nav>
+    </aside>
+
+    <!-- Задание -->
+    <main class="col task">
+      <div class="col-head">
+        <nav class="head-crumbs" id="head-crumbs" aria-label="Текущий урок"><span>Go / </span>Quest 09</nav>
+        <div class="view-tabs" id="view-tabs" role="tablist" aria-label="Вид" hidden>
+          <button class="view-tab edge" type="button" role="tab" id="tab-task" aria-selected="true" aria-controls="task-body">Задание</button>
+          <button class="view-tab" type="button" role="tab" id="tab-code" aria-selected="false" aria-controls="code-editor" tabindex="-1">Code editor</button>
+        </div>
+      </div>
+      <div class="task-body" id="task-body">
+        <h1 class="task-title" id="task-title">Quest 09</h1>
+        <section class="lesson-panel" data-panel="quest-09">
+          <article class="ex">
+            <div class="ex-top">
+              <nav class="ex-crumbs" aria-label="Путь к заданию">
+                <a href="program.html">PiscineGo</a><span aria-hidden="true">›</span>
+                <span aria-current="page">Quest-09</span>
+              </nav>
+            </div>
+
+            <section class="ex-card edge spin">
+              <div class="ex-meta">
+                <span class="ex-status">Доступно</span>
+                <span class="ex-meta-item"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.75" y="3.75" width="14.5" height="13.5" rx="3" fill="none" stroke="rgba(250,250,250,.6)" stroke-width="1.5"/><path d="M2.75 8h14.5M6.5 2v3.5M13.5 2v3.5" stroke="rgba(250,250,250,.6)" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="11.5" r="1" fill="rgba(250,250,250,.6)"/><circle cx="10" cy="11.5" r="1" fill="rgba(250,250,250,.6)"/><circle cx="13" cy="11.5" r="1" fill="rgba(250,250,250,.6)"/><circle cx="7" cy="14.5" r="1" fill="rgba(250,250,250,.6)"/><circle cx="10" cy="14.5" r="1" fill="rgba(250,250,250,.6)"/></svg><time datetime="2026-06-22">22 июня 2026</time></span>
+                <span class="ex-meta-item"><img src="assets/ic-clock-week.svg" width="20" height="20" alt=""><time datetime="10:06">10:06</time></span>
+              </div>
+            </section>
+
+            <section class="ex-section">
+              <h2>Видео</h2>
+              <p>Вот видео, которое поможет разобраться. Приятного просмотра! 😊</p>
+              <a class="ex-video" href="https://www.youtube.com/results?search_query=09-01-Functions+as+Arguments+01Edu" target="_blank" rel="noopener" aria-label="Смотреть видео 09-01 Functions as Arguments на YouTube">
+                <img class="video" src="assets/ls-video.jpg" alt="">
+                <span class="ex-play" aria-hidden="true"></span>
+              </a>
+            </section>
+          </article>
+        </section>
+        <section class="lesson-panel" data-panel="foreach" hidden>
+          <article class="ex">
+            <div class="ex-top">
+              <nav class="ex-crumbs" aria-label="Путь к заданию">
+                <a href="program.html">PiscineGo</a><span aria-hidden="true">›</span>
+                <a href="#quest-09">Quest-09</a><span aria-hidden="true">›</span>
+                <span aria-current="page">Foreach</span>
+              </nav>
+              <span class="ex-status">Доступно</span>
+            </div>
+
+
+            <section class="ex-card edge spin collapsed" id="ex-card">
+              <button class="ex-card-head" type="button" aria-expanded="false" aria-controls="ex-card-table">
+                <span class="ex-chip">Уровень 30</span>
+                <span class="ex-chip req">Обязательное</span>
+                <span class="ex-stars" aria-label="Сложность: 2 из 6"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.9 4.1 4.5.5-3.4 3 1 4.4L8 11.3l-4 2.2 1-4.4-3.4-3 4.5-.5z" fill="#facc15"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.9 4.1 4.5.5-3.4 3 1 4.4L8 11.3l-4 2.2 1-4.4-3.4-3 4.5-.5z" fill="#facc15"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.9 4.1 4.5.5-3.4 3 1 4.4L8 11.3l-4 2.2 1-4.4-3.4-3 4.5-.5z" fill="none" stroke="rgba(250,250,250,.4)"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.9 4.1 4.5.5-3.4 3 1 4.4L8 11.3l-4 2.2 1-4.4-3.4-3 4.5-.5z" fill="none" stroke="rgba(250,250,250,.4)"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.9 4.1 4.5.5-3.4 3 1 4.4L8 11.3l-4 2.2 1-4.4-3.4-3 4.5-.5z" fill="none" stroke="rgba(250,250,250,.4)"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l1.9 4.1 4.5.5-3.4 3 1 4.4L8 11.3l-4 2.2 1-4.4-3.4-3 4.5-.5z" fill="none" stroke="rgba(250,250,250,.4)"/></svg></span>
+                <svg class="ex-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 10l4.5-4.5 4.5 4.5" fill="none" stroke="#fafafa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <dl class="ex-table" id="ex-card-table">
+                <div><dt>XP</dt><dd>0.00 B</dd></div>
+                <div><dt>Файлы для сдачи</dt><dd>foreach.go</dd></div>
+                <div><dt>Разрешённые функции</dt><dd>--allow-builtin</dd></div>
+              </dl>
+            </section>
+
+            <section class="ex-section">
+              <h2>Инструкция</h2>
+              <p>Напиши функцию <code>ForEach</code>, которая для среза <code>int</code> применяет функцию к каждому его элементу.</p>
+            </section>
+
+            <section class="ex-section">
+              <h2>Ожидаемая функция</h2>
+              <div class="ex-code"><button class="ex-copy" type="button">Копировать</button><pre><code><span class="k">func</span> <span class="f">ForEach</span>(f <span class="k">func</span>(int), a []int) {
+
+}</code></pre></div>
+            </section>
+
+            <section class="ex-section">
+              <h2>Использование</h2>
+              <p>Пример программы, чтобы проверить функцию:</p>
+              <div class="ex-code"><button class="ex-copy" type="button">Копировать</button><pre><code><span class="k">package</span> <span class="f">main</span>
+
+<span class="k">import</span> <span class="s">"piscine"</span>
+
+<span class="k">func</span> <span class="f">main</span>() {
+	a := []int{<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>}
+	piscine.<span class="f">ForEach</span>(piscine.<span class="f">PrintNbr</span>, a)
+}</code></pre></div>
+              <p>И её вывод:</p>
+              <div class="ex-code term"><pre><code>$ go run .
+<span class="n">123456</span>
+$</code></pre></div>
+            </section>
+
+          </article>
+        </section>
+      </div>
+
+      <!-- Code editor для задания Foreach: файл для сдачи foreach.go -->
+      <section class="code-editor" id="code-editor" role="tabpanel" aria-labelledby="tab-code" hidden>
+        <div class="ce-scroll">
+          <pre class="ce-lines" id="ce-lines" aria-hidden="true"></pre>
+          <div class="ce-area">
+            <pre class="ce-hl" id="ce-hl" aria-hidden="true"></pre>
+            <textarea class="ce-input" id="ce-input" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Код foreach.go"></textarea>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Правая колонка -->
+    <aside class="col side">
+      <section class="skills">
+        <div class="side-head">
+          <span class="fold-title">Навыки по Go core</span>
+          <button class="panel-toggle" type="button" data-panel="side" aria-expanded="true" aria-label="Свернуть правую панель"><img class="ic" src="assets/ls-panel.svg" width="16" height="16" alt=""></button>
+        </div>
+        <!-- те же навыки и названия, что в карточке Quest 9 на «Программе обучения» -->
+        <div class="skill-list fold" data-skills></div>
+      </section>
+
+      <section class="sources fold">
+        <div class="side-head">
+          <span>Источники</span>
+          <button type="button" aria-label="Добавить источник"><img class="ic" src="assets/ls-add.svg" width="16" height="16" alt=""></button>
+        </div>
+        <div class="sources-list" id="sources-list"></div>
+      </section>
+
+      <section class="assistant fold">
+        <div class="assistant-hero">
+          <div class="orb" aria-hidden="true">
+            <img src="assets/ls-orb.png" width="80" height="80" alt="">
+            <div class="orb-core"><div class="orb-waves"><i class="orb-w w5 dark"></i><i class="orb-w w1"></i><i class="orb-w w2 dark"></i><i class="orb-w w3"></i><i class="orb-w w4"></i></div></div>
+            <i class="orb-gloss"></i>
+            <svg width="0" height="0" style="position:absolute" focusable="false">
+              <filter id="orb-warp" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n">
+                  <animate attributeName="baseFrequency" dur="14s" values="0.03;0.055;0.025;0.045;0.03" repeatCount="indefinite"/>
+                </feTurbulence>
+                <feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+              </filter>
+            </svg>
+          </div>
+          <div class="assistant-text">
+            <p class="assistant-title">Привет! Я твой AI‑помощник</p>
+            <p class="assistant-desc">Объясню любую тему и подскажу, где будут ошибки в коде. Спрашивай в любой момент - я рядом.</p>
+          </div>
+        </div>
+        <div class="chat" id="chat" hidden>
+          <button class="chat-reset" type="button" id="chat-reset">Новый диалог</button>
+          <div class="chat-log" id="chat-log" role="log" aria-live="polite"></div>
+        </div>
+        <form class="ask" id="ask">
+          <label class="ask-bar">
+            <input type="text" id="ask-input" placeholder="Задайте свой вопрос" aria-label="Задайте свой вопрос" autocomplete="off" maxlength="4000">
+            <button type="submit" id="ask-send" aria-label="Отправить"><img class="ic" src="assets/ls-send.svg" width="24" height="24" alt=""></button>
+          </label>
+        </form>
+      </section>
+    </aside>
+
+  </div>
+</div>
+
+<script src="assets/skills.js"></script>
+<script src="assets/timer.js"></script>
+<script src="assets/notifications.js"></script>
+<script src="assets/chat-demo.js"></script>
+<script>
+  // Вписывает холст 1440×1080 в окно; на узких экранах — по ширине с вертикальной прокруткой
+  (function () {
+    const vp = document.getElementById('viewport');
+    const stage = document.getElementById('stage');
+    function fit() {
+      const scale = Math.min(window.innerWidth / 1440, window.innerHeight / 1080) || 1;
+      const k = window.innerWidth < 1000 ? window.innerWidth / 1440 : scale;
+      stage.style.transform = 'scale(' + k + ')';
+      stage.style.left = Math.max(0, (window.innerWidth - 1440 * k) / 2) + 'px';
+      vp.style.height = Math.max(window.innerHeight, 1080 * k) + 'px';
+    }
+    fit();
+    window.addEventListener('resize', fit);
+    // «Назад» — на страницу, с которой открыли урок: берём ?from=… из адреса
+    // (работает и при открытии файлом), затем referrer, иначе главная.
+    const pages = ['index.html', 'program.html', 'skills.html'];
+    const from = new URLSearchParams(location.search).get('from');
+    let target = pages.includes(from) ? from : null;
+    if (!target && document.referrer) {
+      try {
+        const ref = new URL(document.referrer);
+        const name = ref.pathname.split('/').pop();
+        if (ref.origin === location.origin && pages.includes(name)) target = name;
+      } catch (e) {}
+    }
+    document.getElementById('back').href = target || 'index.html';
+  })();
+</script>
+<script>
+  // Сворачивание левой и правой панели; состояние запоминается в браузере
+  (function () {
+    const stage = document.getElementById('stage');
+    const get = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+    const set = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+    const labels = { toc: ['Свернуть содержание', 'Развернуть содержание'], side: ['Свернуть правую панель', 'Развернуть правую панель'] };
+    function apply(name, closed) {
+      stage.classList.toggle(name + '-closed', closed);
+      const btn = document.querySelector('.panel-toggle[data-panel="' + name + '"]');
+      btn.setAttribute('aria-expanded', String(!closed));
+      btn.setAttribute('aria-label', labels[name][closed ? 1 : 0]);
+    }
+    stage.classList.add('no-anim');
+    ['toc', 'side'].forEach(n => apply(n, get('lesson-' + n) === 'closed'));
+    requestAnimationFrame(() => requestAnimationFrame(() => stage.classList.remove('no-anim')));
+    document.querySelectorAll('.panel-toggle[data-panel]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const n = btn.dataset.panel;
+        const closed = !stage.classList.contains(n + '-closed');
+        apply(n, closed);
+        set('lesson-' + n, closed ? 'closed' : 'open');
+      });
+    });
+  })();
+</script>
+<script>
+  // Foreach: сворачивание карточки с параметрами и копирование кода
+  (function () {
+    const card = document.getElementById('ex-card');
+    const head = card.querySelector('.ex-card-head');
+    head.addEventListener('click', () => {
+      const collapsed = card.classList.toggle('collapsed');
+      head.setAttribute('aria-expanded', String(!collapsed));
+    });
+    document.querySelectorAll('.ex-copy').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const text = btn.parentElement.querySelector('code').textContent;
+        try { await navigator.clipboard.writeText(text); btn.textContent = 'Скопировано'; }
+        catch (e) { btn.textContent = 'Не удалось'; }
+        setTimeout(() => { btn.textContent = 'Копировать'; }, 1500);
+      });
+    });
+  })();
+</script>
+<script>
+  // Переключатель «Задание / Code editor» в шапке центрального блока.
+  // Code editor есть только у задания Foreach: редактируемый foreach.go с номерами строк и подсветкой Go.
+  (function () {
+    const task = document.querySelector('.task');
+    const tabs = document.getElementById('view-tabs');
+    const tabTask = document.getElementById('tab-task');
+    const tabCode = document.getElementById('tab-code');
+    const body = document.getElementById('task-body');
+    const editor = document.getElementById('code-editor');
+    const input = document.getElementById('ce-input');
+    const hl = document.getElementById('ce-hl');
+    const lines = document.getElementById('ce-lines');
+    const KEY = 'foreach-code';
+    const START = [
+      '// Скелет foreach.go',
+      'package piscine',
+      '',
+      '// ForEach применяет функцию f к каждому элементу среза a.',
+      '// Пример: ForEach(PrintNbr, []int{1, 2, 3}) выводит 123',
+      'func ForEach(f func(int), a []int) {',
+      '    // ... обойдите срез через range ...',
+      '    // ... вызовите f для каждого элемента ...',
+      '}',
+      ''
+    ].join('\n');
+
+    const KW = 'package|import|func|return|for|range|if|else|var|const|type|struct|map|go|defer|switch|case|default|break|continue|chan|interface|nil|true|false';
+    const TOKEN = new RegExp('(//.*)|("(?:\\\\.|[^"\\\\\\n])*"|`[^`]*`|\'(?:\\\\.|[^\'\\\\])\')|\\b(func)(\\s+)([A-Za-z_]\\w*)|\\b(' + KW + ')\\b', 'g');
+    const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    function highlight(code) {
+      let out = '', last = 0, m;
+      TOKEN.lastIndex = 0;
+      while ((m = TOKEN.exec(code))) {
+        out += esc(code.slice(last, m.index));
+        if (m[1]) out += '<span class="c">' + esc(m[1]) + '</span>';
+        else if (m[2]) out += '<span class="s">' + esc(m[2]) + '</span>';
+        else if (m[3]) out += '<span class="k">func</span>' + m[4] + '<span class="f">' + m[5] + '</span>';
+        else out += '<span class="k">' + m[6] + '</span>';
+        last = TOKEN.lastIndex;
+      }
+      return out + esc(code.slice(last));
+    }
+    function render() {
+      const code = input.value;
+      hl.innerHTML = highlight(code) + (code.endsWith('\n') ? ' ' : '');
+      const n = code.split('\n').length;
+      lines.textContent = Array.from({ length: n }, (_, i) => i + 1).join('\n');
+    }
+
+    let saved = null;
+    try { saved = localStorage.getItem(KEY); } catch (e) {}
+    input.value = saved || START;
+    render();
+    input.addEventListener('input', () => {
+      render();
+      try { localStorage.setItem(KEY, input.value); } catch (e) {}
+    });
+    // Tab — отступ в 4 пробела, Enter — перенос с тем же отступом
+    input.addEventListener('keydown', e => {
+      const { selectionStart: a, selectionEnd: b, value: v } = input;
+      if (e.key === 'Tab' && !e.shiftKey) {
+        e.preventDefault();
+        input.setRangeText('    ', a, b, 'end');
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        const lineStart = v.lastIndexOf('\n', a - 1) + 1;
+        let indent = v.slice(lineStart).match(/^ */)[0];
+        if (v.slice(lineStart, a).trimEnd().endsWith('{')) indent += '    ';
+        input.setRangeText('\n' + indent, a, b, 'end');
+      } else return;
+      input.dispatchEvent(new Event('input'));
+    });
+
+    function select(code) {
+      tabTask.setAttribute('aria-selected', String(!code));
+      tabCode.setAttribute('aria-selected', String(code));
+      // у активного таба градиентная обводка, как в макете
+      tabTask.classList.toggle('edge', !code);
+      tabCode.classList.toggle('edge', code);
+      tabTask.tabIndex = code ? -1 : 0;
+      tabCode.tabIndex = code ? 0 : -1;
+      body.hidden = code;
+      editor.hidden = !code;
+      task.classList.toggle('coding', code);
+    }
+    tabTask.addEventListener('click', () => select(false));
+    tabCode.addEventListener('click', () => { select(true); input.focus(); });
+    tabs.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      const toCode = e.key === 'ArrowRight';
+      select(toCode);
+      (toCode ? tabCode : tabTask).focus();
+    });
+
+    // вызывается при смене урока: переключатель есть только у Foreach, открывается всегда «Задание»
+    window.setLessonView = function (id) {
+      tabs.hidden = id !== 'foreach';
+      select(false);
+    };
+  })();
+</script>
+<script>
+  // Пункты содержания: открытые переключают урок (адрес #quest-09 / #foreach),
+  // закрытые показывают подсказку, после какого урока они откроются.
+  (function () {
+    const items = [...document.querySelectorAll('.lesson-item')];
+    const title = document.getElementById('task-title');
+    const hint = document.getElementById('toc-hint');
+    let hintTimer;
+
+    // Источники у каждого урока свои
+    const SOURCES = {
+      'quest-09': [
+        { title: 'Литералы функций (Function literals / Анонимные функции)', href: 'https://go.dev/ref/spec#Function_literals' },
+        { title: 'Объявление функций (Function declaration)', href: 'https://go.dev/ref/spec#Function_declarations', trunc: true },
+      ],
+      'foreach': [
+        { title: 'Литералы функций (Function literals / Анонимные функции)', href: 'https://go.dev/ref/spec#Function_literals' },
+        { title: 'Объявление функций (Function declaration)', href: 'https://go.dev/ref/spec#Function_declarations', trunc: true },
+        { title: 'Функциональные типы (Function types)', href: 'https://go.dev/ref/spec#Function_types', trunc: true },
+      ],
+    };
+    const sourcesList = document.getElementById('sources-list');
+    function renderSources(id) {
+      sourcesList.innerHTML = (SOURCES[id] || []).map(src =>
+        '<div class="source"><img class="ic" src="assets/ls-link.svg" width="16" height="16" alt="">' +
+        '<a' + (src.trunc ? ' class="trunc"' : '') + ' href="' + src.href + '" target="_blank" rel="noopener">' + src.title + '</a>' +
+        '<button type="button" aria-label="Ещё"><img class="ic" src="assets/ls-more.svg" width="16" height="16" alt=""></button></div>'
+      ).join('');
+    }
+
+    function show(id) {
+      const link = document.querySelector('.lesson-item[data-lesson="' + id + '"]');
+      if (!link) return;
+      renderSources(id);
+      document.querySelectorAll('.lesson-item[data-lesson]').forEach(a => {
+        const on = a === link;
+        a.classList.toggle('current', on);
+        a.classList.toggle('edge', on);
+        a.classList.toggle('spin', on);
+        if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+      });
+      document.querySelectorAll('.lesson-panel').forEach(p => { p.hidden = p.dataset.panel !== id; });
+      title.textContent = link.textContent.trim();
+      document.title = 'Tomorrow School — ' + title.textContent;
+      document.getElementById('head-crumbs').innerHTML = '<span>Go / </span>' + title.textContent;
+      window.setLessonView && window.setLessonView(id);
+    }
+
+    window.addEventListener('hashchange', () => show(location.hash.slice(1)));
+    show(location.hash.slice(1) || 'quest-09');
+
+    items.forEach((el, i) => {
+      if (!el.classList.contains('locked')) return;
+      el.addEventListener('click', () => {
+        const prev = items[i - 1].childNodes[0].textContent.trim();
+        hint.textContent = 'Урок «' + el.childNodes[0].textContent.trim() + '» откроется после прохождения «' + prev + '»';
+        hint.style.top = (el.parentElement.offsetTop + el.offsetHeight + 4) + 'px';
+        hint.classList.add('show');
+        el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake');
+        clearTimeout(hintTimer);
+        hintTimer = setTimeout(() => hint.classList.remove('show'), 2600);
+      });
+    });
+  })();
+</script>
+<script>
+  // AI-помощник: история диалога хранится на странице, ответы приходят потоком с /api/chat (server.mjs)
+  (function () {
+    const side = document.querySelector('.side');
+    const chat = document.getElementById('chat');
+    const log = document.getElementById('chat-log');
+    const form = document.getElementById('ask');
+    const input = document.getElementById('ask-input');
+    const sendBtn = document.getElementById('ask-send');
+    let history = [];
+    let busy = false;
+
+    const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    // Мини-разметка ответа: блоки кода, `код`, **жирный**, списки, абзацы
+    function render(md) {
+      const parts = md.split(/```/);
+      return parts.map((part, i) => {
+        if (i % 2 === 1) {
+          const code = part.replace(/^[\w+-]*\n/, '');
+          return '<pre><code>' + esc(code.replace(/\n$/, '')) + '</code></pre>';
+        }
+        return part.split(/\n{2,}/).map(block => {
+          block = block.trim();
+          if (!block) return '';
+          const inline = t => esc(t).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+          const lines = block.split('\n');
+          if (lines.every(l => /^\s*[-*•]\s+/.test(l)))
+            return '<ul>' + lines.map(l => '<li>' + inline(l.replace(/^\s*[-*•]\s+/, '')) + '</li>').join('') + '</ul>';
+          return '<p>' + lines.map(inline).join('<br>') + '</p>';
+        }).join('');
+      }).join('');
+    }
+
+    function add(cls, html) {
+      const el = document.createElement('div');
+      el.className = 'msg ' + cls;
+      el.innerHTML = html;
+      log.appendChild(el);
+      log.scrollTop = log.scrollHeight;
+      return el;
+    }
+
+    function setBusy(v) { busy = v; sendBtn.disabled = v; }
+
+    // Демо-режим: ответ из assets/chat-demo.js печатается кусочками, как поток настоящего помощника
+    let demoNoticeShown = false;
+    const wait = ms => new Promise(r => setTimeout(r, ms));
+    async function demoReply(question, bot) {
+      if (!demoNoticeShown) {
+        demoNoticeShown = true;
+        log.insertBefore(Object.assign(document.createElement('div'), {
+          className: 'msg notice',
+          textContent: 'Демо-версия: ответы помощника заготовлены заранее и касаются урока Foreach.',
+        }), bot);
+      }
+      const full = window.TSChatDemo.reply(question);
+      await wait(700); // «думает»
+      let shown = '';
+      for (let i = 0; i < full.length; i += 4) {
+        shown = full.slice(0, i + 4);
+        bot.innerHTML = render(shown);
+        log.scrollTop = log.scrollHeight;
+        await wait(16);
+      }
+      return full;
+    }
+
+    function openChat() {
+      if (!chat.hidden) return;
+      chat.hidden = false;
+      side.classList.add('chatting');
+    }
+
+    document.getElementById('chat-reset').addEventListener('click', () => {
+      if (busy) return;
+      history = [];
+      log.innerHTML = '';
+      chat.hidden = true;
+      side.classList.remove('chatting');
+      input.focus();
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (!text || busy) return;
+      input.value = '';
+      openChat();
+      add('user', esc(text).replace(/\n/g, '<br>'));
+      history.push({ role: 'user', content: text });
+      setBusy(true);
+
+      const bot = add('bot', '<span class="typing" aria-label="Помощник печатает"><i></i><i></i><i></i></span>');
+      let answer = '';
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: history, lesson: document.getElementById('task-title').textContent }),
+        });
+        if (!res.ok || !res.body) throw new Error('offline');
+        const reader = res.body.getReader();
+        const dec = new TextDecoder();
+        let buf = '';
+        for (;;) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buf += dec.decode(value, { stream: true });
+          let i;
+          while ((i = buf.indexOf('\n\n')) >= 0) {
+            const line = buf.slice(0, i).replace(/^data: /, '');
+            buf = buf.slice(i + 2);
+            let ev; try { ev = JSON.parse(line); } catch { continue; }
+            if (ev.t) { answer += ev.t; bot.innerHTML = render(answer); log.scrollTop = log.scrollHeight; }
+            if (ev.notice) add('notice', esc(ev.notice));
+            if (ev.error) throw Object.assign(new Error(ev.error), { friendly: true });
+          }
+        }
+        if (!answer) throw Object.assign(new Error('Ответ пустой. Попробуйте спросить ещё раз.'), { friendly: true });
+        history.push({ role: 'assistant', content: answer });
+      } catch (err) {
+        // Сервера помощника нет (публичная версия на статическом хостинге) — отвечаем заготовками
+        if (!err.friendly && !answer && window.TSChatDemo) {
+          answer = await demoReply(text, bot);
+          history.push({ role: 'assistant', content: answer });
+          return;
+        }
+        if (!answer) bot.remove();
+        history.pop(); // вопрос без ответа убираем из истории, чтобы можно было спросить снова
+        add('error', esc(err.friendly ? err.message
+          : 'AI-помощник недоступен: откройте сайт через сервер помощника (npm start в папке dashboard) и проверьте ключ Claude API.'));
+      } finally {
+        setBusy(false);
+        input.focus();
+      }
+    });
+  })();
+</script>
+<script>
+  window.REVEAL = [
+    ['.topbar > *, .topbar-right > *', 0, 40],
+    ['.col-head', 60, 40],
+    ['.toc-list li', 120, 30],
+    ['.task-title', 140],
+    ['.video', 180, 0, 'pop'],
+    ['.skills', 160],
+    ['.sources', 220],
+    ['.source', 240, 40],
+    ['.orb', 280, 0, 'pop'],
+    ['.assistant-text', 320],
+    ['.ask', 360]
+  ];
+</script>
+<script src="assets/reveal.js"></script>
+</body>
+</html>

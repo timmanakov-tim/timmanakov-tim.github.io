@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tomorrow School — Книга навыков</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Manrope:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --text: #fafafa;
+    --text-muted: #b0b4ba;
+    --text-dim: rgba(250, 250, 250, 0.4);
+    --accent: #38abff;
+    --accent-deep: #0087ff;
+    --nav-active: #97cfff;
+    --done: #a3e635;
+    --glass: rgba(94, 129, 151, 0.2);
+    --glass-edge: rgba(255, 255, 255, 0.14);
+    --bg-from: #031026;
+    --bg-to: #274761;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: linear-gradient(to bottom left, var(--bg-from), var(--bg-to));
+    color: var(--text);
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* Холст 1440×1024 как во фрейме Figma */
+  .viewport { position: relative; width: 100%; overflow: hidden; }
+  .stage {
+    position: absolute; top: 0; left: 0;
+    width: 1440px; height: 1024px;
+    transform-origin: 0 0; overflow: hidden;
+    background: var(--bg-from);
+  }
+  .stage > .grad {
+    position: absolute; left: 0; top: 0;
+    width: 1024px; height: 1024px;
+    transform: scaleX(1.40625); transform-origin: 0 0;
+    background: linear-gradient(225deg, var(--bg-from), var(--bg-to));
+  }
+  .abs { position: absolute; }
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    box-shadow: inset 0 0 0 1px var(--glass-edge);
+  }
+  /* Обводка из Figma: 1px inside, белый линейный градиент 60% → 40% → 0 → 0 → 40% → 60%.
+     Градиент задан в нормализованных координатах фрейма, поэтому рисуем его SVG-картинкой,
+     растянутой на весь блок (preserveAspectRatio=none), и оставляем только рамку через mask. */
+  .edge { --bw: 1px; }
+  .edge::before {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    border-radius: inherit; padding: var(--bw); pointer-events: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0.1277' y1='-0.0155' x2='1' y2='1.0227'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.6'/%3E%3Cstop offset='.0856' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='.1948' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.7837' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.9006' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='.6'/%3E%3C/linearGradient%3E%3Crect width='1' height='1' fill='url(%23g)'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+    -webkit-mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  }
+  /* Карточки (.spin): градиент обводки из Figma медленно вращается по часовой стрелке (оборот 30 с).
+     Вращение задано SMIL-анимацией внутри SVG, растянутого на карточку, поэтому в начальный
+     момент блики стоят точно как в макете, а на широких блоках движутся пропорционально. */
+  .spin.edge::before {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0.1277' y1='-0.0155' x2='1' y2='1.0227'%3E%3CanimateTransform attributeName='gradientTransform' type='rotate' from='0 .5 .5' to='360 .5 .5' dur='30s' repeatCount='indefinite'/%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.6'/%3E%3Cstop offset='.0856' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='.1948' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.7837' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.9006' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='.6'/%3E%3C/linearGradient%3E%3Crect width='1' height='1' fill='url(%23g)'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+  }
+  /* без анимации — статичная обводка из макета */
+  @media (prefers-reduced-motion: reduce) { .spin.edge::before { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0.1277' y1='-0.0155' x2='1' y2='1.0227'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.6'/%3E%3Cstop offset='.0856' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='.1948' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.7837' stop-color='%23fff' stop-opacity='0'/%3E%3Cstop offset='.9006' stop-color='%23fff' stop-opacity='.4'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='.6'/%3E%3C/linearGradient%3E%3Crect width='1' height='1' fill='url(%23g)'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat; } }
+  .ic { display: block; flex: none; }
+
+  /* ── Header ── */
+  .topbar {
+    left: 0; top: 0; width: 1440px; height: 72px; padding: 16px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 100px; }
+  .nav { display: flex; align-items: center; gap: 16px; }
+  .nav a {
+    display: flex; align-items: center; height: 28px; padding: 4px 12px; border-radius: 8px;
+    font-size: 14px; line-height: 20px; transition: background .2s;
+  }
+  .nav a:hover { background: rgba(151, 207, 255, 0.12); }
+  .nav a.active {
+    color: var(--nav-active); background: rgba(151, 207, 255, 0.3);
+    backdrop-filter: blur(4px); position: relative;
+  }
+  .topbar-right { display: flex; align-items: center; gap: 20px; }
+  .timer {
+    position: relative; background: rgba(94, 129, 151, 0.2);
+    height: 40px; padding: 8px 16px; border-radius: 24px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-size: 16px; line-height: 24px;
+  }
+  .timer-day { color: var(--text-muted); }
+  .timer-time { min-width: 64px; font-variant-numeric: tabular-nums; }
+  .avatar-sm { width: 40px; height: 40px; border-radius: 50%; display: block; }
+
+  /* ── Title ── */
+  .page-title { left: 32px; top: 88px; font-size: 32px; line-height: 40px; font-weight: 400; }
+  /* подзаголовок: о чём страница */
+  .page-lead { left: 32px; top: 136px; white-space: nowrap; font-size: 16px; line-height: 24px; color: var(--text-muted); }
+  /* легенда иконок справа, на уровне описания; иконки 40×40 как у навыков, текст 16 */
+  .legend {
+    right: 32px; top: 140px; list-style: none;
+    display: flex; align-items: center; gap: 24px;
+    font-size: 16px; line-height: 24px; color: var(--text-muted);
+  }
+  .legend li { display: flex; align-items: center; gap: 8px; }
+  /* названия веток над рядами — те же, что в карточках навыков */
+  /* Заголовок ветки по макету Figma (5138:53152): название Inter 20/28 слева, за ним через 16px —
+     линия до конца ряда, правый конец загнут вниз на 16px (радиус 8), цвет #798795.
+     Направляющие от книги приходят к левому краю названия */
+  .branch-title {
+    left: 376px; width: 992px; height: 28px;
+    display: flex; align-items: flex-end; gap: 16px;
+    font-size: 20px; line-height: 28px; font-weight: 400; color: var(--text); white-space: nowrap;
+  }
+  .branch-title::after {
+    content: ""; flex: 1; height: 16px;
+    border-top: 1px solid #798795; border-right: 1px solid #798795; border-top-right-radius: 8px;
+  }
+  .legend img { display: block; flex: none; }
+
+  /* ── Book ── */
+  /* Обёртка книги: витает целиком вместе со свечением.
+     Подъём на 14 px с наклоном 1.2°, цикл 6 с. Концы линий навыков спрятаны под книгой,
+     поэтому при движении разрывов не видно. Анимируется transform, а reveal.js использует
+     свойство scale — они не мешают друг другу. */
+  .book-float { left: 3.19px; top: 449.1px; width: 236.86px; height: 321.88px; animation: book-float 6s ease-in-out infinite; }
+  .book { left: 0; top: 0; width: 100%; height: 100%; filter: drop-shadow(0 0 14px rgba(120, 190, 255, 0.28)); }
+  @keyframes book-float {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-14px) rotate(-1.2deg); }
+  }
+  /* Ореол за книгой: мягкое голубое облако, «дышит» в такт витанию — ярче в верхней точке */
+  .book-halo {
+    position: absolute; left: -70px; top: -60px; width: 377px; height: 442px; pointer-events: none;
+    background: radial-gradient(closest-side, rgba(110, 185, 255, 0.34), rgba(70, 140, 230, 0.13) 55%, rgba(70, 140, 230, 0) 100%);
+    animation: book-halo 6s ease-in-out infinite;
+  }
+  @keyframes book-halo {
+    0%, 100% { opacity: .55; transform: scale(.94); }
+    50% { opacity: 1; transform: scale(1.04); }
+  }
+  /* Сияние звезды на обложке: яркое ядро поверх книги, пульсирует чуть быстрее ореола */
+  .book-core {
+    position: absolute; left: 38%; top: 33%; width: 44%; height: 34%; pointer-events: none;
+    background: radial-gradient(closest-side, rgba(210, 236, 255, 0.34), rgba(140, 200, 255, 0.14) 50%, rgba(140, 200, 255, 0) 100%);
+    mix-blend-mode: screen;
+    animation: book-core 3s ease-in-out infinite;
+  }
+  @keyframes book-core {
+    0%, 100% { opacity: .45; transform: scale(.9); }
+    50% { opacity: 1; transform: scale(1.08); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .book-float, .book-halo, .book-core { animation: none; }
+    .book-halo { opacity: .8; }
+    .book-core { opacity: .7; }
+  }
+
+  /* ── Skill rows ── */
+  .sk-row { position: absolute; left: 372px; display: flex; align-items: flex-start; }
+  .skill {
+    width: 140px; flex: none;
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+    color: rgba(250, 250, 250, 0.4); font-size: 16px; line-height: 24px; text-align: center;
+  }
+  .skill img { display: block; transition: transform .25s ease, filter .25s ease; }
+  .skill.open { color: var(--done); cursor: pointer; }
+  a.skill:hover img { transform: scale(1.1); filter: drop-shadow(0 0 10px rgba(209, 254, 23, 0.45)); }
+  .sk-link { position: relative; height: 24px; flex: none; }
+  .sk-link::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 20px; height: 1px;
+    background: rgba(250, 250, 250, 0.4);
+  }
+  .sk-link.on::before { background: #d1fe17; }
+
+  /* ── Карточка навыка (стиль карточек квестов, без прогресса и навыков) ── */
+  .qcard {
+    width: 536px; z-index: 20; border-radius: 24px; overflow: hidden;
+    background: rgba(94, 129, 151, 0.12);
+    backdrop-filter: blur(24px) saturate(140%); -webkit-backdrop-filter: blur(24px) saturate(140%);
+    box-shadow: 0 16px 40px rgba(3, 16, 38, 0.32);
+  }
+  .qcard[hidden] { display: none; }
+  .qcard.show { animation: qcard-in .2s ease; }
+  @keyframes qcard-in { from { opacity: 0; transform: translateY(8px) scale(.98); } }
+  .qcard-head { padding: 20px; background: rgba(3, 16, 38, 0.2); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .qcard-head h2, .qcard h3 { font-family: "Manrope", sans-serif; font-weight: 400; font-size: 20px; line-height: 28px; }
+  .sk-quest { color: #a3e635; }
+  .qcard-status { flex: none; padding: 4px 8px; border-radius: 8px; font-size: 14px; line-height: 20px; }
+  .qcard-status.got { background: rgba(163, 230, 53, 0.12); color: #a3e635; }
+  .qcard-status.locked { background: rgba(250, 250, 250, 0.08); color: rgba(250, 250, 250, 0.4); }
+  .qcard-status.reward { background: rgba(139, 92, 246, 0.12); color: #a78bfa; }
+  .qcard-body { padding: 20px; background: rgba(3, 16, 38, 0.2); display: flex; flex-direction: column; gap: 32px; }
+  .qcard-block { display: flex; flex-direction: column; gap: 16px; }
+  .sk-about { font-size: 16px; line-height: 24px; color: var(--text-muted); }
+  .sk-how { padding-left: 24px; list-style: disc; font-size: 16px; line-height: 24px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+<div class="viewport" id="viewport">
+  <div class="stage" id="stage">
+    <div class="grad"></div>
+
+    <!-- Header -->
+    <header class="abs topbar">
+      <div class="topbar-left">
+        <a href="index.html"><img class="ic" src="assets/logo.svg" width="100" height="32" alt="Tomorrow School"></a>
+        <nav class="nav">
+          <a href="index.html">Главная</a>
+          <a href="program.html">Программа обучения</a>
+          <a href="skills.html" class="active edge spin" aria-current="page">Книга навыков</a>
+        </nav>
+      </div>
+      <div class="topbar-right">
+        <div class="timer edge spin" role="timer" aria-label="Учебное время за сегодня, пятница">
+          <span class="timer-day">Пт</span>
+          <img class="ic" src="assets/pg-timer.svg" width="24" height="24" alt="">
+          <time class="timer-time" datetime="PT0H0M0S" aria-label="Время за сегодня">0:00:00</time>
+        </div>
+        <img class="avatar-sm" src="assets/avatar-header.png" alt="Профиль">
+      </div>
+    </header>
+
+    <h1 class="abs page-title">Книга навыков</h1>
+    <p class="abs page-lead">Здесь собраны навыки, которые вы получаете за квесты и проекты.<br>Каждый ряд — ветка навыков: пройдите её целиком, чтобы получить награду в конце.</p>
+    <ul class="abs legend" aria-label="Обозначения">
+      <li><img src="assets/sk-open.svg" width="40" height="40" alt="">Получен</li>
+      <li><img src="assets/sk-lock.svg" width="40" height="40" alt="">Не получен</li>
+      <li><img src="assets/sk-final.svg" width="40" height="40" alt="">Награда ветки</li>
+    </ul>
+
+    <!-- Curves from the book -->
+    <svg class="abs sk-curve" width="195" height="325" viewBox="0 0 195 325" fill="none" style="left:173px;top:274px" aria-hidden="true"><defs><linearGradient id="skc-g1" x1="191.0" y1="0" x2="2.9" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#D1FE17"/><stop offset="1" stop-color="#38ABFF"/></linearGradient></defs><g style="filter:blur(.5px)"><path d="M2.9 321.0C106.4 321.0 87.5 4.0 191.0 4.0" stroke="url(#skc-g1)"/></g></svg>
+    <svg class="abs sk-curve" width="195" height="165" viewBox="0 0 195 165" fill="none" style="left:173px;top:446px" aria-hidden="true"><defs><linearGradient id="skc-g2" x1="191.0" y1="0" x2="2.9" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#D1FE17"/><stop offset="1" stop-color="#38ABFF"/></linearGradient></defs><g style="filter:blur(.5px)"><path d="M2.9 161.0C106.4 161.0 87.5 4.0 191.0 4.0" stroke="#FAFAFA" stroke-opacity="0.6"/><path d="M2.9 161.0C106.4 161.0 87.5 4.0 191.0 4.0" stroke="url(#skc-g2)"/></g></svg>
+    <svg class="abs sk-curve" width="193" height="8" viewBox="0 0 193 8" fill="none" style="left:175px;top:618px" aria-hidden="true"><g style="filter:blur(.5px)"><path d="M2.9 4.0C105.3 4.0 86.6 4.0 189.0 4.0" stroke="#FAFAFA" stroke-opacity="0.2"/></g></svg>
+    <svg class="abs sk-curve" width="193" height="191" viewBox="0 0 193 191" fill="none" style="left:175px;top:631px" aria-hidden="true"><g style="filter:blur(.5px)"><path d="M2.9 4.0C105.3 4.0 86.6 187.0 189.0 187.0" stroke="#FAFAFA" stroke-opacity="0.2"/></g></svg>
+
+    <div class="abs book-float">
+      <div class="book-halo" aria-hidden="true"></div>
+      <img class="abs book" src="assets/sk-book.png" alt="Книга навыков">
+      <div class="book-core" aria-hidden="true"></div>
+    </div>
+
+    <h2 class="abs branch-title" style="top:264px">Основы языка Go</h2>
+    <div class="sk-row" style="top:308px">
+      <a href="#" class="skill open"><img src="assets/sk-open.svg" width="40" height="40" alt=""><span>Основы синтаксиса</span></a>
+      <i class="sk-link on" style="width:32px"></i>
+      <a href="#" class="skill open"><img src="assets/sk-open.svg" width="40" height="40" alt=""><span>Манипуляция памятью</span></a>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-lock.svg" width="40" height="40" alt=""><span>Интерфейсы</span></div>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-lock.svg" width="40" height="40" alt=""><span>Обработка ошибок</span></div>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-lock.svg" width="40" height="40" alt=""><span>Тестирование</span></div>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-final.svg" width="40" height="40" alt=""><span>Сертификат Качества Кода</span></div>
+    </div>
+    <h2 class="abs branch-title" style="top:436px">Ввод-вывод и системное программирование</h2>
+    <div class="sk-row" style="top:480px">
+      <a href="#" class="skill open"><img src="assets/sk-open.svg" width="40" height="40" alt=""><span>Ввод-Вывод</span></a>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-lock.svg" width="40" height="40" alt=""><span>Консольные утилиты</span></div>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-lock.svg" width="40" height="40" alt=""><span>Файловая система</span></div>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-lock.svg" width="40" height="40" alt=""><span>Управление конфигурацией</span></div>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-lock.svg" width="40" height="40" alt=""><span>Логирование и Окружен</span></div>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-final.svg" width="40" height="40" alt=""><span>Ключ от Ядра Системы</span></div>
+    </div>
+    <h2 class="abs branch-title" style="top:608px">Конкурентность</h2>
+    <div class="sk-row" style="top:652px">
+      <div class="skill"><img src="assets/sk-lock.svg" width="40" height="40" alt=""><span>Горутины</span></div>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-lock.svg" width="40" height="40" alt=""><span>Каналы передачи данных</span></div>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-lock.svg" width="40" height="40" alt=""><span>Синхронизация потоков</span></div>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-lock.svg" width="40" height="40" alt=""><span>Контексты управления</span></div>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-lock.svg" width="40" height="40" alt=""><span>Паттерны конкурентности</span></div>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-final.svg" width="40" height="40" alt=""><span>Кристалл Бесконечных Потоков</span></div>
+    </div>
+    <h2 class="abs branch-title" style="top:804px">Веб-разработка</h2>
+    <div class="sk-row" style="top:848px">
+      <div class="skill"><img src="assets/sk-lock.svg" width="40" height="40" alt=""><span>Базовый HTTP</span></div>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-lock.svg" width="40" height="40" alt=""><span>Маршрутизация и Middleware</span></div>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-lock.svg" width="40" height="40" alt=""><span>Обмен данными</span></div>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-lock.svg" width="40" height="40" alt=""><span>Работа с базами данных</span></div>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-lock.svg" width="40" height="40" alt=""><span>Веб-архитектура</span></div>
+      <i class="sk-link" style="width:32px"></i>
+      <div class="skill"><img src="assets/sk-final.svg" width="40" height="40" alt=""><span>Орден Микросервисной Архитектуры</span></div>
+    </div>
+
+    <!-- Карточка навыка: о чём навык, за что получен / как получить (данные — assets/skillbook.js) -->
+    <section class="abs qcard edge spin" id="sk-card" role="tooltip" hidden>
+      <header class="qcard-head"><h2 class="qcard-title"></h2><span class="qcard-status"></span></header>
+      <div class="qcard-body">
+        <div class="qcard-block">
+          <h3>О навыке</h3>
+          <p class="sk-about"></p>
+        </div>
+        <div class="qcard-block">
+          <h3 class="sk-how-title"></h3>
+          <ul class="sk-how"></ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script src="assets/timer.js"></script>
+<script src="assets/notifications.js"></script>
+<script src="assets/skillbook.js"></script>
+<script>
+  // Вписывает холст 1440×1024 в окно; на узких экранах — по ширине с вертикальной прокруткой
+  (function () {
+    const vp = document.getElementById('viewport');
+    const stage = document.getElementById('stage');
+    function fit() {
+      const scale = Math.min(window.innerWidth / 1440, window.innerHeight / 1024) || 1;
+      const k = window.innerWidth < 1000 ? window.innerWidth / 1440 : scale;
+      stage.style.transform = 'scale(' + k + ')';
+      stage.style.left = Math.max(0, (window.innerWidth - 1440 * k) / 2) + 'px';
+      vp.style.height = Math.max(window.innerHeight, 1024 * k) + 'px';
+    }
+    fit();
+    window.addEventListener('resize', fit);
+  })();
+</script>
+<script>
+  window.REVEAL = [
+    ['.topbar-left > *, .topbar-right > *', 0, 40],
+    ['.page-title', 60],
+    ['.page-lead', 100],
+    ['.legend li', 120, 40],
+    ['.book-float', 120, 0, 'pop'],
+    ['.sk-curve', 220, 50, 'wipe'],
+    ['.branch-title', 280, 40],
+    ['.sk-row > *', 320, 20, 'pop']
+  ];
+</script>
+<script src="assets/reveal.js"></script>
+</body>
+</html>
