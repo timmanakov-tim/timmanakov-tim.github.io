@@ -1,5 +1,5 @@
 // ---------------------------------------------------------
-// Портфолио — интерактив: тема, появление секций, тень навбара
+// Портфолио – интерактив: тема, появление секций, тень навбара
 // ---------------------------------------------------------
 
 (function () {
@@ -38,7 +38,7 @@
       try {
         localStorage.setItem(THEME_KEY, next);
       } catch (e) {
-        /* приватный режим — просто пропускаем */
+        /* приватный режим – просто пропускаем */
       }
     });
   }
@@ -65,7 +65,7 @@
     });
     // Подстраховка: то, что уже во вьюпорте при загрузке, показываем сразу.
     // При активном Lenis IntersectionObserver иногда не отдаёт первый колбэк,
-    // и первый экран остаётся пустым до скролла — это её лечит.
+    // и первый экран остаётся пустым до скролла – это её лечит.
     var revealInView = function () {
       var vh = window.innerHeight || document.documentElement.clientHeight;
       revealables.forEach(function (el) {
@@ -105,7 +105,7 @@
     };
     var miruStart = function () {
       if (miruTimer) return;
-      // фон-фото проявляется один раз и остаётся — петля переигрывает только
+      // фон-фото проявляется один раз и остаётся – петля переигрывает только
       // линии и компоненты поверх него (без «моргания» в чёрный экран).
       miru.classList.add("is-seen");
       miruRun();
@@ -141,7 +141,7 @@
     const onScroll = function () {
       const y = window.scrollY;
       header.setAttribute("data-scrolled", y > 8 ? "true" : "false");
-      // компактный хедер (аватар слева + ссылки по центру) — при уходе за хиро, на 2-й экран
+      // компактный хедер (аватар слева + ссылки по центру) – при уходе за хиро, на 2-й экран
       var threshold = heroEl ? heroEl.offsetHeight * 0.65 : (window.innerHeight || 800) * 0.65;
       header.setAttribute("data-compact", y > threshold ? "true" : "false");
     };
@@ -172,7 +172,7 @@
         var hash = href.slice(href.indexOf("#"));
         if (!hash || hash === "#") return;
         var target = document.querySelector(hash);
-        if (!target) return; // цель на другой странице — обычный переход
+        if (!target) return; // цель на другой странице – обычный переход
         e.preventDefault();
         lenis.scrollTo(target, { offset: -90, duration: 1.1 });
         history.replaceState(null, "", hash);
@@ -236,7 +236,7 @@
       var ang = Math.random() * Math.PI * 2;
       var dist = 22 + Math.random() * 36;
       var tx = Math.cos(ang) * dist;
-      var ty = Math.sin(ang) * dist * 0.5 + (16 + Math.random() * 28); // смещение вниз — «падают»
+      var ty = Math.sin(ang) * dist * 0.5 + (16 + Math.random() * 28); // смещение вниз – «падают»
       piece.style.setProperty("--c", confColors[ci % confColors.length]);
       piece.style.setProperty("--tx", tx.toFixed(1) + "cqw");
       piece.style.setProperty("--ty", ty.toFixed(1) + "cqw");
@@ -247,7 +247,7 @@
     }
     var hssuccPlay = function () {
       hssucc.classList.remove("is-playing");
-      void hssucc.offsetWidth; // reflow — перезапуск CSS-анимаций
+      void hssucc.offsetWidth; // reflow – перезапуск CSS-анимаций
       hssucc.classList.add("is-playing");
     };
     if ("IntersectionObserver" in window && !reduceMotion) {
@@ -314,14 +314,14 @@
         video.style.width = W + "px";
         video.style.height = Hh + "px";
         var dst = corners.map(function (c) { return [c[0] / 100 * W, c[1] / 100 * Hh]; });
-        var src = [[0, 0], [W, 0], [W, Hh], [0, Hh]]; // TL, TR, BR, BL — тот же порядок
+        var src = [[0, 0], [W, 0], [W, Hh], [0, Hh]]; // TL, TR, BR, BL – тот же порядок
         video.style.transform = "matrix3d(" + toMatrix3d(src, dst).join(",") + ")";
         video.classList.add("is-placed");
       };
       place();
       setTimeout(place, 80);
       setTimeout(place, 400);
-      // Фрейм может получить размер позже (все дети absolute) — пересчитываем при изменении размера
+      // Фрейм может получить размер позже (все дети absolute) – пересчитываем при изменении размера
       if (window.ResizeObserver) { new ResizeObserver(place).observe(fig); }
       window.addEventListener("resize", place, { passive: true });
       window.addEventListener("load", place);
@@ -344,7 +344,7 @@
     Array.prototype.forEach.call(tabs, function (tab, i) {
       tab.addEventListener("click", function () {
         track.scrollTo({ left: i * track.clientWidth, behavior: "smooth" });
-        if (slides[i]) slides[i].scrollTop = 0;   // новый экран — сверху
+        if (slides[i]) slides[i].scrollTop = 0;   // новый экран – сверху
         setActive(i);
       });
     });

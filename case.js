@@ -349,7 +349,7 @@
       inner = '<video src="' + m.src + '" autoplay muted loop playsinline preload="metadata"></video>';
     else if (m.src)
       inner = '<img src="' + m.src + '" alt="' + data.title + '" loading="lazy" />';
-    // без src — пустой тональный слот-плейсхолдер
+    // без src – пустой тональный слот-плейсхолдер
     if (!inner) mod += " tl__frame--tint";
     var tone = m.tone ? ' data-tone="' + m.tone + '"' : "";
     var redact = (m.redact || [])
@@ -361,7 +361,7 @@
     return '<div class="tl__frame' + mod + '"' + tone + ">" + inner + redact + "</div>";
   }
 
-  // Success-модалка «Изменение ИУП» — один-в-один по макету (800×548), анимированная
+  // Success-модалка «Изменение ИУП» – один-в-один по макету (800×548), анимированная
   function hsSuccessHtml() {
     var icoClose = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>';
     var icoThumb = '<svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M26 10C26 8.93913 25.5783 7.92202 24.8281 7.17188C24.3723 6.71602 23.8179 6.38172 23.2148 6.18945L16 22.4229V42H36.583C37.0651 42.0054 37.533 41.8366 37.9004 41.5244C38.2679 41.212 38.5107 40.7767 38.583 40.2998V40.2969L41.3428 22.2969C41.3857 22.0113 41.3666 21.7198 41.2861 21.4424C41.2053 21.164 41.0643 20.9063 40.874 20.6875C40.6839 20.4689 40.4489 20.2935 40.1846 20.1748C39.9201 20.0561 39.6326 19.9967 39.3428 20H28C26.8954 20 26 19.1046 26 18V10ZM6 40C6 40.5304 6.21086 41.039 6.58594 41.4141C6.96101 41.7891 7.46957 42 8 42H12V24H8C7.46957 24 6.96101 24.2109 6.58594 24.5859C6.21086 24.961 6 25.4696 6 26V40ZM30 16H39.3203C40.1822 15.9935 41.0357 16.1724 41.8223 16.5254C42.6157 16.8815 43.3219 17.4063 43.8926 18.0625C44.4633 18.7188 44.8844 19.4919 45.127 20.3271C45.3694 21.1624 45.4274 22.0405 45.2969 22.9004V22.9033L42.5371 40.9033L42.5361 40.9023C42.3187 42.332 41.5931 43.6356 40.4912 44.5723C39.3943 45.5046 37.9987 46.01 36.5596 45.999V46H8C6.4087 46 4.88303 45.3674 3.75781 44.2422C2.63259 43.117 2 41.5913 2 40V26C2 24.4087 2.63259 22.883 3.75781 21.7578C4.88303 20.6326 6.4087 20 8 20H12.7002L20.1729 3.1875L20.2373 3.05566C20.5834 2.40931 21.259 2 22 2C24.1217 2 26.1569 2.84248 27.6572 4.34277C29.1575 5.84306 30 7.87827 30 10V16Z"/></svg>';
@@ -396,7 +396,7 @@
   // Видео-хиро (data.videoHero): видео под карточкой + оверлей с логотипом и
   // подписями поверх. Форма (скруглённая карточка) задаётся позже в placeAll.
   // Точная форма карточки из элемента Vector (node 3626-113068), нормализованная
-  // в objectBoundingBox (0..1) — «сквиркл» с органичными краями, один в один.
+  // в objectBoundingBox (0..1) – «сквиркл» с органичными краями, один в один.
   var WHERO_CLIP = "M 0.9912 0.49986 C 0.9912 0.63088 0.99414 0.76181 0.99984 0.89256 C 1.00244 0.95235 0.97316 1.00257 0.93719 0.9999 L 0.93674 0.9999 C 0.64556 0.97861 0.354 0.97861 0.06282 0.9999 C 0.02684 1.00257 -0.00249 0.95235 0.00017 0.89256 C 0.00587 0.76181 0.00875 0.63088 0.0088 0.49986 L 0.0088 0.50014 C 0.0088 0.36912 0.00587 0.23819 0.00017 0.10744 C -0.00243 0.04765 0.02684 -0.00257 0.06282 0.0001 C 0.354 0.02139 0.64556 0.02139 0.93674 0.0001 L 0.93719 0.0001 C 0.97316 -0.00257 1.00244 0.04765 0.99984 0.10744 C 0.99414 0.23819 0.99126 0.36921 0.9912 0.50014 L 0.9912 0.49986 Z";
 
   // Подписи поверх ленты (data.captions): HTML-текст с цветом темы (var(--fg)),
@@ -412,7 +412,7 @@
   }
 
   // Анимированный ползунок времени (data.timeSlider): белые «заплатки» прячут
-  // запечённые ползунок и время, поверх — анимируемые ручка и живое время.
+  // запечённые ползунок и время, поверх – анимируемые ручка и живое время.
   function sliderHtml(s) {
     var h = s.handle, t = s.time;
     return '<div class="wslider" data-wslider' +
@@ -644,7 +644,7 @@
             .map(function (l) { return '<span style="left:' + l + '%"></span>'; }).join("");
           var m2nav = ["Product", "How it works", "Stories", "About", "Pricing"]
             .map(function (x) { return "<span>" + x + "</span>"; }).join("");
-          return '<div class="miru2 reveal" role="img" aria-label="Miru — Hear what goes unsaid">' +
+          return '<div class="miru2 reveal" role="img" aria-label="Miru – Hear what goes unsaid">' +
             '<img class="miru2__bg" src="assets/miru-hero2-bg.jpg" alt="" loading="lazy" />' +
             '<div class="miru2__lines" aria-hidden="true">' + m2lines + "</div>" +
             '<img class="miru2__logo" src="assets/miru-hero2-logo.svg" alt="MIRU" />' +
@@ -656,19 +656,19 @@
               '<p class="miru2__body">We don’t lose connection because we can’t hear the words. We miss the pause, the glance, the tone that hides what’s real. For some, reading that comes easily. For others, it’s almost impossible.</p>' +
               '<p class="miru2__more">read more</p></div>' +
             '<div class="miru2__t2"><p class="miru2__h miru2__h--mid">Miru sees it with you.</p>' +
-              '<p class="miru2__body">Reads emotions — picks up mood and micro-expressions in real time. Understands the unsaid — notices what hides behind the words and suggests how to get closer. Only for you — the cue arrives quietly, through a hidden earpiece. To everyone else, it’s just jewelry.</p></div>' +
+              '<p class="miru2__body">Reads emotions – picks up mood and micro-expressions in real time. Understands the unsaid – notices what hides behind the words and suggests how to get closer. Only for you – the cue arrives quietly, through a hidden earpiece. To everyone else, it’s just jewelry.</p></div>' +
             '<div class="miru2__ew"><p class="miru2__h miru2__h--big">Emotional Wearable</p><p class="miru2__year">2026</p></div>' +
             "</div>";
         }
         if (b.fan)
-          return '<div class="fan reveal" role="group" aria-label="Miru — посты в Instagram (наведите, чтобы разложить в ряд)">' +
+          return '<div class="fan reveal" role="group" aria-label="Miru – посты в Instagram (наведите, чтобы разложить в ряд)">' +
             '<img class="fan__frame" src="assets/miru-fan-frame.svg?v=1" alt="" aria-hidden="true" />' +
-            '<img class="fan__card fan__card--a" src="assets/miru-fan-a.png?v=2" alt="Miru — пост в Instagram" loading="lazy" />' +
-            '<img class="fan__card fan__card--b" src="assets/miru-fan-b.png?v=2" alt="Miru — пост в Instagram" loading="lazy" />' +
-            '<img class="fan__card fan__card--c" src="assets/miru-fan-c.png?v=3" alt="Miru — пост в Instagram" loading="lazy" />' +
+            '<img class="fan__card fan__card--a" src="assets/miru-fan-a.png?v=2" alt="Miru – пост в Instagram" loading="lazy" />' +
+            '<img class="fan__card fan__card--b" src="assets/miru-fan-b.png?v=2" alt="Miru – пост в Instagram" loading="lazy" />' +
+            '<img class="fan__card fan__card--c" src="assets/miru-fan-c.png?v=3" alt="Miru – пост в Instagram" loading="lazy" />' +
             "</div>";
         if (b.mirulogo)
-          return '<div class="mlogo reveal" role="img" aria-label="MIRU — эмпатия как украшение">' +
+          return '<div class="mlogo reveal" role="img" aria-label="MIRU – эмпатия как украшение">' +
             '<img class="mlogo__screen" src="assets/miru-hero.jpg?v=3" alt="" aria-hidden="true" loading="eager" />' +
             '<div class="mlogo__logo">' +
               '<img class="mlogo__sign" src="assets/miru-sign.png?v=2" alt="" aria-hidden="true" />' +
@@ -690,7 +690,7 @@
           return '<figure class="tl__media tl__media--plain reveal">' +
             (lp.label ? '<figcaption class="tl__label">' + lp.label + "</figcaption>" : "") +
             '<div class="hero-laptop" style="aspect-ratio:' + (lp.ratio || "1484 / 910") + '" data-hero-laptop=\'' + JSON.stringify(lp.corners) + '\'>' +
-              '<img class="hero-laptop__bg" src="' + lp.bg + '" alt="' + data.title + ' — журнал оценок на ноутбуке" loading="lazy" />' +
+              '<img class="hero-laptop__bg" src="' + lp.bg + '" alt="' + data.title + ' – журнал оценок на ноутбуке" loading="lazy" />' +
               screenInner +
             "</div></figure>";
         }
@@ -744,7 +744,7 @@
         return "";
       })
       .join("");
-    // Если у кейса есть парящие объекты / бегущая строка — оборачиваем ленту в
+    // Если у кейса есть парящие объекты / бегущая строка – оборачиваем ленту в
     // сцену и кладём оверлеи поверх полос.
     if ((data.floats || data.marquee || data.videoHero || data.captions || data.timeSlider || data.hscroll) && blocks === data.blocks) {
       html = '<div class="wfloat" data-wfloat>' + html +
@@ -759,7 +759,7 @@
     return html;
   }
 
-  // Hero-визуал (обложка / девайс-мокап / анимация) — общий для обычного и таб-рендера
+  // Hero-визуал (обложка / девайс-мокап / анимация) – общий для обычного и таб-рендера
   function heroMediaHtml(d) {
     if (d.hideHero) return "";
     if (d.heroDevice) {
@@ -781,7 +781,7 @@
     }
     if (d.heroThemeSwitch) {
       var ts = d.heroThemeSwitch;
-      return '<figure class="case__cover case__cover--image hero-theme reveal" style="aspect-ratio:' + (ts.ratio || "16 / 9") + '" role="img" aria-label="' + data.title + ' — светлая и тёмная темы">' +
+      return '<figure class="case__cover case__cover--image hero-theme reveal" style="aspect-ratio:' + (ts.ratio || "16 / 9") + '" role="img" aria-label="' + data.title + ' – светлая и тёмная темы">' +
         '<img class="hero-theme__img" src="' + ts.light + '" alt="" loading="lazy" />' +
         '<img class="hero-theme__img hero-theme__img--dark" src="' + ts.dark + '" alt="" loading="lazy" />' +
         "</figure>";
@@ -992,8 +992,8 @@
   }
 
   // Парящие объекты: позиционируем поверх full-bleed ленты по координатам макета.
-  // Левая/верхняя привязка — в px относительно .wfloat (как и у полос), поэтому
-  // всё точно совпадает при любой ширине экрана; само «парение» — CSS-трансформом.
+  // Левая/верхняя привязка – в px относительно .wfloat (как и у полос), поэтому
+  // всё точно совпадает при любой ширине экрана; само «парение» – CSS-трансформом.
   var wfloat = document.querySelector("[data-wfloat]");
   if (wfloat) {
     var fitems = wfloat.querySelectorAll(".wfloat__item");
@@ -1013,7 +1013,7 @@
         el.style.width = (fw / slw) * stackWidth + "px";
       });
     };
-    // Бегущая строка: контейнер привязан к full-bleed полосе, иконки — квадраты
+    // Бегущая строка: контейнер привязан к full-bleed полосе, иконки – квадраты
     // в высоту строки, зазор считаем от высоты (как в макете).
     var marq = wfloat.querySelector("[data-marq]");
     var marqTrack = marq && marq.querySelector(".wmarquee__track");
@@ -1035,7 +1035,7 @@
       marqTrack.style.animationDuration = (+marq.getAttribute("data-speed") || 36) + "s";
     };
 
-    // Видео-хиро: карточка привязана к координатам макета, скругление — доля ширины
+    // Видео-хиро: карточка привязана к координатам макета, скругление – доля ширины
     var whero = wfloat.querySelector("[data-whero]");
     var placeHero = function () {
       if (!whero || !fbands.length) return;
@@ -1114,13 +1114,13 @@
         sPatchT.style.height = (th + 6) * k + "px";
       };
       var fmt = function (v) {
-        var H = Math.round(v); // снапим к целому часу — читаемо, синхронно делению
+        var H = Math.round(v); // снапим к целому часу – читаемо, синхронно делению
         return (H < 10 ? "0" : "") + H + ":00";
       };
       var ease = function (p) { return p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; };
-      // Анимация ползунка отключена — рендерим статично (как при prefers-reduced-motion)
+      // Анимация ползунка отключена – рендерим статично (как при prefers-reduced-motion)
       var reduce = true;
-      // t — час (0..12); позиция ручки непрерывна, подпись снапится к целому часу
+      // t – час (0..12); позиция ручки непрерывна, подпись снапится к целому часу
       var applyTime = function (t, op) {
         if (sg.k) sHandle.style.left = sg.sL + (hx0 + (t / hours) * (hx1 - hx0)) * sg.k + "px";
         sHandle.style.opacity = op; // гаснет только ручка на сбросе
